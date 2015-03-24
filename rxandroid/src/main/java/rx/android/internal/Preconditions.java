@@ -23,12 +23,6 @@ public final class Preconditions {
     return value;
   }
 
-  public static void checkState(boolean assertion, String message) {
-    if (!assertion) {
-      throw new IllegalStateException(message);
-    }
-  }
-
   public static void checkArgument(boolean assertion, String message) {
     if (!assertion) {
       throw new IllegalArgumentException(message);

@@ -303,6 +303,8 @@ public final class RxView {
     checkNotNull(view, "view == null");
     checkArgument(visibilityWhenFalse != View.VISIBLE,
         "Setting visibility to VISIBLE when false would have no effect.");
+    checkArgument(visibilityWhenFalse == View.INVISIBLE || visibilityWhenFalse == View.GONE,
+        "Must set visibility to INVISIBLE or GONE when false.");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setVisibility(value ? View.VISIBLE : visibilityWhenFalse);
