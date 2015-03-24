@@ -1,0 +1,14 @@
+# IntelliJ IDEA
+.idea
+*.iml
+
+# Gradle
+.gradle
+gradlew.bat
+build
+local.properties
+reports
+jacoco.exec
+
+.DS_Store
+
