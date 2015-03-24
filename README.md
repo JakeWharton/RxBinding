@@ -31,7 +31,8 @@ wrapper object is the concatenation of the view simple name, verb, and "Event". 
 
 Action factory method names are the property prefixed with "set" (e.g., `setEnabled`). If the
 associated listener has a return value, an overload that accepts a `Func1<E, T>` named "handled"
-will be present for determining that value. No error handling will be done.
+will be present for determining that value. No error handling will be done. (TODO just name
+these with the property? i.e., `enabled`)
 
 
 
