@@ -1,6 +1,9 @@
 package rx.android.util;
 
 import android.util.Log;
+
+import rx.android.plugins.RxAndroidLogHook;
+import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action1;
 
 import static rx.android.internal.Preconditions.checkNotNull;
@@ -34,9 +37,11 @@ public final class RxLog {
 
   private static Action1<? super Object> log(final int priority, final String tag) {
     checkNotNull(tag, "tag == null");
+
+    final RxAndroidLogHook logHook = RxAndroidPlugins.getInstance().getLogHook();
     return new Action1<Object>() {
       @Override public void call(Object o) {
-        Log.println(priority, tag, String.valueOf(o));
+        logHook.log(priority, tag, String.valueOf(o));
       }
     };
   }
@@ -50,9 +55,11 @@ public final class RxLog {
   public static Action1<? super Throwable> error(final String tag, final String message) {
     checkNotNull(tag, "tag == null");
     checkNotNull(message, "message == null");
+
+    final RxAndroidLogHook logHook = RxAndroidPlugins.getInstance().getLogHook();
     return new Action1<Throwable>() {
       @Override public void call(Throwable throwable) {
-        Log.e(tag, message, throwable);
+        logHook.log(Log.ERROR, tag, message, throwable);
       }
     };
   }

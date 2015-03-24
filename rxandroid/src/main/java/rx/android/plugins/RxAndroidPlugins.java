@@ -21,6 +21,7 @@ public final class RxAndroidPlugins {
 
   private final AtomicReference<RxAndroidSchedulersHook> schedulersHook = new AtomicReference<>();
   private final AtomicReference<RxAndroidClockHook> clockHook = new AtomicReference<>();
+  private final AtomicReference<RxAndroidLogHook> logHook = new AtomicReference<>();
 
   RxAndroidPlugins() {
   }
@@ -29,6 +30,7 @@ public final class RxAndroidPlugins {
   public void reset() {
     schedulersHook.set(null);
     clockHook.set(null);
+    logHook.set(null);
   }
 
   /**
@@ -107,6 +109,45 @@ public final class RxAndroidPlugins {
     if (!clockHook.compareAndSet(null, impl)) {
       throw new IllegalStateException(
           "Another strategy was already registered: " + clockHook.get());
+    }
+  }
+
+  /**
+   * Retrieves the instance of {@link RxAndroidLogHook} to use based on order of precedence as
+   * defined in the {@link RxAndroidPlugins} class header.
+   * <p>
+   * Override the default by calling {@link #registerLogHook(RxAndroidLogHook)} or by setting
+   * the property {@code rxandroid.plugin.RxAndroidLogHook.implementation} with the full
+   * classname to load.
+   */
+  public RxAndroidLogHook getLogHook() {
+    if (logHook.get() == null) {
+      // Check for an implementation from System.getProperty first.
+      RxAndroidLogHook impl = getPluginImplementationViaProperty(RxAndroidLogHook.class);
+      if (impl == null) {
+        // Nothing set via properties so initialize with default.
+        logHook.compareAndSet(null, RxAndroidLogHook.getDefaultInstance());
+        // We don't return from here but call get() again in case of thread-race so the winner will
+        // always get returned.
+      } else {
+        // We received an implementation from the system property so use it.
+        logHook.compareAndSet(null, impl);
+      }
+    }
+    return logHook.get();
+  }
+
+  /**
+   * Registers an {@link RxAndroidLogHook} implementation as a global override of any injected
+   * or default implementations.
+   *
+   * @throws IllegalStateException if called more than once or after the default was initialized
+   * (if usage occurs before trying to register)
+   */
+  public void registerLogHook(RxAndroidLogHook impl) {
+    if (!logHook.compareAndSet(null, impl)) {
+      throw new IllegalStateException(
+          "Another strategy was already registered: " + logHook.get());
     }
   }
 
