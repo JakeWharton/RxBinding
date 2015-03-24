@@ -22,7 +22,16 @@ on where functionality can be found. Helpers for platform classes can be found i
 of the same name but prefixed with `rx.` and classes of the same name but prefixed with `Rx`.
 For example, `android.widget.TextView` helpers are in `rx.android.widget.RxTextView`.
 
-Naming conventions of methods: TODO
+Observable factory method names is the plural of the verb (e.g., click --> `clicks()`). These
+are meant to be lightweight, zero/single-allocation for quick event observation. Each also has
+a overload named in the singular and suffixed with "Events". This overload emits wrapper objects
+containing additional information about the event (origin view, timestamp). The name of the
+wrapper object is the concatenation of the view simple name, verb, and "Event". The
+`OnSubscribe` classes for these are not in the public API.
+
+Action factory method names are the property prefixed with "set" (e.g., `setEnabled`). If the
+associated listener has a return value, an overload that accepts a `Func1<E, T>` named "handled"
+will be present for determining that value. No error handling will be done.
 
 
 
