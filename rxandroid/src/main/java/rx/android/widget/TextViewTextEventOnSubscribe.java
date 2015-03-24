@@ -11,7 +11,7 @@ import rx.android.plugins.RxAndroidClockHook;
 import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class TextViewTextEventOnSubscribe implements Observable.OnSubscribe<TextViewTextChangeEvent> {
   private final TextView view;
@@ -21,7 +21,7 @@ final class TextViewTextEventOnSubscribe implements Observable.OnSubscribe<TextV
   }
 
   @Override public void call(final Subscriber<? super TextViewTextChangeEvent> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     final TextWatcher watcher = new TextWatcher() {

@@ -11,7 +11,7 @@ import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 import rx.functions.Func1;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class ViewDragEventOnSubscribe implements Observable.OnSubscribe<ViewDragEvent> {
   private final View view;
@@ -23,7 +23,7 @@ final class ViewDragEventOnSubscribe implements Observable.OnSubscribe<ViewDragE
   }
 
   @Override public void call(final Subscriber<? super ViewDragEvent> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnDragListener listener = new View.OnDragListener() {

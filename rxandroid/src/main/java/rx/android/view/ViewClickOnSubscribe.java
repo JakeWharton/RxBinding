@@ -9,7 +9,7 @@ import rx.android.plugins.RxAndroidClockHook;
 import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class ViewClickOnSubscribe implements Observable.OnSubscribe<Long> {
   private final View view;
@@ -19,7 +19,7 @@ final class ViewClickOnSubscribe implements Observable.OnSubscribe<Long> {
   }
 
   @Override public void call(final Subscriber<? super Long> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnClickListener listener = new View.OnClickListener() {

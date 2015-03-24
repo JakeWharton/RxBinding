@@ -9,7 +9,7 @@ import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class TextViewTextOnSubscribe implements Observable.OnSubscribe<CharSequence> {
   private final TextView view;
@@ -19,7 +19,7 @@ final class TextViewTextOnSubscribe implements Observable.OnSubscribe<CharSequen
   }
 
   @Override public void call(final Subscriber<? super CharSequence> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final TextWatcher watcher = new TextWatcher() {
       @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {

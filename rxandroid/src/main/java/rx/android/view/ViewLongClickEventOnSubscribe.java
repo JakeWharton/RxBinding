@@ -10,7 +10,7 @@ import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 import rx.functions.Func1;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class ViewLongClickEventOnSubscribe implements Observable.OnSubscribe<ViewLongClickEvent> {
   private final View view;
@@ -22,7 +22,7 @@ final class ViewLongClickEventOnSubscribe implements Observable.OnSubscribe<View
   }
 
   @Override public void call(final Subscriber<? super ViewLongClickEvent> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnLongClickListener listener = new View.OnLongClickListener() {

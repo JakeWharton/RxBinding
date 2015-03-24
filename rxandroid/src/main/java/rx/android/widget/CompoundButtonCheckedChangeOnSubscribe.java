@@ -7,7 +7,7 @@ import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class CompoundButtonCheckedChangeOnSubscribe implements Observable.OnSubscribe<Boolean> {
   private final CompoundButton view;
@@ -17,7 +17,7 @@ final class CompoundButtonCheckedChangeOnSubscribe implements Observable.OnSubsc
   }
 
   @Override public void call(final Subscriber<? super Boolean> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

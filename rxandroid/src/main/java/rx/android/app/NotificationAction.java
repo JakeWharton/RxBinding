@@ -2,13 +2,16 @@ package rx.android.app;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import static rx.android.internal.Preconditions.checkNotNull;
 
 public abstract class NotificationAction {
   private NotificationAction() {
   }
 
-  public abstract void apply(NotificationManager notificationManager);
+  public abstract void apply(@NonNull NotificationManager notificationManager);
 
   public static final class ShowNotification extends NotificationAction {
     public static ShowNotification create(int id, Notification notification) {
@@ -26,7 +29,7 @@ public abstract class NotificationAction {
     private ShowNotification(@Nullable String tag, int id, Notification notification) {
       this.id = id;
       this.tag = tag;
-      this.notification = notification;
+      this.notification = checkNotNull(notification, "notification == null");
     }
 
     public int id() {
@@ -41,7 +44,7 @@ public abstract class NotificationAction {
       return notification;
     }
 
-    @Override public void apply(NotificationManager notificationManager) {
+    @Override public void apply(@NonNull NotificationManager notificationManager) {
       notificationManager.notify(tag, id, notification);
     }
   }
@@ -71,7 +74,7 @@ public abstract class NotificationAction {
       return tag;
     }
 
-    @Override public void apply(NotificationManager notificationManager) {
+    @Override public void apply(@NonNull NotificationManager notificationManager) {
       notificationManager.cancel(tag, id);
     }
   }
@@ -84,7 +87,7 @@ public abstract class NotificationAction {
     private CancelAllNotifications() {
     }
 
-    @Override public void apply(NotificationManager notificationManager) {
+    @Override public void apply(@NonNull NotificationManager notificationManager) {
       notificationManager.cancelAll();
     }
   }

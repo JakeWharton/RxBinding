@@ -3,6 +3,8 @@ package rx.android.util;
 import android.util.Log;
 import rx.functions.Action1;
 
+import static rx.android.internal.Preconditions.checkNotNull;
+
 /** Static factory methods for creating {@linkplain Action1 actions} for {@link Log}. */
 public final class RxLog {
   /** Log values at verbose level using the {@code tag}. */
@@ -31,6 +33,7 @@ public final class RxLog {
   }
 
   private static Action1<? super Object> log(final int priority, final String tag) {
+    checkNotNull(tag, "tag == null");
     return new Action1<Object>() {
       @Override public void call(Object o) {
         Log.println(priority, tag, String.valueOf(o));
@@ -45,6 +48,8 @@ public final class RxLog {
 
   /** Log errors using the {@code tag} and {@code message}. */
   public static Action1<? super Throwable> error(final String tag, final String message) {
+    checkNotNull(tag, "tag == null");
+    checkNotNull(message, "message == null");
     return new Action1<Throwable>() {
       @Override public void call(Throwable throwable) {
         Log.e(tag, message, throwable);

@@ -18,6 +18,8 @@ import android.os.Looper;
 import rx.Scheduler;
 import rx.android.plugins.RxAndroidPlugins;
 
+import static rx.android.internal.Preconditions.checkNotNull;
+
 /** Static factory methods for creating a {@link Scheduler} from a {@link Handler}. */
 public final class HandlerSchedulers {
   private static final Scheduler MAIN_THREAD_SCHEDULER =
@@ -25,9 +27,7 @@ public final class HandlerSchedulers {
 
   /** Converts a {@link Handler} into a new {@link Scheduler} instance. */
   public static Scheduler from(final Handler handler) {
-    if (handler == null) {
-      throw new NullPointerException("handler == null");
-    }
+    checkNotNull(handler, "handler == null");
     return new HandlerScheduler(handler);
   }
 

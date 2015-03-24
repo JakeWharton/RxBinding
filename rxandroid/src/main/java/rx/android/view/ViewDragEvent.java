@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.DragEvent;
 import android.view.View;
 
+import static rx.android.internal.Preconditions.checkNotNull;
+
 /**
  * A drag event on a view.
  * <p>
@@ -19,7 +21,7 @@ public final class ViewDragEvent extends ViewEvent<View> {
 
   private ViewDragEvent(View view, long timestamp, DragEvent dragEvent) {
     super(view, timestamp);
-    this.dragEvent = dragEvent;
+    this.dragEvent = checkNotNull(dragEvent, "dragEvent == null");
   }
 
   public DragEvent dragEvent() {

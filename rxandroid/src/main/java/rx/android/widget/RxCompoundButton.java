@@ -4,6 +4,8 @@ import android.widget.CompoundButton;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static rx.android.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link CompoundButton}.
@@ -19,6 +21,7 @@ public final class RxCompoundButton {
    * to observe checked changes. Only one observable can be used for a view at a time.
    */
   public static Observable<Boolean> checkedChanges(CompoundButton view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new CompoundButtonCheckedChangeOnSubscribe(view));
   }
 
@@ -33,6 +36,7 @@ public final class RxCompoundButton {
    */
   public static Observable<CompoundButtonCheckedChangeEvent> checkedChangeEvents(
       CompoundButton view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new CompoundButtonCheckedChangeEventOnSubscribe(view));
   }
 
@@ -43,6 +47,7 @@ public final class RxCompoundButton {
    * to free this reference.
    */
   public static Action1<? super Boolean> setChecked(final CompoundButton view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setChecked(value);
@@ -57,6 +62,7 @@ public final class RxCompoundButton {
    * to free this reference.
    */
   public static Action1<? super Object> toggle(final CompoundButton view) {
+    checkNotNull(view, "view == null");
     return new Action1<Object>() {
       @Override public void call(Object value) {
         view.toggle();

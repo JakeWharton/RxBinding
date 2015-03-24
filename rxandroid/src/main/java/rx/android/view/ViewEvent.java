@@ -6,6 +6,8 @@ import android.view.View;
 import rx.android.plugins.RxAndroidClockHook;
 import rx.android.plugins.RxAndroidPlugins;
 
+import static rx.android.internal.Preconditions.checkNotNull;
+
 /**
  * A timestamp and target view on which an event occurred (e.g., click).
  * <p>
@@ -17,7 +19,7 @@ public abstract class ViewEvent<T extends View> {
   private final long timestamp;
 
   protected ViewEvent(@NonNull T view, long timestamp) {
-    this.view = view;
+    this.view = checkNotNull(view, "view == null");
     this.timestamp = timestamp;
   }
 

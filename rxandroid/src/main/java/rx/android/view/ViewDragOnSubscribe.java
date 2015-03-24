@@ -9,7 +9,7 @@ import rx.android.internal.AndroidSubscriptions;
 import rx.functions.Action0;
 import rx.functions.Func1;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class ViewDragOnSubscribe implements Observable.OnSubscribe<DragEvent> {
   private final View view;
@@ -21,7 +21,7 @@ final class ViewDragOnSubscribe implements Observable.OnSubscribe<DragEvent> {
   }
 
   @Override public void call(final Subscriber<? super DragEvent> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     View.OnDragListener listener = new View.OnDragListener() {
       @Override public boolean onDrag(View v, DragEvent event) {

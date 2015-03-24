@@ -9,7 +9,7 @@ import rx.android.plugins.RxAndroidClockHook;
 import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class ViewFocusChangeEventOnSubscribe
     implements Observable.OnSubscribe<ViewFocusChangeEvent> {
@@ -20,7 +20,7 @@ final class ViewFocusChangeEventOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super ViewFocusChangeEvent> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {

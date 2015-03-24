@@ -7,7 +7,7 @@ import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class ViewFocusChangeOnSubscribe implements Observable.OnSubscribe<Boolean> {
   private final View view;
@@ -17,7 +17,7 @@ final class ViewFocusChangeOnSubscribe implements Observable.OnSubscribe<Boolean
   }
 
   @Override public void call(final Subscriber<? super Boolean> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
       @Override public void onFocusChange(View v, boolean hasFocus) {

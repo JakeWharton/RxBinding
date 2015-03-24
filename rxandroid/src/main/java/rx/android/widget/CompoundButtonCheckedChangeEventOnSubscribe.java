@@ -9,7 +9,7 @@ import rx.android.plugins.RxAndroidClockHook;
 import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
-import static rx.android.internal.Assertions.assertUiThread;
+import static rx.android.internal.Preconditions.checkUiThread;
 
 final class CompoundButtonCheckedChangeEventOnSubscribe
     implements Observable.OnSubscribe<CompoundButtonCheckedChangeEvent> {
@@ -21,7 +21,7 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
 
   @Override public void call(
       final Subscriber<? super CompoundButtonCheckedChangeEvent> subscriber) {
-    assertUiThread();
+    checkUiThread();
 
     final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
