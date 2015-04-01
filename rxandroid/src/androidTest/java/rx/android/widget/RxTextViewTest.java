@@ -49,6 +49,9 @@ public final class RxTextViewTest {
     view.setText("He");
     assertThat(o.takeNext().toString()).isEqualTo("He");
 
+    view.setText(null); // Internally coerced to empty string.
+    assertThat(o.takeNext().toString()).isEqualTo("");
+
     subscription.unsubscribe();
 
     view.setText("Silent");

@@ -41,7 +41,7 @@ public abstract class ViewEvent<T extends View> {
 
   @Override public boolean equals(Object o) {
     if (o == this) return true;
-    if (!(o instanceof ViewEvent)) return false;
+    if (o == null || !o.getClass().equals(getClass())) return false;
     ViewEvent other = (ViewEvent) o;
     return view == other.view && timestamp == other.timestamp;
   }
