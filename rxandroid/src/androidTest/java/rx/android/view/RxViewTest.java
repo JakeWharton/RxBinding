@@ -6,10 +6,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.UiThreadTest;
 import android.view.View;
 import android.widget.LinearLayout;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.WeakHashMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -101,29 +97,6 @@ public final class RxViewTest {
     //clock.advance(1, SECONDS);
     //view.performClick();
     //o.assertNoMoreEvents();
-  }
-
-  @Test public void weakWeakHashMap() throws InterruptedException {
-    Object o = new Object();
-
-    Map<Object, String> map = new WeakHashMap<>();
-    map.put("Hey", "Ho");
-    map.put(o, "Hi");
-    System.out.println("values: " + new ArrayList<>(map.values()));
-
-    WeakReference<Object> ref = new WeakReference<>(o);
-
-    for (long i = 0; true; i++) {
-      System.out.println("Try " + i);
-      Runtime.getRuntime().gc();
-      o = null;
-      if (ref.get() == o) { // Contrived comparison against null.
-        break;
-      }
-      Thread.sleep(100);
-    }
-
-    System.out.println("values: " + new ArrayList<>(map.values()));
   }
 
   @Test @UiThreadTest public void focusChanges() {
