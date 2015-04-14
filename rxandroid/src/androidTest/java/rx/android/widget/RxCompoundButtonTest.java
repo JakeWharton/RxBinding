@@ -6,7 +6,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.UiThreadTest;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
-import io.reactivex.android.test.R;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -17,6 +16,7 @@ import rx.android.FakeClock;
 import rx.android.RecordingObserver;
 import rx.android.UiThreadRule;
 import rx.android.plugins.RxAndroidPlugins;
+import rx.functions.Action1;
 
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -87,13 +87,25 @@ public final class RxCompoundButtonTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void setText() {
-    RxTextView.setText(view).call("Hey");
-    assertThat(view.getText().toString()).isEqualTo("Hey");
+  @Test @UiThreadTest public void setChecked() {
+    view.setChecked(false);
+    Action1<? super Boolean> toggle = RxCompoundButton.setChecked(view);
+
+    toggle.call(true);
+    assertThat(view.isChecked()).isTrue();
+
+    toggle.call(false);
+    assertThat(view.isChecked()).isFalse();
   }
 
-  @Test @UiThreadTest public void setTextRes() {
-    RxTextView.setTextRes(view).call(R.string.hey);
-    assertThat(view.getText().toString()).isEqualTo("Hey");
+  @Test @UiThreadTest public void toggle() {
+    view.setChecked(false);
+    Action1<? super Object> toggle = RxCompoundButton.toggle(view);
+
+    toggle.call(null);
+    assertThat(view.isChecked()).isTrue();
+
+    toggle.call("OMG TOGGLES");
+    assertThat(view.isChecked()).isFalse();
   }
 }
