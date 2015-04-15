@@ -22,17 +22,30 @@ on where functionality can be found. Helpers for platform classes can be found i
 of the same name but prefixed with `rx.` and classes of the same name but prefixed with `Rx`.
 For example, `android.widget.TextView` helpers are in `rx.android.widget.RxTextView`.
 
-Observable factory method names is the plural of the verb (e.g., click --> `clicks()`). These
-are meant to be lightweight, zero/single-allocation for quick event observation. Each also has
-a overload named in the singular and suffixed with "Events". This overload emits wrapper objects
-containing additional information about the event (origin view, timestamp). The name of the
-wrapper object is the concatenation of the view simple name, verb, and "Event". The
-`OnSubscribe` classes for these are not in the public API.
+Observable factory method names is the plural of the verb (e.g., click --> `clicks()`). The verb
+should be in the present tense, regardless of the platform's use (e.g., selected -> selection).
+When there are multiple versions of the same verb, prefix with a qualifying noun or adjective that
+differentiates (e.g., click vs. long click, item selection vs. nothing selection).
+
+Each observable method factory also has an overload named in the singular and suffixed with
+"Events". This overload emits wrapper objects containing additional information about the event
+(origin view, timestamp). The name of the wrapper object is the concatenation of the view simple
+name, the verb (with optional adverb prefix), and "Event". These classes are in the public API.
+
+Events for listeners with multiple methods should share an abstract base class. The naming follows
+the same rules as a normal event class but without the qualifying prefix. An inner `enum` named
+"Kind" and associated getter named "kind" should be present on the class. The constructor should
+be package-private to prevent subclasses other than those defined for the listener methods. This
+class should be in the public API.
+
+The name of the `OnSubscribe` class for each observable is the concatenation of the view simple
+name, the verb (with optional prefix), and "OnSubscribe". These classes not in the public API.
 
 Action factory method names are the property prefixed with "set" (e.g., `setEnabled`). If the
 associated listener has a return value, an overload that accepts a `Func1<E, T>` named "handled"
-will be present for determining that value. No error handling will be done. (TODO just name
-these with the property? i.e., `enabled`)
+will be present for determining that value. No error handling will be done. These classes are not
+in the public API and are currently defined anonymously.
+(TODO just name these with the property? i.e., `enabled`)
 
 
 
