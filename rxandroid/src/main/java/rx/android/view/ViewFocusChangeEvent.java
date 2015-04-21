@@ -10,14 +10,14 @@ import android.view.View;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewFocusChangeEvent extends ViewEvent<View> {
-  public static ViewFocusChangeEvent create(View view, long timestamp, boolean hasFocus) {
-    return new ViewFocusChangeEvent(view, timestamp, hasFocus);
+  public static ViewFocusChangeEvent create(View view, boolean hasFocus) {
+    return new ViewFocusChangeEvent(view, hasFocus);
   }
 
   private final boolean hasFocus;
 
-  private ViewFocusChangeEvent(View view, long timestamp, boolean hasFocus) {
-    super(view, timestamp);
+  private ViewFocusChangeEvent(View view, boolean hasFocus) {
+    super(view);
     this.hasFocus = hasFocus;
   }
 
@@ -26,7 +26,8 @@ public final class ViewFocusChangeEvent extends ViewEvent<View> {
   }
 
   @Override public int hashCode() {
-    int result = super.hashCode();
+    int result = 17;
+    result = result * 37 + view().hashCode();
     result = result * 37 + (hasFocus ? 1 : 0);
     return result;
   }
@@ -35,17 +36,10 @@ public final class ViewFocusChangeEvent extends ViewEvent<View> {
     if (o == this) return true;
     if (!(o instanceof ViewFocusChangeEvent)) return false;
     ViewFocusChangeEvent other = (ViewFocusChangeEvent) o;
-    return super.equals(other)
-        && hasFocus == other.hasFocus;
+    return other.view() == view() && other.hasFocus == hasFocus;
   }
 
   @Override public String toString() {
-    return "ViewFocusChangeEvent{hasFocus="
-        + hasFocus
-        + ", view="
-        + view()
-        + ", timestamp="
-        + timestamp()
-        + '}';
+    return "ViewFocusChangeEvent{hasFocus=" + hasFocus + ", view=" + view() + '}';
   }
 }

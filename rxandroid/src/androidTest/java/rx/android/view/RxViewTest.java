@@ -6,16 +6,12 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.UiThreadTest;
 import android.view.View;
 import android.widget.LinearLayout;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
-import rx.android.FakeClock;
 import rx.android.RecordingObserver;
 import rx.android.UiThreadRule;
-import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action1;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -26,35 +22,22 @@ import static org.junit.Assert.fail;
 public final class RxViewTest {
   @Rule public final UiThreadRule uiThread = UiThreadRule.createWithTimeout(10, SECONDS);
 
-  private final FakeClock clock = new FakeClock();
   private final Context context = InstrumentationRegistry.getContext();
   private final View view = new View(context);
 
-  @Before public void setUp() {
-    RxAndroidPlugins.getInstance().reset();
-    RxAndroidPlugins.getInstance().registerClockHook(clock);
-  }
-
-  @After public void tearDown() {
-    RxAndroidPlugins.getInstance().reset();
-  }
-
   @Test @UiThreadTest public void clicks() {
-    RecordingObserver<Long> o = new RecordingObserver<>();
+    RecordingObserver<Object> o = new RecordingObserver<>();
     Subscription subscription = RxView.clicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    clock.advance(1, SECONDS);
     view.performClick();
-    assertThat(o.takeNext()).isEqualTo(1000);
+    assertThat(o.takeNext()).isNotNull();
 
-    clock.advance(1, SECONDS);
     view.performClick();
-    assertThat(o.takeNext()).isEqualTo(2000);
+    assertThat(o.takeNext()).isNotNull();
 
     subscription.unsubscribe();
 
-    clock.advance(1, SECONDS);
     view.performClick();
     o.assertNoMoreEvents();
   }
@@ -64,17 +47,14 @@ public final class RxViewTest {
     Subscription subscription = RxView.clickEvents(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    clock.advance(1, SECONDS);
     view.performClick();
-    assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view, 1000));
+    assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view));
 
-    clock.advance(1, SECONDS);
     view.performClick();
-    assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view, 2000));
+    assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view));
 
     subscription.unsubscribe();
 
-    clock.advance(1, SECONDS);
     view.performClick();
     o.assertNoMoreEvents();
   }
@@ -133,19 +113,16 @@ public final class RxViewTest {
 
     RecordingObserver<ViewFocusChangeEvent> o = new RecordingObserver<>();
     Subscription subscription = RxView.focusChangeEvents(view).subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(ViewFocusChangeEvent.create(view, 0, false));
+    assertThat(o.takeNext()).isEqualTo(ViewFocusChangeEvent.create(view, false));
 
-    clock.advance(1, SECONDS);
     view.requestFocus();
-    assertThat(o.takeNext()).isEqualTo(ViewFocusChangeEvent.create(view, 1000, true));
+    assertThat(o.takeNext()).isEqualTo(ViewFocusChangeEvent.create(view, true));
 
-    clock.advance(1, SECONDS);
     view.clearFocus();
-    assertThat(o.takeNext()).isEqualTo(ViewFocusChangeEvent.create(view, 2000, false));
+    assertThat(o.takeNext()).isEqualTo(ViewFocusChangeEvent.create(view, false));
 
     subscription.unsubscribe();
 
-    clock.advance(1, SECONDS);
     view.requestFocus();
     o.assertNoMoreEvents();
   }
@@ -163,17 +140,14 @@ public final class RxViewTest {
     Subscription subscription = RxView.longClicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    clock.advance(1, SECONDS);
     view.performLongClick();
-    assertThat(o.takeNext()).isEqualTo(1000);
+    assertThat(o.takeNext()).isNotNull();
 
-    clock.advance(1, SECONDS);
     view.performLongClick();
-    assertThat(o.takeNext()).isEqualTo(2000);
+    assertThat(o.takeNext()).isNotNull();
 
     subscription.unsubscribe();
 
-    clock.advance(1, SECONDS);
     view.performLongClick();
     o.assertNoMoreEvents();
   }
@@ -191,17 +165,14 @@ public final class RxViewTest {
     Subscription subscription = RxView.longClickEvents(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    clock.advance(1, SECONDS);
     view.performLongClick();
-    assertThat(o.takeNext()).isEqualTo(ViewLongClickEvent.create(view, 1000));
+    assertThat(o.takeNext()).isEqualTo(ViewLongClickEvent.create(view));
 
-    clock.advance(1, SECONDS);
     view.performLongClick();
-    assertThat(o.takeNext()).isEqualTo(ViewLongClickEvent.create(view, 2000));
+    assertThat(o.takeNext()).isEqualTo(ViewLongClickEvent.create(view));
 
     subscription.unsubscribe();
 
-    clock.advance(1, SECONDS);
     view.performLongClick();
     o.assertNoMoreEvents();
   }

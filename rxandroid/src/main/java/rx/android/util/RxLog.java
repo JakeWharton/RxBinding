@@ -1,7 +1,6 @@
 package rx.android.util;
 
 import android.util.Log;
-
 import rx.android.plugins.RxAndroidLogHook;
 import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action1;
@@ -47,12 +46,12 @@ public final class RxLog {
   }
 
   /** Log errors using the {@code tag}. */
-  public static Action1<? super Throwable> error(String tag) {
+  public static Action1<Throwable> error(String tag) {
     return error(tag, "");
   }
 
   /** Log errors using the {@code tag} and {@code message}. */
-  public static Action1<? super Throwable> error(final String tag, final String message) {
+  public static Action1<Throwable> error(final String tag, final String message) {
     checkNotNull(tag, "tag == null");
     checkNotNull(message, "message == null");
 

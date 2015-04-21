@@ -5,26 +5,24 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
-import rx.android.plugins.RxAndroidClockHook;
-import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
 import static rx.android.internal.Preconditions.checkUiThread;
 
-final class ViewClickOnSubscribe implements Observable.OnSubscribe<Long> {
+final class ViewClickOnSubscribe implements Observable.OnSubscribe<Object> {
+  private final Object event = new Object();
   private final View view;
 
   ViewClickOnSubscribe(View view) {
     this.view = view;
   }
 
-  @Override public void call(final Subscriber<? super Long> subscriber) {
+  @Override public void call(final Subscriber<? super Object> subscriber) {
     checkUiThread();
 
-    final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnClickListener listener = new View.OnClickListener() {
       @Override public void onClick(View v) {
-        subscriber.onNext(clockHook.uptimeMillis());
+        subscriber.onNext(event);
       }
     };
 

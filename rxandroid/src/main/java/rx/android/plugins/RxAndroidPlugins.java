@@ -20,16 +20,14 @@ public final class RxAndroidPlugins {
   }
 
   private final AtomicReference<RxAndroidSchedulersHook> schedulersHook = new AtomicReference<>();
-  private final AtomicReference<RxAndroidClockHook> clockHook = new AtomicReference<>();
   private final AtomicReference<RxAndroidLogHook> logHook = new AtomicReference<>();
 
   RxAndroidPlugins() {
   }
 
   /** Reset any set hooks, registered or default. This should only be used for tests. */
-  public void reset() {
+  void reset() {
     schedulersHook.set(null);
-    clockHook.set(null);
     logHook.set(null);
   }
 
@@ -70,45 +68,6 @@ public final class RxAndroidPlugins {
     if (!schedulersHook.compareAndSet(null, impl)) {
       throw new IllegalStateException(
           "Another strategy was already registered: " + schedulersHook.get());
-    }
-  }
-
-  /**
-   * Retrieves the instance of {@link RxAndroidClockHook} to use based on order of precedence as
-   * defined in the {@link RxAndroidPlugins} class header.
-   * <p>
-   * Override the default by calling {@link #registerClockHook(RxAndroidClockHook)} or by setting
-   * the property {@code rxandroid.plugin.RxAndroidClockHook.implementation} with the full
-   * classname to load.
-   */
-  public RxAndroidClockHook getClockHook() {
-    if (clockHook.get() == null) {
-      // Check for an implementation from System.getProperty first.
-      RxAndroidClockHook impl = getPluginImplementationViaProperty(RxAndroidClockHook.class);
-      if (impl == null) {
-        // Nothing set via properties so initialize with default.
-        clockHook.compareAndSet(null, RxAndroidClockHook.getDefaultInstance());
-        // We don't return from here but call get() again in case of thread-race so the winner will
-        // always get returned.
-      } else {
-        // We received an implementation from the system property so use it.
-        clockHook.compareAndSet(null, impl);
-      }
-    }
-    return clockHook.get();
-  }
-
-  /**
-   * Registers an {@link RxAndroidClockHook} implementation as a global override of any injected
-   * or default implementations.
-   *
-   * @throws IllegalStateException if called more than once or after the default was initialized
-   * (if usage occurs before trying to register)
-   */
-  public void registerClockHook(RxAndroidClockHook impl) {
-    if (!clockHook.compareAndSet(null, impl)) {
-      throw new IllegalStateException(
-          "Another strategy was already registered: " + clockHook.get());
     }
   }
 

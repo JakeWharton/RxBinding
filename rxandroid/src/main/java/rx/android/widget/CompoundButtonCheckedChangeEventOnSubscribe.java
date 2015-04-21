@@ -5,8 +5,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
-import rx.android.plugins.RxAndroidClockHook;
-import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
 import static rx.android.internal.Preconditions.checkUiThread;
@@ -19,15 +17,13 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
     this.view = view;
   }
 
-  @Override public void call(
-      final Subscriber<? super CompoundButtonCheckedChangeEvent> subscriber) {
+  @Override
+  public void call(final Subscriber<? super CompoundButtonCheckedChangeEvent> subscriber) {
     checkUiThread();
 
-    final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        subscriber.onNext(
-            CompoundButtonCheckedChangeEvent.create(view, clockHook.uptimeMillis(), isChecked));
+        subscriber.onNext(CompoundButtonCheckedChangeEvent.create(view, isChecked));
       }
     };
 
@@ -41,7 +37,6 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
     view.setOnCheckedChangeListener(listener);
 
     // Send out the initial value.
-    subscriber.onNext(
-        CompoundButtonCheckedChangeEvent.create(view, clockHook.uptimeMillis(), view.isChecked()));
+    subscriber.onNext(CompoundButtonCheckedChangeEvent.create(view, view.isChecked()));
   }
 }

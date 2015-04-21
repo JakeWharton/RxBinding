@@ -10,15 +10,26 @@ import android.view.View;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewLongClickEvent extends ViewEvent<View> {
-  public static ViewLongClickEvent create(View view, long timestamp) {
-    return new ViewLongClickEvent(view, timestamp);
+  public static ViewLongClickEvent create(View view) {
+    return new ViewLongClickEvent(view);
   }
 
-  private ViewLongClickEvent(View view, long timestamp) {
-    super(view, timestamp);
+  private ViewLongClickEvent(View view) {
+    super(view);
+  }
+
+  @Override public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof ViewLongClickEvent)) return false;
+    ViewLongClickEvent other = (ViewLongClickEvent) o;
+    return other.view() == view();
+  }
+
+  @Override public int hashCode() {
+    return view().hashCode();
   }
 
   @Override public String toString() {
-    return "ViewLongClickEvent{view=" + view() + ", timestamp=" + timestamp() + '}';
+    return "ViewLongClickEvent{view=" + view() + '}';
   }
 }

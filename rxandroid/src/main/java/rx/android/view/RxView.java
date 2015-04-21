@@ -5,6 +5,7 @@ import android.view.View;
 import rx.Observable;
 import rx.android.internal.Functions;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
 
 import static rx.android.internal.Preconditions.checkArgument;
@@ -24,7 +25,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnClickListener} to observe
    * clicks. Only one observable can be used for a view at a time.
    */
-  public static Observable<Long> clicks(View view) {
+  public static Observable<Object> clicks(View view) {
     checkNotNull(view, "view == null");
     return Observable.create(new ViewClickOnSubscribe(view));
   }
@@ -54,7 +55,7 @@ public final class RxView {
    */
   public static Observable<DragEvent> drags(View view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ViewDragOnSubscribe(view, Functions.ALWAYS_TRUE));
+    return Observable.create(new ViewDragOnSubscribe(view, Functions.FUNC1_ALWAYS_TRUE));
   }
 
   /**
@@ -86,7 +87,7 @@ public final class RxView {
    */
   public static Observable<ViewDragEvent> dragEvents(View view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ViewDragEventOnSubscribe(view, Functions.ALWAYS_TRUE));
+    return Observable.create(new ViewDragEventOnSubscribe(view, Functions.FUNC1_ALWAYS_TRUE));
   }
 
   /**
@@ -146,9 +147,9 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnLongClickListener} to observe
    * long clicks. Only one observable can be used for a view at a time.
    */
-  public static Observable<Long> longClicks(View view) {
+  public static Observable<Object> longClicks(View view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ViewLongClickOnSubscribe(view, Functions.ALWAYS_TRUE));
+    return Observable.create(new ViewLongClickOnSubscribe(view, Functions.FUNC0_ALWAYS_TRUE));
   }
 
   /**
@@ -163,7 +164,7 @@ public final class RxView {
    * @param handled Function invoked with each value to determine the return value of the
    * underlying {@link View.OnLongClickListener}.
    */
-  public static Observable<Long> longClicks(View view, Func1<? super Long, Boolean> handled) {
+  public static Observable<Object> longClicks(View view, Func0<Boolean> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return Observable.create(new ViewLongClickOnSubscribe(view, handled));
@@ -180,7 +181,7 @@ public final class RxView {
    */
   public static Observable<ViewLongClickEvent> longClickEvents(View view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ViewLongClickEventOnSubscribe(view, Functions.ALWAYS_TRUE));
+    return Observable.create(new ViewLongClickEventOnSubscribe(view, Functions.FUNC1_ALWAYS_TRUE));
   }
 
   /**

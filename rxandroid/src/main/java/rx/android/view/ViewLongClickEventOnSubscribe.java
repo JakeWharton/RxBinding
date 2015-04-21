@@ -5,8 +5,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
-import rx.android.plugins.RxAndroidClockHook;
-import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 import rx.functions.Func1;
 
@@ -24,10 +22,9 @@ final class ViewLongClickEventOnSubscribe implements Observable.OnSubscribe<View
   @Override public void call(final Subscriber<? super ViewLongClickEvent> subscriber) {
     checkUiThread();
 
-    final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnLongClickListener listener = new View.OnLongClickListener() {
       @Override public boolean onLongClick(View v) {
-        ViewLongClickEvent event = ViewLongClickEvent.create(view, clockHook.uptimeMillis());
+        ViewLongClickEvent event = ViewLongClickEvent.create(view);
         if (handled.call(event)) {
           subscriber.onNext(event);
           return true;

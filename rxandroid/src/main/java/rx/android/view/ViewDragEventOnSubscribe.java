@@ -6,8 +6,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
-import rx.android.plugins.RxAndroidClockHook;
-import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 import rx.functions.Func1;
 
@@ -25,10 +23,9 @@ final class ViewDragEventOnSubscribe implements Observable.OnSubscribe<ViewDragE
   @Override public void call(final Subscriber<? super ViewDragEvent> subscriber) {
     checkUiThread();
 
-    final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnDragListener listener = new View.OnDragListener() {
       @Override public boolean onDrag(View v, DragEvent dragEvent) {
-        ViewDragEvent event = ViewDragEvent.create(view, clockHook.uptimeMillis(), dragEvent);
+        ViewDragEvent event = ViewDragEvent.create(view, dragEvent);
         if (handled.call(event)) {
           subscriber.onNext(event);
           return true;
