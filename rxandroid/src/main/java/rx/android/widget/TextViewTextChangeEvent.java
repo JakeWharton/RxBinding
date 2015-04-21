@@ -13,9 +13,9 @@ import static rx.android.internal.Preconditions.checkNotNull;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
-  public static TextViewTextChangeEvent create(TextView view, long timestamp, CharSequence text,
-      int start, int before, int count) {
-    return new TextViewTextChangeEvent(view, timestamp, text, start, before, count);
+  public static TextViewTextChangeEvent create(TextView view, CharSequence text, int start,
+      int before, int count) {
+    return new TextViewTextChangeEvent(view, text, start, before, count);
   }
 
   private final CharSequence text;
@@ -23,9 +23,9 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
   private final int before;
   private final int count;
 
-  private TextViewTextChangeEvent(TextView view, long timestamp, CharSequence text, int start,
-      int before, int count) {
-    super(view, timestamp);
+  private TextViewTextChangeEvent(TextView view, CharSequence text, int start, int before,
+      int count) {
+    super(view);
     this.text = checkNotNull(text, "text == null");
     this.start = start;
     this.before = before;
@@ -52,7 +52,7 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
     if (o == this) return true;
     if (!(o instanceof TextViewTextChangeEvent)) return false;
     TextViewTextChangeEvent other = (TextViewTextChangeEvent) o;
-    return super.equals(other)
+    return other.view() == view()
         && text.equals(other.text)
         && start == other.start
         && before == other.before
@@ -60,7 +60,8 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
   }
 
   @Override public int hashCode() {
-    int result = super.hashCode();
+    int result = 17;
+    result = result * 37 + view().hashCode();
     result = result * 37 + text.hashCode();
     result = result * 37 + start;
     result = result * 37 + before;
@@ -79,8 +80,6 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
         + count
         + ", view="
         + view()
-        + ", timestamp="
-        + timestamp()
         + '}';
   }
 }

@@ -13,14 +13,14 @@ import static rx.android.internal.Preconditions.checkNotNull;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewDragEvent extends ViewEvent<View> {
-  public static ViewDragEvent create(View view, long timestamp, DragEvent dragEvent) {
-    return new ViewDragEvent(view, timestamp, dragEvent);
+  public static ViewDragEvent create(View view, DragEvent dragEvent) {
+    return new ViewDragEvent(view, dragEvent);
   }
 
   private final DragEvent dragEvent;
 
-  private ViewDragEvent(View view, long timestamp, DragEvent dragEvent) {
-    super(view, timestamp);
+  private ViewDragEvent(View view, DragEvent dragEvent) {
+    super(view);
     this.dragEvent = checkNotNull(dragEvent, "dragEvent == null");
   }
 
@@ -28,7 +28,21 @@ public final class ViewDragEvent extends ViewEvent<View> {
     return dragEvent;
   }
 
-  // TODO hashCode
-  // TODO equals
-  // TODO toString
+  @Override public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof ViewDragEvent)) return false;
+    ViewDragEvent other = (ViewDragEvent) o;
+    return other.view() == view() && other.dragEvent.equals(dragEvent);
+  }
+
+  @Override public int hashCode() {
+    int result = 17;
+    result = result * 37 + view().hashCode();
+    result = result * 37 + dragEvent.hashCode();
+    return result;
+  }
+
+  @Override public String toString() {
+    return "ViewDragEvent{dragEvent=" + dragEvent + ", view=" + view() + '}';
+  }
 }

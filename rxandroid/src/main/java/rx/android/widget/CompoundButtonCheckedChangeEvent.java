@@ -11,15 +11,14 @@ import rx.android.view.ViewEvent;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class CompoundButtonCheckedChangeEvent extends ViewEvent<CompoundButton> {
-  public static CompoundButtonCheckedChangeEvent create(CompoundButton view, long timestamp,
-      boolean isChecked) {
-    return new CompoundButtonCheckedChangeEvent(view, timestamp, isChecked);
+  public static CompoundButtonCheckedChangeEvent create(CompoundButton view, boolean isChecked) {
+    return new CompoundButtonCheckedChangeEvent(view, isChecked);
   }
 
   private final boolean isChecked;
 
-  private CompoundButtonCheckedChangeEvent(CompoundButton view, long timestamp, boolean isChecked) {
-    super(view, timestamp);
+  private CompoundButtonCheckedChangeEvent(CompoundButton view, boolean isChecked) {
+    super(view);
     this.isChecked = isChecked;
   }
 
@@ -28,7 +27,8 @@ public final class CompoundButtonCheckedChangeEvent extends ViewEvent<CompoundBu
   }
 
   @Override public int hashCode() {
-    int result = super.hashCode();
+    int result = 17;
+    result = result * 37 + view().hashCode();
     result = result * 37 + (isChecked ? 1 : 0);
     return result;
   }
@@ -37,17 +37,10 @@ public final class CompoundButtonCheckedChangeEvent extends ViewEvent<CompoundBu
     if (o == this) return true;
     if (!(o instanceof CompoundButtonCheckedChangeEvent)) return false;
     CompoundButtonCheckedChangeEvent other = (CompoundButtonCheckedChangeEvent) o;
-    return super.equals(other)
-        && isChecked == other.isChecked;
+    return other.view() == view() && isChecked == other.isChecked;
   }
 
   @Override public String toString() {
-    return "CompoundButtonCheckedChangeEvent{isChecked="
-        + isChecked
-        + ", view="
-        + view()
-        + ", timestamp="
-        + timestamp()
-        + '}';
+    return "CompoundButtonCheckedChangeEvent{isChecked=" + isChecked + ", view=" + view() + '}';
   }
 }

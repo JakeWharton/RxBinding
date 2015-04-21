@@ -5,8 +5,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.internal.AndroidSubscriptions;
-import rx.android.plugins.RxAndroidClockHook;
-import rx.android.plugins.RxAndroidPlugins;
 import rx.functions.Action0;
 
 import static rx.android.internal.Preconditions.checkUiThread;
@@ -22,10 +20,9 @@ final class ViewFocusChangeEventOnSubscribe
   @Override public void call(final Subscriber<? super ViewFocusChangeEvent> subscriber) {
     checkUiThread();
 
-    final RxAndroidClockHook clockHook = RxAndroidPlugins.getInstance().getClockHook();
     View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
       @Override public void onFocusChange(View v, boolean hasFocus) {
-        subscriber.onNext(ViewFocusChangeEvent.create(view, clockHook.uptimeMillis(), hasFocus));
+        subscriber.onNext(ViewFocusChangeEvent.create(view, hasFocus));
       }
     };
 
@@ -39,6 +36,6 @@ final class ViewFocusChangeEventOnSubscribe
     view.setOnFocusChangeListener(listener);
 
     // Send out the initial value.
-    subscriber.onNext(ViewFocusChangeEvent.create(view, clockHook.uptimeMillis(), view.hasFocus()));
+    subscriber.onNext(ViewFocusChangeEvent.create(view, view.hasFocus()));
   }
 }
