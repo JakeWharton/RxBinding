@@ -2,8 +2,9 @@ package rx.android.view;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
+import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.UiThreadTest;
 import android.view.View;
 import android.widget.LinearLayout;
 import org.junit.Rule;
@@ -11,16 +12,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
 import rx.android.RecordingObserver;
-import rx.android.UiThreadRule;
 import rx.functions.Action1;
 
 import static com.google.common.truth.Truth.assertThat;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewTest {
-  @Rule public final UiThreadRule uiThread = UiThreadRule.createWithTimeout(10, SECONDS);
+  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
   private final View view = new View(context);
@@ -136,7 +135,7 @@ public final class RxViewTest {
     };
     parent.addView(view);
 
-    RecordingObserver<Long> o = new RecordingObserver<>();
+    RecordingObserver<Object> o = new RecordingObserver<>();
     Subscription subscription = RxView.longClicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 

@@ -10,7 +10,8 @@ dependencies {
   compile rootProject.ext.rxJava
   compile rootProject.ext.supportAnnotations
 
-  androidTestCompile rootProject.ext.testingSupportLib
+  androidTestCompile rootProject.ext.supportTestRunner
+  androidTestCompile rootProject.ext.supportTestRules
   androidTestCompile(rootProject.ext.truth) {
     exclude group: 'junit' // Android ships with JUnit.
   }
