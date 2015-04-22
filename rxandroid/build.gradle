@@ -9,6 +9,7 @@ apply plugin: 'com.android.library'
 dependencies {
   compile rootProject.ext.rxJava
   compile rootProject.ext.supportAnnotations
+  compile rootProject.ext.supportV4
 
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules

@@ -15,6 +15,7 @@ ext {
   compileSdkVersion = 22
   buildToolsVersion = '22.0.0'
 
+  supportV4 = 'com.android.support:support-v4:22.1.0'
   supportAnnotations = 'com.android.support:support-annotations:22.1.0'
   supportTestRunner = 'com.android.support.test:runner:0.2'
   supportTestRules = 'com.android.support.test:rules:0.2'
