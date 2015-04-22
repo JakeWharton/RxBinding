@@ -40,20 +40,19 @@ public final class RxLog {
     final RxAndroidLogHook logHook = RxAndroidPlugins.getInstance().getLogHook();
     return new Action1<Object>() {
       @Override public void call(Object o) {
-        logHook.log(priority, tag, String.valueOf(o));
+        logHook.log(priority, tag, String.valueOf(o), null);
       }
     };
   }
 
   /** Log errors using the {@code tag}. */
   public static Action1<Throwable> error(String tag) {
-    return error(tag, "");
+    return error(tag, null);
   }
 
   /** Log errors using the {@code tag} and {@code message}. */
   public static Action1<Throwable> error(final String tag, final String message) {
     checkNotNull(tag, "tag == null");
-    checkNotNull(message, "message == null");
 
     final RxAndroidLogHook logHook = RxAndroidPlugins.getInstance().getLogHook();
     return new Action1<Throwable>() {
