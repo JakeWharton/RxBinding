@@ -1,5 +1,7 @@
 package rx.android.plugins;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 public class RxAndroidLogHook {
@@ -9,21 +11,16 @@ public class RxAndroidLogHook {
     return DEFAULT_INSTANCE;
   }
 
-  /**
-   * Invoked for any logging events. The default delegates to {@link android.util.Log}.
-   *
-   * @return the number of bytes written
-   */
-  public int log(int priority, String tag, String msg) {
-    return Log.println(priority, tag, msg);
-  }
-
-  /**
-   * Invoked for any logging events. The default delegates to {@link android.util.Log}.
-   *
-   * @return the number of bytes written
-   */
-  public int log(int priority, String tag, String msg, Throwable tr) {
-    return Log.println(priority, tag, msg + '\n' + Log.getStackTraceString(tr));
+  /** Invoked for any logging events. The default delegates to {@link Log}. */
+  public void log(int priority, @NonNull String tag, @Nullable String msg, @Nullable Throwable tr) {
+    if (msg == null || msg.isEmpty()) {
+      if (tr == null) {
+        return; // Empty
+      }
+      msg = Log.getStackTraceString(tr);
+    } else if (tr != null) {
+      msg += '\n' + Log.getStackTraceString(tr);
+    }
+    Log.println(priority, tag, msg);
   }
 }
