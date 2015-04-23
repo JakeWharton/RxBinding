@@ -161,7 +161,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnLongClickListener} to observe
    * long clicks. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked with each value to determine the return value of the
+   * @param handled Function invoked each occurrence to determine the return value of the
    * underlying {@link View.OnLongClickListener}.
    */
   public static Observable<Object> longClicks(View view, Func0<Boolean> handled) {
