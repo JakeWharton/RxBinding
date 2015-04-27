@@ -3,6 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.reactivex.android">
   <application>
-    <activity android:name="rx.android.widget.RxAdapterViewActivity"/>
+    <activity android:name="rx.android.widget.RxAdapterViewTestActivity"/>
+    <activity android:name="rx.android.widget.RxSeekBarTestActivity"/>
   </application>
 </manifest>
