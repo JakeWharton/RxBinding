@@ -10,7 +10,7 @@ import rx.functions.Action1
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun TextView.textChanges(view: TextView): Observable<CharSequence> = RxTextView.textChanges(view)
+fun TextView.textChanges(): Observable<CharSequence> = RxTextView.textChanges(this)
 
 /**
  * Create an observable of text change events for {@code view}.
@@ -18,7 +18,7 @@ fun TextView.textChanges(view: TextView): Observable<CharSequence> = RxTextView.
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun TextView.textChangeEvents(view: TextView): Observable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(view)
+fun TextView.textChangeEvents(): Observable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
 
 /**
  * An action which sets the text property of {@code view} with character sequences.
@@ -26,7 +26,7 @@ fun TextView.textChangeEvents(view: TextView): Observable<TextViewTextChangeEven
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun TextView.text(view: TextView): Action1<in CharSequence> = RxTextView.setText(view)
+fun TextView.text(): Action1<in CharSequence> = RxTextView.setText(this)
 
 /**
  * An action which sets the text property of {@code view} string resource IDs.
@@ -34,4 +34,4 @@ fun TextView.text(view: TextView): Action1<in CharSequence> = RxTextView.setText
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun TextView.textRes(view: TextView): Action1<in Int> = RxTextView.setTextRes(view)
+fun TextView.textRes(): Action1<in Int> = RxTextView.setTextRes(this)
