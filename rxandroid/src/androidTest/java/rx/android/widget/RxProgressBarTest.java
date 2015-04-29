@@ -21,7 +21,7 @@ public final class RxProgressBarTest {
   private final ProgressBar view = new ProgressBar(context, null, 0); // Explicit no defStyleAttr.
 
   @Test @UiThreadTest public void incrementProgressBy() {
-    Action1<? super Integer> action = RxProgressBar.incrementProgessBy(view);
+    Action1<? super Integer> action = RxProgressBar.incrementProgressBy(view);
     assertThat(view.getProgress()).isEqualTo(0);
     action.call(10);
     assertThat(view.getProgress()).isEqualTo(10);

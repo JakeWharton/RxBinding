@@ -10,7 +10,7 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> incrementProgessBy(final ProgressBar view) {
+  public static Action1<? super Integer> incrementProgressBy(final ProgressBar view) {
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.incrementProgressBy(value);
