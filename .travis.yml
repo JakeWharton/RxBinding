@@ -8,7 +8,6 @@ android:
     - sys-img-armeabi-v7a-android-15
 
 jdk:
-  - oraclejdk7
   - oraclejdk8
 
 before_script:
