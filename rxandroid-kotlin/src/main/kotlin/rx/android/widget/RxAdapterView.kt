@@ -11,7 +11,7 @@ import rx.functions.Action1
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.itemSelections(): Observable<Int> = RxAdapterView.itemSelections(this)
+public inline fun <T : Adapter> AdapterView<T>.itemSelections(): Observable<Int> = RxAdapterView.itemSelections(this)
 
 /**
  * Create an observable of selection events for {@code view}.
@@ -19,7 +19,7 @@ fun <T : Adapter> AdapterView<T>.itemSelections(): Observable<Int> = RxAdapterVi
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.selectionEvents(): Observable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
+public inline fun <T : Adapter> AdapterView<T>.selectionEvents(): Observable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
 
 /**
  * Create an observable of the position of item clicks for {@code view}.
@@ -27,7 +27,7 @@ fun <T : Adapter> AdapterView<T>.selectionEvents(): Observable<AdapterViewSelect
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapterView.itemClicks(this)
+public inline fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapterView.itemClicks(this)
 
 /**
  * Create an observable of the item click events for {@code view}.
@@ -35,7 +35,7 @@ fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapterView.i
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterViewItemClickEvent> = RxAdapterView.itemClickEvents(this)
+public inline fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterViewItemClickEvent> = RxAdapterView.itemClickEvents(this)
 
 /**
  * Create an observable of the position of item long-clicks for {@code view}.
@@ -43,7 +43,7 @@ fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterViewItemCl
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAdapterView.itemLongClicks(this)
+public inline fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAdapterView.itemLongClicks(this)
 // TODO overload with Func
 
 /**
@@ -52,7 +52,7 @@ fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAdapterVi
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<AdapterViewItemLongClickEvent> = RxAdapterView.itemLongClickEvents(this)
+public inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<AdapterViewItemLongClickEvent> = RxAdapterView.itemLongClickEvents(this)
 // TODO overload with Func
 
 /**
@@ -61,4 +61,4 @@ fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<AdapterViewIt
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun <T : Adapter> AdapterView<T>.selection(): Action1<in Int> = RxAdapterView.setSelection(this)
+public inline fun <T : Adapter> AdapterView<T>.selection(): Action1<in Int> = RxAdapterView.setSelection(this)

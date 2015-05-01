@@ -13,7 +13,7 @@ import rx.functions.Action1
  * <em>Warning:</em> The created observable uses {@link CompoundButton#setOnCheckedChangeListener}
  * to observe checked changes. Only one observable can be used for a view at a time.
  */
-fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompoundButton.checkedChanges(this)
+public inline fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompoundButton.checkedChanges(this)
 
 /**
  * Create an observable of checked change events for {@code view}.
@@ -24,7 +24,7 @@ fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompoundButton.chec
  * <em>Warning:</em> The created observable uses {@link CompoundButton#setOnCheckedChangeListener}
  * to observe checked changes. Only one observable can be used for a view at a time.
  */
-fun CompoundButton.checkedChangeEvents(): Observable<CompoundButtonCheckedChangeEvent> = RxCompoundButton.checkedChangeEvents(this)
+public inline fun CompoundButton.checkedChangeEvents(): Observable<CompoundButtonCheckedChangeEvent> = RxCompoundButton.checkedChangeEvents(this)
 
 /**
  * An action which sets the checked property of {@code view}.
@@ -32,7 +32,7 @@ fun CompoundButton.checkedChangeEvents(): Observable<CompoundButtonCheckedChange
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.setChecked(this)
+public inline fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.setChecked(this)
 
 /**
  * An action which sets the toggles property of {@code view} with each value.
@@ -40,4 +40,4 @@ fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.setChecked(
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun CompoundButton.toggle(): Action1<in Any> = RxCompoundButton.toggle(this)
+public inline fun CompoundButton.toggle(): Action1<in Any> = RxCompoundButton.toggle(this)

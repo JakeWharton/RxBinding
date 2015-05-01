@@ -10,7 +10,7 @@ import rx.functions.Action1
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.checkedChanges(this)
+public inline fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.checkedChanges(this)
 
 /**
  * Create an observable of the checked view ID change events in {@code view}.
@@ -18,7 +18,7 @@ fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.checkedChanges(t
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun RadioGroup.checkedChangeEvents(): Observable<RadioGroupCheckedChangeEvent> = RxRadioGroup.checkedChangeEvents(this)
+public inline fun RadioGroup.checkedChangeEvents(): Observable<RadioGroupCheckedChangeEvent> = RxRadioGroup.checkedChangeEvents(this)
 
 /**
  * An action which sets the checked child of {@code view} with ID. Passing {@code -1} will clear
@@ -27,4 +27,4 @@ fun RadioGroup.checkedChangeEvents(): Observable<RadioGroupCheckedChangeEvent> =
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun RadioGroup.checked(): Action1<in Int> = RxRadioGroup.setChecked(this)
+public inline fun RadioGroup.checked(): Action1<in Int> = RxRadioGroup.setChecked(this)
