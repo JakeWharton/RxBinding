@@ -9,7 +9,7 @@ import rx.Observable
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
+public inline fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
 
 /**
  * Create an observable of progress change events for {@code view}.
@@ -17,4 +17,4 @@ fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun SeekBar.changeEvents(): Observable<SeekBarChangeEvent> = RxSeekBar.changeEvents(this)
+public inline fun SeekBar.changeEvents(): Observable<SeekBarChangeEvent> = RxSeekBar.changeEvents(this)

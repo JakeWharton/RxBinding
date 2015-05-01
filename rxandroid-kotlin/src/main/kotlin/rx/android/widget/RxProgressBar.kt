@@ -9,7 +9,7 @@ import rx.functions.Action1
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun ProgressBar.incrementProgress(): Action1<in Int> = RxProgressBar.incrementProgressBy(this)
+public inline fun ProgressBar.incrementProgress(): Action1<in Int> = RxProgressBar.incrementProgressBy(this)
 
 /**
  * An action which increments the secondary progress value of {@code view}.
@@ -17,7 +17,7 @@ fun ProgressBar.incrementProgress(): Action1<in Int> = RxProgressBar.incrementPr
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun ProgressBar.incrementSecondaryProgress(): Action1<in Int> = RxProgressBar.incrementSecondaryProgressBy(this)
+public inline fun ProgressBar.incrementSecondaryProgress(): Action1<in Int> = RxProgressBar.incrementSecondaryProgressBy(this)
 
 /**
  * An action which sets whether {@code view} is indeterminate.
@@ -25,7 +25,7 @@ fun ProgressBar.incrementSecondaryProgress(): Action1<in Int> = RxProgressBar.in
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun ProgressBar.indeterminate(): Action1<in Boolean> = RxProgressBar.setIndeterminate(this)
+public inline fun ProgressBar.indeterminate(): Action1<in Boolean> = RxProgressBar.setIndeterminate(this)
 
 /**
  * An action which sets the max value of {@code view}.
@@ -33,7 +33,7 @@ fun ProgressBar.indeterminate(): Action1<in Boolean> = RxProgressBar.setIndeterm
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun ProgressBar.max(): Action1<in Int> = RxProgressBar.setMax(this)
+public inline fun ProgressBar.max(): Action1<in Int> = RxProgressBar.setMax(this)
 
 /**
  * An action which sets the progress value of {@code view}.
@@ -41,7 +41,7 @@ fun ProgressBar.max(): Action1<in Int> = RxProgressBar.setMax(this)
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun ProgressBar.progress(): Action1<in Int> = RxProgressBar.setProgress(this)
+public inline fun ProgressBar.progress(): Action1<in Int> = RxProgressBar.setProgress(this)
 
 /**
  * An action which sets the secondary progress value of {@code view}.
@@ -49,4 +49,4 @@ fun ProgressBar.progress(): Action1<in Int> = RxProgressBar.setProgress(this)
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-fun ProgressBar.secondaryProgress(): Action1<in Int> = RxProgressBar.setSecondaryProgress(this)
+public inline fun ProgressBar.secondaryProgress(): Action1<in Int> = RxProgressBar.setSecondaryProgress(this)
