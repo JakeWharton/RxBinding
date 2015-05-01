@@ -4,6 +4,7 @@
     package="io.reactivex.android">
   <application>
     <activity android:name="rx.android.widget.RxAdapterViewTestActivity"/>
+    <activity android:name="rx.android.widget.RxRatingBarTestActivity"/>
     <activity android:name="rx.android.widget.RxSeekBarTestActivity"/>
   </application>
 </manifest>

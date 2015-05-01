@@ -1,11 +1,9 @@
 package rx.android.widget;
 
 import android.app.Instrumentation;
-import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.MotionEvent;
 import android.widget.SeekBar;
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,13 +17,14 @@ import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
 import static com.google.common.truth.Truth.assertThat;
+import static rx.android.MotionEventUtil.motionEventAtPosition;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSeekBarTest {
   @Rule public final ActivityTestRule<RxSeekBarTestActivity> activityRule =
       new ActivityTestRule<>(RxSeekBarTestActivity.class);
 
-  private Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+  private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private SeekBar seekBar;
 
@@ -40,21 +39,21 @@ public final class RxSeekBarTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_DOWN, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_MOVE, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(100);
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_MOVE, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 0));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(0);
 
     subscription.unsubscribe();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_MOVE, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
@@ -66,15 +65,15 @@ public final class RxSeekBarTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_DOWN, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarStartChangeEvent.create(seekBar));
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_MOVE, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 100, true));
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_UP, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_UP, 100));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarStopChangeEvent.create(seekBar));
 
@@ -88,34 +87,8 @@ public final class RxSeekBarTest {
 
     subscription.unsubscribe();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(ACTION_DOWN, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
-  }
-
-  private MotionEvent motionEventAtPosition(int action, int position) {
-    // NOTE: This method is not perfect. If you send touch events in a granular nature, you'll
-    // see varying results of accuracy depending on the size of the jump.
-
-    int paddingLeft = seekBar.getPaddingLeft();
-    int paddingRight = seekBar.getPaddingRight();
-    int paddingTop = seekBar.getPaddingTop();
-    int paddingBottom = seekBar.getPaddingBottom();
-
-    int width = seekBar.getWidth();
-    int height = seekBar.getHeight();
-
-    int topLeft[] = new int[2];
-    seekBar.getLocationInWindow(topLeft);
-    int x1 = topLeft[0] + paddingLeft;
-    int y1 = topLeft[1] + paddingTop;
-    int x2 = x1 + width - paddingLeft - paddingRight;
-    int y2 = y1 + height - paddingTop - paddingBottom;
-
-    float x = x1 + ((x2 - x1) * position / 100f);
-    float y = y1 + ((y2 - y1) / 2f);
-
-    long time = SystemClock.uptimeMillis();
-    return MotionEvent.obtain(time, time, action, x, y, 0);
   }
 }

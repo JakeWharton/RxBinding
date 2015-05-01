@@ -2,7 +2,9 @@ package rx.android.widget;
 
 import android.widget.TextView;
 import rx.Observable;
+import rx.android.internal.Functions;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 import static rx.android.internal.Preconditions.checkNotNull;
 
@@ -11,6 +13,70 @@ import static rx.android.internal.Preconditions.checkNotNull;
  * actions} for {@link TextView}.
  */
 public final class RxTextView {
+  /**
+   * Create an observable of editor actions on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
+   * observe actions. Only one observable can be used for a view at a time.
+   */
+  public static Observable<Integer> editorActions(TextView view) {
+    return editorActions(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of editor actions on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
+   * observe actions. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked each occurrence to determine the return value of the
+   * underlying {@link TextView.OnEditorActionListener}.
+   */
+  public static Observable<Integer> editorActions(TextView view,
+      Func1<? super Integer, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
+    return Observable.create(new TextViewEditorActionOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable of editor action events on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
+   * observe actions. Only one observable can be used for a view at a time.
+   */
+  public static Observable<TextViewEditorActionEvent> editorActionEvents(TextView view) {
+    return editorActionEvents(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of editor action events on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
+   * observe actions. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked each occurrence to determine the return value of the
+   * underlying {@link TextView.OnEditorActionListener}.
+   */
+  public static Observable<TextViewEditorActionEvent> editorActionEvents(TextView view,
+      Func1<? super TextViewEditorActionEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
+    return Observable.create(new TextViewEditorActionEventOnSubscribe(view, handled));
+  }
+
   /**
    * Create an observable of character sequences for text changes on {@code view}.
    * <p>
