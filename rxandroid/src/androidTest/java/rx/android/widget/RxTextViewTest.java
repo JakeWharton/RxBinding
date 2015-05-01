@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import rx.Subscription;
 import rx.android.RecordingObserver;
 
+import static android.view.inputmethod.EditorInfo.IME_ACTION_GO;
+import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
@@ -21,6 +23,46 @@ public final class RxTextViewTest {
 
   private final Context context = InstrumentationRegistry.getContext();
   private final TextView view = new TextView(context);
+
+  @Test @UiThreadTest public void editorActions() {
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxTextView.editorActions(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.onEditorAction(IME_ACTION_GO);
+    assertThat(o.takeNext()).isEqualTo(IME_ACTION_GO);
+
+    view.onEditorAction(IME_ACTION_NEXT);
+    assertThat(o.takeNext()).isEqualTo(IME_ACTION_NEXT);
+
+    subscription.unsubscribe();
+
+    view.onEditorAction(IME_ACTION_GO);
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void editorActionEvents() {
+    RecordingObserver<TextViewEditorActionEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxTextView.editorActionEvents(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.onEditorAction(IME_ACTION_GO);
+    TextViewEditorActionEvent event1 = o.takeNext();
+    assertThat(event1.view()).isSameAs(view);
+    assertThat(event1.actionId()).isEqualTo(IME_ACTION_GO);
+    assertThat(event1.keyEvent()).isNull();
+
+    view.onEditorAction(IME_ACTION_NEXT);
+    TextViewEditorActionEvent event2 = o.takeNext();
+    assertThat(event2.view()).isSameAs(view);
+    assertThat(event2.actionId()).isEqualTo(IME_ACTION_NEXT);
+    assertThat(event2.keyEvent()).isNull(); // TODO figure out a user event?
+
+    subscription.unsubscribe();
+
+    view.onEditorAction(IME_ACTION_GO);
+    o.assertNoMoreEvents();
+  }
 
   @Test @UiThreadTest public void textChanges() {
     view.setText("Initial");
