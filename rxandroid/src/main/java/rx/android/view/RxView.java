@@ -1,6 +1,7 @@
 package rx.android.view;
 
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import rx.Observable;
 import rx.android.internal.Functions;
@@ -201,6 +202,66 @@ public final class RxView {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return Observable.create(new ViewLongClickEventOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable of touch events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnTouchListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   */
+  public static Observable<MotionEvent> touches(View view) {
+    return touches(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of touch events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnTouchListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link View.OnTouchListener}.
+   */
+  public static Observable<MotionEvent> touches(View view,
+      Func1<? super MotionEvent, Boolean> handled) {
+    return Observable.create(new ViewTouchOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable of touch events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnTouchListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   */
+  public static Observable<ViewTouchEvent> touchEvents(View view) {
+    return touchEvents(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of touch events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnTouchListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link View.OnTouchListener}.
+   */
+  public static Observable<ViewTouchEvent> touchEvents(View view,
+      Func1<? super ViewTouchEvent, Boolean> handled) {
+    return Observable.create(new ViewTouchEventOnSubscribe(view, handled));
   }
 
   /**

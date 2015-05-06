@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import org.junit.Rule;
@@ -14,8 +15,12 @@ import rx.Subscription;
 import rx.android.RecordingObserver;
 import rx.functions.Action1;
 
+import static android.view.MotionEvent.ACTION_DOWN;
+import static android.view.MotionEvent.ACTION_MOVE;
+import static android.view.MotionEvent.ACTION_UP;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
+import static rx.android.MotionEventUtil.motionEventAtPosition;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewTest {
@@ -173,6 +178,46 @@ public final class RxViewTest {
     subscription.unsubscribe();
 
     view.performLongClick();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void touches() {
+    RecordingObserver<MotionEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.touches(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0));
+    MotionEvent event1 = o.takeNext();
+    assertThat(event1.getAction()).isEqualTo(ACTION_DOWN);
+
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1));
+    MotionEvent event2 = o.takeNext();
+    assertThat(event2.getAction()).isEqualTo(ACTION_MOVE);
+
+    subscription.unsubscribe();
+
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1));
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void touchEvents() {
+    RecordingObserver<ViewTouchEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.touchEvents(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0));
+    ViewTouchEvent event1 = o.takeNext();
+    assertThat(event1.view()).isSameAs(view);
+    assertThat(event1.motionEvent().getAction()).isEqualTo(ACTION_DOWN);
+
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1));
+    ViewTouchEvent event2 = o.takeNext();
+    assertThat(event2.view()).isSameAs(view);
+    assertThat(event2.motionEvent().getAction()).isEqualTo(ACTION_MOVE);
+
+    subscription.unsubscribe();
+
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1));
     o.assertNoMoreEvents();
   }
 
