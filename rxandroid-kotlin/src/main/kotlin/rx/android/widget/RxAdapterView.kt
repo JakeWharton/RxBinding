@@ -61,4 +61,4 @@ public inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun <T : Adapter> AdapterView<T>.selection(): Action1<in Int> = RxAdapterView.setSelection(this)
+public inline fun <T : Adapter> AdapterView<T>.selection(): Action1<in Int> = RxAdapterView.selection(this)

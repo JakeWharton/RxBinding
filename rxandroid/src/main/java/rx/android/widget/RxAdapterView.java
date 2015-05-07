@@ -105,7 +105,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> setSelection(final AdapterView<?> view) {
+  public static Action1<? super Integer> selection(final AdapterView<?> view) {
     return new Action1<Integer>() {
       @Override public void call(Integer position) {
         view.setSelection(position);

@@ -221,63 +221,63 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void setActivated() {
+  @Test @UiThreadTest public void activated() {
     view.setActivated(true);
-    Action1<? super Boolean> action = RxView.setActivated(view);
+    Action1<? super Boolean> action = RxView.activated(view);
     action.call(false);
     assertThat(view.isActivated()).isFalse();
     action.call(true);
     assertThat(view.isActivated()).isTrue();
   }
 
-  @Test @UiThreadTest public void setClickable() {
+  @Test @UiThreadTest public void clickable() {
     view.setClickable(true);
-    Action1<? super Boolean> action = RxView.setClickable(view);
+    Action1<? super Boolean> action = RxView.clickable(view);
     action.call(false);
     assertThat(view.isClickable()).isFalse();
     action.call(true);
     assertThat(view.isClickable()).isTrue();
   }
 
-  @Test @UiThreadTest public void setEnabled() {
+  @Test @UiThreadTest public void enabled() {
     view.setEnabled(true);
-    Action1<? super Boolean> action = RxView.setEnabled(view);
+    Action1<? super Boolean> action = RxView.enabled(view);
     action.call(false);
     assertThat(view.isEnabled()).isFalse();
     action.call(true);
     assertThat(view.isEnabled()).isTrue();
   }
 
-  @Test @UiThreadTest public void setPressed() {
+  @Test @UiThreadTest public void pressed() {
     view.setPressed(true);
-    Action1<? super Boolean> action = RxView.setPressed(view);
+    Action1<? super Boolean> action = RxView.pressed(view);
     action.call(false);
     assertThat(view.isPressed()).isFalse();
     action.call(true);
     assertThat(view.isPressed()).isTrue();
   }
 
-  @Test @UiThreadTest public void setSelected() {
+  @Test @UiThreadTest public void selected() {
     view.setSelected(true);
-    Action1<? super Boolean> action = RxView.setSelected(view);
+    Action1<? super Boolean> action = RxView.selected(view);
     action.call(false);
     assertThat(view.isSelected()).isFalse();
     action.call(true);
     assertThat(view.isSelected()).isTrue();
   }
 
-  @Test @UiThreadTest public void setVisibility() {
+  @Test @UiThreadTest public void visibility() {
     view.setVisibility(View.VISIBLE);
-    Action1<? super Boolean> action = RxView.setVisibility(view);
+    Action1<? super Boolean> action = RxView.visibility(view);
     action.call(false);
     assertThat(view.getVisibility()).isEqualTo(View.GONE);
     action.call(true);
     assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
   }
 
-  @Test @UiThreadTest public void setVisibilityCustomFalse() {
+  @Test @UiThreadTest public void visibilityCustomFalse() {
     view.setVisibility(View.VISIBLE);
-    Action1<? super Boolean> action = RxView.setVisibility(view, View.INVISIBLE);
+    Action1<? super Boolean> action = RxView.visibility(view, View.INVISIBLE);
     action.call(false);
     assertThat(view.getVisibility()).isEqualTo(View.INVISIBLE);
     action.call(true);
@@ -286,7 +286,7 @@ public final class RxViewTest {
 
   @Test @UiThreadTest public void setVisibilityCustomFalseToVisibleThrows() {
     try {
-      RxView.setVisibility(view, View.VISIBLE);
+      RxView.visibility(view, View.VISIBLE);
       fail();
     } catch (IllegalArgumentException e) {
       assertThat(e).hasMessage("Setting visibility to VISIBLE when false would have no effect.");

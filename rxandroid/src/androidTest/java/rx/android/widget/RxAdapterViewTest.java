@@ -102,8 +102,8 @@ public final class RxAdapterViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void setSelection() {
-    final Action1<? super Integer> action = RxAdapterView.setSelection(spinner);
+  @Test public void selection() {
+    final Action1<? super Integer> action = RxAdapterView.selection(spinner);
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {

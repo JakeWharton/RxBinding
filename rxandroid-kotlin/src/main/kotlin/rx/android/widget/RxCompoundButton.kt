@@ -32,7 +32,7 @@ public inline fun CompoundButton.checkedChangeEvents(): Observable<CompoundButto
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.setChecked(this)
+public inline fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.checked(this)
 
 /**
  * An action which sets the toggles property of {@code view} with each value.

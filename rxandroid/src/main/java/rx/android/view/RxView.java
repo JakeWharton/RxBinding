@@ -270,7 +270,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setActivated(final View view) {
+  public static Action1<? super Boolean> activated(final View view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
@@ -285,7 +285,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setClickable(final View view) {
+  public static Action1<? super Boolean> clickable(final View view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
@@ -300,7 +300,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setEnabled(final View view) {
+  public static Action1<? super Boolean> enabled(final View view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
@@ -315,7 +315,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setPressed(final View view) {
+  public static Action1<? super Boolean> pressed(final View view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
@@ -330,7 +330,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setSelected(final View view) {
+  public static Action1<? super Boolean> selected(final View view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
@@ -346,9 +346,9 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setVisibility(View view) {
+  public static Action1<? super Boolean> visibility(View view) {
     checkNotNull(view, "view == null");
-    return setVisibility(view, View.GONE);
+    return visibility(view, View.GONE);
   }
 
   /**
@@ -360,7 +360,7 @@ public final class RxView {
    * @param visibilityWhenFalse Visibility to set on a {@code false} value ({@link View#INVISIBLE
    * View.INVISIBLE} or {@link View#GONE View.GONE}).
    */
-  public static Action1<? super Boolean> setVisibility(final View view,
+  public static Action1<? super Boolean> visibility(final View view,
       final int visibilityWhenFalse) {
     checkNotNull(view, "view == null");
     checkArgument(visibilityWhenFalse != View.VISIBLE,

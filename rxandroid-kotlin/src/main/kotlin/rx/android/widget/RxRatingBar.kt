@@ -26,7 +26,7 @@ public inline fun RatingBar.ratingChangeEvents(): Observable<RatingBarChangeEven
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun RatingBar.rating(): Action1<in Float> = RxRatingBar.setRating(this)
+public inline fun RatingBar.rating(): Action1<in Float> = RxRatingBar.rating(this)
 
 /**
  * An action which sets whether {@code view} is an indicator (thus non-changeable by the user).
@@ -34,4 +34,4 @@ public inline fun RatingBar.rating(): Action1<in Float> = RxRatingBar.setRating(
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun RatingBar.isIndicator(): Action1<in Boolean> = RxRatingBar.setIsIndicator(this)
+public inline fun RatingBar.isIndicator(): Action1<in Boolean> = RxRatingBar.isIndicator(this)

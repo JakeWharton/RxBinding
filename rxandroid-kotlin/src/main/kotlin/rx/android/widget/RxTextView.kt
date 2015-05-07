@@ -56,7 +56,7 @@ public inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEven
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.text(): Action1<in CharSequence> = RxTextView.setText(this)
+public inline fun TextView.text(): Action1<in CharSequence> = RxTextView.text(this)
 
 /**
  * An action which sets the text property of {@code view} string resource IDs.
@@ -64,4 +64,4 @@ public inline fun TextView.text(): Action1<in CharSequence> = RxTextView.setText
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.textRes(): Action1<in Int> = RxTextView.setTextRes(this)
+public inline fun TextView.textRes(): Action1<in Int> = RxTextView.textRes(this)
