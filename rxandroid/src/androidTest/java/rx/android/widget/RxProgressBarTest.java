@@ -46,24 +46,24 @@ public final class RxProgressBarTest {
     assertThat(view.getSecondaryProgress()).isEqualTo(100);
   }
 
-  @Test @UiThreadTest public void setIndeterminate() {
-    Action1<? super Boolean> action = RxProgressBar.setIndeterminate(view);
+  @Test @UiThreadTest public void indeterminate() {
+    Action1<? super Boolean> action = RxProgressBar.indeterminate(view);
     action.call(true);
     assertThat(view.isIndeterminate()).isTrue();
     action.call(false);
     assertThat(view.isIndeterminate()).isFalse();
   }
 
-  @Test @UiThreadTest public void setMax() {
-    Action1<? super Integer> action = RxProgressBar.setMax(view);
+  @Test @UiThreadTest public void max() {
+    Action1<? super Integer> action = RxProgressBar.max(view);
     action.call(100);
     assertThat(view.getMax()).isEqualTo(100);
     action.call(1000);
     assertThat(view.getMax()).isEqualTo(1000);
   }
 
-  @Test @UiThreadTest public void setProgress() {
-    Action1<? super Integer> action = RxProgressBar.setProgress(view);
+  @Test @UiThreadTest public void progress() {
+    Action1<? super Integer> action = RxProgressBar.progress(view);
     assertThat(view.getProgress()).isEqualTo(0);
     action.call(50);
     assertThat(view.getProgress()).isEqualTo(50);
@@ -71,8 +71,8 @@ public final class RxProgressBarTest {
     assertThat(view.getProgress()).isEqualTo(100);
   }
 
-  @Test @UiThreadTest public void setSecondaryProgress() {
-    Action1<? super Integer> action = RxProgressBar.setSecondaryProgress(view);
+  @Test @UiThreadTest public void secondaryProgress() {
+    Action1<? super Integer> action = RxProgressBar.secondaryProgress(view);
     assertThat(view.getSecondaryProgress()).isEqualTo(0);
     action.call(50);
     assertThat(view.getSecondaryProgress()).isEqualTo(50);

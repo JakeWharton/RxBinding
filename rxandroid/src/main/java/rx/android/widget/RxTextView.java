@@ -105,7 +105,7 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super CharSequence> setText(final TextView view) {
+  public static Action1<? super CharSequence> text(final TextView view) {
     checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
       @Override public void call(CharSequence text) {
@@ -120,7 +120,7 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> setTextRes(final TextView view) {
+  public static Action1<? super Integer> textRes(final TextView view) {
     checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer textRes) {

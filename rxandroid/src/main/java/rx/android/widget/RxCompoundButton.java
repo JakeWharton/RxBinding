@@ -46,7 +46,7 @@ public final class RxCompoundButton {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setChecked(final CompoundButton view) {
+  public static Action1<? super Boolean> checked(final CompoundButton view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {

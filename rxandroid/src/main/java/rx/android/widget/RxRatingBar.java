@@ -31,7 +31,7 @@ public final class RxRatingBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Float> setRating(final RatingBar view) {
+  public static Action1<? super Float> rating(final RatingBar view) {
     return new Action1<Float>() {
       @Override public void call(Float value) {
         view.setRating(value);
@@ -45,7 +45,7 @@ public final class RxRatingBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setIsIndicator(final RatingBar view) {
+  public static Action1<? super Boolean> isIndicator(final RatingBar view) {
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setIsIndicator(value);

@@ -78,8 +78,8 @@ public final class RxRadioGroupTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void setChecked() {
-    Action1<? super Integer> action = RxRadioGroup.setChecked(view);
+  @Test @UiThreadTest public void checked() {
+    Action1<? super Integer> action = RxRadioGroup.checked(view);
     assertThat(view.getCheckedRadioButtonId()).isEqualTo(-1);
     action.call(1);
     assertThat(view.getCheckedRadioButtonId()).isEqualTo(1);

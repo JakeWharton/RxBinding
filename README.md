@@ -41,11 +41,10 @@ class should be in the public API.
 The name of the `OnSubscribe` class for each observable is the concatenation of the view simple
 name, the verb (with optional prefix), and "OnSubscribe". These classes not in the public API.
 
-Action factory method names are the property prefixed with "set" (e.g., `setEnabled`). If the
-associated listener has a return value, an overload that accepts a `Func1<E, T>` named "handled"
-will be present for determining that value. No error handling will be done. These classes are not
-in the public API and are currently defined anonymously.
-(TODO just name these with the property? i.e., `enabled`)
+Action factory method names are the same as the property (e.g., `enabled`). If the associated
+listener has a return value, an overload that accepts a `Func1<E, T>` named "handled" will be
+present for determining that value. No error handling will be done. These classes are not in the
+public API and are currently defined anonymously.
 
 
 

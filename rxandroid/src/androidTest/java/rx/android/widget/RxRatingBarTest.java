@@ -92,8 +92,8 @@ import static rx.android.MotionEventUtil.motionEventAtPosition;
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void setRating() {
-    Action1<? super Float> action = RxRatingBar.setRating(view);
+  @Test @UiThreadTest public void rating() {
+    Action1<? super Float> action = RxRatingBar.rating(view);
     assertThat(view.getRating()).isEqualTo(0f);
     action.call(1f);
     assertThat(view.getRating()).isEqualTo(1f);
@@ -101,8 +101,8 @@ import static rx.android.MotionEventUtil.motionEventAtPosition;
     assertThat(view.getRating()).isEqualTo(2f);
   }
 
-  @Test @UiThreadTest public void setIsIndicator() {
-    Action1<? super Boolean> action = RxRatingBar.setIsIndicator(view);
+  @Test @UiThreadTest public void isIndicator() {
+    Action1<? super Boolean> action = RxRatingBar.isIndicator(view);
     assertThat(view.isIndicator()).isFalse();
     action.call(true);
     assertThat(view.isIndicator()).isTrue();

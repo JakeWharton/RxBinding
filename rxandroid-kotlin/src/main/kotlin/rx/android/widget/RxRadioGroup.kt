@@ -27,4 +27,4 @@ public inline fun RadioGroup.checkedChangeEvents(): Observable<RadioGroupChecked
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun RadioGroup.checked(): Action1<in Int> = RxRadioGroup.setChecked(this)
+public inline fun RadioGroup.checked(): Action1<in Int> = RxRadioGroup.checked(this)

@@ -103,7 +103,7 @@ public inline fun View.longClickEvents(): Observable<ViewLongClickEvent> = RxVie
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun View.activated(): Action1<in Boolean> = RxView.setActivated(this)
+public inline fun View.activated(): Action1<in Boolean> = RxView.activated(this)
 
 /**
  * An action which sets the clickable property of {@code view}.
@@ -111,7 +111,7 @@ public inline fun View.activated(): Action1<in Boolean> = RxView.setActivated(th
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun View.clickable(): Action1<in Boolean> = RxView.setClickable(this)
+public inline fun View.clickable(): Action1<in Boolean> = RxView.clickable(this)
 
 /**
  * An action which sets the enabled property of {@code view}.
@@ -119,7 +119,7 @@ public inline fun View.clickable(): Action1<in Boolean> = RxView.setClickable(th
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun View.enabled(): Action1<in Boolean> = RxView.setEnabled(this)
+public inline fun View.enabled(): Action1<in Boolean> = RxView.enabled(this)
 
 /**
  * An action which sets the pressed property of {@code view}.
@@ -127,7 +127,7 @@ public inline fun View.enabled(): Action1<in Boolean> = RxView.setEnabled(this)
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun View.pressed(): Action1<in Boolean> = RxView.setPressed(this)
+public inline fun View.pressed(): Action1<in Boolean> = RxView.pressed(this)
 
 /**
  * An action which sets the selected property of {@code view}.
@@ -135,7 +135,7 @@ public inline fun View.pressed(): Action1<in Boolean> = RxView.setPressed(this)
  * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
  * to free this reference.
  */
-public inline fun View.selected(): Action1<in Boolean> = RxView.setSelected(this)
+public inline fun View.selected(): Action1<in Boolean> = RxView.selected(this)
 
 /**
  * An action which sets the visibility property of {@code view}.
@@ -147,5 +147,5 @@ public inline fun View.selected(): Action1<in Boolean> = RxView.setSelected(this
  * View.INVISIBLE} or {@link View#GONE View.GONE}).
  */
 public inline fun View.visibility(visibilityWhenFalse: Int = View.GONE): Action1<in Boolean> {
-  return RxView.setVisibility(this, visibilityWhenFalse)
+  return RxView.visibility(this, visibilityWhenFalse)
 }

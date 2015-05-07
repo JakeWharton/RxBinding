@@ -119,13 +119,13 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void setText() {
-    RxTextView.setText(view).call("Hey");
+  @Test @UiThreadTest public void text() {
+    RxTextView.text(view).call("Hey");
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
 
-  @Test @UiThreadTest public void setTextRes() {
-    RxTextView.setTextRes(view).call(R.string.hey);
+  @Test @UiThreadTest public void textRes() {
+    RxTextView.textRes(view).call(R.string.hey);
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
 }

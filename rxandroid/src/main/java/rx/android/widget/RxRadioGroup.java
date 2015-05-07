@@ -32,7 +32,7 @@ public final class RxRadioGroup {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> setChecked(final RadioGroup view) {
+  public static Action1<? super Integer> checked(final RadioGroup view) {
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         if (value == -1) {

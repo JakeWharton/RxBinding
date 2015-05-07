@@ -66,9 +66,9 @@ public final class RxCompoundButtonTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void setChecked() {
+  @Test @UiThreadTest public void checked() {
     view.setChecked(false);
-    Action1<? super Boolean> toggle = RxCompoundButton.setChecked(view);
+    Action1<? super Boolean> toggle = RxCompoundButton.checked(view);
 
     toggle.call(true);
     assertThat(view.isChecked()).isTrue();

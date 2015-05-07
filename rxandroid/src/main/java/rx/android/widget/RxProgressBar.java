@@ -38,7 +38,7 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Boolean> setIndeterminate(final ProgressBar view) {
+  public static Action1<? super Boolean> indeterminate(final ProgressBar view) {
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setIndeterminate(value);
@@ -52,7 +52,7 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> setMax(final ProgressBar view) {
+  public static Action1<? super Integer> max(final ProgressBar view) {
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.setMax(value);
@@ -66,7 +66,7 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> setProgress(final ProgressBar view) {
+  public static Action1<? super Integer> progress(final ProgressBar view) {
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.setProgress(value);
@@ -80,7 +80,7 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> setSecondaryProgress(final ProgressBar view) {
+  public static Action1<? super Integer> secondaryProgress(final ProgressBar view) {
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.setSecondaryProgress(value);
