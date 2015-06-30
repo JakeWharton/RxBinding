@@ -12,6 +12,7 @@ dependencies {
 
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules
+  androidTestCompile rootProject.ext.rxAndroid
   androidTestCompile(rootProject.ext.truth) {
     exclude group: 'junit' // Android ships with JUnit.
   }

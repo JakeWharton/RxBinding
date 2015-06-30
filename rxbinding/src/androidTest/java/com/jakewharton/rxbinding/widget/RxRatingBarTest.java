@@ -6,13 +6,13 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.RatingBar;
+import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
-import rx.android.schedulers.HandlerSchedulers;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 import static android.view.MotionEvent.ACTION_DOWN;
@@ -35,7 +35,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
   @Test public void ratingChanges() {
     RecordingObserver<Float> o = new RecordingObserver<>();
     Subscription subscription = RxRatingBar.ratingChanges(view) //
-        .subscribeOn(HandlerSchedulers.mainThread()) //
+        .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     o.assertNoMoreEvents();
 
@@ -66,7 +66,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
   @Test public void ratingChangeEvents() {
     RecordingObserver<RatingBarChangeEvent> o = new RecordingObserver<>();
     Subscription subscription = RxRatingBar.ratingChangeEvents(view) //
-        .subscribeOn(HandlerSchedulers.mainThread()) //
+        .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     o.assertNoMoreEvents();
 

@@ -6,13 +6,13 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ListView;
 import android.widget.Spinner;
+import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
-import rx.android.schedulers.HandlerSchedulers;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -37,7 +37,7 @@ public final class RxAdapterViewTest {
   @Test public void itemSelections() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     Subscription subscription = RxAdapterView.itemSelections(spinner)
-        .subscribeOn(HandlerSchedulers.mainThread())
+        .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
 
@@ -68,7 +68,7 @@ public final class RxAdapterViewTest {
   @Test public void selectionEvents() {
     RecordingObserver<AdapterViewSelectionEvent> o = new RecordingObserver<>();
     Subscription subscription = RxAdapterView.selectionEvents(spinner)
-        .subscribeOn(HandlerSchedulers.mainThread())
+        .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
 
@@ -131,7 +131,7 @@ public final class RxAdapterViewTest {
   @Test public void itemClicks() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     Subscription subscription = RxAdapterView.itemClicks(listView) //
-        .subscribeOn(HandlerSchedulers.mainThread()) //
+        .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     o.assertNoMoreEvents();
 
@@ -162,7 +162,7 @@ public final class RxAdapterViewTest {
   @Test public void itemClickEvents() {
     RecordingObserver<AdapterViewItemClickEvent> o = new RecordingObserver<>();
     Subscription subscription = RxAdapterView.itemClickEvents(listView) //
-        .subscribeOn(HandlerSchedulers.mainThread()) //
+        .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     o.assertNoMoreEvents();
 

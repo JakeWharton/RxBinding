@@ -6,7 +6,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TextView;
-import com.jakewharton.rxandroidbind.test.R;
+import com.jakewharton.rxbinding.test.R;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;

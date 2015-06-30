@@ -5,13 +5,13 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.SeekBar;
+import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
-import rx.android.schedulers.HandlerSchedulers;
+import rx.android.schedulers.AndroidSchedulers;
 
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
@@ -35,7 +35,7 @@ public final class RxSeekBarTest {
   @Test public void changes() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     Subscription subscription = RxSeekBar.changes(seekBar) //
-        .subscribeOn(HandlerSchedulers.mainThread()) //
+        .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     o.assertNoMoreEvents();
 
@@ -61,7 +61,7 @@ public final class RxSeekBarTest {
   @Test public void changeEvents() {
     RecordingObserver<SeekBarChangeEvent> o = new RecordingObserver<>();
     Subscription subscription = RxSeekBar.changeEvents(seekBar) //
-        .subscribeOn(HandlerSchedulers.mainThread()) //
+        .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     o.assertNoMoreEvents();
 
