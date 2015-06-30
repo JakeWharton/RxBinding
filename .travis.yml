@@ -10,11 +10,17 @@ android:
 jdk:
   - oraclejdk8
 
-before_script:
-  - echo no | android create avd --force -n test -t android-15 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+after_success:
+  - .buildscript/deploy_snapshot.sh
+
+env:
+  global:
+    - secure: "kKGfhOpP31VZBUcNw5P9M5OuIaa+sKOWsMpA1VfZohcOAkZRRvszu4yVwncno5YwXu4NVWfconA+9H92Tv6cA+CpP8ppjj5thH1ZTSE+I/L1VCiy3JeGMT/AdVZ5f0ElxDXMLfV+7dfZqIbjzTmRnUbO09CyL385b7I/1DjPGCE="
+    - secure: "tCicrfEMfsS/Ccj0XdKERJk2bFMj/Qn6HIrqzKVemfu1k9jQQeab1yixQaOiMRGXoyhlmsSQGPSXFPqqO5UiOU0smSPbefZeKgDLG+vzdXooPFsu00N6+iqCmAd8cIMG4VHp42ZYMXEnVWyRhYxoHJM5IkOMB2nzYyBCzUnzZME="
+
+branches:
+  except:
+    - gh-pages
 
 notifications:
   email: false

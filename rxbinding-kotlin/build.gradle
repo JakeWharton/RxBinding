@@ -1,0 +1,41 @@
+buildscript {
+  dependencies {
+    classpath rootProject.ext.androidPlugin
+    classpath rootProject.ext.kotlinPlugin
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+dependencies {
+  compile project(':rxbinding')
+  compile rootProject.ext.kotlinStdlib
+}
+
+def isCi() {
+  return 'true'.equals(System.getenv('CI'))
+}
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+
+  dexOptions {
+    preDexLibraries = !isCi()
+  }
+
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+  }
+
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
+}

@@ -1,9 +1,18 @@
-Not RxAndroid
-=============
+RxBinding
+=========
 
-A from-scratch, re-implementation of RxAndroid with a consistent, opinionated API.
+RxJava binding APIs for Android's UI widgets.
 
-This library will not have releases and is subject to deletion at any time.
+
+
+Download
+--------
+
+```groovy
+compile 'com.jakewharton.rxbinding:rxbinding:0.1.0-SNAPSHOT'
+```
+
+Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
 
 
@@ -20,7 +29,7 @@ Multiple listeners to the same view events can be achieved through `share()`.
 Naming conventions of classes and their packages should provide unambiguous information
 on where functionality can be found. Helpers for platform classes can be found in packages
 of the same name but prefixed with `rx.` and classes of the same name but prefixed with `Rx`.
-For example, `android.widget.TextView` helpers are in `rx.android.widget.RxTextView`.
+For example, `android.widget.TextView` helpers are in `com.jakewharton.rxbinding.widget.RxTextView`.
 
 Observable factory method names is the plural of the verb (e.g., click --> `clicks()`). The verb
 should be in the present tense, regardless of the platform's use (e.g., selected -> selection).
@@ -51,6 +60,8 @@ public API and are currently defined anonymously.
 License
 -------
 
+    Copyright (C) 2015 Jake Wharton
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -62,3 +73,5 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+ [snap]: https://oss.sonatype.org/content/repositories/snapshots/

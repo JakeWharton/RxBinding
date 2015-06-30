@@ -1,2 +1,4 @@
-include ':rxandroid'
-include ':rxandroid-kotlin'
+rootProject.name = 'rxbinding-root'
+
+include ':rxbinding'
+include ':rxbinding-kotlin'
