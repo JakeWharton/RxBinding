@@ -26,7 +26,9 @@ final class ViewLongClickOnSubscribe implements Observable.OnSubscribe<Object> {
     View.OnLongClickListener listener = new View.OnLongClickListener() {
       @Override public boolean onLongClick(View v) {
         if (handled.call()) {
-          subscriber.onNext(event);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(event);
+          }
           return true;
         }
         return false;

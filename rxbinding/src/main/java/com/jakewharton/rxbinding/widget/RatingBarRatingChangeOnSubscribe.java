@@ -21,7 +21,9 @@ final class RatingBarRatingChangeOnSubscribe implements Observable.OnSubscribe<F
 
     RatingBar.OnRatingBarChangeListener listener = new RatingBar.OnRatingBarChangeListener() {
       @Override public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-        subscriber.onNext(rating);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(rating);
+        }
       }
     };
 

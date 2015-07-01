@@ -21,7 +21,9 @@ final class ViewFocusChangeOnSubscribe implements Observable.OnSubscribe<Boolean
 
     View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
       @Override public void onFocusChange(View v, boolean hasFocus) {
-        subscriber.onNext(hasFocus);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(hasFocus);
+        }
       }
     };
 

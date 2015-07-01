@@ -21,7 +21,9 @@ final class CompoundButtonCheckedChangeOnSubscribe implements Observable.OnSubsc
 
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        subscriber.onNext(isChecked);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(isChecked);
+        }
       }
     };
 

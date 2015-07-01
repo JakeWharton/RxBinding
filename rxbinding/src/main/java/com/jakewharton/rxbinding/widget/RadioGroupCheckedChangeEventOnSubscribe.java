@@ -22,7 +22,9 @@ final class RadioGroupCheckedChangeEventOnSubscribe
 
     RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
-        subscriber.onNext(RadioGroupCheckedChangeEvent.create(group, checkedId));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(RadioGroupCheckedChangeEvent.create(group, checkedId));
+        }
       }
     };
 

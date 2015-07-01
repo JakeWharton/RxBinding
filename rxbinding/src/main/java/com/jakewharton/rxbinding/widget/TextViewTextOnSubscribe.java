@@ -26,7 +26,9 @@ final class TextViewTextOnSubscribe implements Observable.OnSubscribe<CharSequen
       }
 
       @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        subscriber.onNext(s);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(s);
+        }
       }
 
       @Override public void afterTextChanged(Editable s) {

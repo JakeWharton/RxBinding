@@ -22,7 +22,9 @@ final class ViewFocusChangeEventOnSubscribe
 
     View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
       @Override public void onFocusChange(View v, boolean hasFocus) {
-        subscriber.onNext(ViewFocusChangeEvent.create(view, hasFocus));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(ViewFocusChangeEvent.create(view, hasFocus));
+        }
       }
     };
 

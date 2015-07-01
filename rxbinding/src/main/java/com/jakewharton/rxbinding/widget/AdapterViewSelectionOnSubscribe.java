@@ -24,11 +24,15 @@ final class AdapterViewSelectionOnSubscribe
     AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        subscriber.onNext(AdapterViewItemSelectionEvent.create(parent, view, position, id));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(AdapterViewItemSelectionEvent.create(parent, view, position, id));
+        }
       }
 
       @Override public void onNothingSelected(AdapterView<?> parent) {
-        subscriber.onNext(AdapterViewNothingSelectionEvent.create(parent));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(AdapterViewNothingSelectionEvent.create(parent));
+        }
       }
     };
 

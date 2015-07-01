@@ -23,7 +23,9 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
 
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        subscriber.onNext(CompoundButtonCheckedChangeEvent.create(view, isChecked));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(CompoundButtonCheckedChangeEvent.create(view, isChecked));
+        }
       }
     };
 

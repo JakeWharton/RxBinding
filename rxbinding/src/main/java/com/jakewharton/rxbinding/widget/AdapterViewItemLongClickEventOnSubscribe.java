@@ -31,7 +31,9 @@ final class AdapterViewItemLongClickEventOnSubscribe
         AdapterViewItemLongClickEvent event =
             AdapterViewItemLongClickEvent.create(parent, view, position, id);
         if (handled.call(event)) {
-          subscriber.onNext(event);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(event);
+          }
           return true;
         }
         return false;

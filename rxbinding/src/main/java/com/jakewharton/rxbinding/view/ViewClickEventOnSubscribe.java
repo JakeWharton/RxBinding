@@ -21,7 +21,9 @@ final class ViewClickEventOnSubscribe implements Observable.OnSubscribe<ViewClic
 
     View.OnClickListener listener = new View.OnClickListener() {
       @Override public void onClick(View v) {
-        subscriber.onNext(ViewClickEvent.create(view));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(ViewClickEvent.create(view));
+        }
       }
     };
 
