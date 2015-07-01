@@ -26,7 +26,9 @@ final class TextViewEditorActionOnSubscribe implements Observable.OnSubscribe<In
     TextView.OnEditorActionListener listener = new TextView.OnEditorActionListener() {
       @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (handled.call(actionId)) {
-          subscriber.onNext(actionId);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(actionId);
+          }
           return true;
         }
         return false;

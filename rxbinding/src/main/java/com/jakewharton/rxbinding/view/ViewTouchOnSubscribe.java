@@ -27,7 +27,9 @@ final class ViewTouchOnSubscribe implements Observable.OnSubscribe<MotionEvent> 
     View.OnTouchListener listener = new View.OnTouchListener() {
       @Override public boolean onTouch(View v, @NonNull MotionEvent event) {
         if (handled.call(event)) {
-          subscriber.onNext(event);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(event);
+          }
           return true;
         }
         return false;

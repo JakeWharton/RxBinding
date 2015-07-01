@@ -29,7 +29,9 @@ final class TextViewEditorActionEventOnSubscribe
       @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
         TextViewEditorActionEvent event = TextViewEditorActionEvent.create(v, actionId, keyEvent);
         if (handled.call(event)) {
-          subscriber.onNext(event);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(event);
+          }
           return true;
         }
         return false;

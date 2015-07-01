@@ -27,7 +27,9 @@ final class AdapterViewItemLongClickOnSubscribe implements Observable.OnSubscrib
       @Override
       public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         if (handled.call()) {
-          subscriber.onNext(position);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(position);
+          }
           return true;
         }
         return false;

@@ -23,7 +23,9 @@ final class AdapterViewItemClickEventOnSubscribe
 
     AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        subscriber.onNext(AdapterViewItemClickEvent.create(parent, view, position, id));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(AdapterViewItemClickEvent.create(parent, view, position, id));
+        }
       }
     };
 

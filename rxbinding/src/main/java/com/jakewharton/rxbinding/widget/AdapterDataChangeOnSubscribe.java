@@ -23,7 +23,9 @@ final class AdapterDataChangeOnSubscribe<T extends Adapter>
 
     final DataSetObserver observer = new DataSetObserver() {
       @Override public void onChanged() {
-        subscriber.onNext(adapter);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(adapter);
+        }
       }
     };
 

@@ -21,7 +21,9 @@ final class RadioGroupCheckedChangeOnSubscribe implements Observable.OnSubscribe
 
     RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
-        subscriber.onNext(checkedId);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(checkedId);
+        }
       }
     };
 

@@ -26,7 +26,9 @@ final class ViewDragOnSubscribe implements Observable.OnSubscribe<DragEvent> {
     View.OnDragListener listener = new View.OnDragListener() {
       @Override public boolean onDrag(View v, DragEvent event) {
         if (handled.call(event)) {
-          subscriber.onNext(event);
+          if (!subscriber.isUnsubscribed()) {
+            subscriber.onNext(event);
+          }
           return true;
         }
         return false;

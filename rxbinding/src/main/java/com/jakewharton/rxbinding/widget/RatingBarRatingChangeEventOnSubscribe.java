@@ -22,7 +22,9 @@ final class RatingBarRatingChangeEventOnSubscribe
 
     RatingBar.OnRatingBarChangeListener listener = new RatingBar.OnRatingBarChangeListener() {
       @Override public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-        subscriber.onNext(RatingBarChangeEvent.create(ratingBar, rating, fromUser));
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(RatingBarChangeEvent.create(ratingBar, rating, fromUser));
+        }
       }
     };
 
