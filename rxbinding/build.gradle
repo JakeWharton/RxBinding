@@ -13,9 +13,7 @@ dependencies {
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules
   androidTestCompile rootProject.ext.rxAndroid
-  androidTestCompile(rootProject.ext.truth) {
-    exclude group: 'junit' // Android ships with JUnit.
-  }
+  androidTestCompile rootProject.ext.truth
 }
 
 def isCi() {
@@ -27,6 +25,8 @@ android {
   buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+
     testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
   }
 

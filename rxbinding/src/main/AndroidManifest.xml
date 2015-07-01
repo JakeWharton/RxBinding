@@ -1,6 +1,1 @@
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.rxbinding"
-    >
-  <uses-sdk android:minSdkVersion="15"/>
-</manifest>
+<manifest package="com.jakewharton.rxbinding"/>

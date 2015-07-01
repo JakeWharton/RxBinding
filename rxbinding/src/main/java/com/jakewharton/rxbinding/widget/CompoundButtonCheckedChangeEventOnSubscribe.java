@@ -1,11 +1,9 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.widget.CompoundButton;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
-import com.jakewharton.rxbinding.internal.AndroidSubscriptions;
-import rx.functions.Action0;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
@@ -29,12 +27,11 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
       }
     };
 
-    Subscription subscription = AndroidSubscriptions.unsubscribeOnMainThread(new Action0() {
-      @Override public void call() {
+    subscriber.add(new MainThreadSubscription() {
+      @Override protected void onUnsubscribe() {
         view.setOnCheckedChangeListener(null);
       }
     });
-    subscriber.add(subscription);
 
     view.setOnCheckedChangeListener(listener);
 

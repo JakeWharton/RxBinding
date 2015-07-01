@@ -1,11 +1,9 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.widget.RadioGroup;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action0;
-import rx.subscriptions.Subscriptions;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
@@ -28,12 +26,11 @@ final class RadioGroupCheckedChangeEventOnSubscribe
       }
     };
 
-    Subscription subscription = Subscriptions.create(new Action0() {
-      @Override public void call() {
+    subscriber.add(new MainThreadSubscription() {
+      @Override protected void onUnsubscribe() {
         view.setOnCheckedChangeListener(null);
       }
     });
-    subscriber.add(subscription);
 
     view.setOnCheckedChangeListener(listener);
 

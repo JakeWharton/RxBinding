@@ -1,11 +1,9 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.widget.RatingBar;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action0;
-import rx.subscriptions.Subscriptions;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
@@ -28,12 +26,11 @@ final class RatingBarRatingChangeEventOnSubscribe
       }
     };
 
-    Subscription subscription = Subscriptions.create(new Action0() {
-      @Override public void call() {
+    subscriber.add(new MainThreadSubscription() {
+      @Override protected void onUnsubscribe() {
         view.setOnRatingBarChangeListener(null);
       }
     });
-    subscriber.add(subscription);
 
     view.setOnRatingBarChangeListener(listener);
   }
