@@ -3,12 +3,10 @@ package com.jakewharton.rxbinding.view;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action0;
 import rx.functions.Func1;
-import rx.subscriptions.Subscriptions;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
@@ -37,12 +35,11 @@ final class ViewTouchEventOnSubscribe implements Observable.OnSubscribe<ViewTouc
       }
     };
 
-    Subscription subscription = Subscriptions.create(new Action0() {
-      @Override public void call() {
+    subscriber.add(new MainThreadSubscription() {
+      @Override protected void onUnsubscribe() {
         view.setOnTouchListener(null);
       }
     });
-    subscriber.add(subscription);
 
     view.setOnTouchListener(listener);
   }

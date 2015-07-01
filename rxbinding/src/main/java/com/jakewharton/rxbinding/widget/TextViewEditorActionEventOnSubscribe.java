@@ -2,12 +2,10 @@ package com.jakewharton.rxbinding.widget;
 
 import android.view.KeyEvent;
 import android.widget.TextView;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action0;
 import rx.functions.Func1;
-import rx.subscriptions.Subscriptions;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
@@ -38,12 +36,11 @@ final class TextViewEditorActionEventOnSubscribe
       }
     };
 
-    Subscription subscription = Subscriptions.create(new Action0() {
-      @Override public void call() {
+    subscriber.add(new MainThreadSubscription() {
+      @Override protected void onUnsubscribe() {
         view.setOnEditorActionListener(null);
       }
     });
-    subscriber.add(subscription);
 
     view.setOnEditorActionListener(listener);
   }

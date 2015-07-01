@@ -2,11 +2,9 @@ package com.jakewharton.rxbinding.widget;
 
 import android.database.DataSetObserver;
 import android.widget.Adapter;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
-import com.jakewharton.rxbinding.internal.AndroidSubscriptions;
-import rx.functions.Action0;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
@@ -29,12 +27,11 @@ final class AdapterDataChangeOnSubscribe<T extends Adapter>
       }
     };
 
-    Subscription subscription = AndroidSubscriptions.unsubscribeOnMainThread(new Action0() {
-      @Override public void call() {
+    subscriber.add(new MainThreadSubscription() {
+      @Override protected void onUnsubscribe() {
         adapter.unregisterDataSetObserver(observer);
       }
     });
-    subscriber.add(subscription);
 
     adapter.registerDataSetObserver(observer);
   }
