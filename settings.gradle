@@ -2,3 +2,6 @@ rootProject.name = 'rxbinding-root'
 
 include ':rxbinding'
 include ':rxbinding-kotlin'
+
+include ':rxbinding-support-v4'
+include ':rxbinding-support-v4-kotlin'

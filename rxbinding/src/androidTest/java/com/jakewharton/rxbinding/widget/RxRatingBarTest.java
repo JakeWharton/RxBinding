@@ -26,7 +26,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  RatingBar view;
+  private RatingBar view;
 
   @Before public void setUp() {
     view = activityRule.getActivity().ratingBar;
