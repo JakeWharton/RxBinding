@@ -8,6 +8,13 @@ subprojects {
   repositories {
     mavenCentral()
   }
+
+  // The default 'assemble' task only applies to normal variants. Add test variants as well.
+  afterEvaluate {
+    android.testVariants.all { variant ->
+      tasks.getByName('assemble').dependsOn variant.assemble
+    }
+  }
 }
 
 ext {
@@ -16,12 +23,18 @@ ext {
   compileSdkVersion = 22
   buildToolsVersion = '22.0.1'
 
-  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.200'
-  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:0.12.200'
+  ci = 'true'.equals(System.getenv('CI'))
 
-  supportAnnotations = 'com.android.support:support-annotations:22.1.0'
+  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.613'
+  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:0.12.613'
+
+  supportAnnotations = 'com.android.support:support-annotations:22.2.0'
+  supportV4 = 'com.android.support:support-v4:22.2.0'
+
   supportTestRunner = 'com.android.support.test:runner:0.3'
   supportTestRules = 'com.android.support.test:rules:0.3'
+  supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2'
+  supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2'
   rxJava = 'io.reactivex:rxjava:1.0.12'
   rxAndroid = 'io.reactivex:rxandroid:0.25.0'
   junit = 'junit:junit:4.12'

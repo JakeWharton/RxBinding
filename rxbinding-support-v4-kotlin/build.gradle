@@ -1,19 +1,16 @@
 buildscript {
   dependencies {
     classpath rootProject.ext.androidPlugin
+    classpath rootProject.ext.kotlinPlugin
   }
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 dependencies {
-  compile rootProject.ext.rxJava
-  compile rootProject.ext.supportAnnotations
-
-  androidTestCompile rootProject.ext.supportTestRunner
-  androidTestCompile rootProject.ext.supportTestRules
-  androidTestCompile rootProject.ext.rxAndroid
-  androidTestCompile rootProject.ext.truth
+  compile project(':rxbinding-support-v4')
+  compile rootProject.ext.kotlinStdlib
 }
 
 android {
@@ -22,8 +19,6 @@ android {
 
   defaultConfig {
     minSdkVersion rootProject.ext.minSdkVersion
-
-    testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
   }
 
   compileOptions {
@@ -40,15 +35,7 @@ android {
     textOutput 'stdout'
   }
 
-  buildTypes {
-    debug {
-      testCoverageEnabled true
-    }
-  }
-
-  packagingOptions {
-    exclude 'LICENSE.txt'
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
   }
 }
-
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

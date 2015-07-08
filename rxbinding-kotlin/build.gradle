@@ -13,13 +13,13 @@ dependencies {
   compile rootProject.ext.kotlinStdlib
 }
 
-def isCi() {
-  return 'true'.equals(System.getenv('CI'))
-}
-
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+  }
 
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
@@ -27,7 +27,7 @@ android {
   }
 
   dexOptions {
-    preDexLibraries = !isCi()
+    preDexLibraries = !rootProject.ext.ci
   }
 
   lintOptions {
