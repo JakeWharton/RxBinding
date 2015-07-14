@@ -34,13 +34,7 @@ public class RxSearchView {
 
     public static Observable<? extends CharSequence> queryTextChanges(SearchView view) {
         checkNotNull(view, "view == null");
-        return RxSearchView.queryTextEvents(view)
-                .map(new Func1<SearchViewQueryTextEvent, CharSequence>() {
-                    @Override
-                    public CharSequence call(SearchViewQueryTextEvent searchViewQueryTextEvent) {
-                        return searchViewQueryTextEvent.queryText();
-                    }
-                });
+        return Observable.create(new SearchViewQueryTextChangesOnSubscribe(view));
     }
 
     /**
