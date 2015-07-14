@@ -12,7 +12,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link SearchView}.
  */
-public class RxSearchView {
+public final class RxSearchView {
     /**
      * Create an observable of {@linkplain SearchViewQueryTextEvent query text events}
      * on {@code view}.
