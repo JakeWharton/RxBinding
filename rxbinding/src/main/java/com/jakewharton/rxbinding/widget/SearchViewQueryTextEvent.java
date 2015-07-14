@@ -5,7 +5,7 @@ import android.widget.SearchView;
 
 import com.jakewharton.rxbinding.view.ViewEvent;
 
-public class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
+public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
     private final CharSequence queryText;
     private final boolean submitted;
 
