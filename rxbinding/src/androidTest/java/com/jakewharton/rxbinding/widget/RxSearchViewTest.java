@@ -33,15 +33,15 @@ public final class RxSearchViewTest {
         searchView.setQuery("Initial", false);
         RecordingObserver<CharSequence> o = new RecordingObserver<>();
         Subscription subscription = RxSearchView.queryTextChanges(searchView).subscribe(o);
-        assertThat(o.takeNext().toString().equals("Initial"));
+        assertThat(o.takeNext().toString()).isEqualTo("Initial");
 
         searchView.setQuery("H", false);
-        assertThat(o.takeNext().toString().equals("H"));
+        assertThat(o.takeNext().toString()).isEqualTo("H");
         searchView.setQuery("He", false);
-        assertThat(o.takeNext().toString().equals("He"));
+        assertThat(o.takeNext().toString()).isEqualTo("He");
 
         searchView.setQuery(null, false); // Internally coerced to empty string.
-        assertThat(o.takeNext().toString().equals(""));
+        assertThat(o.takeNext().toString()).isEmpty();
 
         subscription.unsubscribe();
 
@@ -55,7 +55,8 @@ public final class RxSearchViewTest {
 
         searchView.setQuery("a submitted query", true);
         SearchViewQueryTextEvent event = o.takeNext();
-        assertThat(event.queryText().equals("a submitted query") && event.isSubmitted());
+        assertThat(event.queryText().toString()).isEqualTo("a submitted query");
+        assertThat(event.isSubmitted()).isTrue();
 
         subscription.unsubscribe();
 
@@ -73,10 +74,10 @@ public final class RxSearchViewTest {
 
     @Test @UiThreadTest public void query() {
         RxSearchView.query(searchView, false).call("Hey");
-        assertThat(searchView.getQuery().equals("Hey"));
+        assertThat(searchView.getQuery().toString()).isEqualTo("Hey");
 
         RxSearchView.query(searchView, true).call("Bye");
-        assertThat(searchView.getQuery().equals("Bye"));
+        assertThat(searchView.getQuery().toString()).isEqualTo("Bye");
     }
 
     @Test @UiThreadTest public void queryTextEventNotSubmitted() {
@@ -85,7 +86,8 @@ public final class RxSearchViewTest {
 
         searchView.setQuery("q", false);
         SearchViewQueryTextEvent event = o.takeNext();
-        assertThat(event.queryText().equals("q") && !event.isSubmitted());
+        assertThat(event.queryText().toString()).isEqualTo("q");
+        assertThat(event.isSubmitted()).isFalse();
         o.assertNoMoreEvents();
     }
 
@@ -96,10 +98,12 @@ public final class RxSearchViewTest {
         searchView.setQuery("q", true);
         // Text change event:
         SearchViewQueryTextEvent event = o.takeNext();
-        assertThat(event.queryText().equals("q") && !event.isSubmitted());
+        assertThat(event.queryText().toString()).isEqualTo("q");
+        assertThat(event.isSubmitted()).isFalse();
         // Submission event:
         SearchViewQueryTextEvent event1 = o.takeNext();
-        assertThat(event1.queryText().equals("q") && event1.isSubmitted());
+        assertThat(event1.queryText().toString()).isEqualTo("q");
+        assertThat(event1.isSubmitted()).isTrue();
     }
 
 }
