@@ -9,12 +9,18 @@ public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
     private final CharSequence queryText;
     private final boolean submitted;
 
-    protected SearchViewQueryTextEvent(@NonNull SearchView view,
-                                       @NonNull CharSequence queryText,
-                                       boolean submitted) {
+    private SearchViewQueryTextEvent(@NonNull SearchView view,
+                                     @NonNull CharSequence queryText,
+                                     boolean submitted) {
         super(view);
         this.queryText = queryText;
         this.submitted = submitted;
+    }
+
+    public static SearchViewQueryTextEvent create(@NonNull SearchView view,
+                                                  @NonNull CharSequence queryText,
+                                                  boolean submitted) {
+        return new SearchViewQueryTextEvent(view, queryText, submitted);
     }
 
     public CharSequence queryText() {

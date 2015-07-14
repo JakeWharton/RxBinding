@@ -34,7 +34,7 @@ final class SearchViewQueryTextEventsOnSubscribe implements Observable.OnSubscri
             @Override
             public boolean onQueryTextChange(String s) {
                 if (sendQueryTextChanges && !subscriber.isUnsubscribed()) {
-                    subscriber.onNext(new SearchViewQueryTextEvent(view, s, false));
+                    subscriber.onNext(SearchViewQueryTextEvent.create(view, s, false));
                     return true;
                 }
                 return false;
@@ -43,7 +43,7 @@ final class SearchViewQueryTextEventsOnSubscribe implements Observable.OnSubscri
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (sendQueryTextSubmissions && !subscriber.isUnsubscribed()) {
-                    subscriber.onNext(new SearchViewQueryTextEvent(view, view.getQuery(), true));
+                    subscriber.onNext(SearchViewQueryTextEvent.create(view, view.getQuery(), true));
                     return true;
                 }
                 return false;
@@ -61,7 +61,7 @@ final class SearchViewQueryTextEventsOnSubscribe implements Observable.OnSubscri
         view.setOnQueryTextListener(watcher);
 
         // Send out the initial value.
-        subscriber.onNext(new SearchViewQueryTextEvent(view, view.getQuery(), false));
+        subscriber.onNext(SearchViewQueryTextEvent.create(view, view.getQuery(), false));
     }
 
 }
