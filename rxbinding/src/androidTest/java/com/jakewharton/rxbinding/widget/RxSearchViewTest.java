@@ -84,6 +84,8 @@ public final class RxSearchViewTest {
         RecordingObserver<SearchViewQueryTextEvent> o = new RecordingObserver<>();
         Subscription subscription = RxSearchView.queryTextEvents(searchView).subscribe(o);
 
+        assertThat(o.takeNext().queryText().toString()).isEmpty();
+
         searchView.setQuery("q", false);
         SearchViewQueryTextEvent event = o.takeNext();
         assertThat(event.queryText().toString()).isEqualTo("q");
@@ -94,6 +96,8 @@ public final class RxSearchViewTest {
     @Test @UiThreadTest public void queryTextEventSubmitted() {
         RecordingObserver<SearchViewQueryTextEvent> o = new RecordingObserver<>();
         Subscription subscription = RxSearchView.queryTextEvents(searchView).subscribe(o);
+
+        assertThat(o.takeNext().queryText().toString()).isEmpty();
 
         searchView.setQuery("q", true);
         // Text change event:

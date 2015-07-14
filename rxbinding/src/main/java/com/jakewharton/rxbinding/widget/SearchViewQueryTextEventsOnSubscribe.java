@@ -1,6 +1,5 @@
 package com.jakewharton.rxbinding.widget;
 
-import android.text.TextUtils;
 import android.widget.SearchView;
 
 import com.jakewharton.rxbinding.internal.MainThreadSubscription;
@@ -62,10 +61,7 @@ final class SearchViewQueryTextEventsOnSubscribe implements Observable.OnSubscri
         view.setOnQueryTextListener(watcher);
 
         // Send out the initial value.
-        CharSequence q = view.getQuery();
-        if (!TextUtils.isEmpty(q)) {
-            subscriber.onNext(new SearchViewQueryTextEvent(view, q, false));
-        }
+        subscriber.onNext(new SearchViewQueryTextEvent(view, view.getQuery(), false));
     }
 
 }
