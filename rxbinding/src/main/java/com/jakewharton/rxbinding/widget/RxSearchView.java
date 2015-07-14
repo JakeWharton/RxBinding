@@ -72,4 +72,7 @@ public final class RxSearchView {
         };
     }
 
+    private RxSearchView() {
+        throw new AssertionError("No instances.");
+    }
 }
