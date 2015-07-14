@@ -43,7 +43,7 @@ final class SearchViewQueryTextEventsOnSubscribe implements Observable.OnSubscri
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (sendQueryTextSubmissions && !subscriber.isUnsubscribed()) {
-                    subscriber.onNext(new SearchViewQueryTextEvent(view, view.getQuery(), true ));
+                    subscriber.onNext(new SearchViewQueryTextEvent(view, view.getQuery(), true));
                     return true;
                 }
                 return false;
