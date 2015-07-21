@@ -15,22 +15,16 @@ public class RxBindingTestRunner extends AndroidJUnitRunner {
   private PowerManager.WakeLock wakeLock;
 
   @Override public void onStart() {
-    runOnMainSync(new Runnable() {
-      @SuppressWarnings("deprecation") // We don't care about deprecation here.
-      @Override public void run() {
-        Context app = getTargetContext().getApplicationContext();
+      Context app = getTargetContext().getApplicationContext();
 
-        String name = RxBindingTestRunner.class.getSimpleName();
-        // Unlock the device so that the tests can input keystrokes.
-        KeyguardManager keyguard = (KeyguardManager) app.getSystemService(KEYGUARD_SERVICE);
-        keyguard.newKeyguardLock(name).disableKeyguard();
-        // Wake up the screen.
-        PowerManager power = (PowerManager) app.getSystemService(POWER_SERVICE);
-        wakeLock =
-            power.newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, name);
-        wakeLock.acquire();
-      }
-    });
+      String name = RxBindingTestRunner.class.getSimpleName();
+      // Unlock the device so that the tests can input keystrokes.
+      KeyguardManager keyguard = (KeyguardManager) app.getSystemService(KEYGUARD_SERVICE);
+      keyguard.newKeyguardLock(name).disableKeyguard();
+      // Wake up the screen.
+      PowerManager power = (PowerManager) app.getSystemService(POWER_SERVICE);
+      wakeLock = power.newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, name);
+      wakeLock.acquire();
 
     super.onStart();
   }
