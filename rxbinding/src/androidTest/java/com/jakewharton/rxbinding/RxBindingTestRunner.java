@@ -12,6 +12,8 @@ import static android.os.PowerManager.FULL_WAKE_LOCK;
 import static android.os.PowerManager.ON_AFTER_RELEASE;
 
 public class RxBindingTestRunner extends AndroidJUnitRunner {
+  private PowerManager.WakeLock wakeLock;
+
   @Override public void onStart() {
     runOnMainSync(new Runnable() {
       @SuppressWarnings("deprecation") // We don't care about deprecation here.
@@ -24,11 +26,18 @@ public class RxBindingTestRunner extends AndroidJUnitRunner {
         keyguard.newKeyguardLock(name).disableKeyguard();
         // Wake up the screen.
         PowerManager power = (PowerManager) app.getSystemService(POWER_SERVICE);
-        power.newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, name)
-            .acquire();
+        wakeLock =
+            power.newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, name);
+        wakeLock.acquire();
       }
     });
 
     super.onStart();
+  }
+
+  @Override public void onDestroy() {
+    super.onDestroy();
+
+    wakeLock.release();
   }
 }
