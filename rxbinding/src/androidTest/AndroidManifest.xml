@@ -2,6 +2,10 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jakewharton.rxbinding">
+
+  <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+
   <application>
     <activity android:name=".widget.RxAdapterViewTestActivity"/>
     <activity android:name=".widget.RxRatingBarTestActivity"/>
