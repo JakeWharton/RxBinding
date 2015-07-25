@@ -7,7 +7,6 @@ import android.support.test.espresso.IdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;

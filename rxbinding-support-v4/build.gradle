@@ -10,6 +10,7 @@ dependencies {
   compile project(':rxbinding')
   compile rootProject.ext.supportV4
 
+  androidTestCompile project(':testing-utils')
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules
   androidTestCompile rootProject.ext.supportTestEspresso
@@ -25,7 +26,7 @@ android {
   defaultConfig {
     minSdkVersion rootProject.ext.minSdkVersion
 
-    testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
   }
 
   compileOptions {

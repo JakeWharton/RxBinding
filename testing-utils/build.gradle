@@ -7,14 +7,9 @@ buildscript {
 apply plugin: 'com.android.library'
 
 dependencies {
-  compile rootProject.ext.rxJava
-  compile rootProject.ext.supportAnnotations
-
-  androidTestCompile project(':testing-utils')
-  androidTestCompile rootProject.ext.supportTestRunner
-  androidTestCompile rootProject.ext.supportTestRules
-  androidTestCompile rootProject.ext.rxAndroid
-  androidTestCompile rootProject.ext.truth
+  compile rootProject.ext.supportTestRunner
+  compile rootProject.ext.rxAndroid
+  compile rootProject.ext.truth
 }
 
 android {
@@ -23,8 +18,6 @@ android {
 
   defaultConfig {
     minSdkVersion rootProject.ext.minSdkVersion
-
-    testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
   }
 
   compileOptions {
@@ -39,17 +32,10 @@ android {
   lintOptions {
     textReport true
     textOutput 'stdout'
-  }
-
-  buildTypes {
-    debug {
-      testCoverageEnabled true
-    }
+    disable 'InvalidPackage'
   }
 
   packagingOptions {
     exclude 'LICENSE.txt'
   }
 }
-
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
