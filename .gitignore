@@ -1,6 +1,7 @@
 # IntelliJ IDEA
 .idea
 *.iml
+annotations
 
 # Gradle
 .gradle
