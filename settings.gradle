@@ -5,3 +5,5 @@ include ':rxbinding-kotlin'
 
 include ':rxbinding-support-v4'
 include ':rxbinding-support-v4-kotlin'
+
+include ':testing-utils'
