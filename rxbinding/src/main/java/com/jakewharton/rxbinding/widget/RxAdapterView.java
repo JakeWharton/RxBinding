@@ -1,8 +1,11 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.widget.Adapter;
 import android.widget.AdapterView;
-import rx.Observable;
+
 import com.jakewharton.rxbinding.internal.Functions;
+
+import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -18,7 +21,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Observable<Integer> itemSelections(AdapterView<?> view) {
+  public static <T extends Adapter> Observable<Integer> itemSelections(AdapterView<T> view) {
     return Observable.create(new AdapterViewItemSelectionOnSubscribe(view));
   }
 
@@ -28,7 +31,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Observable<AdapterViewSelectionEvent> selectionEvents(AdapterView<?> view) {
+  public static <T extends Adapter> Observable<AdapterViewSelectionEvent> selectionEvents(AdapterView<T> view) {
     return Observable.create(new AdapterViewSelectionOnSubscribe(view));
   }
 
@@ -38,7 +41,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Observable<Integer> itemClicks(AdapterView<?> view) {
+  public static <T extends Adapter> Observable<Integer> itemClicks(AdapterView<T> view) {
     return Observable.create(new AdapterViewItemClickOnSubscribe(view));
   }
 
@@ -48,7 +51,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Observable<AdapterViewItemClickEvent> itemClickEvents(AdapterView<?> view) {
+  public static <T extends Adapter> Observable<AdapterViewItemClickEvent> itemClickEvents(AdapterView<T> view) {
     return Observable.create(new AdapterViewItemClickEventOnSubscribe(view));
   }
 
@@ -58,7 +61,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Observable<Integer> itemLongClicks(AdapterView<?> view) {
+  public static <T extends Adapter> Observable<Integer> itemLongClicks(AdapterView<T> view) {
     return itemLongClicks(view, Functions.FUNC0_ALWAYS_TRUE);
   }
 
@@ -71,7 +74,7 @@ public final class RxAdapterView {
    * @param handled Function invoked each occurrence to determine the return value of the
    * underlying {@link AdapterView.OnItemLongClickListener}.
    */
-  public static Observable<Integer> itemLongClicks(AdapterView<?> view, Func0<Boolean> handled) {
+  public static <T extends Adapter> Observable<Integer> itemLongClicks(AdapterView<T> view, Func0<Boolean> handled) {
     return Observable.create(new AdapterViewItemLongClickOnSubscribe(view, handled));
   }
 
@@ -81,7 +84,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(AdapterView<?> view) {
+  public static <T extends Adapter> Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(AdapterView<T> view) {
     return itemLongClickEvents(view, Functions.FUNC1_ALWAYS_TRUE);
   }
 
@@ -94,7 +97,7 @@ public final class RxAdapterView {
    * @param handled Function invoked with each value to determine the return value of the
    * underlying {@link AdapterView.OnItemLongClickListener}.
    */
-  public static Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(AdapterView<?> view,
+  public static <T extends Adapter> Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(AdapterView<T> view,
       Func1<? super AdapterViewItemLongClickEvent, Boolean> handled) {
     return Observable.create(new AdapterViewItemLongClickEventOnSubscribe(view, handled));
   }
@@ -105,7 +108,7 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  public static Action1<? super Integer> selection(final AdapterView<?> view) {
+  public static <T extends Adapter> Action1<? super Integer> selection(final AdapterView<T> view) {
     return new Action1<Integer>() {
       @Override public void call(Integer position) {
         view.setSelection(position);
