@@ -39,3 +39,5 @@ android {
     main.java.srcDirs += 'src/main/kotlin'
   }
 }
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
