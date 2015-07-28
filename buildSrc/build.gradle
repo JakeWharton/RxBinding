@@ -1,0 +1,14 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'com.android.tools.build:gradle:1.2.3'
+    compile 'io.reactivex:rxjava:1.0.13'
+    compile 'io.reactivex:rxgroovy:1.0.0'
+    compile 'com.github.javaparser:javaparser-core:2.1.0'
+}
