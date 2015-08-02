@@ -37,7 +37,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
     Subscription subscription = RxRatingBar.ratingChanges(view) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(0f);
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -68,7 +68,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
     Subscription subscription = RxRatingBar.ratingChangeEvents(view) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(RatingBarChangeEvent.create(view, 0f, false));
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {

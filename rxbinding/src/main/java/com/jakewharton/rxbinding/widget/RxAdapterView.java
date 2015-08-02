@@ -16,10 +16,13 @@ import rx.functions.Func1;
  */
 public final class RxAdapterView {
   /**
-   * Create an observable of the selected position of {@code view}.
+   * Create an observable of the selected position of {@code view}. If nothing is selected,
+   * {@link AdapterView#INVALID_POSITION} will be emitted.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static <T extends Adapter> Observable<Integer> itemSelections(AdapterView<T> view) {
     return Observable.create(new AdapterViewItemSelectionOnSubscribe(view));
@@ -30,6 +33,8 @@ public final class RxAdapterView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static <T extends Adapter> Observable<AdapterViewSelectionEvent> selectionEvents(AdapterView<T> view) {
     return Observable.create(new AdapterViewSelectionOnSubscribe(view));

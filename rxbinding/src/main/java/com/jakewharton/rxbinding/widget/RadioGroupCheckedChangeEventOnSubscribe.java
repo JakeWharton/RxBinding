@@ -34,5 +34,7 @@ final class RadioGroupCheckedChangeEventOnSubscribe
 
     view.setOnCheckedChangeListener(listener);
 
+    // Emit initial value.
+    subscriber.onNext(RadioGroupCheckedChangeEvent.create(view, view.getCheckedRadioButtonId()));
   }
 }

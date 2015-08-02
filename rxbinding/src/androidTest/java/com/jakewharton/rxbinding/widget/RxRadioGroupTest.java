@@ -37,7 +37,7 @@ public final class RxRadioGroupTest {
   @Test @UiThreadTest public void checkedChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     Subscription subscription = RxRadioGroup.checkedChanges(view).subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(-1);
 
     view.check(1);
     assertThat(o.takeNext()).isEqualTo(1);
@@ -57,7 +57,7 @@ public final class RxRadioGroupTest {
   @Test @UiThreadTest public void checkedChangeEvents() {
     RecordingObserver<RadioGroupCheckedChangeEvent> o = new RecordingObserver<>();
     Subscription subscription = RxRadioGroup.checkedChangeEvents(view).subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(RadioGroupCheckedChangeEvent.create(view, -1));
 
     view.check(1);
     assertThat(o.takeNext()).isEqualTo(RadioGroupCheckedChangeEvent.create(view, 1));

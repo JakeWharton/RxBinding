@@ -42,7 +42,7 @@ final class TextViewTextEventOnSubscribe
 
     view.addTextChangedListener(watcher);
 
-    // Send out the initial value.
+    // Emit initial value.
     subscriber.onNext(TextViewTextChangeEvent.create(view, view.getText(), 0, 0, 0));
   }
 }

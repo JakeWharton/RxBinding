@@ -23,7 +23,7 @@ public final class RxAdapterTest {
   @Test @UiThreadTest public void dataChanges() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     Subscription subscription = RxAdapter.dataChanges(adapter).subscribe(o);
-    o.assertNoMoreEvents(); // No initial value.
+    assertThat(o.takeNext()).isSameAs(adapter);
 
     adapter.notifyDataSetChanged();
     assertThat(o.takeNext()).isSameAs(adapter);

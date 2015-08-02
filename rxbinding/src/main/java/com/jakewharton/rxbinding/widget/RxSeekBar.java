@@ -9,6 +9,8 @@ public final class RxSeekBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static Observable<Integer> changes(SeekBar view) {
     return Observable.create(new SeekBarChangeOnSubscribe(view));
@@ -19,6 +21,8 @@ public final class RxSeekBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static Observable<SeekBarChangeEvent> changeEvents(SeekBar view) {
     return Observable.create(new SeekBarChangeEventOnSubscribe(view));

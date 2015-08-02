@@ -6,6 +6,7 @@ import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
 
+import static android.widget.AdapterView.INVALID_POSITION;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewSelectionOnSubscribe
@@ -41,5 +42,16 @@ final class AdapterViewSelectionOnSubscribe
     });
 
     view.setOnItemSelectedListener(listener);
+
+    // Emit initial value.
+    int selectedPosition = view.getSelectedItemPosition();
+    if (selectedPosition == INVALID_POSITION) {
+      subscriber.onNext(AdapterViewNothingSelectionEvent.create(view));
+    } else {
+      View selectedView = view.getSelectedView();
+      long selectedId = view.getSelectedItemId();
+      subscriber.onNext(
+          AdapterViewItemSelectionEvent.create(view, selectedView, selectedPosition, selectedId));
+    }
   }
 }

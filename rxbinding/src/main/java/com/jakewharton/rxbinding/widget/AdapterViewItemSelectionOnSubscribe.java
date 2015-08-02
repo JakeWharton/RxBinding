@@ -6,6 +6,7 @@ import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
 
+import static android.widget.AdapterView.INVALID_POSITION;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewItemSelectionOnSubscribe implements Observable.OnSubscribe<Integer> {
@@ -27,6 +28,9 @@ final class AdapterViewItemSelectionOnSubscribe implements Observable.OnSubscrib
       }
 
       @Override public void onNothingSelected(AdapterView<?> parent) {
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(INVALID_POSITION);
+        }
       }
     };
 
@@ -37,5 +41,8 @@ final class AdapterViewItemSelectionOnSubscribe implements Observable.OnSubscrib
     });
 
     view.setOnItemSelectedListener(listener);
+
+    // Emit initial value.
+    subscriber.onNext(view.getSelectedItemPosition());
   }
 }

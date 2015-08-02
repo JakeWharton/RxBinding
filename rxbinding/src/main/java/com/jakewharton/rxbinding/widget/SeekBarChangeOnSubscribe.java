@@ -38,5 +38,8 @@ final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> 
     });
 
     view.setOnSeekBarChangeListener(listener);
+
+    // Emit initial value.
+    subscriber.onNext(view.getProgress());
   }
 }

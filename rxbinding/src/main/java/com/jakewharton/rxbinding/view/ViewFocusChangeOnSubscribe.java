@@ -33,7 +33,7 @@ final class ViewFocusChangeOnSubscribe implements Observable.OnSubscribe<Boolean
 
     view.setOnFocusChangeListener(listener);
 
-    // Send out the initial value.
+    // Emit initial value.
     subscriber.onNext(view.hasFocus());
   }
 }
