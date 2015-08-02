@@ -11,7 +11,7 @@ import static android.os.PowerManager.ACQUIRE_CAUSES_WAKEUP;
 import static android.os.PowerManager.FULL_WAKE_LOCK;
 import static android.os.PowerManager.ON_AFTER_RELEASE;
 
-public class RxBindingTestRunner extends AndroidJUnitRunner {
+public final class RxBindingTestRunner extends AndroidJUnitRunner {
   private PowerManager.WakeLock wakeLock;
 
   @Override public void onStart() {
