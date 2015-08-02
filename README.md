@@ -1,7 +1,7 @@
 RxBinding
 =========
 
-RxJava binding APIs for Android's UI widgets.
+RxJava binding APIs for Android UI widgets from the platform and support libraries.
 
 
 
@@ -9,7 +9,7 @@ Download
 --------
 
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding:0.1.0-SNAPSHOT'
+compile 'com.jakewharton.rxbinding:rxbinding:0.1.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
