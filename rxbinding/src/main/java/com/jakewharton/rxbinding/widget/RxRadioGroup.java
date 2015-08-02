@@ -12,7 +12,8 @@ public final class RxRadioGroup {
    * to free this reference.
    */
   public static Observable<Integer> checkedChanges(RadioGroup view) {
-    return Observable.create(new RadioGroupCheckedChangeOnSubscribe(view));
+    return Observable.create(new RadioGroupCheckedChangeOnSubscribe(view))
+        .distinctUntilChanged(); // Radio group can fire non-changes.
   }
 
   /**
@@ -22,7 +23,8 @@ public final class RxRadioGroup {
    * to free this reference.
    */
   public static Observable<RadioGroupCheckedChangeEvent> checkedChangeEvents(RadioGroup view) {
-    return Observable.create(new RadioGroupCheckedChangeEventOnSubscribe(view));
+    return Observable.create(new RadioGroupCheckedChangeEventOnSubscribe(view))
+        .distinctUntilChanged(); // Radio group can fire non-changes.
   }
 
   /**

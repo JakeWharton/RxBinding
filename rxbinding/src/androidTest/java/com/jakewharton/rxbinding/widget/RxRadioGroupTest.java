@@ -36,9 +36,7 @@ public final class RxRadioGroupTest {
 
   @Test @UiThreadTest public void checkedChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxRadioGroup.checkedChanges(view)
-        .distinctUntilChanged() // Radio group changes fire twice!
-        .subscribe(o);
+    Subscription subscription = RxRadioGroup.checkedChanges(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.check(1);
@@ -58,9 +56,7 @@ public final class RxRadioGroupTest {
 
   @Test @UiThreadTest public void checkedChangeEvents() {
     RecordingObserver<RadioGroupCheckedChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRadioGroup.checkedChangeEvents(view)
-        .distinctUntilChanged() // Radio group changes fire twice!
-        .subscribe(o);
+    Subscription subscription = RxRadioGroup.checkedChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.check(1);
