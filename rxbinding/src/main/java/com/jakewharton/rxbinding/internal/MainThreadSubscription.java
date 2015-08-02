@@ -8,6 +8,7 @@ import rx.Subscription;
 public abstract class MainThreadSubscription implements Subscription, Runnable {
   private static final Handler mainThread = new Handler(Looper.getMainLooper());
 
+  @SuppressWarnings("unused") // Updated by 'unsubscribedUpdater' object.
   private volatile int unsubscribed;
   private static final AtomicIntegerFieldUpdater<MainThreadSubscription> unsubscribedUpdater =
       AtomicIntegerFieldUpdater.newUpdater(MainThreadSubscription.class, "unsubscribed");
