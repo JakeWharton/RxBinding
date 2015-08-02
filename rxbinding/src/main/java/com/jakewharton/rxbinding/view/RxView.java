@@ -118,6 +118,8 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable uses {@link View#setOnFocusChangeListener} to observe
    * focus change. Only one observable can be used for a view at a time.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static Observable<Boolean> focusChanges(View view) {
     checkNotNull(view, "view == null");
@@ -133,6 +135,8 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable uses {@link View#setOnFocusChangeListener} to observe
    * focus change. Only one observable can be used for a view at a time.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static Observable<ViewFocusChangeEvent> focusChangeEvents(View view) {
     checkNotNull(view, "view == null");

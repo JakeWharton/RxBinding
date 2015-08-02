@@ -32,5 +32,8 @@ final class RatingBarRatingChangeOnSubscribe implements Observable.OnSubscribe<F
     });
 
     view.setOnRatingBarChangeListener(listener);
+
+    // Emit initial value.
+    subscriber.onNext(view.getRating());
   }
 }

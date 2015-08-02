@@ -49,9 +49,10 @@ public final class RxDrawerLayoutTest {
 
   @Test public void drawerOpen() {
     RecordingObserver<Boolean> o = new RecordingObserver<>();
-    Subscription subscription = RxDrawerLayout.drawerOpen(view) //
+    Subscription subscription = RxDrawerLayout.drawerOpen(view, RIGHT) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
+    assertThat(o.takeNext()).isFalse();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {

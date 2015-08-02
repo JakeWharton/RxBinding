@@ -39,7 +39,7 @@ public final class RxAdapterViewTest {
     Subscription subscription = RxAdapterView.itemSelections(spinner)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(0);
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -70,18 +70,22 @@ public final class RxAdapterViewTest {
     Subscription subscription = RxAdapterView.selectionEvents(spinner)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
-    o.assertNoMoreEvents();
+    AdapterViewItemSelectionEvent event1 = (AdapterViewItemSelectionEvent) o.takeNext();
+    assertThat(event1.view()).isSameAs(spinner);
+    assertThat(event1.selectedView()).isNotNull();
+    assertThat(event1.position()).isEqualTo(0);
+    assertThat(event1.id()).isEqualTo(0);
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         spinner.setSelection(2);
       }
     });
-    AdapterViewItemSelectionEvent event = (AdapterViewItemSelectionEvent) o.takeNext();
-    assertThat(event.view()).isSameAs(spinner);
-    assertThat(event.selectedView()).isNotNull();
-    assertThat(event.position()).isEqualTo(2);
-    assertThat(event.id()).isEqualTo(2);
+    AdapterViewItemSelectionEvent event2 = (AdapterViewItemSelectionEvent) o.takeNext();
+    assertThat(event2.view()).isSameAs(spinner);
+    assertThat(event2.selectedView()).isNotNull();
+    assertThat(event2.position()).isEqualTo(2);
+    assertThat(event2.id()).isEqualTo(2);
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {

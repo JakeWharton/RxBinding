@@ -34,7 +34,7 @@ final class ViewFocusChangeEventOnSubscribe
 
     view.setOnFocusChangeListener(listener);
 
-    // Send out the initial value.
+    // Emit initial value.
     subscriber.onNext(ViewFocusChangeEvent.create(view, view.hasFocus()));
   }
 }

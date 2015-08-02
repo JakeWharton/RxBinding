@@ -10,9 +10,11 @@ public final class RxDrawerLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  public static Observable<Boolean> drawerOpen(DrawerLayout view) {
-    return Observable.create(new DrawerLayoutDrawerOpenedOnSubscribe(view));
+  public static Observable<Boolean> drawerOpen(DrawerLayout view, int gravity) {
+    return Observable.create(new DrawerLayoutDrawerOpenedOnSubscribe(view, gravity));
   }
 
   /**

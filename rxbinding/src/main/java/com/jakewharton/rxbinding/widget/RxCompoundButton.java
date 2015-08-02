@@ -19,6 +19,8 @@ public final class RxCompoundButton {
    * <p>
    * <em>Warning:</em> The created observable uses {@link CompoundButton#setOnCheckedChangeListener}
    * to observe checked changes. Only one observable can be used for a view at a time.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static Observable<Boolean> checkedChanges(CompoundButton view) {
     checkNotNull(view, "view == null");
@@ -33,6 +35,8 @@ public final class RxCompoundButton {
    * <p>
    * <em>Warning:</em> The created observable uses {@link CompoundButton#setOnCheckedChangeListener}
    * to observe checked changes. Only one observable can be used for a view at a time.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   public static Observable<CompoundButtonCheckedChangeEvent> checkedChangeEvents(
       CompoundButton view) {

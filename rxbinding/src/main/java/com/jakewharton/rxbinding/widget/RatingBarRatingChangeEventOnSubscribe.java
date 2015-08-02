@@ -33,5 +33,8 @@ final class RatingBarRatingChangeEventOnSubscribe
     });
 
     view.setOnRatingBarChangeListener(listener);
+
+    // Emit initial value.
+    subscriber.onNext(RatingBarChangeEvent.create(view, view.getRating(), false));
   }
 }

@@ -35,7 +35,7 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
 
     view.setOnCheckedChangeListener(listener);
 
-    // Send out the initial value.
+    // Emit initial value.
     subscriber.onNext(CompoundButtonCheckedChangeEvent.create(view, view.isChecked()));
   }
 }

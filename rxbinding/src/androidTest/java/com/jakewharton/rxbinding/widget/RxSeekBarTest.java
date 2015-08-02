@@ -37,7 +37,7 @@ public final class RxSeekBarTest {
     Subscription subscription = RxSeekBar.changes(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(0);
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
     instrumentation.waitForIdleSync();
@@ -63,7 +63,7 @@ public final class RxSeekBarTest {
     Subscription subscription = RxSeekBar.changeEvents(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    o.assertNoMoreEvents();
+    assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
     instrumentation.waitForIdleSync();

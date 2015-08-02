@@ -41,7 +41,7 @@ final class TextViewTextOnSubscribe implements Observable.OnSubscribe<CharSequen
 
     view.addTextChangedListener(watcher);
 
-    // Send out the initial value.
+    // Emit initial value.
     subscriber.onNext(view.getText());
   }
 }
