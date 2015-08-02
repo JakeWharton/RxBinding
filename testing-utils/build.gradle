@@ -10,6 +10,7 @@ dependencies {
   compile rootProject.ext.supportTestRunner
   compile rootProject.ext.rxAndroid
   compile rootProject.ext.truth
+  compile rootProject.ext.supportTestEspresso
 }
 
 android {

@@ -3,12 +3,12 @@ package com.jakewharton.rxbinding.support.v4.widget;
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.IdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
 import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,31 +33,18 @@ public final class RxDrawerLayoutTest {
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private DrawerLayout view;
+  private ViewDirtyIdlingResource viewDirtyIdler;
 
-  @Before public void setUp() throws NoSuchFieldException {
+  @Before public void setUp() {
     RxDrawerLayoutTestActivity activity = activityRule.getActivity();
     view = activity.drawerLayout;
 
-    final View decorView = activity.getWindow().getDecorView();
-    Espresso.registerIdlingResources(new IdlingResource() {
-      private ResourceCallback resourceCallback;
+    viewDirtyIdler = new ViewDirtyIdlingResource(activity);
+    Espresso.registerIdlingResources(viewDirtyIdler);
+  }
 
-      @Override public String getName() {
-        return "view dirty";
-      }
-
-      @Override public boolean isIdleNow() {
-        boolean clean = !decorView.isDirty();
-        if (clean) {
-          resourceCallback.onTransitionToIdle();
-        }
-        return clean;
-      }
-
-      @Override public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
-        this.resourceCallback = resourceCallback;
-      }
-    });
+  @After public void tearDown() {
+    Espresso.unregisterIdlingResources(viewDirtyIdler);
   }
 
   @Test public void drawerOpen() {
