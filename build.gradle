@@ -25,8 +25,8 @@ ext {
 
   ci = 'true'.equals(System.getenv('CI'))
 
-  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.613'
-  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:0.12.613'
+  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230'
+  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:0.12.1230'
 
   supportAnnotations = 'com.android.support:support-annotations:22.2.0'
   supportV4 = 'com.android.support:support-v4:22.2.0'
