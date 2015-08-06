@@ -27,6 +27,8 @@ import java.nio.file.Path
  */
 class KotlinGenTask extends SourceTask {
 
+  private static final String REGEX = "[0-9A-Za-z._]*"
+
   @TaskAction
   def generate(IncrementalTaskInputs inputs) {
     Observable.from(getSource())
@@ -158,7 +160,24 @@ class KotlinGenTask extends SourceTask {
       return doc.replace("<em>", "*")
           .replace("</em>", "*")
           .replace("<p>", "")
+
+          // JavaParser adds a couple spaces to the beginning of these for some reason
           .replace("   *", " *")
+
+          // {@code view} -> `view`
+          .replaceAll(/\{@code ($REGEX)\}/) { String fullmatch, String codeName -> "`$codeName`" }
+
+          // {@link Foo} -> [Foo]
+          .replaceAll(/\{@link ($REGEX)\}/) { String fullmatch, String foo -> "[$foo]" }
+
+          // {@link Foo#bar} -> [Foo.bar]
+          .replaceAll(/\{@link ($REGEX)#($REGEX)\}/) { String fullmatch, String foo, String bar -> "[$foo.$bar]" }
+
+          // {@linkplain Foo baz} -> [baz][Foo]
+          .replaceAll(/\{@linkplain ($REGEX) ($REGEX)\}/) { String fullmatch, String foo, String baz -> "[$baz][$foo]" }
+
+          //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
+          .replaceAll(/\{@linkplain ($REGEX)#($REGEX) ($REGEX)\}/) { String fullmatch, String foo, String bar, String baz -> "[$baz][$foo.$bar]" }
           .trim()
     }
 
