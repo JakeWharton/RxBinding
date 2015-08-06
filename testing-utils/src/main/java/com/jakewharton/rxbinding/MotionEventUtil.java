@@ -5,7 +5,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public final class MotionEventUtil {
-  public static MotionEvent motionEventAtPosition(View view, int action, int position) {
+  public static MotionEvent motionEventAtPosition(View view, int action, int xPercent,
+      int yPercent) {
     // NOTE: This method is not perfect. If you send touch events in a granular nature, you'll
     // see varying results of accuracy depending on the size of the jump.
 
@@ -24,8 +25,8 @@ public final class MotionEventUtil {
     int x2 = x1 + width - paddingLeft - paddingRight;
     int y2 = y1 + height - paddingTop - paddingBottom;
 
-    float x = x1 + ((x2 - x1) * position / 100f);
-    float y = y1 + ((y2 - y1) / 2f);
+    float x = x1 + ((x2 - x1) * xPercent / 100f);
+    float y = y1 + ((y2 - y1) * yPercent / 100f);
 
     long time = SystemClock.uptimeMillis();
     return MotionEvent.obtain(time, time, action, x, y, 0);

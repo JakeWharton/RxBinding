@@ -4,5 +4,6 @@
     package="com.jakewharton.rxbinding.support.v4">
   <application>
     <activity android:name=".widget.RxDrawerLayoutTestActivity"/>
+    <activity android:name=".widget.RxSwipeRefreshLayoutTestActivity"/>
   </application>
 </manifest>

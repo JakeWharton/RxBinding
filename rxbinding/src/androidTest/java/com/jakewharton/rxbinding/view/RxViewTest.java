@@ -186,17 +186,17 @@ public final class RxViewTest {
     Subscription subscription = RxView.touches(view).subscribe(o);
     o.assertNoMoreEvents();
 
-    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0));
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
     MotionEvent event1 = o.takeNext();
     assertThat(event1.getAction()).isEqualTo(ACTION_DOWN);
 
-    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1));
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1, 50));
     MotionEvent event2 = o.takeNext();
     assertThat(event2.getAction()).isEqualTo(ACTION_MOVE);
 
     subscription.unsubscribe();
 
-    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1));
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1, 50));
     o.assertNoMoreEvents();
   }
 
@@ -205,19 +205,19 @@ public final class RxViewTest {
     Subscription subscription = RxView.touchEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
-    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0));
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
     ViewTouchEvent event1 = o.takeNext();
     assertThat(event1.view()).isSameAs(view);
     assertThat(event1.motionEvent().getAction()).isEqualTo(ACTION_DOWN);
 
-    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1));
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1, 50));
     ViewTouchEvent event2 = o.takeNext();
     assertThat(event2.view()).isSameAs(view);
     assertThat(event2.motionEvent().getAction()).isEqualTo(ACTION_MOVE);
 
     subscription.unsubscribe();
 
-    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1));
+    view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1, 50));
     o.assertNoMoreEvents();
   }
 
