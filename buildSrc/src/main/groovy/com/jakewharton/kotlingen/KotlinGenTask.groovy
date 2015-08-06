@@ -216,11 +216,27 @@ class KotlinGenTask extends SourceTask {
 
       String fParams = kParams(true)
       String jParams = kParams(false)
-      String generated =
-              "${comment ? comment : ""}\n" +
-                      "$accessModifier inline fun ${typeParameters ? typeParameters + " " : ""}$extendedClass.${name}($fParams): ${resolveKotlinType(returnType)} = $bindingClass.$name(${jParams ? "this, $jParams" : "this"})"
 
-      return generated
+      StringBuilder builder = new StringBuilder();
+
+      // doc
+      builder.append("${comment ? comment : ""}\n")
+
+      // access modifier and other signature boilerplate
+      builder.append("$accessModifier inline fun ")
+
+      // type params
+      builder.append(typeParameters ? typeParameters + " " : "")
+
+      // return type
+      builder.append("$extendedClass.${name}($fParams): ${resolveKotlinType(returnType)}")
+
+      builder.append(" = ")
+
+      // target method call
+      builder.append("$bindingClass.$name(${jParams ? "this, $jParams" : "this"})")
+
+      return builder.toString()
     }
   }
 
