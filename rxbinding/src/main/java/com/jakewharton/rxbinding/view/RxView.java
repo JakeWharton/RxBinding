@@ -345,7 +345,7 @@ public final class RxView {
 
   /**
    * An action which sets the visibility property of {@code view}. {@code false} values use
-   * {@link View#GONE View.GONE}.
+   * {@code View.GONE}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
@@ -361,8 +361,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    *
-   * @param visibilityWhenFalse Visibility to set on a {@code false} value ({@link View#INVISIBLE
-   * View.INVISIBLE} or {@link View#GONE View.GONE}).
+   * @param visibilityWhenFalse Visibility to set on a {@code false} value ({@code View.INVISIBLE}
+   * or {@code View.GONE}).
    */
   public static Action1<? super Boolean> visibility(final View view,
       final int visibilityWhenFalse) {
