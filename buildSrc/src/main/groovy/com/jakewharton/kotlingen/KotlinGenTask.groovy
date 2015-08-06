@@ -9,12 +9,14 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.body.ModifierSet
 import com.github.javaparser.ast.body.Parameter
-import com.github.javaparser.ast.type.Type
+import com.github.javaparser.ast.type.*
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
+import com.google.common.collect.ImmutableList
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import rx.Observable
+import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -28,6 +30,13 @@ import java.nio.file.Path
 class KotlinGenTask extends SourceTask {
 
   private static final String REGEX = "[0-9A-Za-z._]*"
+
+  /** These are imports of classes that Kotlin advises against using and are replaced in
+   * {@link #resolveKotlinTypeByName}
+   * */
+  private static final List<String> IGNORED_IMPORTS = ImmutableList.of(
+          "java.util.List"
+  )
 
   @TaskAction
   def generate(IncrementalTaskInputs inputs) {
@@ -101,7 +110,11 @@ class KotlinGenTask extends SourceTask {
       builder.append("package $packageName\n\n")
 
       // imports
-      imports.each { im -> builder.append("import $im\n") }
+      imports.each { im ->
+        if (!IGNORED_IMPORTS.contains(im)) {
+          builder.append("import $im\n")
+        }
+      }
 
       // fun!
       methods.each { m -> builder.append("\n${m.generate(bindingClass)}\n") }
@@ -147,12 +160,6 @@ class KotlinGenTask extends SourceTask {
       this.parameters = n.parameters.subList(1, n.parameters.size())
       this.returnType = n.type
       this.typeParameters = typeParams(n.typeParameters)
-
-      // Some notes for future reference...
-      // n.getDeclarationAsString(true, false, true) -> public static Observable<Boolean> drawerOpen(DrawerLayout view)
-      // n.type -> Observable<Boolean> -> type.name && type.typeArgs (list of ReferenceType or WildcardType. Wildcard.sup = super type)
-      // n.modifiers -> ModifierSet.isStatic(modifiers), ModifierSet.getAccessSpecifier
-      // n.parameters -> List<Parameter> ("final int gravity, final DrawerLayout view") -> modifiers, annotations, type, id
     }
 
     /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
@@ -202,14 +209,8 @@ class KotlinGenTask extends SourceTask {
      */
     private String kParams(boolean specifyType) {
       StringBuilder builder = new StringBuilder()
-      parameters.each { p -> builder.append("${p.id.name}${specifyType ? ": " + p.type.toString() : ""}") }
+      parameters.each { p -> builder.append("${p.id.name}${specifyType ? ": " + resolveKotlinType(p.type) : ""}") }
       return builder.toString()
-    }
-
-    private String resolveType() {
-      String resolved = returnType.toString()
-      resolved = resolved.replace("Object", "Any")
-      return resolved
     }
 
     /**
@@ -218,6 +219,7 @@ class KotlinGenTask extends SourceTask {
      * @param bindingClass name of the RxBinding class this is tied to
      */
     public String generate(String bindingClass) {
+      ///////////////
       // STRUCTURE //
       ///////////////
       // Javadoc
@@ -226,15 +228,53 @@ class KotlinGenTask extends SourceTask {
 
       String fParams = kParams(true)
       String jParams = kParams(false)
-      String generated = "${comment ? comment : ""}\n" +
-          "$accessModifier inline fun ${typeParameters ? typeParameters + " " : ""}$extendedClass.${name}($fParams): ${resolveType()} = $bindingClass.$name(${jParams ? "this, $jParams" : "this"})"
+      String generated =
+              "${comment ? comment : ""}\n" +
+                      "$accessModifier inline fun ${typeParameters ? typeParameters + " " : ""}$extendedClass.${name}($fParams): ${resolveKotlinType(returnType)} = $bindingClass.$name(${jParams ? "this, $jParams" : "this"})"
 
-      // Some further ugly hackery to make it play nice with Kotlin syntax
-      generated = generated.replace("? super ", "in ")
-          .replace(": int", ": Int")
-          .replace("in Integer", "in Int")
-          .replace("<Integer>", "<Int>")
       return generated
+    }
+  }
+
+  /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
+  static String resolveKotlinType(Type inputType) {
+    if (inputType instanceof ReferenceType) {
+      return resolveKotlinType((inputType as ReferenceType).type)
+    } else if (inputType instanceof ClassOrInterfaceType) {
+      ClassOrInterfaceType cit = inputType as ClassOrInterfaceType
+      String baseType = resolveKotlinTypeByName(cit.name)
+      if (!cit.typeArgs || cit.typeArgs.isEmpty()) {
+        return baseType
+      }
+      return "$baseType<${cit.typeArgs.collect {Type type -> resolveKotlinType(type)}.join(", ")}>"
+    } else if (inputType instanceof PrimitiveType || inputType instanceof VoidType) {
+      return resolveKotlinTypeByName(inputType.toString())
+    } else if (inputType instanceof WildcardType) {
+      WildcardType wc = inputType as WildcardType
+      return "in ${resolveKotlinType(wc.super)}"
+    } else {
+      throw new NotImplementedException()
+    }
+  }
+
+  static String resolveKotlinTypeByName(String input) {
+    switch (input) {
+      case "Object":
+        return "Any"
+      case "Integer":
+        return "Int"
+      case "int":
+      case "char":
+      case "boolean":
+      case "long":
+      case "float":
+      case "short":
+      case "byte":
+        return input.capitalize()
+      case "List":
+        return "MutableList"
+      default:
+        return input
     }
   }
 }
