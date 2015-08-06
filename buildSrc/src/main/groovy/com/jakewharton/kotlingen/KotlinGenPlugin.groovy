@@ -1,11 +1,8 @@
 package com.jakewharton.kotlingen
 
 import com.android.build.gradle.api.LibraryVariant
-import com.android.builder.model.SourceProvider
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.file.FileTree
-import rx.Observable
 
 /**
  * Plugin for generating kotlin bindings for Rx*.java implementations.

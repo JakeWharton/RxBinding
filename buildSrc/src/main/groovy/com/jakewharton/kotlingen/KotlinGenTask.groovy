@@ -15,7 +15,6 @@ import com.google.common.collect.ImmutableList
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
-import rx.Observable
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 import java.nio.file.Files
@@ -42,9 +41,7 @@ class KotlinGenTask extends SourceTask {
 
   @TaskAction
   def generate(IncrementalTaskInputs inputs) {
-    Observable.from(getSource())
-        .doOnNext { File file -> generateKotlin(file) }
-        .subscribe()
+    getSource().each { generateKotlin(it) }
   }
 
   void generateKotlin(File file) {
