@@ -154,7 +154,7 @@ class KotlinGenTask extends SourceTask {
 
     public KMethod(MethodDeclaration n) {
       this.name = n.name
-      this.comment = cleanUpDoc(n.comment.toString())
+      this.comment = n.comment ? cleanUpDoc(n.comment.toString()) : null
       this.accessModifier = ModifierSet.getAccessSpecifier(n.modifiers).codeRepresenation
       this.extendedClass = n.parameters[0].type.toString()
       this.parameters = n.parameters.subList(1, n.parameters.size())
