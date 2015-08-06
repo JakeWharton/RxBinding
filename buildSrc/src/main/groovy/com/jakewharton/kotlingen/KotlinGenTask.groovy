@@ -29,11 +29,13 @@ import java.nio.file.Path
  */
 class KotlinGenTask extends SourceTask {
 
-  private static final String REGEX = "[0-9A-Za-z._]*"
+  /** Regex used for finding references in javadoc links */
+  private static final String DOC_LINK_REGEX = "[0-9A-Za-z._]*"
 
-  /** These are imports of classes that Kotlin advises against using and are replaced in
+  /**
+   * These are imports of classes that Kotlin advises against using and are replaced in
    * {@link #resolveKotlinTypeByName}
-   * */
+   */
   private static final List<String> IGNORED_IMPORTS = ImmutableList.of(
           "java.util.List"
   )
@@ -172,19 +174,19 @@ class KotlinGenTask extends SourceTask {
           .replace("   *", " *")
 
           // {@code view} -> `view`
-          .replaceAll(/\{@code ($REGEX)\}/) { String fullmatch, String codeName -> "`$codeName`" }
+          .replaceAll(/\{@code ($DOC_LINK_REGEX)\}/) { String fullmatch, String codeName -> "`$codeName`" }
 
           // {@link Foo} -> [Foo]
-          .replaceAll(/\{@link ($REGEX)\}/) { String fullmatch, String foo -> "[$foo]" }
+          .replaceAll(/\{@link ($DOC_LINK_REGEX)\}/) { String fullmatch, String foo -> "[$foo]" }
 
           // {@link Foo#bar} -> [Foo.bar]
-          .replaceAll(/\{@link ($REGEX)#($REGEX)\}/) { String fullmatch, String foo, String bar -> "[$foo.$bar]" }
+          .replaceAll(/\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)\}/) { String fullmatch, String foo, String bar -> "[$foo.$bar]" }
 
           // {@linkplain Foo baz} -> [baz][Foo]
-          .replaceAll(/\{@linkplain ($REGEX) ($REGEX)\}/) { String fullmatch, String foo, String baz -> "[$baz][$foo]" }
+          .replaceAll(/\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\}/) { String fullmatch, String foo, String baz -> "[$baz][$foo]" }
 
           //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
-          .replaceAll(/\{@linkplain ($REGEX)#($REGEX) ($REGEX)\}/) { String fullmatch, String foo, String bar, String baz -> "[$baz][$foo.$bar]" }
+          .replaceAll(/\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\}/) { String fullmatch, String foo, String bar, String baz -> "[$baz][$foo.$bar]" }
           .trim()
     }
 
