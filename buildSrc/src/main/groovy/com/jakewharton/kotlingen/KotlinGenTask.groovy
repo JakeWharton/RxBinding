@@ -102,25 +102,6 @@ class KotlinGenTask extends SourceTask {
 
     /** Generates the code and writes it to the desired directory */
     public void generate(File directory) {
-
-      StringBuilder builder = new StringBuilder()
-
-      // package
-      builder.append("package $packageName\n\n")
-
-      // imports
-      imports.each { im ->
-        if (!IGNORED_IMPORTS.contains(im)) {
-          builder.append("import $im\n")
-        }
-      }
-
-      // fun!
-      methods.each { m -> builder.append("\n${m.generate(bindingClass)}\n") }
-
-      // I'm sure there's a more efficient way to do this...
-      String finalCode = builder.toString()
-
       Path outputDirectory = directory.toPath()
       if (!packageName.isEmpty()) {
         for (String packageComponent : packageName.split("\\.")) {
@@ -130,11 +111,19 @@ class KotlinGenTask extends SourceTask {
       }
 
       Path outputPath = outputDirectory.resolve(fileName)
-      Writer writer = new OutputStreamWriter(Files.newOutputStream(outputPath))
-      try {
-        writer.write(finalCode)
-      } finally {
-        writer.close()
+      outputPath.withWriter { Writer writer ->
+        // Package
+        writer.append("package $packageName\n\n")
+
+        // imports
+        imports.each { im ->
+          if (!IGNORED_IMPORTS.contains(im)) {
+            writer.append("import $im\n")
+          }
+        }
+
+        // fun!
+        methods.each { m -> writer.append("\n${m.generate(bindingClass)}\n") }
       }
     }
   }
