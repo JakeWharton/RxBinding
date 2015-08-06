@@ -39,21 +39,21 @@ public final class RxSeekBarTest {
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(100);
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 0, 50));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(0);
 
     subscription.unsubscribe();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
@@ -65,15 +65,15 @@ public final class RxSeekBarTest {
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarStartChangeEvent.create(seekBar));
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 100, true));
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_UP, 100));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_UP, 100, 50));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarStopChangeEvent.create(seekBar));
 
@@ -87,7 +87,7 @@ public final class RxSeekBarTest {
 
     subscription.unsubscribe();
 
-    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }

@@ -77,8 +77,8 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
     });
     assertThat(o.takeNext()).isEqualTo(RatingBarChangeEvent.create(view, 5f, false));
 
-    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_DOWN, 0));
-    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_UP, 0));
+    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
+    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_UP, 0, 50));
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(RatingBarChangeEvent.create(view, 1f, true));
 
