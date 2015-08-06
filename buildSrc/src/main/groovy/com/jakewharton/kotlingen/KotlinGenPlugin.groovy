@@ -27,19 +27,14 @@ class KotlinGenPlugin implements Plugin<Project> {
       LibraryVariant variant = variants.find { v -> v.name == "release" }
 
       KotlinGenTask genTask = project.task(type: KotlinGenTask, "generateKotlinFor${project.name.capitalize()}") {
-        source = getFilesFromSourceSets(project, variant.getSourceSets()).toBlocking().first()
+        source = variant.getSourceSets().collect { it.getJavaDirectories() }
+        include "**/Rx*.java"
+        exclude "**/internal/*"
       } as KotlinGenTask
 
       genTask.outputs.upToDateWhen { false }
       project.tasks.add(genTask)
     }
-  }
-
-  static Observable<FileTree> getFilesFromSourceSets(Project project, List<SourceProvider> sourceSets) {
-    return Observable.from(sourceSets)
-        .flatMap({ sourceSet -> Observable.from(sourceSet.getJavaDirectories()) })
-        .map({ source -> project.fileTree(dir: source, include: "**/Rx*.java", exclude: "**/internal/*") })
-        .reduce({ FileTree cur, FileTree next -> cur + next })
   }
 
 }

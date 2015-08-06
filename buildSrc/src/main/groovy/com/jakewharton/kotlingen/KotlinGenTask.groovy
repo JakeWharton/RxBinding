@@ -29,7 +29,7 @@ class KotlinGenTask extends SourceTask {
 
   @TaskAction
   def generate(IncrementalTaskInputs inputs) {
-    Observable.from(source)
+    Observable.from(getSource())
         .doOnNext { File file -> generateKotlin(file) }
         .subscribe()
   }
