@@ -21,7 +21,7 @@ public class RxRecyclerView {
    */
   @CheckResult
   public static Observable<RecyclerViewScrollEvent> scrollEvents(RecyclerView recyclerView) {
-    checkNotNull(recyclerView, "view == null");
+    checkNotNull(recyclerView, "recyclerView == null");
     return Observable.create(new RecyclerViewScrollEventOnSubscribe(recyclerView));
   }
 
@@ -33,7 +33,7 @@ public class RxRecyclerView {
    */
   @CheckResult
   public static Observable<RecyclerViewScrollStateChangeEvent> scrollStateChangeEvents(RecyclerView recyclerView) {
-    checkNotNull(recyclerView, "view == null");
+    checkNotNull(recyclerView, "recyclerView == null");
     return Observable.create(new RecyclerViewScrollStateChangeEventOnSubscribe(recyclerView));
   }
 
