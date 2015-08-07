@@ -7,10 +7,8 @@ import org.gradle.api.Project
 /**
  * Plugin for generating kotlin bindings for Rx*.java implementations.
  *
- * For every project that applies this plugin, a corresponding "generateKotlinFor<project name>" task
- * is created that you can run.
- *
- * Example: applying this in the rxbinding module results in a task called "generateKotlinForRxbinding"
+ * For every project that applies this plugin, a corresponding "generateKotlinFor" task is created
+ * that you can run.
  **/
 class KotlinGenPlugin implements Plugin<Project> {
 
@@ -23,7 +21,7 @@ class KotlinGenPlugin implements Plugin<Project> {
       Collection<LibraryVariant> variants = project.android.libraryVariants
       LibraryVariant variant = variants.find { v -> v.name == "release" }
 
-      KotlinGenTask genTask = project.task(type: KotlinGenTask, "generateKotlinFor${project.name.capitalize()}") {
+      KotlinGenTask genTask = project.task(type: KotlinGenTask, "generateKotlin") {
         source = variant.getSourceSets().collect { it.getJavaDirectories() }
         include "**/Rx*.java"
         exclude "**/internal/*"
