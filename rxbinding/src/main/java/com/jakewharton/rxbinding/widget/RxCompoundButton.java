@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.widget.CompoundButton;
 import rx.Observable;
 import rx.functions.Action1;
@@ -22,6 +23,7 @@ public final class RxCompoundButton {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<Boolean> checkedChanges(CompoundButton view) {
     checkNotNull(view, "view == null");
     return Observable.create(new CompoundButtonCheckedChangeOnSubscribe(view));
@@ -38,6 +40,7 @@ public final class RxCompoundButton {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<CompoundButtonCheckedChangeEvent> checkedChangeEvents(
       CompoundButton view) {
     checkNotNull(view, "view == null");
@@ -50,6 +53,7 @@ public final class RxCompoundButton {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Action1<? super Boolean> checked(final CompoundButton view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
@@ -65,6 +69,7 @@ public final class RxCompoundButton {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Action1<? super Object> toggle(final CompoundButton view) {
     checkNotNull(view, "view == null");
     return new Action1<Object>() {
