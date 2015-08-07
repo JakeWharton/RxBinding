@@ -29,7 +29,7 @@ import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
-public class RxRecyclerViewTest {
+public final class RxRecyclerViewTest {
   @Rule public final ActivityTestRule<RxRecyclerViewTestActivity> activityRule =
       new ActivityTestRule<>(RxRecyclerViewTestActivity.class);
 

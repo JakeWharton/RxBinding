@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class RxRecyclerViewTestActivity extends Activity {
+public final class RxRecyclerViewTestActivity extends Activity {
   RecyclerView recyclerView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
