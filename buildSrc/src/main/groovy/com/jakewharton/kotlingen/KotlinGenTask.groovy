@@ -9,7 +9,12 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.body.ModifierSet
 import com.github.javaparser.ast.body.Parameter
-import com.github.javaparser.ast.type.*
+import com.github.javaparser.ast.type.ClassOrInterfaceType
+import com.github.javaparser.ast.type.PrimitiveType
+import com.github.javaparser.ast.type.ReferenceType
+import com.github.javaparser.ast.type.Type
+import com.github.javaparser.ast.type.VoidType
+import com.github.javaparser.ast.type.WildcardType
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.google.common.collect.ImmutableList
 import org.gradle.api.tasks.SourceTask
