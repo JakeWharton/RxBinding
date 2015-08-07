@@ -164,9 +164,9 @@ public class RxRecyclerViewTest {
     instrumentation.waitForIdleSync();
     interaction.perform(swipeUp());
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING); // Drag event
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_SETTLING); // Settling event
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_IDLE); // Idle event
+    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING);
+    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_SETTLING);
+    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_IDLE);
 
     subscription.unsubscribe();
 
@@ -189,9 +189,9 @@ public class RxRecyclerViewTest {
     instrumentation.waitForIdleSync();
     interaction.perform(swipeLeft());
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING); // Drag event
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_SETTLING); // Settling event
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_IDLE); // Idle event
+    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING);
+    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_SETTLING);
+    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_IDLE);
 
     subscription.unsubscribe();
 
