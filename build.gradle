@@ -21,7 +21,7 @@ subprojects {
 }
 
 ext {
-  androidPlugin = 'com.android.tools.build:gradle:1.2.3'
+  androidPlugin = 'com.android.tools.build:gradle:1.3.0'
   minSdkVersion = 15
   compileSdkVersion = 22
   buildToolsVersion = '22.0.1'
@@ -31,14 +31,14 @@ ext {
   kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230'
   kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:0.12.1230'
 
-  supportAnnotations = 'com.android.support:support-annotations:22.2.0'
-  supportV4 = 'com.android.support:support-v4:22.2.0'
+  supportAnnotations = 'com.android.support:support-annotations:22.2.1'
+  supportV4 = 'com.android.support:support-v4:22.2.1'
 
   supportTestRunner = 'com.android.support.test:runner:0.3'
   supportTestRules = 'com.android.support.test:rules:0.3'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2'
   supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2'
-  rxJava = 'io.reactivex:rxjava:1.0.12'
+  rxJava = 'io.reactivex:rxjava:1.0.13'
   rxAndroid = 'io.reactivex:rxandroid:1.0.0'
   junit = 'junit:junit:4.12'
   truth = 'com.google.truth:truth:0.27'
