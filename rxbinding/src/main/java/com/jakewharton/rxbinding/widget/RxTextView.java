@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.widget.TextView;
 import rx.Observable;
 import com.jakewharton.rxbinding.internal.Functions;
@@ -22,6 +23,7 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
    * observe actions. Only one observable can be used for a view at a time.
    */
+  @CheckResult
   public static Observable<Integer> editorActions(TextView view) {
     return editorActions(view, Functions.FUNC1_ALWAYS_TRUE);
   }
@@ -38,6 +40,7 @@ public final class RxTextView {
    * @param handled Function invoked each occurrence to determine the return value of the
    * underlying {@link TextView.OnEditorActionListener}.
    */
+  @CheckResult
   public static Observable<Integer> editorActions(TextView view,
       Func1<? super Integer, Boolean> handled) {
     checkNotNull(view, "view == null");
@@ -54,6 +57,7 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
    * observe actions. Only one observable can be used for a view at a time.
    */
+  @CheckResult
   public static Observable<TextViewEditorActionEvent> editorActionEvents(TextView view) {
     return editorActionEvents(view, Functions.FUNC1_ALWAYS_TRUE);
   }
@@ -70,6 +74,7 @@ public final class RxTextView {
    * @param handled Function invoked each occurrence to determine the return value of the
    * underlying {@link TextView.OnEditorActionListener}.
    */
+  @CheckResult
   public static Observable<TextViewEditorActionEvent> editorActionEvents(TextView view,
       Func1<? super TextViewEditorActionEvent, Boolean> handled) {
     checkNotNull(view, "view == null");
@@ -85,6 +90,7 @@ public final class RxTextView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<CharSequence> textChanges(TextView view) {
     checkNotNull(view, "view == null");
     return Observable.create(new TextViewTextOnSubscribe(view));
@@ -98,6 +104,7 @@ public final class RxTextView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<TextViewTextChangeEvent> textChangeEvents(TextView view) {
     checkNotNull(view, "view == null");
     return Observable.create(new TextViewTextEventOnSubscribe(view));
@@ -109,6 +116,7 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Action1<? super CharSequence> text(final TextView view) {
     checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
@@ -124,6 +132,7 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Action1<? super Integer> textRes(final TextView view) {
     checkNotNull(view, "view == null");
     return new Action1<Integer>() {

@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.widget.RadioGroup;
 import rx.Observable;
 import rx.functions.Action1;
@@ -13,6 +14,7 @@ public final class RxRadioGroup {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<Integer> checkedChanges(RadioGroup view) {
     return Observable.create(new RadioGroupCheckedChangeOnSubscribe(view))
         .distinctUntilChanged(); // Radio group can fire non-changes.
@@ -26,6 +28,7 @@ public final class RxRadioGroup {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<RadioGroupCheckedChangeEvent> checkedChangeEvents(RadioGroup view) {
     return Observable.create(new RadioGroupCheckedChangeEventOnSubscribe(view))
         .distinctUntilChanged(); // Radio group can fire non-changes.
@@ -38,6 +41,7 @@ public final class RxRadioGroup {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Action1<? super Integer> checked(final RadioGroup view) {
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
