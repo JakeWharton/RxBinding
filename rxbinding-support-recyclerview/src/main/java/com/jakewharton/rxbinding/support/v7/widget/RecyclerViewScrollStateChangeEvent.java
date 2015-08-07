@@ -17,17 +17,11 @@ public final class RecyclerViewScrollStateChangeEvent extends ViewEvent<Recycler
     return new RecyclerViewScrollStateChangeEvent(recyclerView, newState);
   }
 
-  private final RecyclerView recyclerView;
   private final int newState;
 
   private RecyclerViewScrollStateChangeEvent(RecyclerView recyclerView, int newState) {
     super(recyclerView);
-    this.recyclerView = recyclerView;
     this.newState = newState;
-  }
-
-  public RecyclerView recyclerView() {
-    return recyclerView;
   }
 
   public int newState() {
@@ -39,14 +33,12 @@ public final class RecyclerViewScrollStateChangeEvent extends ViewEvent<Recycler
     if (!(o instanceof RecyclerViewScrollStateChangeEvent)) return false;
     RecyclerViewScrollStateChangeEvent other = (RecyclerViewScrollStateChangeEvent) o;
     return other.view() == view()
-        && recyclerView.equals(other.recyclerView)
         && newState == other.newState;
   }
 
   @Override public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
-    result = result * 37 + recyclerView.hashCode();
     result = result * 37 + newState;
     return result;
   }
@@ -54,8 +46,6 @@ public final class RecyclerViewScrollStateChangeEvent extends ViewEvent<Recycler
   @Override public String toString() {
     return "RecyclerViewScrollChangeEvent{view="
         + view()
-        + ", recyclerView="
-        + recyclerView
         + ", newState="
         + newState
         + '}';

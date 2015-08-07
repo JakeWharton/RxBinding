@@ -17,19 +17,13 @@ public final class RecyclerViewScrollEvent extends ViewEvent<RecyclerView> {
     return new RecyclerViewScrollEvent(recyclerView, dx, dy);
   }
 
-  private final RecyclerView recyclerView;
   private final int dx;
   private final int dy;
 
   private RecyclerViewScrollEvent(RecyclerView recyclerView, int dx, int dy) {
     super(recyclerView);
-    this.recyclerView = recyclerView;
     this.dx = dx;
     this.dy = dy;
-  }
-
-  public RecyclerView recyclerView() {
-    return recyclerView;
   }
 
   public int dx() {
@@ -45,7 +39,6 @@ public final class RecyclerViewScrollEvent extends ViewEvent<RecyclerView> {
     if (!(o instanceof RecyclerViewScrollEvent)) return false;
     RecyclerViewScrollEvent other = (RecyclerViewScrollEvent) o;
     return other.view() == view()
-        && recyclerView.equals(other.recyclerView)
         && dx == other.dx
         && dy == other.dy;
   }
@@ -53,7 +46,6 @@ public final class RecyclerViewScrollEvent extends ViewEvent<RecyclerView> {
   @Override public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
-    result = result * 37 + recyclerView.hashCode();
     result = result * 37 + dx;
     result = result * 37 + dy;
     return result;
@@ -62,8 +54,6 @@ public final class RecyclerViewScrollEvent extends ViewEvent<RecyclerView> {
   @Override public String toString() {
     return "RecyclerViewScrollEvent{view="
         + view()
-        + ", recyclerView="
-        + recyclerView
         + ", dx="
         + dx
         + ", dy="
