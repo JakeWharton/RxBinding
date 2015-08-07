@@ -6,4 +6,7 @@ include ':rxbinding-kotlin'
 include ':rxbinding-support-v4'
 include ':rxbinding-support-v4-kotlin'
 
+include ':rxbinding-support-recyclerview'
+include ':rxbinding-support-recyclerview-kotlin'
+
 include ':testing-utils'
