@@ -12,7 +12,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link RecyclerView}.
  */
-public class RxRecyclerView {
+public final class RxRecyclerView {
   /**
    * Create an observable of scroll events on {@code recyclerView}.
    * <p>
