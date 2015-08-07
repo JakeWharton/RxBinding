@@ -26,6 +26,9 @@ import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
@@ -168,9 +171,9 @@ public final class RxRecyclerViewTest {
     instrumentation.waitForIdleSync();
     interaction.perform(swipeUp());
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING);
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_SETTLING);
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_IDLE);
+    assertThat(o.takeNext().newState()).isEqualTo(SCROLL_STATE_DRAGGING);
+    assertThat(o.takeNext().newState()).isEqualTo(SCROLL_STATE_SETTLING);
+    assertThat(o.takeNext().newState()).isEqualTo(SCROLL_STATE_IDLE);
 
     subscription.unsubscribe();
 
@@ -196,9 +199,9 @@ public final class RxRecyclerViewTest {
 
     interaction.perform(swipeLeft());
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING);
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_SETTLING);
-    assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_IDLE);
+    assertThat(o.takeNext().newState()).isEqualTo(SCROLL_STATE_DRAGGING);
+    assertThat(o.takeNext().newState()).isEqualTo(SCROLL_STATE_SETTLING);
+    assertThat(o.takeNext().newState()).isEqualTo(SCROLL_STATE_IDLE);
 
     subscription.unsubscribe();
 
