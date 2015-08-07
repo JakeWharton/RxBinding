@@ -46,6 +46,11 @@ class KotlinGenTask extends SourceTask {
 
   @TaskAction
   def generate(IncrementalTaskInputs inputs) {
+    // Clear things out first to make sure no stragglers are left
+    File outputDir = new File("${project.projectDir}-kotlin/src/main/kotlin")
+    outputDir.deleteDir()
+
+    // Let's get going
     getSource().each { generateKotlin(it) }
   }
 
@@ -53,9 +58,6 @@ class KotlinGenTask extends SourceTask {
     String outputPath = file.parent.replace("java", "kotlin").replace("/src", "-kotlin/src")
     outputPath = outputPath.substring(0, outputPath.indexOf("com/jakewharton"))
     File outputDir = new File(outputPath)
-
-    // Clear things out first to make sure no stragglers are left
-    outputDir.delete()
 
     // Start parsing the java files
     CompilationUnit cu = JavaParser.parse(file)
