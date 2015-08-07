@@ -51,7 +51,7 @@ public final class RxRecyclerViewTest {
     Espresso.unregisterIdlingResources(viewDirtyIdler);
   }
 
-  @Test public void scrollEvents() {
+  @Test public void scrollEventsVertical() {
     RecordingObserver<RecyclerViewScrollEvent> o = new RecordingObserver<>();
     Subscription subscription = RxRecyclerView.scrollEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
@@ -99,14 +99,18 @@ public final class RxRecyclerViewTest {
       }
     });
     o.assertNoMoreEvents();
+  }
 
+  @Test public void scrollEventsHorizontal() {
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
       }
     });
 
-    subscription = RxRecyclerView.scrollEvents(view)
+    instrumentation.waitForIdleSync();
+    RecordingObserver<RecyclerViewScrollEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.scrollEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
@@ -154,7 +158,7 @@ public final class RxRecyclerViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void scrollStateChangeEvents() {
+  @Test public void scrollStateChangeEventsVertical() {
     RecordingObserver<RecyclerViewScrollStateChangeEvent> o = new RecordingObserver<>();
     Subscription subscription = RxRecyclerView.scrollStateChangeEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
@@ -174,19 +178,22 @@ public final class RxRecyclerViewTest {
     interaction.perform(swipeDown());
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
+  }
 
+  @Test public void scrollStateChangeEventsHorizontal() {
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
       }
     });
 
-    subscription = RxRecyclerView.scrollStateChangeEvents(view)
+    instrumentation.waitForIdleSync();
+    RecordingObserver<RecyclerViewScrollStateChangeEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.scrollStateChangeEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.waitForIdleSync();
     interaction.perform(swipeLeft());
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext().newState()).isEqualTo(RecyclerView.SCROLL_STATE_DRAGGING);
