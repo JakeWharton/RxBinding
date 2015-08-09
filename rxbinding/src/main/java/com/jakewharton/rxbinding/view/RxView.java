@@ -57,7 +57,8 @@ public final class RxView {
   }
 
   /**
-   * Create an observable of timestamps for clicks on {@code view}.
+   * Create an observable which emits on {@code view} click events. The emitted value is
+   * unspecified and should only be used as notification.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
@@ -191,7 +192,8 @@ public final class RxView {
   }
 
   /**
-   * Create an observable of timestamps for long-clicks on {@code view}.
+   * Create an observable which emits on {@code view} long-click events. The emitted value is
+   * unspecified and should only be used as notification.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
@@ -206,7 +208,8 @@ public final class RxView {
   }
 
   /**
-   * Create an observable of timestamps for clicks on {@code view}.
+   * Create an observable which emits on {@code view} long-click events. The emitted value is
+   * unspecified and should only be used as notification.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.

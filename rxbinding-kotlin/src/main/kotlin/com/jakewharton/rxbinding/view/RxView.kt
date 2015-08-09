@@ -36,7 +36,8 @@ public inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.atta
 public inline fun View.detaches(): Observable<Any> = RxView.detaches(this)
 
 /**
- * Create an observable of timestamps for clicks on `view`.
+ * Create an observable which emits on `view` click events. The emitted value is
+ * unspecified and should only be used as notification.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
@@ -134,7 +135,8 @@ public inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges
 public inline fun View.focusChangeEvents(): Observable<ViewFocusChangeEvent> = RxView.focusChangeEvents(this)
 
 /**
- * Create an observable of timestamps for long-clicks on `view`.
+ * Create an observable which emits on `view` long-click events. The emitted value is
+ * unspecified and should only be used as notification.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
@@ -145,7 +147,8 @@ public inline fun View.focusChangeEvents(): Observable<ViewFocusChangeEvent> = R
 public inline fun View.longClicks(): Observable<Any> = RxView.longClicks(this)
 
 /**
- * Create an observable of timestamps for clicks on `view`.
+ * Create an observable which emits on `view` long-click events. The emitted value is
+ * unspecified and should only be used as notification.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
