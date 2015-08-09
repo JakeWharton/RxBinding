@@ -18,6 +18,8 @@ subprojects {
       tasks.getByName('assemble').dependsOn variant.assemble
     }
   }
+
+  test.testLogging.events 'passed', 'skipped', 'failed'
 }
 
 ext {
