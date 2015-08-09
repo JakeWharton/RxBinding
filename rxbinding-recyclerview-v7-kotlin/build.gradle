@@ -9,7 +9,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 dependencies {
-  compile project(':rxbinding-support-recyclerview')
+  compile project(':rxbinding-recyclerview-v7')
   compile rootProject.ext.kotlinStdlib
 }
 
