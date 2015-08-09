@@ -17,6 +17,15 @@ subprojects {
     android.testVariants.all { variant ->
       tasks.getByName('assemble').dependsOn variant.assemble
     }
+
+    tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
+      task.doFirst {
+        logging.level = LogLevel.INFO
+      }
+      task.doLast {
+        logging.level = LogLevel.LIFECYCLE
+      }
+    }
   }
 }
 
