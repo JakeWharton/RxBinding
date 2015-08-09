@@ -27,6 +27,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Observable<Object> attaches(View view) {
     checkNotNull(view, "view == null");
     return Observable.create(new ViewAttachesOnSubscribe(view, true));
@@ -51,6 +52,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Observable<Object> detaches(View view) {
     checkNotNull(view, "view == null");
     return Observable.create(new ViewAttachesOnSubscribe(view, false));
