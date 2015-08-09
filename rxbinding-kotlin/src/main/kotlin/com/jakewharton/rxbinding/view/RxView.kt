@@ -10,7 +10,8 @@ import rx.functions.Func0
 import rx.functions.Func1
 
 /**
- * Create an observable of timestamps for `view`'s attaches.
+ * Create an observable which emits on `view` attach events. The emitted value is
+ * unspecified and should only be used as notification.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
@@ -26,7 +27,8 @@ public inline fun View.attaches(): Observable<Any> = RxView.attaches(this)
 public inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.attachEvents(this)
 
 /**
- * Create an observable of timestamps for `view`'s detaches.
+ * Create an observable which emits on `view` detach events. The emitted value is
+ * unspecified and should only be used as notification.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.

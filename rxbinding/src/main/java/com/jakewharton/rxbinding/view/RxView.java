@@ -21,7 +21,8 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  */
 public final class RxView {
   /**
-   * Create an observable of timestamps for {@code view}'s attaches.
+   * Create an observable which emits on {@code view} attach events. The emitted value is
+   * unspecified and should only be used as notification.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
@@ -44,7 +45,8 @@ public final class RxView {
   }
 
   /**
-   * Create an observable of timestamps for {@code view}'s detaches.
+   * Create an observable which emits on {@code view} detach events. The emitted value is
+   * unspecified and should only be used as notification.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
