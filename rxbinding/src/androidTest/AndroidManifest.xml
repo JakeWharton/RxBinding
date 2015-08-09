@@ -4,6 +4,7 @@
     package="com.jakewharton.rxbinding">
 
   <application>
+    <activity android:name=".view.RxViewAttachTestActivity"/>
     <activity android:name=".widget.RxAdapterViewTestActivity"/>
     <activity android:name=".widget.RxRatingBarTestActivity"/>
     <activity android:name=".widget.RxSeekBarTestActivity"/>

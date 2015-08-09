@@ -4,8 +4,10 @@ import android.support.annotation.CheckResult;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import rx.Observable;
+
 import com.jakewharton.rxbinding.internal.Functions;
+
+import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -18,6 +20,18 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  * actions} for {@link View}.
  */
 public final class RxView {
+  /**
+   * Create an observable of attach and detach events on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult
+  public static Observable<ViewAttachEvent> attachEvents(View view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new ViewAttachEventOnSubscribe(view));
+  }
+
   /**
    * Create an observable of timestamps for clicks on {@code view}.
    * <p>

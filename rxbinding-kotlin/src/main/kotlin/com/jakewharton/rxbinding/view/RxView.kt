@@ -3,11 +3,19 @@ package com.jakewharton.rxbinding.view
 import android.view.DragEvent
 import android.view.MotionEvent
 import android.view.View
-import rx.Observable
 import com.jakewharton.rxbinding.internal.Functions
+import rx.Observable
 import rx.functions.Action1
 import rx.functions.Func0
 import rx.functions.Func1
+
+/**
+ * Create an observable of attach and detach events on `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.attachEvents(this)
 
 /**
  * Create an observable of timestamps for clicks on `view`.
