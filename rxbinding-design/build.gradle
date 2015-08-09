@@ -9,7 +9,7 @@ apply plugin: 'com.jakewharton.kotlingen'
 
 dependencies {
   compile project(':rxbinding')
-  compile rootProject.ext.supportRecyclerView
+  compile rootProject.ext.supportDesign
 
   androidTestCompile project(':testing-utils')
   androidTestCompile rootProject.ext.supportTestRunner
