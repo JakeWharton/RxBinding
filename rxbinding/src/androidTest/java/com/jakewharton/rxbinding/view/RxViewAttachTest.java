@@ -48,14 +48,12 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isNotNull();
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
     subscription.unsubscribe();
@@ -66,7 +64,6 @@ public final class RxViewAttachTest {
         parent.removeView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
 
@@ -82,14 +79,12 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     assertThat(o.takeNext().kind()).isEqualTo(ATTACH);
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     assertThat(o.takeNext().kind()).isEqualTo(DETACH);
 
     subscription.unsubscribe();
@@ -100,7 +95,6 @@ public final class RxViewAttachTest {
         parent.removeView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
 
@@ -116,14 +110,12 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isNotNull();
 
     subscription.unsubscribe();
@@ -134,7 +126,6 @@ public final class RxViewAttachTest {
         parent.removeView(child);
       }
     });
-    instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
 }
