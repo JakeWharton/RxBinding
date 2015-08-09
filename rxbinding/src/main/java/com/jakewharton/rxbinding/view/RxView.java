@@ -21,6 +21,17 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  */
 public final class RxView {
   /**
+   * Create an observable of timestamps for {@code view}'s attaches.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  public static Observable<Object> attaches(View view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new ViewAttachesOnSubscribe(view, true));
+  }
+
+  /**
    * Create an observable of attach and detach events on {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
@@ -30,6 +41,17 @@ public final class RxView {
   public static Observable<ViewAttachEvent> attachEvents(View view) {
     checkNotNull(view, "view == null");
     return Observable.create(new ViewAttachEventOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable of timestamps for {@code view}'s detaches.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  public static Observable<Object> detaches(View view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new ViewAttachesOnSubscribe(view, false));
   }
 
   /**

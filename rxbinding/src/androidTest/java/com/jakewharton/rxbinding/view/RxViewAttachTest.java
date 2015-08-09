@@ -36,6 +36,40 @@ public final class RxViewAttachTest {
     child = activity.child;
   }
 
+  @Test public void attaches() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxView.attaches(child)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        parent.addView(child);
+      }
+    });
+    instrumentation.waitForIdleSync();
+    assertThat(o.takeNext()).isNotNull();
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        parent.removeView(child);
+      }
+    });
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        parent.addView(child);
+        parent.removeView(child);
+      }
+    });
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+  }
+
   @Test public void attachEvents() {
     RecordingObserver<ViewAttachEvent> o = new RecordingObserver<>();
     Subscription subscription = RxView.attachEvents(child)
@@ -57,6 +91,40 @@ public final class RxViewAttachTest {
     });
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext().kind()).isEqualTo(DETACH);
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        parent.addView(child);
+        parent.removeView(child);
+      }
+    });
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void detaches() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxView.detaches(child)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        parent.addView(child);
+      }
+    });
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        parent.removeView(child);
+      }
+    });
+    instrumentation.waitForIdleSync();
+    assertThat(o.takeNext()).isNotNull();
 
     subscription.unsubscribe();
 
