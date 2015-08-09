@@ -9,7 +9,6 @@ import android.widget.FrameLayout;
 
 import com.jakewharton.rxbinding.RecordingObserver;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,9 +34,6 @@ public final class RxViewAttachTest {
     RxViewAttachTestActivity activity = activityRule.getActivity();
     parent = activity.parent;
     child = activity.child;
-  }
-
-  @After public void tearDown() {
   }
 
   @Test public void attachEvents() {
