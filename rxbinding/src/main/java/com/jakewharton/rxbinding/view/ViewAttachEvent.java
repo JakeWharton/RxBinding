@@ -36,7 +36,7 @@ public final class ViewAttachEvent extends ViewEvent<View> {
     if (!(o instanceof ViewAttachEvent)) return false;
     ViewAttachEvent other = (ViewAttachEvent) o;
     return other.view() == view()
-        && kind() == other.kind();
+        && other.kind() == kind();
   }
 
   @Override public int hashCode() {
