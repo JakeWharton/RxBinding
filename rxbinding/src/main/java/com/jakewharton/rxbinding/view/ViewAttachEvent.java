@@ -1,7 +1,6 @@
 package com.jakewharton.rxbinding.view;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -13,24 +12,22 @@ import android.view.View;
  */
 public final class ViewAttachEvent extends ViewEvent<View> {
 
-  public static final int ATTACH = 0;
-  public static final int DETACH = 1;
+  public enum Kind {
+    ATTACH, DETACH
+  }
 
-  @IntDef({ATTACH, DETACH})
-  public @interface Kind {}
-
-  public static ViewAttachEvent create(@NonNull View view, @Kind int kind) {
+  public static ViewAttachEvent create(@NonNull View view, Kind kind) {
     return new ViewAttachEvent(view, kind);
   }
 
-  @Kind private final int kind;
+  private final Kind kind;
 
-  private ViewAttachEvent(View view, @Kind int kind) {
+  private ViewAttachEvent(View view, Kind kind) {
     super(view);
     this.kind = kind;
   }
 
-  @Kind public int kind() {
+  public Kind kind() {
     return kind;
   }
 
@@ -45,7 +42,7 @@ public final class ViewAttachEvent extends ViewEvent<View> {
   @Override public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
-    result = result * 37 + kind();
+    result = result * 37 + kind().hashCode();
     return result;
   }
 
@@ -53,7 +50,7 @@ public final class ViewAttachEvent extends ViewEvent<View> {
     return "ViewAttachEvent{view="
         + view()
         + ", kind="
-        + (kind == ATTACH ? "ATTACH" : "DETACH")
+        + kind()
         + '}';
   }
 }

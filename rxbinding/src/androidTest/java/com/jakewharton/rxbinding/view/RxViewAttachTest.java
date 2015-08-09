@@ -21,8 +21,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.view.ViewAttachEvent.ATTACH;
-import static com.jakewharton.rxbinding.view.ViewAttachEvent.DETACH;
+import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.ATTACH;
+import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.DETACH;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewAttachTest {

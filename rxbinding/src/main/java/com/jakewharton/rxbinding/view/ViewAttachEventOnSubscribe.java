@@ -9,8 +9,8 @@ import rx.Observable;
 import rx.Subscriber;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
-import static com.jakewharton.rxbinding.view.ViewAttachEvent.ATTACH;
-import static com.jakewharton.rxbinding.view.ViewAttachEvent.DETACH;
+import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.ATTACH;
+import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.DETACH;
 
 final class ViewAttachEventOnSubscribe implements Observable.OnSubscribe<ViewAttachEvent> {
   private final View view;
