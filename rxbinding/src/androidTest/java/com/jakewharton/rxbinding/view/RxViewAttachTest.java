@@ -2,14 +2,12 @@ package com.jakewharton.rxbinding.view;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,18 +30,14 @@ public final class RxViewAttachTest {
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
   private FrameLayout parent;
   private View child;
-  private ViewDirtyIdlingResource viewDirtyIdler;
 
   @Before public void setUp() {
     RxViewAttachTestActivity activity = activityRule.getActivity();
     parent = activity.parent;
     child = activity.child;
-    viewDirtyIdler = new ViewDirtyIdlingResource(activity);
-    Espresso.registerIdlingResources(viewDirtyIdler);
   }
 
   @After public void tearDown() {
-    Espresso.unregisterIdlingResources(viewDirtyIdler);
   }
 
   @Test public void attachEvents() {
