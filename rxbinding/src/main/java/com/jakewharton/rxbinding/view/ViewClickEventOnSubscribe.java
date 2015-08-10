@@ -24,13 +24,12 @@ final class ViewClickEventOnSubscribe implements Observable.OnSubscribe<ViewClic
         }
       }
     };
+    view.setOnClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnClickListener(null);
       }
     });
-
-    view.setOnClickListener(listener);
   }
 }

@@ -33,13 +33,12 @@ final class ViewTouchOnSubscribe implements Observable.OnSubscribe<MotionEvent> 
         return false;
       }
     };
+    view.setOnTouchListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnTouchListener(null);
       }
     });
-
-    view.setOnTouchListener(listener);
   }
 }

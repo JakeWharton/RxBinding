@@ -34,13 +34,12 @@ final class ViewTouchEventOnSubscribe implements Observable.OnSubscribe<ViewTouc
         return false;
       }
     };
+    view.setOnTouchListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnTouchListener(null);
       }
     });
-
-    view.setOnTouchListener(listener);
   }
 }

@@ -25,14 +25,13 @@ final class RadioGroupCheckedChangeEventOnSubscribe
         }
       }
     };
+    view.setOnCheckedChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnCheckedChangeListener(null);
       }
     });
-
-    view.setOnCheckedChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(RadioGroupCheckedChangeEvent.create(view, view.getCheckedRadioButtonId()));

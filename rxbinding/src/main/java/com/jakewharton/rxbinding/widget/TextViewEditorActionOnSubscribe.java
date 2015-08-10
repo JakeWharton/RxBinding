@@ -32,13 +32,12 @@ final class TextViewEditorActionOnSubscribe implements Observable.OnSubscribe<In
         return false;
       }
     };
+    view.setOnEditorActionListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnEditorActionListener(null);
       }
     });
-
-    view.setOnEditorActionListener(listener);
   }
 }

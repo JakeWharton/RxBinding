@@ -24,14 +24,13 @@ final class CompoundButtonCheckedChangeOnSubscribe implements Observable.OnSubsc
         }
       }
     };
+    view.setOnCheckedChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnCheckedChangeListener(null);
       }
     });
-
-    view.setOnCheckedChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.isChecked());

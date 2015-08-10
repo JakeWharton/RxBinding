@@ -33,13 +33,12 @@ final class ViewDragEventOnSubscribe implements Observable.OnSubscribe<ViewDragE
         return false;
       }
     };
+    view.setOnDragListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnDragListener(null);
       }
     });
-
-    view.setOnDragListener(listener);
   }
 }
