@@ -41,14 +41,13 @@ final class TabLayoutSelectionEventOnSubscribe
         }
       }
     };
+    view.setOnTabSelectedListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnTabSelectedListener(null);
       }
     });
-
-    view.setOnTabSelectedListener(listener);
 
     int index = view.getSelectedTabPosition();
     if (index != -1) {

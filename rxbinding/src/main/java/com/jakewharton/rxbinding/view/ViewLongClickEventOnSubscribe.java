@@ -32,13 +32,12 @@ final class ViewLongClickEventOnSubscribe implements Observable.OnSubscribe<View
         return false;
       }
     };
+    view.setOnLongClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnLongClickListener(null);
       }
     });
-
-    view.setOnLongClickListener(listener);
   }
 }

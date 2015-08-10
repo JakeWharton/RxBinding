@@ -25,14 +25,13 @@ final class ViewFocusChangeEventOnSubscribe
         }
       }
     };
+    view.setOnFocusChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnFocusChangeListener(null);
       }
     });
-
-    view.setOnFocusChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(ViewFocusChangeEvent.create(view, view.hasFocus()));

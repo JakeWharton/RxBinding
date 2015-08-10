@@ -22,13 +22,12 @@ final class SwipeRefreshLayoutRefreshOnSubscribe implements Observable.OnSubscri
         subscriber.onNext(null);
       }
     };
+    view.setOnRefreshListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnRefreshListener(null);
       }
     });
-
-    view.setOnRefreshListener(listener);
   }
 }

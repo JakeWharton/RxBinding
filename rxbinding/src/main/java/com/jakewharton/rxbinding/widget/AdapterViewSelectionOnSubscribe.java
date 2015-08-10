@@ -34,14 +34,13 @@ final class AdapterViewSelectionOnSubscribe
         }
       }
     };
+    view.setOnItemSelectedListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnItemSelectedListener(null);
       }
     });
-
-    view.setOnItemSelectedListener(listener);
 
     // Emit initial value.
     int selectedPosition = view.getSelectedItemPosition();

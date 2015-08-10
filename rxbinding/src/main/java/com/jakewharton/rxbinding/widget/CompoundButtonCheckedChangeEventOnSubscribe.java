@@ -26,14 +26,13 @@ final class CompoundButtonCheckedChangeEventOnSubscribe
         }
       }
     };
+    view.setOnCheckedChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnCheckedChangeListener(null);
       }
     });
-
-    view.setOnCheckedChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(CompoundButtonCheckedChangeEvent.create(view, view.isChecked()));
