@@ -1,6 +1,8 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.widget.CompoundButton;
 import com.jakewharton.rxbinding.view.ViewEvent;
 
@@ -11,13 +13,15 @@ import com.jakewharton.rxbinding.view.ViewEvent;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class CompoundButtonCheckedChangeEvent extends ViewEvent<CompoundButton> {
-  public static CompoundButtonCheckedChangeEvent create(CompoundButton view, boolean isChecked) {
+  @CheckResult @NonNull
+  public static CompoundButtonCheckedChangeEvent create(@NonNull CompoundButton view,
+      boolean isChecked) {
     return new CompoundButtonCheckedChangeEvent(view, isChecked);
   }
 
   private final boolean isChecked;
 
-  private CompoundButtonCheckedChangeEvent(CompoundButton view, boolean isChecked) {
+  private CompoundButtonCheckedChangeEvent(@NonNull CompoundButton view, boolean isChecked) {
     super(view);
     this.isChecked = isChecked;
   }

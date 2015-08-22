@@ -1,11 +1,15 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.widget.RadioGroup;
 import com.jakewharton.rxbinding.view.ViewEvent;
 
 public final class RadioGroupCheckedChangeEvent extends ViewEvent<RadioGroup> {
-  public static RadioGroupCheckedChangeEvent create(RadioGroup view, int checkedId) {
+  @CheckResult @NonNull
+  public static RadioGroupCheckedChangeEvent create(@NonNull RadioGroup view,
+      @IdRes int checkedId) {
     return new RadioGroupCheckedChangeEvent(view, checkedId);
   }
 
@@ -16,6 +20,7 @@ public final class RadioGroupCheckedChangeEvent extends ViewEvent<RadioGroup> {
     this.checkedId = checkedId;
   }
 
+  @IdRes
   public int checkedId() {
     return checkedId;
   }

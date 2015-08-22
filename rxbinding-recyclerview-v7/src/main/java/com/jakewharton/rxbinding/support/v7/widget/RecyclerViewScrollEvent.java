@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.support.v7.widget;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import com.jakewharton.rxbinding.view.ViewEvent;
  * cache instances have the potential to leak the associated {@link Context}.
  */
 public final class RecyclerViewScrollEvent extends ViewEvent<RecyclerView> {
+  @CheckResult @NonNull
   public static RecyclerViewScrollEvent create(@NonNull RecyclerView recyclerView, int dx, int dy) {
     return new RecyclerViewScrollEvent(recyclerView, dx, dy);
   }
@@ -20,7 +22,7 @@ public final class RecyclerViewScrollEvent extends ViewEvent<RecyclerView> {
   private final int dx;
   private final int dy;
 
-  private RecyclerViewScrollEvent(RecyclerView recyclerView, int dx, int dy) {
+  private RecyclerViewScrollEvent(@NonNull RecyclerView recyclerView, int dx, int dy) {
     super(recyclerView);
     this.dx = dx;
     this.dy = dy;

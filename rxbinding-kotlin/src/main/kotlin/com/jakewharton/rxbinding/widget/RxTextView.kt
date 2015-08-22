@@ -1,8 +1,8 @@
 package com.jakewharton.rxbinding.widget
 
 import android.widget.TextView
-import rx.Observable
 import com.jakewharton.rxbinding.internal.Functions
+import rx.Observable
 import rx.functions.Action1
 import rx.functions.Func1
 

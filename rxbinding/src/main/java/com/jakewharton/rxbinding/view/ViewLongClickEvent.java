@@ -1,6 +1,8 @@
 package com.jakewharton.rxbinding.view;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -10,11 +12,12 @@ import android.view.View;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewLongClickEvent extends ViewEvent<View> {
-  public static ViewLongClickEvent create(View view) {
+  @CheckResult @NonNull
+  public static ViewLongClickEvent create(@NonNull View view) {
     return new ViewLongClickEvent(view);
   }
 
-  private ViewLongClickEvent(View view) {
+  private ViewLongClickEvent(@NonNull View view) {
     super(view);
   }
 

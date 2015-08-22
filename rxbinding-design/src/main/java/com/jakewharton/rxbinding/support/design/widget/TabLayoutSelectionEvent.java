@@ -1,12 +1,15 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import com.jakewharton.rxbinding.view.ViewEvent;
 
 public final class TabLayoutSelectionEvent extends ViewEvent<TabLayout> {
-  public static TabLayoutSelectionEvent create(TabLayout view, Kind kind, Tab tab) {
+  @CheckResult @NonNull
+  public static TabLayoutSelectionEvent create(@NonNull TabLayout view, @NonNull Kind kind,
+      @NonNull Tab tab) {
     return new TabLayoutSelectionEvent(view, kind, tab);
   }
 
@@ -19,16 +22,18 @@ public final class TabLayoutSelectionEvent extends ViewEvent<TabLayout> {
   private final Kind kind;
   private final Tab tab;
 
-  private TabLayoutSelectionEvent(@NonNull TabLayout view, Kind kind, Tab tab) {
+  private TabLayoutSelectionEvent(@NonNull TabLayout view, @NonNull Kind kind, @NonNull Tab tab) {
     super(view);
     this.tab = tab;
     this.kind = kind;
   }
 
+  @NonNull
   public Kind kind() {
     return kind;
   }
 
+  @NonNull
   public Tab tab() {
     return tab;
   }

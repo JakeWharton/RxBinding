@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.support.v7.widget;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
@@ -9,17 +10,19 @@ import com.jakewharton.rxbinding.view.ViewEvent;
 /**
  * A scroll change event on a recyclerView.
  * <p>
- * <strong>Warning:</strong> Instances keep a strong reference to the recyclerView. Operators that
+ * <strong>Warning:</strong> Instances keep a strong reference to the view. Operators that
  * cache instances have the potential to leak the associated {@link Context}.
  */
 public final class RecyclerViewScrollStateChangeEvent extends ViewEvent<RecyclerView> {
-  public static RecyclerViewScrollStateChangeEvent create(@NonNull RecyclerView recyclerView, int newState) {
+  @CheckResult @NonNull
+  public static RecyclerViewScrollStateChangeEvent create(@NonNull RecyclerView recyclerView,
+      int newState) {
     return new RecyclerViewScrollStateChangeEvent(recyclerView, newState);
   }
 
   private final int newState;
 
-  private RecyclerViewScrollStateChangeEvent(RecyclerView recyclerView, int newState) {
+  private RecyclerViewScrollStateChangeEvent(@NonNull RecyclerView recyclerView, int newState) {
     super(recyclerView);
     this.newState = newState;
   }

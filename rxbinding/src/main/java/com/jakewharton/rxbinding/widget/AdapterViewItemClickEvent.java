@@ -1,21 +1,23 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 import com.jakewharton.rxbinding.view.ViewEvent;
 
 public final class AdapterViewItemClickEvent extends ViewEvent<AdapterView<?>> {
-  public static AdapterViewItemClickEvent create(@NonNull AdapterView<?> view, View selectedView,
-      int position, long id) {
-    return new AdapterViewItemClickEvent(view, selectedView, position, id);
+  @CheckResult @NonNull
+  public static AdapterViewItemClickEvent create(@NonNull AdapterView<?> view,
+      @NonNull View clickedView, int position, long id) {
+    return new AdapterViewItemClickEvent(view, clickedView, position, id);
   }
 
   private final View clickedView;
   private final int position;
   private final long id;
 
-  private AdapterViewItemClickEvent(@NonNull AdapterView<?> view, View clickedView,
+  private AdapterViewItemClickEvent(@NonNull AdapterView<?> view, @NonNull View clickedView,
       int position, long id) {
     super(view);
     this.clickedView = clickedView;
@@ -23,6 +25,7 @@ public final class AdapterViewItemClickEvent extends ViewEvent<AdapterView<?>> {
     this.id = id;
   }
 
+  @NonNull
   public View clickedView() {
     return clickedView;
   }

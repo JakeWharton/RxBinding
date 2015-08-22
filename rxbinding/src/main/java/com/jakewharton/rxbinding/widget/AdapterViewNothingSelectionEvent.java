@@ -1,9 +1,11 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.AdapterView;
 
 public final class AdapterViewNothingSelectionEvent extends AdapterViewSelectionEvent {
+  @CheckResult @NonNull
   public static AdapterViewSelectionEvent create(@NonNull AdapterView<?> view) {
     return new AdapterViewNothingSelectionEvent(view);
   }

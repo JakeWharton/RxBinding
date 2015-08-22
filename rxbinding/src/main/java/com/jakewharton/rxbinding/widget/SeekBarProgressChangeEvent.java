@@ -1,9 +1,11 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SeekBar;
 
 public final class SeekBarProgressChangeEvent extends SeekBarChangeEvent {
+  @CheckResult @NonNull
   public static SeekBarProgressChangeEvent create(@NonNull SeekBar view, int progress,
       boolean fromUser) {
     return new SeekBarProgressChangeEvent(view, progress, fromUser);

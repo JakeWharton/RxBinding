@@ -1,12 +1,10 @@
 package com.jakewharton.rxbinding.support.v7.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-
 import rx.Observable;
 import rx.functions.Action1;
-
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
@@ -19,9 +17,9 @@ public final class RxRecyclerView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code recyclerView}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult
-  public static Observable<RecyclerViewScrollEvent> scrollEvents(RecyclerView recyclerView) {
-    checkNotNull(recyclerView, "recyclerView == null");
+  @CheckResult @NonNull
+  public static Observable<RecyclerViewScrollEvent> scrollEvents(
+      @NonNull RecyclerView recyclerView) {
     return Observable.create(new RecyclerViewScrollEventOnSubscribe(recyclerView));
   }
 
@@ -31,9 +29,9 @@ public final class RxRecyclerView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code recyclerView}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult
-  public static Observable<RecyclerViewScrollStateChangeEvent> scrollStateChangeEvents(RecyclerView recyclerView) {
-    checkNotNull(recyclerView, "recyclerView == null");
+  @CheckResult @NonNull
+  public static Observable<RecyclerViewScrollStateChangeEvent> scrollStateChangeEvents(
+      @NonNull RecyclerView recyclerView) {
     return Observable.create(new RecyclerViewScrollStateChangeEventOnSubscribe(recyclerView));
   }
 

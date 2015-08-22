@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.support.v4.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import rx.Observable;
 import rx.functions.Action1;
@@ -12,8 +13,8 @@ public final class RxSwipeRefreshLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult
-  public static Observable<Void> refreshes(SwipeRefreshLayout view) {
+  @CheckResult @NonNull
+  public static Observable<Void> refreshes(@NonNull SwipeRefreshLayout view) {
     return Observable.create(new SwipeRefreshLayoutRefreshOnSubscribe(view));
   }
 
@@ -23,8 +24,8 @@ public final class RxSwipeRefreshLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult
-  public static Action1<? super Boolean> refreshing(final SwipeRefreshLayout view) {
+  @CheckResult @NonNull
+  public static Action1<? super Boolean> refreshing(@NonNull final SwipeRefreshLayout view) {
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setRefreshing(value);

@@ -1,21 +1,24 @@
 package com.jakewharton.rxbinding.view;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
 
 public final class ViewTouchEvent extends ViewEvent<View> {
-  public static ViewTouchEvent create(View view, MotionEvent motionEvent) {
+  @CheckResult @NonNull
+  public static ViewTouchEvent create(@NonNull View view, @NonNull MotionEvent motionEvent) {
     return new ViewTouchEvent(view, motionEvent);
   }
 
   private final MotionEvent motionEvent;
 
-  private ViewTouchEvent(@NonNull View view, MotionEvent motionEvent) {
+  private ViewTouchEvent(@NonNull View view, @NonNull MotionEvent motionEvent) {
     super(view);
     this.motionEvent = motionEvent;
   }
 
+  @NonNull
   public MotionEvent motionEvent() {
     return motionEvent;
   }

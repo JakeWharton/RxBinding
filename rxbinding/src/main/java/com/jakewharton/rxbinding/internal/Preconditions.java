@@ -16,13 +16,6 @@ package com.jakewharton.rxbinding.internal;
 import android.os.Looper;
 
 public final class Preconditions {
-  public static <T> T checkNotNull(T value, String message) {
-    if (value == null) {
-      throw new NullPointerException(message);
-    }
-    return value;
-  }
-
   public static void checkArgument(boolean assertion, String message) {
     if (!assertion) {
       throw new IllegalArgumentException(message);
