@@ -50,8 +50,8 @@ ext {
   supportTestRules = 'com.android.support.test:rules:0.3'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2'
   supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2'
-  rxJava = 'io.reactivex:rxjava:1.0.13'
-  rxAndroid = 'io.reactivex:rxandroid:1.0.0'
+  rxJava = 'io.reactivex:rxjava:1.0.14'
+  rxAndroid = 'io.reactivex:rxandroid:1.0.1'
   junit = 'junit:junit:4.12'
   truth = 'com.google.truth:truth:0.27'
 }
