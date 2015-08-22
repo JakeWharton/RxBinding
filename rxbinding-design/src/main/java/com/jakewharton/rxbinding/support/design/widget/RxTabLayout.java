@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import rx.Observable;
@@ -20,6 +21,7 @@ public final class RxTabLayout {
    * <p>
    * <em>Note:</em> If a tab is already selected, it will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<Tab> selections(TabLayout view) {
     return Observable.create(new TabLayoutSelectionsOnSubscribe(view));
   }
@@ -33,6 +35,7 @@ public final class RxTabLayout {
    * <p>
    * <em>Note:</em> If a tab is already selected, an event will be emitted immediately on subscribe.
    */
+  @CheckResult
   public static Observable<TabLayoutSelectionEvent> selectionEvents(TabLayout view) {
     return Observable.create(new TabLayoutSelectionEventOnSubscribe(view));
   }
@@ -43,6 +46,7 @@ public final class RxTabLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Action1<? super Integer> select(final TabLayout view) {
     checkNotNull(view, "view == null");
     return new Action1<Integer>() {

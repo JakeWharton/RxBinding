@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.v7.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import rx.Observable;
@@ -16,6 +17,7 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
+  @CheckResult
   public static Observable<MenuItem> itemClicks(Toolbar view) {
     return Observable.create(new ToolbarItemClickOnSubscribe(view));
   }
