@@ -315,7 +315,7 @@ public final class RxView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Boolean> activated(final View view) {
+  public static Action1<? super Boolean> activated(@NonNull final View view) {
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setActivated(value);
