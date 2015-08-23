@@ -45,6 +45,7 @@ Version 0.2.0 *(In Development)*
           * `detaches` - Detach indication.
  * Update Kotlin modules to Kotlin v0.12.1230.
  * Update support library dependencies to v23.0.0.
+ * Minimum SDK version is now 14 because reasons.
  * Fix: Kotlin modules now have correct dependencies on the corresponding Java modules.
 
 
