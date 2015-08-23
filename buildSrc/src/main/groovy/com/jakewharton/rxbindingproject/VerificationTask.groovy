@@ -50,9 +50,15 @@ class VerificationTask extends SourceTask {
     }
   }
 
-  /** Verifies that reference type parameters have @NonNull annotations */
+  /**
+   * Verifies that:
+   * - reference type parameters have @NonNull annotations
+   * - Second parameters that are instances of Func1 have a wildcard first parameterized type
+   */
   static void verifyParameters(MethodDeclaration method) {
     List<Parameter> params = method.parameters
+
+    // Verify annotations
     params.each { Parameter p ->
       if (p.type instanceof ReferenceType) {
         if (!p.annotations.collect {it.name.toString()}.contains("NonNull")) {
@@ -60,12 +66,20 @@ class VerificationTask extends SourceTask {
         }
       }
     }
+
+    // Verify Func1 params
+    if (params.size() >= 2 && params[1] instanceof ReferenceType && params[1].type.type.name == "Func1") {
+      Parameter func1Param = params[1]
+      if (!func1Param.type.type.typeArgs || !(func1Param.type.type.typeArgs[0] instanceof WildcardType)) {
+        throw new IllegalStateException("Missing wildcard type parameter declaration on $method.parentNode.name#$method.name Func1 parameter: \"${func1Param.id.name}\"")
+      }
+    }
   }
 
   /** Verifies that Action1 return types have proper wildcard bounds */
   static void verifyReturnType(MethodDeclaration method) {
     if (method.type.type.name == "Action1") {
-      if (!(method.type.type.typeArgs[0] instanceof WildcardType)) {
+      if (!method.type.type.typeArgs || !(method.type.type.typeArgs[0] instanceof WildcardType)) {
         throw new IllegalStateException("Missing wildcard type parameter declaration on $method.parentNode.name#$method.name's Action1 return type")
       }
     }
