@@ -1,16 +1,13 @@
-package com.jakewharton.kotlingen
+package com.jakewharton.rxbindingproject
 
 import com.android.build.gradle.api.LibraryVariant
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
- * Plugin for generating kotlin bindings for Rx*.java implementations.
- *
- * For every project that applies this plugin, a corresponding "generateKotlinFor" task is created
- * that you can run.
+ * Top-level plugin for managing tasks for project modules
  **/
-class KotlinGenPlugin implements Plugin<Project> {
+class RxBindingPlugin implements Plugin<Project> {
 
   @Override
   void apply(Project project) {
@@ -21,6 +18,7 @@ class KotlinGenPlugin implements Plugin<Project> {
       Collection<LibraryVariant> variants = project.android.libraryVariants
       LibraryVariant variant = variants.find { v -> v.name == "release" }
 
+      // Create a "generateKotlinFor" task for generating kotlin bindings
       KotlinGenTask genTask = project.task(type: KotlinGenTask, "generateKotlin") {
         source = variant.getSourceSets().collect { it.getJavaDirectories() }
         include "**/Rx*.java"

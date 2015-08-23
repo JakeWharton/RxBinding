@@ -5,7 +5,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.kotlingen'
+apply plugin: 'rxbinding-module'
 
 dependencies {
   compile rootProject.ext.rxJava

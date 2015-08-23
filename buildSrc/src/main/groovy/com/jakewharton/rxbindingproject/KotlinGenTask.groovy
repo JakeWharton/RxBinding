@@ -1,4 +1,4 @@
-package com.jakewharton.kotlingen
+package com.jakewharton.rxbindingproject
 
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ast.CompilationUnit
