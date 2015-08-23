@@ -8,9 +8,34 @@ RxJava binding APIs for Android UI widgets from the platform and support librari
 Download
 --------
 
+Platform bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding:0.1.0'
+compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
 ```
+
+'support-v4' library bindings:
+```groovy
+compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.2.0'
+```
+
+'appcompat-v7' library bindings:
+```groovy
+compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.2.0'
+```
+
+'design' library bindings:
+```groovy
+compile 'com.jakewharton.rxbinding:rxbinding-design:0.2.0'
+```
+
+'recyclerview-v7' library bindings:
+```groovy
+compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.2.0'
+```
+
+Kotlin extension methods for all of the above libraries are available by appending `-kotlin` to the
+'artifactId' of the dependency. For example, `rxbinding-support-v4` becomes
+`rxbinding-support-v4-kotlin`.
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
