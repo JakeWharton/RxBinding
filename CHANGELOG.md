@@ -43,7 +43,8 @@ Version 0.2.0 *(In Development)*
           * `attaches` - Attach indication.
           * `attachEvents` - Attach and detach events.
           * `detaches` - Detach indication.
- * Update Kotlin modules to Kotlin v0.12.1230
+ * Update Kotlin modules to Kotlin v0.12.1230.
+ * Update support library dependencies to v23.0.0.
  * Fix: Kotlin modules now have correct dependencies on the corresponding Java modules.
 
 
