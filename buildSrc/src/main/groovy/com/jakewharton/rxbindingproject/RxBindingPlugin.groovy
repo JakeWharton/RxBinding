@@ -9,6 +9,9 @@ import org.gradle.api.Project
  **/
 class RxBindingPlugin implements Plugin<Project> {
 
+  private static final String INCLUDE_PATTERN = "**/Rx*.java"
+  private static final String EXCLUDE_PATTERN = "**/internal/*"
+
   @Override
   void apply(Project project) {
     project.afterEvaluate {
@@ -17,16 +20,28 @@ class RxBindingPlugin implements Plugin<Project> {
       // Convenience approach so that we can grab the source sets off of it
       Collection<LibraryVariant> variants = project.android.libraryVariants
       LibraryVariant variant = variants.find { v -> v.name == "release" }
+      List<Collection<File>> variantJavaSources = variant.getSourceSets().collect { it.getJavaDirectories() }
 
       // Create a "generateKotlinFor" task for generating kotlin bindings
       KotlinGenTask genTask = project.task(type: KotlinGenTask, "generateKotlin") {
-        source = variant.getSourceSets().collect { it.getJavaDirectories() }
-        include "**/Rx*.java"
-        exclude "**/internal/*"
+        source = variantJavaSources
+        include INCLUDE_PATTERN
+        exclude EXCLUDE_PATTERN
       } as KotlinGenTask
 
       genTask.outputs.upToDateWhen { false }
       project.tasks.add(genTask)
+
+      if (!project.hasProperty("noverify")) {
+        // Verification task for verifying Rx*.java factory method structures
+        VerificationTask verificationTask = project.task(type: VerificationTask, "verifySources") {
+          source = variantJavaSources
+          include INCLUDE_PATTERN
+          exclude EXCLUDE_PATTERN
+        } as VerificationTask
+
+        project.preBuild.dependsOn(verificationTask)
+      }
     }
   }
 
