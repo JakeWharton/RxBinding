@@ -1,6 +1,8 @@
 package com.jakewharton.rxbinding.view;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -10,13 +12,14 @@ import android.view.View;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewFocusChangeEvent extends ViewEvent<View> {
-  public static ViewFocusChangeEvent create(View view, boolean hasFocus) {
+  @CheckResult @NonNull
+  public static ViewFocusChangeEvent create(@NonNull View view, boolean hasFocus) {
     return new ViewFocusChangeEvent(view, hasFocus);
   }
 
   private final boolean hasFocus;
 
-  private ViewFocusChangeEvent(View view, boolean hasFocus) {
+  private ViewFocusChangeEvent(@NonNull View view, boolean hasFocus) {
     super(view);
     this.hasFocus = hasFocus;
   }

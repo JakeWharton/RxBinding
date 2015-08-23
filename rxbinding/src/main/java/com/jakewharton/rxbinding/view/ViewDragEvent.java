@@ -1,10 +1,10 @@
 package com.jakewharton.rxbinding.view;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.view.DragEvent;
 import android.view.View;
-
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * A drag event on a view.
@@ -13,17 +13,19 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewDragEvent extends ViewEvent<View> {
-  public static ViewDragEvent create(View view, DragEvent dragEvent) {
+  @CheckResult @NonNull
+  public static ViewDragEvent create(@NonNull View view, @NonNull DragEvent dragEvent) {
     return new ViewDragEvent(view, dragEvent);
   }
 
   private final DragEvent dragEvent;
 
-  private ViewDragEvent(View view, DragEvent dragEvent) {
+  private ViewDragEvent(@NonNull View view, @NonNull DragEvent dragEvent) {
     super(view);
-    this.dragEvent = checkNotNull(dragEvent, "dragEvent == null");
+    this.dragEvent = dragEvent;
   }
 
+  @NonNull
   public DragEvent dragEvent() {
     return dragEvent;
   }

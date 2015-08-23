@@ -106,7 +106,7 @@ public inline fun View.dragEvents(): Observable<ViewDragEvent> = RxView.dragEven
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [View.OnDragListener].
  */
-public inline fun View.dragEvents(handled: Func1<ViewDragEvent, Boolean>): Observable<ViewDragEvent> = RxView.dragEvents(this, handled)
+public inline fun View.dragEvents(handled: Func1<in ViewDragEvent, Boolean>): Observable<ViewDragEvent> = RxView.dragEvents(this, handled)
 
 /**
  * Create an observable of booleans representing the focus of `view`.

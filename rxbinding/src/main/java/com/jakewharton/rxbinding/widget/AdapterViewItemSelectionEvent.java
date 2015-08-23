@@ -1,12 +1,14 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 
 public final class AdapterViewItemSelectionEvent extends AdapterViewSelectionEvent {
-  public static AdapterViewSelectionEvent create(@NonNull AdapterView<?> view, View selectedView,
-      int position, long id) {
+  @CheckResult @NonNull
+  public static AdapterViewSelectionEvent create(@NonNull AdapterView<?> view,
+      @NonNull View selectedView, int position, long id) {
     return new AdapterViewItemSelectionEvent(view, selectedView, position, id);
   }
 
@@ -14,7 +16,7 @@ public final class AdapterViewItemSelectionEvent extends AdapterViewSelectionEve
   private final int position;
   private final long id;
 
-  private AdapterViewItemSelectionEvent(@NonNull AdapterView<?> view, View selectedView,
+  private AdapterViewItemSelectionEvent(@NonNull AdapterView<?> view, @NonNull View selectedView,
       int position, long id) {
     super(view);
     this.selectedView = selectedView;
@@ -22,6 +24,7 @@ public final class AdapterViewItemSelectionEvent extends AdapterViewSelectionEve
     this.id = id;
   }
 
+  @NonNull
   public View selectedView() {
     return selectedView;
   }

@@ -1,19 +1,23 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.widget.TextView;
 import com.jakewharton.rxbinding.view.ViewEvent;
 
 public final class TextViewEditorActionEvent extends ViewEvent<TextView> {
-  public static TextViewEditorActionEvent create(TextView view, int actionId, KeyEvent keyEvent) {
+  @CheckResult @NonNull
+  public static TextViewEditorActionEvent create(@NonNull TextView view, int actionId,
+      @NonNull KeyEvent keyEvent) {
     return new TextViewEditorActionEvent(view, actionId, keyEvent);
   }
 
   private final int actionId;
   private final KeyEvent keyEvent;
 
-  private TextViewEditorActionEvent(@NonNull TextView view, int actionId, KeyEvent keyEvent) {
+  private TextViewEditorActionEvent(@NonNull TextView view, int actionId,
+      @NonNull KeyEvent keyEvent) {
     super(view);
     this.actionId = actionId;
     this.keyEvent = keyEvent;
@@ -23,6 +27,7 @@ public final class TextViewEditorActionEvent extends ViewEvent<TextView> {
     return actionId;
   }
 
+  @NonNull
   public KeyEvent keyEvent() {
     return keyEvent;
   }

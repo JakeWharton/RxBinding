@@ -1,10 +1,10 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.widget.TextView;
 import com.jakewharton.rxbinding.view.ViewEvent;
-
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * A text-change event on a view.
@@ -13,8 +13,9 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
-  public static TextViewTextChangeEvent create(TextView view, CharSequence text, int start,
-      int before, int count) {
+  @CheckResult @NonNull
+  public static TextViewTextChangeEvent create(@NonNull TextView view, @NonNull CharSequence text,
+      int start, int before, int count) {
     return new TextViewTextChangeEvent(view, text, start, before, count);
   }
 
@@ -23,15 +24,16 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
   private final int before;
   private final int count;
 
-  private TextViewTextChangeEvent(TextView view, CharSequence text, int start, int before,
-      int count) {
+  private TextViewTextChangeEvent(@NonNull TextView view, @NonNull CharSequence text, int start,
+      int before, int count) {
     super(view);
-    this.text = checkNotNull(text, "text == null");
+    this.text = text;
     this.start = start;
     this.before = before;
     this.count = count;
   }
 
+  @NonNull
   public CharSequence text() {
     return text;
   }

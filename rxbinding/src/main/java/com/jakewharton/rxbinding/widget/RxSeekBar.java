@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.widget.SeekBar;
 import rx.Observable;
 
@@ -13,8 +14,8 @@ public final class RxSeekBar {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult
-  public static Observable<Integer> changes(SeekBar view) {
+  @CheckResult @NonNull
+  public static Observable<Integer> changes(@NonNull SeekBar view) {
     return Observable.create(new SeekBarChangeOnSubscribe(view));
   }
 
@@ -26,8 +27,8 @@ public final class RxSeekBar {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult
-  public static Observable<SeekBarChangeEvent> changeEvents(SeekBar view) {
+  @CheckResult @NonNull
+  public static Observable<SeekBarChangeEvent> changeEvents(@NonNull SeekBar view) {
     return Observable.create(new SeekBarChangeEventOnSubscribe(view));
   }
 

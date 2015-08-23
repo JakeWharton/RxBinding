@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.support.v4.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import rx.Observable;
 import rx.functions.Action1;
@@ -14,8 +15,8 @@ public final class RxDrawerLayout {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult
-  public static Observable<Boolean> drawerOpen(DrawerLayout view, int gravity) {
+  @CheckResult @NonNull
+  public static Observable<Boolean> drawerOpen(@NonNull DrawerLayout view, int gravity) {
     return Observable.create(new DrawerLayoutDrawerOpenedOnSubscribe(view, gravity));
   }
 
@@ -25,8 +26,8 @@ public final class RxDrawerLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult
-  public static Action1<? super Boolean> open(final DrawerLayout view, final int gravity) {
+  @CheckResult @NonNull
+  public static Action1<? super Boolean> open(@NonNull final DrawerLayout view, final int gravity) {
     return new Action1<Boolean>() {
       @Override public void call(Boolean aBoolean) {
         if (aBoolean) {

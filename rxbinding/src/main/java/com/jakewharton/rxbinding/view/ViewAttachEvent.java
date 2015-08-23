@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.view;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -11,22 +12,23 @@ import android.view.View;
  * cache instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewAttachEvent extends ViewEvent<View> {
-
   public enum Kind {
     ATTACH, DETACH
   }
 
-  public static ViewAttachEvent create(@NonNull View view, Kind kind) {
+  @CheckResult @NonNull
+  public static ViewAttachEvent create(@NonNull View view, @NonNull Kind kind) {
     return new ViewAttachEvent(view, kind);
   }
 
   private final Kind kind;
 
-  private ViewAttachEvent(View view, Kind kind) {
+  private ViewAttachEvent(@NonNull View view, @NonNull Kind kind) {
     super(view);
     this.kind = kind;
   }
 
+  @NonNull
   public Kind kind() {
     return kind;
   }

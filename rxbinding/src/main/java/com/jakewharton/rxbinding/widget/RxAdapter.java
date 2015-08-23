@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.widget.Adapter;
 import rx.Observable;
 
@@ -13,8 +14,8 @@ public final class RxAdapter {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult
-  public static <T extends Adapter> Observable<T> dataChanges(T adapter) {
+  @CheckResult @NonNull
+  public static <T extends Adapter> Observable<T> dataChanges(@NonNull T adapter) {
     return Observable.create(new AdapterDataChangeOnSubscribe<>(adapter));
   }
 

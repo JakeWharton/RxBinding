@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 import rx.Observable;
@@ -20,8 +21,8 @@ public final class RxNavigationView {
    * <em>Note:</em> If an item is already selected, it will be emitted immediately on subscribe.
    * This behavior assumes but does not enforce that the items are exclusively checkable.
    */
-  @CheckResult
-  public static Observable<MenuItem> itemSelections(NavigationView view) {
+  @CheckResult @NonNull
+  public static Observable<MenuItem> itemSelections(@NonNull NavigationView view) {
     return Observable.create(new NavigationViewItemSelectionsOnSubscribe(view));
   }
 

@@ -1,17 +1,19 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.RatingBar;
 import com.jakewharton.rxbinding.view.ViewEvent;
 
 public final class RatingBarChangeEvent extends ViewEvent<RatingBar> {
-  private final float rating;
-  private final boolean fromUser;
-
+  @CheckResult @NonNull
   public static RatingBarChangeEvent create(@NonNull RatingBar view, float rating,
       boolean fromUser) {
     return new RatingBarChangeEvent(view, rating, fromUser);
   }
+
+  private final float rating;
+  private final boolean fromUser;
 
   private RatingBarChangeEvent(@NonNull RatingBar view, float rating, boolean fromUser) {
     super(view);

@@ -1,9 +1,11 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SeekBar;
 
 public final class SeekBarStopChangeEvent extends SeekBarChangeEvent {
+  @CheckResult @NonNull
   public static SeekBarStopChangeEvent create(@NonNull SeekBar view) {
     return new SeekBarStopChangeEvent(view);
   }

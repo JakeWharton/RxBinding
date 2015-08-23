@@ -1,12 +1,11 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import rx.Observable;
 import rx.functions.Action1;
-
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
@@ -21,8 +20,8 @@ public final class RxTabLayout {
    * <p>
    * <em>Note:</em> If a tab is already selected, it will be emitted immediately on subscribe.
    */
-  @CheckResult
-  public static Observable<Tab> selections(TabLayout view) {
+  @CheckResult @NonNull
+  public static Observable<Tab> selections(@NonNull TabLayout view) {
     return Observable.create(new TabLayoutSelectionsOnSubscribe(view));
   }
 
@@ -35,8 +34,8 @@ public final class RxTabLayout {
    * <p>
    * <em>Note:</em> If a tab is already selected, an event will be emitted immediately on subscribe.
    */
-  @CheckResult
-  public static Observable<TabLayoutSelectionEvent> selectionEvents(TabLayout view) {
+  @CheckResult @NonNull
+  public static Observable<TabLayoutSelectionEvent> selectionEvents(@NonNull TabLayout view) {
     return Observable.create(new TabLayoutSelectionEventOnSubscribe(view));
   }
 
@@ -46,9 +45,8 @@ public final class RxTabLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult
-  public static Action1<? super Integer> select(final TabLayout view) {
-    checkNotNull(view, "view == null");
+  @CheckResult @NonNull
+  public static Action1<? super Integer> select(@NonNull final TabLayout view) {
     return new Action1<Integer>() {
       @Override public void call(Integer index) {
         if (index < 0 || index >= view.getTabCount()) {
