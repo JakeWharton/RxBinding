@@ -1,4 +1,4 @@
-package com.jakewharton.rxbindingproject
+package com.jakewharton.rxbinding.project
 
 import com.android.build.gradle.api.LibraryVariant
 import org.gradle.api.Plugin
