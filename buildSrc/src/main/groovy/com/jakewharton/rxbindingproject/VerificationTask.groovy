@@ -5,6 +5,7 @@ import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.body.Parameter
 import com.github.javaparser.ast.type.ReferenceType
+import com.github.javaparser.ast.type.WildcardType
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.google.common.collect.ImmutableList
 import org.gradle.api.tasks.SourceTask
@@ -31,6 +32,7 @@ class VerificationTask extends SourceTask {
       void visit(MethodDeclaration n, Object arg) {
         verifyMethodAnnotations(n)
         verifyParameters(n)
+        verifyReturnType(n)
         // Explicitly avoid going deeper, we only care about top level methods. Otherwise
         // we'd hit anonymous inner classes and whatnot
       }
@@ -56,6 +58,15 @@ class VerificationTask extends SourceTask {
         if (!p.annotations.collect {it.name.toString()}.contains("NonNull")) {
           throw new IllegalStateException("Missing required @NonNull annotation on $method.parentNode.name#$method.name parameter: \"$p.id.name\"")
         }
+      }
+    }
+  }
+
+  /** Verifies that Action1 return types have proper wildcard bounds */
+  static void verifyReturnType(MethodDeclaration method) {
+    if (method.type.type.name == "Action1") {
+      if (!(method.type.type.typeArgs[0] instanceof WildcardType)) {
+        throw new IllegalStateException("Missing wildcard type parameter declaration on $method.parentNode.name#$method.name's Action1 return type")
       }
     }
   }
