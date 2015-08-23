@@ -12,7 +12,7 @@ import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 
-class VerificationTask extends SourceTask {
+class ValidateBindingsTask extends SourceTask {
 
   private static final List<String> METHOD_ANNOTATIONS = ImmutableList.of(
       "CheckResult",
@@ -20,7 +20,7 @@ class VerificationTask extends SourceTask {
   )
 
   @TaskAction
-  def verify(IncrementalTaskInputs inputs) {
+  def validate(IncrementalTaskInputs inputs) {
     getSource().each { verifyJavaFile(it) }
   }
 
@@ -40,7 +40,7 @@ class VerificationTask extends SourceTask {
     }, null)
   }
 
-  /** Verifies that method signatures have @CheckResult and @NonNull annotations */
+  /** Validates that method signatures have @CheckResult and @NonNull annotations */
   static void verifyMethodAnnotations(MethodDeclaration method) {
     List<String> annotationNames = method.annotations.collect {it.name.toString()}
     METHOD_ANNOTATIONS.each { String annotation ->
@@ -51,14 +51,14 @@ class VerificationTask extends SourceTask {
   }
 
   /**
-   * Verifies that:
+   * Validates that:
    * - reference type parameters have @NonNull annotations
    * - Second parameters that are instances of Func1 have a wildcard first parameterized type
    */
   static void verifyParameters(MethodDeclaration method) {
     List<Parameter> params = method.parameters
 
-    // Verify annotations
+    // Validate annotations
     params.each { Parameter p ->
       if (p.type instanceof ReferenceType) {
         if (!p.annotations.collect {it.name.toString()}.contains("NonNull")) {
@@ -67,7 +67,7 @@ class VerificationTask extends SourceTask {
       }
     }
 
-    // Verify Func1 params
+    // Validate Func1 params
     if (params.size() >= 2 && params[1] instanceof ReferenceType && params[1].type.type.name == "Func1") {
       Parameter func1Param = params[1]
       if (!func1Param.type.type.typeArgs || !(func1Param.type.type.typeArgs[0] instanceof WildcardType)) {
@@ -76,7 +76,7 @@ class VerificationTask extends SourceTask {
     }
   }
 
-  /** Verifies that Action1 return types have proper wildcard bounds */
+  /** Validates that Action1 return types have proper wildcard bounds */
   static void verifyReturnType(MethodDeclaration method) {
     if (method.type.type.name == "Action1") {
       if (!method.type.type.typeArgs || !(method.type.type.typeArgs[0] instanceof WildcardType)) {

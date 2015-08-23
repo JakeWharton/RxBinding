@@ -32,14 +32,14 @@ class RxBindingPlugin implements Plugin<Project> {
       genTask.outputs.upToDateWhen { false }
       project.tasks.add(genTask)
 
-      // Verification task for verifying Rx*.java factory method structures
-      VerificationTask verificationTask = project.task(type: VerificationTask, "validateBindings") {
+      // Task for validating Rx*.java factory method structures
+      ValidateBindingsTask validateBindingsTask = project.task(type: ValidateBindingsTask, "validateBindings") {
         source = variantJavaSources
         include INCLUDE_PATTERN
         exclude EXCLUDE_PATTERN
-      } as VerificationTask
+      } as ValidateBindingsTask
 
-      project.tasks.check.dependsOn(verificationTask)
+      project.tasks.check.dependsOn(validateBindingsTask)
     }
   }
 
