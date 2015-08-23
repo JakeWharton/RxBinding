@@ -42,6 +42,7 @@ class KotlinGenTask extends SourceTask {
    */
   private static final List<String> IGNORED_IMPORTS = ImmutableList.of(
       "java.util.List",
+      "android.annotation.TargetApi",
       "android.support.annotation.CheckResult",
       "android.support.annotation.NonNull"
   )
