@@ -2,12 +2,15 @@ package com.jakewharton.rxbinding.internal;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Keep;
+
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import rx.Subscription;
 
 public abstract class MainThreadSubscription implements Subscription, Runnable {
   private static final Handler mainThread = new Handler(Looper.getMainLooper());
 
+  @Keep
   @SuppressWarnings("unused") // Updated by 'unsubscribedUpdater' object.
   private volatile int unsubscribed;
   private static final AtomicIntegerFieldUpdater<MainThreadSubscription> unsubscribedUpdater =
