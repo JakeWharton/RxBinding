@@ -199,7 +199,7 @@ class KotlinGenTask extends SourceTask {
 
       StringBuilder builder = new StringBuilder()
       builder.append("<")
-      params.each { p -> builder.append("${p.name} : ${p.typeBound[0].name}") }
+      params.each { p -> builder.append("${p.name} : ${resolveKotlinType(p.typeBound[0])}") }
       builder.append(">")
       return builder.toString()
     }
@@ -270,7 +270,13 @@ class KotlinGenTask extends SourceTask {
       return resolveKotlinTypeByName(inputType.toString())
     } else if (inputType instanceof WildcardType) {
       WildcardType wc = inputType as WildcardType
-      return "in ${resolveKotlinType(wc.super)}"
+      if (wc.super) {
+        return "in ${resolveKotlinType(wc.super)}"
+      } else if (wc.extends) {
+        return "out ${resolveKotlinType(wc.extends)}"
+      } else {
+        throw IllegalStateException("Wildcard with no super or extends")
+      }
     } else {
       throw new NotImplementedException()
     }
