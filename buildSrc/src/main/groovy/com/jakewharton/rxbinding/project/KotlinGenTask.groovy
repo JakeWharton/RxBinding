@@ -199,7 +199,7 @@ class KotlinGenTask extends SourceTask {
 
       StringBuilder builder = new StringBuilder()
       builder.append("<")
-      params.each { p -> builder.append("${p.name} : ${p.typeBound[0].name}") }
+      params.each { p -> builder.append("${p.name} : ${resolveKotlinType(p.typeBound[0])}") }
       builder.append(">")
       return builder.toString()
     }
