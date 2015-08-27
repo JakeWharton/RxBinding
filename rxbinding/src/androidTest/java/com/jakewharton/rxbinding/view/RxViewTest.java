@@ -16,6 +16,9 @@ import com.jakewharton.rxbinding.RecordingObserver;
 import rx.functions.Action1;
 
 import static android.view.MotionEvent.ACTION_DOWN;
+import static android.view.MotionEvent.ACTION_HOVER_ENTER;
+import static android.view.MotionEvent.ACTION_HOVER_EXIT;
+import static android.view.MotionEvent.ACTION_HOVER_MOVE;
 import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
 import static com.google.common.truth.Truth.assertThat;
@@ -128,6 +131,46 @@ public final class RxViewTest {
     subscription.unsubscribe();
 
     view.requestFocus();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void hovers() {
+    RecordingObserver<MotionEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.hovers(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.dispatchGenericMotionEvent(motionEventAtPosition(view, ACTION_HOVER_ENTER, 0, 50));
+    MotionEvent event1 = o.takeNext();
+    assertThat(event1.getAction()).isEqualTo(ACTION_HOVER_ENTER);
+
+    view.dispatchGenericMotionEvent(motionEventAtPosition(view, ACTION_HOVER_MOVE, 1, 50));
+    MotionEvent event2 = o.takeNext();
+    assertThat(event2.getAction()).isEqualTo(ACTION_HOVER_MOVE);
+
+    subscription.unsubscribe();
+
+    view.dispatchGenericMotionEvent(motionEventAtPosition(view, ACTION_HOVER_EXIT, 1, 50));
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void hoverEvents() {
+    RecordingObserver<ViewHoverEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.hoverEvents(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.dispatchGenericMotionEvent(motionEventAtPosition(view, ACTION_HOVER_ENTER, 0, 50));
+    ViewHoverEvent event1 = o.takeNext();
+    assertThat(event1.view()).isSameAs(view);
+    assertThat(event1.motionEvent().getAction()).isEqualTo(ACTION_HOVER_ENTER);
+
+    view.dispatchGenericMotionEvent(motionEventAtPosition(view, ACTION_HOVER_MOVE, 1, 50));
+    ViewHoverEvent event2 = o.takeNext();
+    assertThat(event2.view()).isSameAs(view);
+    assertThat(event2.motionEvent().getAction()).isEqualTo(ACTION_HOVER_MOVE);
+
+    subscription.unsubscribe();
+
+    view.dispatchGenericMotionEvent(motionEventAtPosition(view, ACTION_HOVER_EXIT, 1, 50));
     o.assertNoMoreEvents();
   }
 
