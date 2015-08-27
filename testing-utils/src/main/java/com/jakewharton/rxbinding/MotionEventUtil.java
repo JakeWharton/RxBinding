@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding;
 
 import android.os.SystemClock;
+import android.view.InputDevice;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -30,6 +31,24 @@ public final class MotionEventUtil {
 
     long time = SystemClock.uptimeMillis();
     return MotionEvent.obtain(time, time, action, x, y, 0);
+  }
+
+  public static MotionEvent hoverMotionEventAtPosition(View view, int action, int xPercent,
+      int yPercent) {
+    MotionEvent ev = motionEventAtPosition(view, action, xPercent, yPercent);
+
+    MotionEvent.PointerProperties[] pointerProperties = new MotionEvent.PointerProperties[1];
+    pointerProperties[0] = new MotionEvent.PointerProperties();
+
+    MotionEvent.PointerCoords[] pointerCoords = new MotionEvent.PointerCoords[1];
+    pointerCoords[0] = new MotionEvent.PointerCoords();
+    pointerCoords[0].x = ev.getX();
+    pointerCoords[0].y = ev.getY();
+
+    return MotionEvent.obtain(ev.getDownTime(), ev.getEventTime(),
+        ev.getAction(), 1, pointerProperties, pointerCoords, ev.getMetaState(), 0,
+        ev.getXPrecision(), ev.getYPrecision(), ev.getDeviceId(), ev.getEdgeFlags(),
+        InputDevice.SOURCE_CLASS_POINTER, ev.getFlags());
   }
 
   private MotionEventUtil() {
