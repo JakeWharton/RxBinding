@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding;
 
 import android.os.SystemClock;
+import android.view.InputDevice;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,7 +30,18 @@ public final class MotionEventUtil {
     float y = y1 + ((y2 - y1) * yPercent / 100f);
 
     long time = SystemClock.uptimeMillis();
-    return MotionEvent.obtain(time, time, action, x, y, 0);
+
+    MotionEvent.PointerProperties pointerProperties = new MotionEvent.PointerProperties();
+    pointerProperties.toolType = MotionEvent.TOOL_TYPE_UNKNOWN;
+
+    MotionEvent.PointerCoords pointerCoords = new MotionEvent.PointerCoords();
+    pointerCoords.setAxisValue(MotionEvent.AXIS_X, x);
+    pointerCoords.setAxisValue(MotionEvent.AXIS_Y, y);
+
+    return MotionEvent.obtain(time, time, action, 1,
+        new MotionEvent.PointerProperties[] {pointerProperties},
+        new MotionEvent.PointerCoords[]{pointerCoords}, 0, 0, 1.0f, 1.0f,
+        0, 0, InputDevice.SOURCE_CLASS_POINTER, 0);
   }
 
   private MotionEventUtil() {

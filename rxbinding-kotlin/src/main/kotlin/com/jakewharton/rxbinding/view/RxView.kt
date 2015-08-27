@@ -135,6 +135,56 @@ public inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges
 public inline fun View.focusChangeEvents(): Observable<ViewFocusChangeEvent> = RxView.focusChangeEvents(this)
 
 /**
+ * Create an observable of hover events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [View.setOnHoverListener] to observe
+ * touches. Only one observable can be used for a view at a time.
+ */
+public inline fun View.hovers(): Observable<MotionEvent> = RxView.hovers(this)
+
+/**
+ * Create an observable of hover events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [View.setOnHoverListener] to observe
+ * touches. Only one observable can be used for a view at a time.
+ *
+ * @param handled Function invoked with each value to determine the return value of the
+ * underlying [View.OnHoverListener].
+ */
+public inline fun View.hovers(handled: Func1<in MotionEvent, Boolean>): Observable<MotionEvent> = RxView.hovers(this, handled)
+
+/**
+ * Create an observable of hover events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [View.setOnHoverListener] to observe
+ * touches. Only one observable can be used for a view at a time.
+ */
+public inline fun View.hoverEvents(): Observable<ViewHoverEvent> = RxView.hoverEvents(this)
+
+/**
+ * Create an observable of hover events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [View.setOnHoverListener] to observe
+ * touches. Only one observable can be used for a view at a time.
+ *
+ * @param handled Function invoked with each value to determine the return value of the
+ * underlying [View.OnHoverListener].
+ */
+public inline fun View.hoverEvents(handled: Func1<in ViewHoverEvent, Boolean>): Observable<ViewHoverEvent> = RxView.hoverEvents(this, handled)
+
+/**
  * Create an observable which emits on `view` long-click events. The emitted value is
  * unspecified and should only be used as notification.
  * 
