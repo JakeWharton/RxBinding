@@ -19,3 +19,11 @@ public inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEven
  * Unsubscribe to free this reference.
  */
 public inline fun RecyclerView.scrollStateChangeEvents(): Observable<RecyclerViewScrollStateChangeEvent> = RxRecyclerView.scrollStateChangeEvents(this)
+
+/**
+ * Create an observable of the position of item clicks for `recyclerView`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `recyclerView`.
+ * Unsubscribe to free this reference.
+ */
+public inline fun RecyclerView.itemClicks(): Observable<Int> = RxRecyclerView.itemClicks(this)

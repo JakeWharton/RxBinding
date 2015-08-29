@@ -35,6 +35,17 @@ public final class RxRecyclerView {
     return Observable.create(new RecyclerViewScrollStateChangeEventOnSubscribe(recyclerView));
   }
 
+  /**
+   * Create an observable of the position of item clicks for {@code recyclerView}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code recyclerView}.
+   * Unsubscribe to free this reference.
+   */
+  @CheckResult @NonNull public static Observable<Integer> itemClicks(
+      @NonNull RecyclerView recyclerView) {
+    return Observable.create(new RecyclerViewItemClickOnSubscribe(recyclerView));
+  }
+
   private RxRecyclerView() {
     throw new AssertionError("No instances.");
   }
