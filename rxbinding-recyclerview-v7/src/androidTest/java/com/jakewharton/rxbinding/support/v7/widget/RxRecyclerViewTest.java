@@ -210,4 +210,37 @@ public final class RxRecyclerViewTest {
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
+
+  @Test public void itemClicks() {
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.itemClicks(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.findViewHolderForLayoutPosition(1).itemView.performClick();
+      }
+    });
+    assertThat(o.takeNext()).isEqualTo(1);
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.smoothScrollToPosition(50);
+        view.findViewHolderForLayoutPosition(5).itemView.performClick();
+      }
+    });
+    assertThat(o.takeNext()).isEqualTo(5);
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.smoothScrollToPosition(50);
+        view.findViewHolderForLayoutPosition(5).itemView.performClick();
+      }
+    });
+    o.assertNoMoreEvents();
+  }
 }
