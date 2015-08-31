@@ -162,7 +162,6 @@ public final class RxView {
     return Observable.create(new ViewFocusChangeOnSubscribe(view));
   }
 
-
   /**
    * Create an observable of focus-change events for {@code view}.
    * <p>
@@ -241,6 +240,29 @@ public final class RxView {
   public static Observable<ViewHoverEvent> hoverEvents(@NonNull View view,
       @NonNull Func1<? super ViewHoverEvent, Boolean> handled) {
     return Observable.create(new ViewHoverEventOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable which emits on {@code view} layout changes. The emitted value is
+   * unspecified and should only be used as notification.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> layoutChanges(@NonNull View view) {
+    return Observable.create(new ViewLayoutChangeOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable of layout-change events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Observable<ViewLayoutChangeEvent> layoutChangeEvents(@NonNull View view) {
+    return Observable.create(new ViewLayoutChangeEventOnSubscribe(view));
   }
 
   /**

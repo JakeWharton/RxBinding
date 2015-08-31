@@ -185,6 +185,23 @@ public inline fun View.hoverEvents(): Observable<ViewHoverEvent> = RxView.hoverE
 public inline fun View.hoverEvents(handled: Func1<in ViewHoverEvent, Boolean>): Observable<ViewHoverEvent> = RxView.hoverEvents(this, handled)
 
 /**
+ * Create an observable which emits on `view` layout changes. The emitted value is
+ * unspecified and should only be used as notification.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun View.layoutChanges(): Observable<Any> = RxView.layoutChanges(this)
+
+/**
+ * Create an observable of layout-change events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun View.layoutChangeEvents(): Observable<ViewLayoutChangeEvent> = RxView.layoutChangeEvents(this)
+
+/**
  * Create an observable which emits on `view` long-click events. The emitted value is
  * unspecified and should only be used as notification.
  * 

@@ -175,6 +175,41 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
+  @Test @UiThreadTest public void layoutChanges() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxView.layoutChanges(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
+    assertThat(o.takeNext()).isNotNull();
+
+    view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+    o.assertNoMoreEvents();
+
+    subscription.unsubscribe();
+    view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void layoutChangeEvents() {
+    RecordingObserver<ViewLayoutChangeEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.layoutChangeEvents(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
+    ViewLayoutChangeEvent event1 = o.takeNext();
+    assertThat(event1.view()).isSameAs(view);
+    assertThat(event1.left()).isNotSameAs(event1.oldLeft());
+    assertThat(event1.right()).isSameAs(event1.oldRight());
+
+    view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+    o.assertNoMoreEvents();
+
+    subscription.unsubscribe();
+    view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
+    o.assertNoMoreEvents();
+  }
+
   @Test @UiThreadTest public void longClicks() {
     // We need a parent because long presses delegate to the parent.
     LinearLayout parent = new LinearLayout(context) {
