@@ -180,6 +180,70 @@ public final class RxView {
   }
 
   /**
+   * Create an observable of hover events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnHoverListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<MotionEvent> hovers(@NonNull View view) {
+    return hovers(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of hover events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnHoverListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link View.OnHoverListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<MotionEvent> hovers(@NonNull View view,
+      @NonNull Func1<? super MotionEvent, Boolean> handled) {
+    return Observable.create(new ViewHoverOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable of hover events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnHoverListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<ViewHoverEvent> hoverEvents(@NonNull View view) {
+    return hoverEvents(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of hover events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link View#setOnHoverListener} to observe
+   * touches. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link View.OnHoverListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<ViewHoverEvent> hoverEvents(@NonNull View view,
+      @NonNull Func1<? super ViewHoverEvent, Boolean> handled) {
+    return Observable.create(new ViewHoverEventOnSubscribe(view, handled));
+  }
+
+  /**
    * Create an observable which emits on {@code view} long-click events. The emitted value is
    * unspecified and should only be used as notification.
    * <p>
