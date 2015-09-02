@@ -254,6 +254,30 @@ public inline fun View.longClickEvents(): Observable<ViewLongClickEvent> = RxVie
 public inline fun View.longClickEvents(handled: Func1<in ViewLongClickEvent, Boolean>): Observable<ViewLongClickEvent> = RxView.longClickEvents(this, handled)
 
 /**
+ * Create an observable of integers representing a new system UI visibility for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses
+ * [View.setOnSystemUiVisibilityChangeListener] to observe system UI visibility changes.
+ * Only one observable can be used for a view at a time.
+ */
+public inline fun View.systemUiVisibilityChanges(): Observable<Int> = RxView.systemUiVisibilityChanges(this)
+
+/**
+ * Create an observable of system UI visibility changes for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses
+ * [View.setOnSystemUiVisibilityChangeListener] to observe system UI visibility changes.
+ * Only one observable can be used for a view at a time.
+ */
+public inline fun View.systemUiVisibilityChangeEvents(): Observable<ViewSystemUiVisibilityChangeEvent> = RxView.systemUiVisibilityChangeEvents(this)
+
+/**
  * Create an observable of touch events for `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe

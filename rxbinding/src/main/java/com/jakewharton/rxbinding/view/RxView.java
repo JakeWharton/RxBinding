@@ -331,6 +331,37 @@ public final class RxView {
   }
 
   /**
+   * Create an observable of integers representing a new system UI visibility for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses
+   * {@link View#setOnSystemUiVisibilityChangeListener} to observe system UI visibility changes.
+   * Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Integer> systemUiVisibilityChanges(@NonNull View view) {
+    return Observable.create(new ViewSystemUiVisibilityChangeOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable of system UI visibility changes for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses
+   * {@link View#setOnSystemUiVisibilityChangeListener} to observe system UI visibility changes.
+   * Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<ViewSystemUiVisibilityChangeEvent> systemUiVisibilityChangeEvents(
+      @NonNull View view) {
+    return Observable.create(new ViewSystemUiVisibilityChangeEventOnSubscribe(view));
+  }
+
+  /**
    * Create an observable of touch events for {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
