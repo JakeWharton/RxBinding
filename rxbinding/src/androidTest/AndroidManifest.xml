@@ -5,6 +5,7 @@
 
   <application>
     <activity android:name=".view.RxViewAttachTestActivity"/>
+    <activity android:name=".view.RxViewGroupTestActivity"/>
     <activity android:name=".widget.RxAdapterViewTestActivity"/>
     <activity android:name=".widget.RxRatingBarTestActivity"/>
     <activity android:name=".widget.RxSeekBarTestActivity"/>
