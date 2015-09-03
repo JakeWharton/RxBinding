@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import com.jakewharton.rxbinding.internal.Functions;
 import rx.Observable;
 import rx.functions.Action1;
@@ -146,6 +147,20 @@ public final class RxView {
   public static Observable<ViewDragEvent> dragEvents(@NonNull View view,
       @NonNull Func1<? super ViewDragEvent, Boolean> handled) {
     return Observable.create(new ViewDragEventOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable for draws on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnDrawListener} to observe
+   * draws. Multiple observables can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> draws(@NonNull View view) {
+    return Observable.create(new ViewTreeObserverDrawOnSubscribe(view));
   }
 
   /**
