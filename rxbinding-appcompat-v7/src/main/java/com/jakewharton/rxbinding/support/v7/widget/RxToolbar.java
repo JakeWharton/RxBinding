@@ -23,6 +23,21 @@ public final class RxToolbar {
     return Observable.create(new ToolbarItemClickOnSubscribe(view));
   }
 
+  /**
+   * Create an observable which emits on {@code view} navigation click events. The emitted value is
+   * unspecified and should only be used as notification.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link Toolbar#setNavigationOnClickListener}
+   * to observe clicks. Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> navigationClicks(@NonNull Toolbar view) {
+    return Observable.create(new ToolbarNavigationClickOnSubscribe(view));
+  }
+
   private RxToolbar() {
     throw new AssertionError("No instances.");
   }
