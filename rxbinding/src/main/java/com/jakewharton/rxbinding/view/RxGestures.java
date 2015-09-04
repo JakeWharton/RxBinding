@@ -69,42 +69,42 @@ public class RxGestures {
      * Create an observable of down gestures.
      */
     public Observable<ViewGestureEvent> down() {
-        return gestureListener.downGestureObservable;
+        return gestureListener.downObservable();
     }
 
     /**
      * Create an observable of show press gestures.
      */
     public Observable<ViewGestureEvent> showPress() {
-        return gestureListener.showPressGestureObservable;
+        return gestureListener.showPressObservable();
     }
 
     /**
      * Create an observable of single tap up gestures.
      */
     public Observable<ViewGestureEvent> singleTapUp() {
-        return gestureListener.singleTapUpGestureObservable;
+        return gestureListener.singleTapUpObservable();
     }
 
     /**
      * Create an observable of scroll gestures.
      */
     public Observable<ViewGestureScrollEvent> scroll() {
-        return gestureListener.scrollGestureObservable;
+        return gestureListener.scrollObservable();
     }
 
     /**
      * Create an observable of long press gestures.
      */
     public Observable<ViewGestureEvent> longPress() {
-        return gestureListener.longPressGestureObservable;
+        return gestureListener.longPressObservable();
     }
 
     /**
      * Create an observable of fling gestures.
      */
     public Observable<ViewGestureFlingEvent> fling() {
-        return gestureListener.flingGestureObservable;
+        return gestureListener.flingObservable();
     }
 
 }
