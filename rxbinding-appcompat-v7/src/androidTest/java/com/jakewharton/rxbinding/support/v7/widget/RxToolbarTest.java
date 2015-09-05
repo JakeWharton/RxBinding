@@ -42,4 +42,12 @@ public final class RxToolbarTest {
     menu.performIdentifierAction(2, 0);
     o.assertNoMoreEvents();
   }
+
+  @Test @UiThreadTest public void clicks() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxToolbar.navigationClickEvents(view).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    subscription.unsubscribe();
+  }
 }
