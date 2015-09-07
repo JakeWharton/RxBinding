@@ -254,6 +254,14 @@ public inline fun View.longClickEvents(): Observable<ViewLongClickEvent> = RxVie
 public inline fun View.longClickEvents(handled: Func1<in ViewLongClickEvent, Boolean>): Observable<ViewLongClickEvent> = RxView.longClickEvents(this, handled)
 
 /**
+ * Create an observable of scroll-change events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun View.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxView.scrollChangeEvents(this)
+
+/**
  * Create an observable of integers representing a new system UI visibility for `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe

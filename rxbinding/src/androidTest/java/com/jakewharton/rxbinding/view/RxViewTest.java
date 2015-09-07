@@ -1,8 +1,10 @@
 package com.jakewharton.rxbinding.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.MotionEvent;
@@ -15,6 +17,7 @@ import rx.Subscription;
 import com.jakewharton.rxbinding.RecordingObserver;
 import rx.functions.Action1;
 
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_EXIT;
@@ -25,6 +28,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding.MotionEventUtil.hoverMotionEventAtPosition;
 import static org.junit.Assert.fail;
 import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
+import static android.os.Build.VERSION_CODES.M;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewTest {
@@ -257,6 +261,32 @@ public final class RxViewTest {
     subscription.unsubscribe();
 
     view.performLongClick();
+    o.assertNoMoreEvents();
+  }
+
+  @TargetApi(M)
+  @SdkSuppress(minSdkVersion = M)
+  @Test @UiThreadTest public void scrollChangeEvents() {
+    RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.scrollChangeEvents(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.scrollTo(0, 0);
+    ViewScrollChangeEvent event0 = o.takeNext();
+    assertThat(event0.view()).isSameAs(view);
+    assertThat(event0.scrollX()).isEqualTo(0);
+    assertThat(event0.scrollY()).isEqualTo(0);
+
+    view.scrollTo(5, 5);
+    ViewScrollChangeEvent event1 = o.takeNext();
+    assertThat(event1.view()).isSameAs(view);
+    assertThat(event1.scrollX()).isEqualTo(5);
+    assertThat(event1.scrollY()).isEqualTo(5);
+    assertThat(event1.oldScrollX()).isEqualTo(0);
+    assertThat(event1.oldScrollY()).isEqualTo(0);
+
+    subscription.unsubscribe();
+    view.scrollTo(0, 0);
     o.assertNoMoreEvents();
   }
 
