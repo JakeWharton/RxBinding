@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.view;
 
+import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.DragEvent;
@@ -12,6 +13,7 @@ import rx.functions.Func0;
 import rx.functions.Func1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkArgument;
+import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
@@ -328,6 +330,18 @@ public final class RxView {
   public static Observable<ViewLongClickEvent> longClickEvents(@NonNull View view,
       @NonNull Func1<? super ViewLongClickEvent, Boolean> handled) {
     return Observable.create(new ViewLongClickEventOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable of scroll-change events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @TargetApi(M)
+  @CheckResult @NonNull
+  public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
+    return Observable.create(new ViewScrollChangeEventOnSubscribe(view));
   }
 
   /**
