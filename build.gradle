@@ -33,18 +33,18 @@ ext {
   androidPlugin = 'com.android.tools.build:gradle:1.3.1'
   minSdkVersion = 14
   compileSdkVersion = 23
-  buildToolsVersion = '23.0.0'
+  buildToolsVersion = '23.0.1'
 
   ci = 'true'.equals(System.getenv('CI'))
 
   kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230'
   kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:0.12.1230'
 
-  supportAnnotations = 'com.android.support:support-annotations:23.0.0'
-  supportV4 = 'com.android.support:support-v4:23.0.0'
-  supportRecyclerView = 'com.android.support:recyclerview-v7:23.0.0'
-  supportAppCompat = 'com.android.support:appcompat-v7:23.0.0'
-  supportDesign = 'com.android.support:design:23.0.0'
+  supportAnnotations = 'com.android.support:support-annotations:23.0.1'
+  supportV4 = 'com.android.support:support-v4:23.0.1'
+  supportRecyclerView = 'com.android.support:recyclerview-v7:23.0.1'
+  supportAppCompat = 'com.android.support:appcompat-v7:23.0.1'
+  supportDesign = 'com.android.support:design:23.0.1'
 
   supportTestRunner = 'com.android.support.test:runner:0.3'
   supportTestRules = 'com.android.support.test:rules:0.3'
