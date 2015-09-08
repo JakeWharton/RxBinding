@@ -12,12 +12,13 @@ subprojects {
   group = GROUP
   version = VERSION_NAME
 
-  // The default 'assemble' task only applies to normal variants. Add test variants as well.
   afterEvaluate {
+    // The default 'assemble' task only applies to normal variants. Add test variants as well.
     android.testVariants.all { variant ->
       tasks.getByName('assemble').dependsOn variant.assemble
     }
 
+    // There is no logging for instrumentation tests. Hack it. http://b.android.com/182307
     tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
       task.doFirst {
         logging.level = LogLevel.INFO
@@ -33,7 +34,7 @@ ext {
   androidPlugin = 'com.android.tools.build:gradle:1.3.1'
   minSdkVersion = 14
   compileSdkVersion = 23
-  buildToolsVersion = '23.0.0'
+  buildToolsVersion = '23.0.1'
 
   ci = 'true'.equals(System.getenv('CI'))
 
