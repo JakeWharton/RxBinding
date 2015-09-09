@@ -10,10 +10,13 @@ import rx.functions.Func1;
 
 /**
  * Attaches a GestureDetector to the supplied touch event observable to be notified of
- * gesture events.
+ * gesture events. The RxGestures instance will subscribe to the supplied Observable, so
+ * if you'd like to have more than one subscriber you need to wrap it in a
+ * {@code ConnectableObservable} before passing it into this class.
  * <p>
  * {@code
- *  Observable<MotionEvent> touches = RxView.touches(view);
+ *  ConnectableObservable<ViewTouchEvent> touches = RxView.touches(view).publish();
+ *  touches.connect();
  *  RxGestures gestures = RxGestures.withTouches(view, touches);
  *  Observable<ViewGestureScrollEvent> scrolls = gestures.scroll();
  * }
