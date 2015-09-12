@@ -9,6 +9,8 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import org.junit.Rule;
 import org.junit.Test;
@@ -136,6 +138,20 @@ public final class RxViewTest {
     subscription.unsubscribe();
 
     view.requestFocus();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void globalLayouts() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxView.globalLayouts(view).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    view.getViewTreeObserver().dispatchOnGlobalLayout();
+    assertThat(o.takeNext()).isNotNull();
+
+    subscription.unsubscribe();
+    view.getViewTreeObserver().dispatchOnGlobalLayout();
+
     o.assertNoMoreEvents();
   }
 

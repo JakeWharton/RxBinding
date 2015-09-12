@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import com.jakewharton.rxbinding.internal.Functions;
 import rx.Observable;
 import rx.functions.Action1;
@@ -178,6 +179,21 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<ViewFocusChangeEvent> focusChangeEvents(@NonNull View view) {
     return Observable.create(new ViewFocusChangeEventOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable which emits on {@code view} globalLayout events. The emitted value is
+   * unspecified and should only be used as notification.
+   * <p></p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnGlobalLayoutListener} to observe
+   * globalLayouts. Multiple observables can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> globalLayouts(@NonNull View view) {
+    return Observable.create(new ViewTreeObserverGlobalLayoutOnSubscribe(view));
   }
 
   /**
