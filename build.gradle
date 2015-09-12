@@ -45,6 +45,7 @@ ext {
   supportRecyclerView = 'com.android.support:recyclerview-v7:23.0.1'
   supportAppCompat = 'com.android.support:appcompat-v7:23.0.1'
   supportDesign = 'com.android.support:design:23.0.1'
+  supportLeanback = 'com.android.support:leanback-v17:23.0.1'
 
   supportTestRunner = 'com.android.support.test:runner:0.3'
   supportTestRules = 'com.android.support.test:rules:0.3'
