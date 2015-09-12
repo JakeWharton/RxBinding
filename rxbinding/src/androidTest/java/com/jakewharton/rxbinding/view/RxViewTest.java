@@ -10,6 +10,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import com.jakewharton.rxbinding.internal.Functions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -261,6 +262,20 @@ public final class RxViewTest {
     subscription.unsubscribe();
 
     view.performLongClick();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void preDrawEvents() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxView.preDraws(view, Functions.FUNC1_ALWAYS_TRUE).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    view.getViewTreeObserver().dispatchOnPreDraw();
+    assertThat(o.takeNext()).isNotNull();
+
+    subscription.unsubscribe();
+
+    view.getViewTreeObserver().dispatchOnPreDraw();
     o.assertNoMoreEvents();
   }
 

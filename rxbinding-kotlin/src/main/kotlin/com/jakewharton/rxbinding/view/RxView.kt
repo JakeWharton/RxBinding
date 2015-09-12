@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding.view
 import android.view.DragEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewTreeObserver
 import com.jakewharton.rxbinding.internal.Functions
 import rx.Observable
 import rx.functions.Action1
@@ -252,6 +253,17 @@ public inline fun View.longClickEvents(): Observable<ViewLongClickEvent> = RxVie
  * underlying [View.OnLongClickListener].
  */
 public inline fun View.longClickEvents(handled: Func1<in ViewLongClickEvent, Boolean>): Observable<ViewLongClickEvent> = RxView.longClickEvents(this, handled)
+
+/**
+ * Create an observable for pre-draws on `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [ViewTreeObserver.addOnPreDrawListener] to observe
+ * preDraws. Multiple observables can be used for a view at a time.
+ */
+public inline fun View.preDraws(proceedDrawingPass: Func1<in Any, Boolean>): Observable<Any> = RxView.preDraws(this, proceedDrawingPass)
 
 /**
  * Create an observable of scroll-change events for `view`.
