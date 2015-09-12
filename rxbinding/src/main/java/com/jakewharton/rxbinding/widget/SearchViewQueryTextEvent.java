@@ -49,7 +49,7 @@ public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
   }
 
   @Override public String toString() {
-    return "TextViewEditorActionEvent{view="
+    return "SearchViewQueryTextEvent{view="
         + view()
         + ", queryText="
         + queryText
