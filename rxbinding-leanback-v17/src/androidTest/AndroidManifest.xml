@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jakewharton.rxbinding.support.v17.leanback">
+
+  <application>
+    <activity
+        android:name="com.jakewharton.rxbinding.support.v17.leanback.widget.RxSearchBarTestActivity"
+        android:theme="@style/Theme.Leanback"
+    />
+    </application>
+</manifest>
