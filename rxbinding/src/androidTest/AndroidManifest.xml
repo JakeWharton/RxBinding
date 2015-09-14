@@ -13,5 +13,6 @@
         android:name=".widget.RxToolbarTestActivity"
         android:theme="@android:style/Theme.Material"
         />
+    <activity android:name=".widget.RxAutoCompleteTextViewTestActivity"/>
   </application>
 </manifest>
