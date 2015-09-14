@@ -395,7 +395,7 @@ public final class RxViewTest {
     assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
   }
 
-  @Test @UiThreadTest public void setVisibilityCustomFalseToVisibleThrows() {
+  @SuppressWarnings("ResourceType") @Test @UiThreadTest public void setVisibilityCustomFalseToVisibleThrows() {
     try {
       RxView.visibility(view, View.VISIBLE);
       fail();
