@@ -128,4 +128,14 @@ public final class RxTextViewTest {
     RxTextView.textRes(view).call(R.string.hey);
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
+
+  @Test @UiThreadTest public void error() {
+    RxTextView.error(view).call("Ouch");
+    assertThat(view.getError().toString()).isEqualTo("Ouch");
+  }
+
+  @Test @UiThreadTest public void errorRes() {
+    RxTextView.errorRes(view).call(R.string.ouch);
+    assertThat(view.getError().toString()).isEqualTo("Ouch");
+  }
 }
