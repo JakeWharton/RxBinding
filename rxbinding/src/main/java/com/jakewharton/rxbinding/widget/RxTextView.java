@@ -133,6 +133,36 @@ public final class RxTextView {
     };
   }
 
+  /**
+   * An action which sets the error property of {@code view} with character sequences.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super CharSequence> error(@NonNull final TextView view) {
+    return new Action1<CharSequence>() {
+      @Override public void call(CharSequence text) {
+        view.setError(text);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the error property of {@code view} string resource IDs.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> errorRes(@NonNull final TextView view) {
+    return new Action1<Integer>() {
+      @Override public void call(Integer textRes) {
+        view.setError(view.getContext().getResources().getText(textRes));
+      }
+    };
+  }
+
   private RxTextView() {
     throw new AssertionError("No instances.");
   }
