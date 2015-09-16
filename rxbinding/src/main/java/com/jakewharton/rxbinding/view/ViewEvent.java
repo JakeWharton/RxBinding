@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
- * A timestamp and target view on which an event occurred (e.g., click).
+ * A target view on which an event occurred (e.g., click).
  * <p>
  * <strong>Warning:</strong> Instances keep a strong reference to the view. Operators that cache
  * instances have the potential to leak the associated {@link Context}.
