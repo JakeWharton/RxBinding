@@ -100,7 +100,33 @@ public final class RxTextView {
    */
   @CheckResult @NonNull
   public static Observable<TextViewTextChangeEvent> textChangeEvents(@NonNull TextView view) {
-    return Observable.create(new TextViewTextEventOnSubscribe(view));
+    return Observable.create(new TextViewTextChangeEventOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable of before text change events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
+   */
+  @CheckResult @NonNull
+  public static Observable<TextViewBeforeTextChangeEvent> beforeTextChangeEvents(@NonNull TextView view) {
+    return Observable.create(new TextViewBeforeTextChangeEventOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable of after text change events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Note:</em> A value will be emitted immediately on subscribe.
+   */
+  @CheckResult @NonNull
+  public static Observable<TextViewAfterTextChangeEvent> afterTextChangeEvents(@NonNull TextView view) {
+    return Observable.create(new TextViewAfterTextChangeEventOnSubscribe(view));
   }
 
   /**
