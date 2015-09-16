@@ -9,11 +9,11 @@ import rx.Subscriber;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class TextViewTextEventOnSubscribe
+final class TextViewTextChangeEventOnSubscribe
     implements Observable.OnSubscribe<TextViewTextChangeEvent> {
   private final TextView view;
 
-  public TextViewTextEventOnSubscribe(TextView view) {
+  public TextViewTextChangeEventOnSubscribe(TextView view) {
     this.view = view;
   }
 

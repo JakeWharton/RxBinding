@@ -100,7 +100,7 @@ public final class RxTextView {
    */
   @CheckResult @NonNull
   public static Observable<TextViewTextChangeEvent> textChangeEvents(@NonNull TextView view) {
-    return Observable.create(new TextViewTextEventOnSubscribe(view));
+    return Observable.create(new TextViewTextChangeEventOnSubscribe(view));
   }
 
   /**
