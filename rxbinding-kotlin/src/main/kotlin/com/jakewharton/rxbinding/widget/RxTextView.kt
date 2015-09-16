@@ -77,6 +77,26 @@ public inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.
 public inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
 
 /**
+ * Create an observable of before text change events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Note:* A value will be emitted immediately on subscribe.
+ */
+public inline fun TextView.beforeTextChangeEvents(): Observable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
+
+/**
+ * Create an observable of after text change events for `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Note:* A value will be emitted immediately on subscribe.
+ */
+public inline fun TextView.afterTextChangeEvents(): Observable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
+
+/**
  * An action which sets the text property of `view` with character sequences.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
