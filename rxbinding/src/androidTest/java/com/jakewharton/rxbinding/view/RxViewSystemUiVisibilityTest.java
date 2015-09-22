@@ -19,8 +19,7 @@ import static com.google.common.truth.Truth.assertThat;
 @RunWith(AndroidJUnit4.class)
 public final class RxViewSystemUiVisibilityTest {
   @Rule public final ActivityTestRule<RxViewSystemUiVisibilityTestActivity> activityRule =
-      new ActivityTestRule<RxViewSystemUiVisibilityTestActivity>(
-          RxViewSystemUiVisibilityTestActivity.class);
+      new ActivityTestRule<>(RxViewSystemUiVisibilityTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
   private FrameLayout root;
