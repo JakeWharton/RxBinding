@@ -10,6 +10,10 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
 
@@ -41,10 +45,12 @@ public final class RxRecyclerViewTest {
   private RecyclerView view;
   private ViewInteraction interaction;
   private ViewDirtyIdlingResource viewDirtyIdler;
+  private View child;
 
   @Before public void setUp() {
     RxRecyclerViewTestActivity activity = activityRule.getActivity();
     view = activity.recyclerView;
+    child = new View(activityRule.getActivity());
     interaction = Espresso.onView(ViewMatchers.withId(android.R.id.primary));
     viewDirtyIdler = new ViewDirtyIdlingResource(activity);
     Espresso.registerIdlingResources(viewDirtyIdler);
@@ -54,7 +60,73 @@ public final class RxRecyclerViewTest {
     Espresso.unregisterIdlingResources(viewDirtyIdler);
   }
 
+  @Test public void childAttachEvents() {
+    RecordingObserver<RecyclerViewChildAttachStateChangeEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.childAttachStateChangeEvents(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    final SimpleAdapter adapter = new SimpleAdapter(child);
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(adapter);
+      }
+    });
+    assertThat(o.takeNext()).isEqualTo(RecyclerViewChildAttachEvent.create(view, child));
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(adapter);
+      }
+    });
+
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void childDetachEvents() {
+    final SimpleAdapter adapter = new SimpleAdapter(child);
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(adapter);
+      }
+    });
+
+    RecordingObserver<RecyclerViewChildAttachStateChangeEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.childAttachStateChangeEvents(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(null);
+      }
+    });
+    assertThat(o.takeNext()).isEqualTo(RecyclerViewChildDetachEvent.create(view, child));
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(adapter);
+      }
+    });
+
+    o.assertNoMoreEvents();
+  }
+
   @Test public void scrollEventsVertical() {
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(new Adapter());
+      }
+    });
+
     RecordingObserver<RecyclerViewScrollEvent> o = new RecordingObserver<>();
     Subscription subscription = RxRecyclerView.scrollEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
@@ -107,6 +179,7 @@ public final class RxRecyclerViewTest {
   @Test public void scrollEventsHorizontal() {
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
+        view.setAdapter(new Adapter());
         ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
       }
     });
@@ -162,6 +235,12 @@ public final class RxRecyclerViewTest {
   }
 
   @Test public void scrollStateChangeEventsVertical() {
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(new Adapter());
+      }
+    });
+
     RecordingObserver<RecyclerViewScrollStateChangeEvent> o = new RecordingObserver<>();
     Subscription subscription = RxRecyclerView.scrollStateChangeEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
@@ -186,6 +265,7 @@ public final class RxRecyclerViewTest {
   @Test public void scrollStateChangeEventsHorizontal() {
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
+        view.setAdapter(new Adapter());
         ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
       }
     });
@@ -209,5 +289,58 @@ public final class RxRecyclerViewTest {
     interaction.perform(swipeRight());
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
+  }
+
+  private class SimpleAdapter extends RecyclerView.Adapter {
+    private final View child;
+
+    public SimpleAdapter(View child) {
+      this.child = child;
+    }
+
+    @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+      return new RecyclerView.ViewHolder(child) {
+      };
+    }
+
+    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    }
+
+    @Override public int getItemCount() {
+      return 1;
+    }
+  }
+
+  private static class Adapter extends RecyclerView.Adapter<ViewHolder> {
+    public Adapter() {
+      setHasStableIds(true);
+    }
+
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+      TextView v = (TextView) LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+      return new ViewHolder(v);
+    }
+
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+      holder.textView.setText(String.valueOf(position));
+    }
+
+    @Override public int getItemCount() {
+      return 100;
+    }
+
+    @Override public long getItemId(int position) {
+      return position;
+    }
+  }
+
+  private static class ViewHolder extends RecyclerView.ViewHolder {
+
+    TextView textView;
+
+    public ViewHolder(TextView itemView) {
+      super(itemView);
+      this.textView = itemView;
+    }
   }
 }
