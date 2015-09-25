@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.support.annotation.Nullable;
 import android.widget.SeekBar;
 import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
@@ -10,8 +11,11 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> {
   private final SeekBar view;
 
-  public SeekBarChangeOnSubscribe(SeekBar view) {
+  @Nullable private final Boolean shouldBeFromUser;
+
+  public SeekBarChangeOnSubscribe(SeekBar view, @Nullable Boolean shouldBeFromUser) {
     this.view = view;
+    this.shouldBeFromUser = shouldBeFromUser;
   }
 
   @Override public void call(final Subscriber<? super Integer> subscriber) {
@@ -19,7 +23,7 @@ final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> 
 
     SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
       @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (!subscriber.isUnsubscribed()) {
+        if (!subscriber.isUnsubscribed() && (shouldBeFromUser == null || shouldBeFromUser == fromUser)) {
           subscriber.onNext(progress);
         }
       }

@@ -5,11 +5,14 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.SeekBar;
+
 import com.jakewharton.rxbinding.RecordingObserver;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -51,9 +54,77 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(0);
 
+    seekBar.setProgress(85);
+    instrumentation.waitForIdleSync();
+    assertThat(o.takeNext()).isEqualTo(85);
+
     subscription.unsubscribe();
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    seekBar.setProgress(85);
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void systemChanges() {
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxSeekBar.systemChanges(seekBar) //
+            .subscribeOn(AndroidSchedulers.mainThread()) //
+            .subscribe(o);
+    assertThat(o.takeNext()).isEqualTo(0);
+
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    seekBar.setProgress(85);
+    instrumentation.waitForIdleSync();
+    assertThat(o.takeNext()).isEqualTo(85);
+
+    subscription.unsubscribe();
+
+    seekBar.setProgress(85);
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void userChanges() {
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxSeekBar.userChanges(seekBar) //
+            .subscribeOn(AndroidSchedulers.mainThread()) //
+            .subscribe(o);
+    assertThat(o.takeNext()).isEqualTo(0);
+
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
+    instrumentation.waitForIdleSync();
+    assertThat(o.takeNext()).isEqualTo(100);
+
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 0, 50));
+    instrumentation.waitForIdleSync();
+    assertThat(o.takeNext()).isEqualTo(0);
+
+    seekBar.setProgress(85);
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    subscription.unsubscribe();
+
+    instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
+    instrumentation.waitForIdleSync();
+    o.assertNoMoreEvents();
+
+    seekBar.setProgress(85);
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
