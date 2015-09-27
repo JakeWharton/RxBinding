@@ -136,6 +136,18 @@ public inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges
 public inline fun View.focusChangeEvents(): Observable<ViewFocusChangeEvent> = RxView.focusChangeEvents(this)
 
 /**
+ * Create an observable which emits on `view` globalLayout events. The emitted value is
+ * unspecified and should only be used as notification.
+ * </p>
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [ViewTreeObserver.addOnGlobalLayoutListener] to observe
+ * globalLayouts. Multiple observables can be used for a view at a time.
+ */
+public inline fun View.globalLayouts(): Observable<Any> = RxView.globalLayouts(this)
+
+/**
  * Create an observable of hover events for `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
