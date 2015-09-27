@@ -20,7 +20,6 @@ import rx.Subscription;
 import com.jakewharton.rxbinding.RecordingObserver;
 import rx.functions.Action1;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_EXIT;
@@ -31,6 +30,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding.MotionEventUtil.hoverMotionEventAtPosition;
 import static org.junit.Assert.fail;
 import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
+
+import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
 
 @RunWith(AndroidJUnit4.class)
@@ -92,6 +93,22 @@ public final class RxViewTest {
     //clock.advance(1, SECONDS);
     //view.performClick();
     //o.assertNoMoreEvents();
+  }
+
+  @TargetApi(JELLY_BEAN)
+  @SdkSuppress(minSdkVersion = JELLY_BEAN)
+  @Test @UiThreadTest public void drawEvents() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxView.draws(view).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    view.getViewTreeObserver().dispatchOnDraw();
+    assertThat(o.takeNext()).isNotNull();
+
+    subscription.unsubscribe();
+
+    view.getViewTreeObserver().dispatchOnDraw();
+    o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void focusChanges() {

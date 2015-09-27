@@ -110,6 +110,17 @@ public inline fun View.dragEvents(): Observable<ViewDragEvent> = RxView.dragEven
 public inline fun View.dragEvents(handled: Func1<in ViewDragEvent, Boolean>): Observable<ViewDragEvent> = RxView.dragEvents(this, handled)
 
 /**
+ * Create an observable for draws on `view`.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ * 
+ * *Warning:* The created observable uses [ViewTreeObserver.addOnDrawListener] to observe
+ * draws. Multiple observables can be used for a view at a time.
+ */
+public inline fun View.draws(): Observable<Any> = RxView.draws(this)
+
+/**
  * Create an observable of booleans representing the focus of `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe

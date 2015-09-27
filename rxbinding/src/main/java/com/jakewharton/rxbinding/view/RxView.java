@@ -150,6 +150,20 @@ public final class RxView {
   }
 
   /**
+   * Create an observable for draws on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnDrawListener} to observe
+   * draws. Multiple observables can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> draws(@NonNull View view) {
+    return Observable.create(new ViewTreeObserverDrawOnSubscribe(view));
+  }
+
+  /**
    * Create an observable of booleans representing the focus of {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
