@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import com.jakewharton.rxbinding.internal.Functions;
 import rx.Observable;
 import rx.functions.Action1;
@@ -330,6 +331,21 @@ public final class RxView {
   public static Observable<ViewLongClickEvent> longClickEvents(@NonNull View view,
       @NonNull Func1<? super ViewLongClickEvent, Boolean> handled) {
     return Observable.create(new ViewLongClickEventOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable for pre-draws on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnPreDrawListener} to observe
+   * preDraws. Multiple observables can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> preDraws(@NonNull View view,
+      @NonNull Func1<? super Object, Boolean> proceedDrawingPass) {
+    return Observable.create(new ViewTreeObserverPreDrawOnSubscribe(view, proceedDrawingPass));
   }
 
   /**
