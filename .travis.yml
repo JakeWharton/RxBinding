@@ -5,28 +5,37 @@ android:
     - build-tools-23.0.1
     - android-23
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-15
+    - "sys-img-armeabi-v7a-$EMU"
 
 jdk:
   - oraclejdk8
+
+env:
+  matrix:
+    - EMU=android-15
+    - EMU=android-16
+    - EMU=android-17
+    - EMU=android-18
+    - EMU=android-19
+    - EMU=android-20
+    - EMU=android-21
+    - EMU=android-22
+  global:
+    - secure: "kgsT0j2b0GYbQjrDSdIYoh9lXOb2bAqA8gOx7ipegYLiNUuAjTeclw/3IFd5WpPNEhwTvDlb8Pwi/GYsXwYLdjysZUsj73a027swKAuXRBEjnBpfcvhEwKdoO5Ygoz/uH7TvcuCKzEz/bRKIglvn9PcTrzIHHZZIXa/mLU5otNE="
+    - secure: "XNvNiKfh2+JAHvbj7/jtaHKcu5FlN0fHwKwiDZYiCkTkG4kXsKlGtbQX4uk/RU4ZEe3pCPt1I6u66e5c57SLiDNMI0dnjdmSWL6Pcd1CoJVagYYq48TNgQARRe1zntXZvweRmqbfnsQiX5neLwaDj+UNM1yq6D3h2quPVrgoBBM="
 
 before_script:
   # Kotlin binding staleness check.
   - ./gradlew generateKotlin
   - if [ ! -z "$(git status --porcelain)" ]; then echo "Bindings changed. Did you run 'generateKotlin'?"; exit 1; fi
   # Create and start an emulator for instrumentation tests.
-  - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t $EMU --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82
 
 after_success:
   - .buildscript/deploy_snapshot.sh
-
-env:
-  global:
-    - secure: "kgsT0j2b0GYbQjrDSdIYoh9lXOb2bAqA8gOx7ipegYLiNUuAjTeclw/3IFd5WpPNEhwTvDlb8Pwi/GYsXwYLdjysZUsj73a027swKAuXRBEjnBpfcvhEwKdoO5Ygoz/uH7TvcuCKzEz/bRKIglvn9PcTrzIHHZZIXa/mLU5otNE="
-    - secure: "XNvNiKfh2+JAHvbj7/jtaHKcu5FlN0fHwKwiDZYiCkTkG4kXsKlGtbQX4uk/RU4ZEe3pCPt1I6u66e5c57SLiDNMI0dnjdmSWL6Pcd1CoJVagYYq48TNgQARRe1zntXZvweRmqbfnsQiX5neLwaDj+UNM1yq6D3h2quPVrgoBBM="
 
 branches:
   except:

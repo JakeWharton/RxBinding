@@ -11,7 +11,9 @@ BRANCH="master"
 
 set -e
 
-if [ "$TRAVIS_REPO_SLUG" != "$SLUG" ]; then
+if [ "$EMU" != "android-15" ]; then
+  echo "SKipping snapshot deployment: wrong matrix build. Expected 'android-15' but was '$EMU'."
+elif [ "$TRAVIS_REPO_SLUG" != "$SLUG" ]; then
   echo "Skipping snapshot deployment: wrong repository. Expected '$SLUG' but was '$TRAVIS_REPO_SLUG'."
 elif [ "$TRAVIS_JDK_VERSION" != "$JDK" ]; then
   echo "Skipping snapshot deployment: wrong JDK. Expected '$JDK' but was '$TRAVIS_JDK_VERSION'."
