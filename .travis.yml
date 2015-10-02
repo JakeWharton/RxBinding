@@ -5,7 +5,7 @@ android:
     - build-tools-23.0.1
     - android-23
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-15
+    - sys-img-armeabi-v7a-android-18
 
 jdk:
   - oraclejdk8
