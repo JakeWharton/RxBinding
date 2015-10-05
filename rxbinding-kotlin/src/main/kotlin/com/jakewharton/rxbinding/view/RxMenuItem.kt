@@ -2,8 +2,37 @@ package com.jakewharton.rxbinding.view
 
 import android.graphics.drawable.Drawable
 import android.view.MenuItem
+import com.jakewharton.rxbinding.internal.Functions
 import rx.Observable
 import rx.functions.Action1
+import rx.functions.Func1
+
+/**
+ * Create an observable which emits on `menuItem` click events. The emitted value is
+ * unspecified and should only be used as notification.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `menuItem`.
+ * Unsubscribe to free this reference.
+ * 
+ * *Warning:* The created observable uses [MenuItem.setOnMenuItemClickListener] to
+ * observe clicks. Only one observable can be used for a menu item at a time.
+ */
+public inline fun MenuItem.clicks(): Observable<Any> = RxMenuItem.clicks(this)
+
+/**
+ * Create an observable which emits on `menuItem` click events. The emitted value is
+ * unspecified and should only be used as notification.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `menuItem`.
+ * Unsubscribe to free this reference.
+ * 
+ * *Warning:* The created observable uses [MenuItem.setOnMenuItemClickListener] to
+ * observe clicks. Only one observable can be used for a menu item at a time.
+ *
+ * @param handled Function invoked with each value to determine the return value of the
+ * underlying [MenuItem.OnMenuItemClickListener].
+ */
+public inline fun MenuItem.clicks(handled: Func1<in MenuItem, Boolean>): Observable<Any> = RxMenuItem.clicks(this, handled)
 
 /**
  * An action which sets the checked property of `menuItem`.

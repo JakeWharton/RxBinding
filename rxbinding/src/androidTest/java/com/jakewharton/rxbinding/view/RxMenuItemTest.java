@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
+import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ActionProvider;
 import android.view.ContextMenu;
@@ -12,16 +14,61 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.test.R;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import rx.Subscription;
+import rx.functions.Func1;
 
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class) public final class RxMenuItemTest {
+  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
-  private final MenuItem menuItem = new TestMenuItem(context);
+  private final TestMenuItem menuItem = new TestMenuItem(context);
+
+  @Test @UiThreadTest public void clicks() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxMenuItem.clicks(menuItem).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    menuItem.performClick();
+    assertThat(o.takeNext()).isNotNull();
+
+    menuItem.performClick();
+    assertThat(o.takeNext()).isNotNull();
+
+    subscription.unsubscribe();
+
+    menuItem.performClick();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void clicksAvoidHandling() {
+    Func1<MenuItem, Boolean> handled = new Func1<MenuItem, Boolean>() {
+      @Override public Boolean call(MenuItem menuItem) {
+        return Boolean.FALSE;
+      }
+    };
+
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxMenuItem.clicks(menuItem, handled).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    menuItem.performClick();
+    o.assertNoMoreEvents();
+
+    menuItem.performClick();
+    o.assertNoMoreEvents();
+
+    subscription.unsubscribe();
+
+    menuItem.performClick();
+    o.assertNoMoreEvents();
+  }
 
   @Test public void checked() {
     menuItem.setCheckable(true);
@@ -94,6 +141,12 @@ import static com.google.common.truth.Truth.assertThat;
 
     public TestMenuItem(Context context) {
       this.context = context;
+    }
+
+    public void performClick() {
+      if (menuItemClickListener != null) {
+        menuItemClickListener.onMenuItemClick(this);
+      }
     }
 
     @Override public int getItemId() {

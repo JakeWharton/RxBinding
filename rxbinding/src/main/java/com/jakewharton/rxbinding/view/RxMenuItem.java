@@ -4,14 +4,50 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import com.jakewharton.rxbinding.internal.Functions;
 import rx.Observable;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link MenuItem}.
  */
 public final class RxMenuItem {
+
+  /**
+   * Create an observable which emits on {@code menuItem} click events. The emitted value is
+   * unspecified and should only be used as notification.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
+   * Unsubscribe to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link MenuItem#setOnMenuItemClickListener} to
+   * observe clicks. Only one observable can be used for a menu item at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> clicks(@NonNull MenuItem menuItem) {
+    return Observable.create(new MenuItemClickOnSubscribe(menuItem, Functions.FUNC1_ALWAYS_TRUE));
+  }
+
+  /**
+   * Create an observable which emits on {@code menuItem} click events. The emitted value is
+   * unspecified and should only be used as notification.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
+   * Unsubscribe to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link MenuItem#setOnMenuItemClickListener} to
+   * observe clicks. Only one observable can be used for a menu item at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link MenuItem.OnMenuItemClickListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> clicks(@NonNull MenuItem menuItem,
+      @NonNull Func1<? super MenuItem, Boolean> handled) {
+    return Observable.create(new MenuItemClickOnSubscribe(menuItem, handled));
+  }
 
   /**
    * An action which sets the checked property of {@code menuItem}.
