@@ -16,6 +16,7 @@ import android.view.SubMenu;
 import android.view.View;
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.test.R;
+import com.jakewharton.rxbinding.view.MenuItemActionViewEvent.Kind;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +63,45 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
 
     menuItem.performClick();
+    o.assertNoMoreEvents();
+
+    subscription.unsubscribe();
+
+    menuItem.performClick();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void actionViewEvents() {
+    RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxMenuItem.actionViewEvents(menuItem).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    menuItem.expandActionView();
+    assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND));
+
+    menuItem.collapseActionView();
+    assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE));
+
+    subscription.unsubscribe();
+
+    menuItem.performClick();
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
+    Func1<MenuItemActionViewEvent, Boolean> handled =
+        new Func1<MenuItemActionViewEvent, Boolean>() {
+          @Override public Boolean call(MenuItemActionViewEvent menuItem) {
+            return Boolean.FALSE;
+          }
+        };
+
+    RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxMenuItem.actionViewEvents(menuItem, handled).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    menuItem.expandActionView();
+    assertThat(menuItem.isActionViewExpanded()).isEqualTo(false); // Should be prevented by handler
     o.assertNoMoreEvents();
 
     subscription.unsubscribe();

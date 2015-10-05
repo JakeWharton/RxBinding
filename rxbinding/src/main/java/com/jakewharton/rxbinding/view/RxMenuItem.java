@@ -50,6 +50,39 @@ public final class RxMenuItem {
   }
 
   /**
+   * Create an observable of action view events for {@code menuItem}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
+   * Unsubscribe to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link MenuItem#setOnActionExpandListener} to
+   * observe action view events. Only one observable can be used for a menu item at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem) {
+    return Observable.create(new MenuItemActionViewEventOnSubscribe(menuItem,
+        Functions.FUNC1_ALWAYS_TRUE));
+  }
+
+  /**
+   * Create an observable of action view events for {@code menuItem}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
+   * Unsubscribe to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link MenuItem#setOnActionExpandListener} to
+   * observe action view events. Only one observable can be used for a menu item at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link MenuItem.OnActionExpandListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem,
+      @NonNull Func1<? super MenuItemActionViewEvent, Boolean> handled) {
+    return Observable.create(new MenuItemActionViewEventOnSubscribe(menuItem, handled));
+  }
+
+  /**
    * An action which sets the checked property of {@code menuItem}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
