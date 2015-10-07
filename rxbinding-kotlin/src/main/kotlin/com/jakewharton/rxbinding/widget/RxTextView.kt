@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget
 
+import android.support.annotation.ColorInt
 import android.widget.TextView
 import com.jakewharton.rxbinding.internal.Functions
 import rx.Observable
@@ -143,3 +144,11 @@ public inline fun TextView.hint(): Action1<in CharSequence> = RxTextView.hint(th
  * to free this reference.
  */
 public inline fun TextView.hintRes(): Action1<in Int> = RxTextView.hintRes(this)
+
+/**
+ * An action which sets the color property of `view` with color integer.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun TextView.color(): Action1<in Int> = RxTextView.color(this)

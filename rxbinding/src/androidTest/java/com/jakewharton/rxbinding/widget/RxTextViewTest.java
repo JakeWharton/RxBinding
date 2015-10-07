@@ -218,4 +218,9 @@ public final class RxTextViewTest {
     RxTextView.hintRes(view).call(R.string.hint);
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
+
+  @Test @UiThreadTest public void color() {
+    RxTextView.color(view).call(0x3F51B5);
+    assertThat(view.getCurrentTextColor()).isEqualTo(0x3F51B5);
+  }
 }
