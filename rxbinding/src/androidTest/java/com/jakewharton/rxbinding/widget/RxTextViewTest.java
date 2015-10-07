@@ -208,4 +208,14 @@ public final class RxTextViewTest {
     RxTextView.errorRes(view).call(R.string.ouch);
     assertThat(view.getError().toString()).isEqualTo("Ouch");
   }
+
+  @Test @UiThreadTest public void hint() {
+    RxTextView.hint(view).call("Your name here");
+    assertThat(view.getHint().toString()).isEqualTo("Your name here");
+  }
+
+  @Test @UiThreadTest public void hintRes() {
+    RxTextView.hintRes(view).call(R.string.hint);
+    assertThat(view.getHint().toString()).isEqualTo("Your name here");
+  }
 }

@@ -189,6 +189,36 @@ public final class RxTextView {
     };
   }
 
+  /**
+   * An action which sets the hint property of {@code view} with character sequences.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super CharSequence> hint(@NonNull final TextView view) {
+    return new Action1<CharSequence>() {
+      @Override public void call(CharSequence hint) {
+        view.setHint(hint);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the hint property of {@code view} string resource IDs.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> hintRes(@NonNull final TextView view) {
+    return new Action1<Integer>() {
+      @Override public void call(Integer hintRes) {
+        view.setHint(hintRes);
+      }
+    };
+  }
+
   private RxTextView() {
     throw new AssertionError("No instances.");
   }

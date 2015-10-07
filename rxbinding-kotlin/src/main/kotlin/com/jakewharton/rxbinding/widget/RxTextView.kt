@@ -127,3 +127,19 @@ public inline fun TextView.error(): Action1<in CharSequence> = RxTextView.error(
  * to free this reference.
  */
 public inline fun TextView.errorRes(): Action1<in Int> = RxTextView.errorRes(this)
+
+/**
+ * An action which sets the hint property of `view` with character sequences.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun TextView.hint(): Action1<in CharSequence> = RxTextView.hint(this)
+
+/**
+ * An action which sets the hint property of `view` string resource IDs.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun TextView.hintRes(): Action1<in Int> = RxTextView.hintRes(this)
