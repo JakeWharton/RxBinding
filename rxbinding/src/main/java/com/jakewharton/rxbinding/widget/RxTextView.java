@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
 import com.jakewharton.rxbinding.internal.Functions;
@@ -215,6 +216,21 @@ public final class RxTextView {
     return new Action1<Integer>() {
       @Override public void call(Integer hintRes) {
         view.setHint(hintRes);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the color property of {@code view} with color integer.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> color(@NonNull final TextView view) {
+    return new Action1<Integer>() {
+      @Override public void call(Integer color) {
+        view.setTextColor(color);
       }
     };
   }
