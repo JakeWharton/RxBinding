@@ -1,12 +1,13 @@
 apply plugin: 'groovy'
 
 repositories {
+  jcenter()
   mavenCentral()
 }
 
 dependencies {
   compile gradleApi()
   compile localGroovy()
-  compile 'com.android.tools.build:gradle:1.3.0'
+  compile 'com.android.tools.build:gradle:1.4.0-beta6'
   compile 'com.github.javaparser:javaparser-core:2.1.0'
 }
