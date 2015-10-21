@@ -4,6 +4,22 @@ import android.support.design.widget.TextInputLayout
 import rx.functions.Action1
 
 /**
+ * An action which sets the counterEnabled property of `view` with a boolean value.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun TextInputLayout.counterEnabled(): Action1<in Boolean> = RxTextInputLayout.counterEnabled(this)
+
+/**
+ * An action which sets the counterMaxLength property of `view` with an integer value.
+ * 
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun TextInputLayout.counterMaxLength(): Action1<in Int> = RxTextInputLayout.counterMaxLength(this)
+
+/**
  * An action which sets the hint property of `view` with character sequences.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe

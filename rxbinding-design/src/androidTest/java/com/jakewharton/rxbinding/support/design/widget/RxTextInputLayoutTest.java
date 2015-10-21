@@ -8,6 +8,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
 import com.jakewharton.rxbinding.support.design.test.R;
+import java.lang.reflect.Field;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +20,22 @@ public class RxTextInputLayoutTest {
   @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context rawContext = InstrumentationRegistry.getContext();
-  private final Context context = new ContextThemeWrapper(rawContext, com.jakewharton.rxbinding.support.design.R.style.Theme_AppCompat);
+  private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final TextInputLayout view = new TextInputLayout(context);
+
+  @Test @UiThreadTest public void counterEnabled()
+      throws NoSuchFieldException, IllegalAccessException {
+    RxTextInputLayout.counterEnabled(view).call(true);
+    // TODO replace with getter once http://b.android.com/191175 is fixed.
+    Field field = view.getClass().getDeclaredField("mCounterEnabled");
+    field.setAccessible(true);
+    assertThat(field.get(view)).isEqualTo(true);
+  }
+
+  @Test @UiThreadTest public void counterMaxLength() {
+    RxTextInputLayout.counterMaxLength(view).call(100);
+    assertThat(view.getCounterMaxLength()).isEqualTo(100);
+  }
 
   @Test @UiThreadTest public void hint() {
     RxTextInputLayout.hint(view).call("Your name here");

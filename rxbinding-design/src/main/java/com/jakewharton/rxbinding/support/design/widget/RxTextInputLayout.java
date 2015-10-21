@@ -6,9 +6,39 @@ import android.support.design.widget.TextInputLayout;
 import rx.functions.Action1;
 
 /**
- * Static factory methods for creating {@linkplain Action1 actions} for {@link TextInputLayout }.
+ * Static factory methods for creating {@linkplain Action1 actions} for {@link TextInputLayout}.
  */
 public final class RxTextInputLayout {
+
+  /**
+   * An action which sets the counterEnabled property of {@code view} with a boolean value.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
+    return new Action1<Boolean>() {
+      @Override public void call(Boolean enable) {
+        view.setCounterEnabled(enable);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the counterMaxLength property of {@code view} with an integer value.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
+    return new Action1<Integer>() {
+      @Override public void call(Integer maxLength) {
+        view.setCounterMaxLength(maxLength);
+      }
+    };
+  }
 
   /**
    * An action which sets the hint property of {@code view} with character sequences.
