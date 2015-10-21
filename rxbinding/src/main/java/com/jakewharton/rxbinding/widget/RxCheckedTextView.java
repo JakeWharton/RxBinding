@@ -26,6 +26,6 @@ public final class RxCheckedTextView {
   }
 
   private RxCheckedTextView() {
-    throw new AssertionError("No Instances.");
+    throw new AssertionError("No instances.");
   }
 }
