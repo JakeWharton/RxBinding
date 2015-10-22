@@ -1,6 +1,82 @@
 Change Log
 ==========
 
+Version 0.3.0 *(In Development)*
+--------------------------------
+
+ * New modules!
+    * `rxbinding-leanback-v17` (and `rxbinding-leanback-v17-kotlin`) for the 'Leanback Support Library':
+       * `RxSearchBar`:
+          * `searchQuery` - Sets the query text.
+          * `searchQueryChanges` - Query text changes.
+          * `searchQueryChangeEvents` - Query text change events.
+       * `RxSearchEditText`:
+          * `keyboardDismisses` - Keyboard dismisses.
+ * New bindings!
+    * `rxbinding`:
+       * `RxCheckedTextView`:
+          * `checked` - Sets the checked state.
+       * `RxMenuItem`:
+          * `actionViewEvents` - Action view expand and collapse events.
+          * `checked` - Sets the checked state.
+          * `clicks` - Item clicks.
+          * `enabled` - Sets the enabled state.
+          * `icon` - Sets the icon.
+          * `iconRes` - Sets the icon using a resource.
+          * `title` - Sets the title.
+          * `titleRes` - Sets the title using a resources.
+          * `visible` - Sets the visible state.
+       * `RxSeekBar`:
+          * `userChanges` - Only user value changes.
+          * `systemChanges` - Only system value changes.
+       * `RxTextView`:
+          * `afterTextChangeEvents` - After text change events.
+          * `beforeTextChangeEvents` - Before text change events.
+          * `color` - Sets the text color.
+          * `error` - Sets the error text.
+          * `errorRes` - Sets the error text using a resource.
+          * `hint` - Sets the hint text.
+          * `hintRes` - Sets the hint text using a resource.
+       * `RxToolbar`:
+          * `navigationClicks` - Clicks on the navigation view.
+       * `RxView`:
+          * `draws` - ViewTreeObserver draw events.
+          * `globalLayouts` - ViewTreeObserver global layout events.
+          * `hovers` - View hover `MotionEvent`.
+          * `hoverEvents` - View hover `MotionEvent` events.
+          * `layoutChanges` - ViewTreeObserver layout changes.
+          * `layoutChangeEvents` - ViewTreeObserver layout change events.
+          * `preDraws` - ViewTreeObserver pre-draw events.
+          * `scrollChangeEvents` - Scroll offset change events.
+          * `systemUiVisibilityChanges` - System UI visibility changes.
+          * `systemUiVisibilityChangeEvents` - System UI visibility change events.
+       * `RxViewGroup`:
+          * `changeEvents` - Child add and remove events.
+    * `rxbinding-appcompat-v7`:
+       * `RxToolbar`:
+          * `navigationClicks` - Clicks on the navigation view.
+    * `rxbinding-design`:
+       * `RxAppBarLayout`:
+          * `offsetChanges` - Offset value changes.
+          * `offsetChangeEvents` - Offset value change events.
+       * `RxSwipeDismissBehavior`:
+          * `dismisses` - Dismiss events.
+       * `RxTextInputLayoutTest`:
+          * `counterEnabled` - Sets the enabled state of the counter.
+          * `counterMaxLength` - Sets the maximum length of the counter.
+          * `hint` - Sets the hint text.
+          * `hintRest` - Sets the hint text using a resource.
+    * `rxbinding-recyclerview-v7`:
+       * `RxRecyclerViewAdapter`:
+          * `childAttachStateChangeEvents` - Child attach and detach events.
+          * `dataChanges` - Adapter data changes.
+    * `rxbinding-support-v4`:
+       * `RxViewPager`:
+          * `pageSelections` - Page index selections.
+ * Update Kotlin modules to the v1.0.0-beta-1038
+ * Update support library dependencies to v23.1.0.
+
+
 Version 0.2.0 *(2015-08-23)*
 ----------------------------
 
