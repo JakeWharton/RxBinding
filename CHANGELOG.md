@@ -49,7 +49,6 @@ Version 0.3.0 *(In Development)*
           * `preDraws` - ViewTreeObserver pre-draw events.
           * `scrollChangeEvents` - Scroll offset change events.
           * `systemUiVisibilityChanges` - System UI visibility changes.
-          * `systemUiVisibilityChangeEvents` - System UI visibility change events.
        * `RxViewGroup`:
           * `changeEvents` - Child add and remove events.
     * `rxbinding-appcompat-v7`:
@@ -58,7 +57,6 @@ Version 0.3.0 *(In Development)*
     * `rxbinding-design`:
        * `RxAppBarLayout`:
           * `offsetChanges` - Offset value changes.
-          * `offsetChangeEvents` - Offset value change events.
        * `RxSwipeDismissBehavior`:
           * `dismisses` - Dismiss events.
        * `RxTextInputLayoutTest`:
@@ -67,6 +65,8 @@ Version 0.3.0 *(In Development)*
           * `hint` - Sets the hint text.
           * `hintRest` - Sets the hint text using a resource.
     * `rxbinding-recyclerview-v7`:
+       * `RxRecyclerView`:
+          * `scrollStateChanges` - Scroll state changes (dragging, settling, idling).
        * `RxRecyclerViewAdapter`:
           * `childAttachStateChangeEvents` - Child attach and detach events.
           * `dataChanges` - Adapter data changes.
@@ -75,6 +75,18 @@ Version 0.3.0 *(In Development)*
           * `pageSelections` - Page index selections.
  * Update Kotlin modules to the v1.0.0-beta-1038
  * Update support library dependencies to v23.1.0.
+ * Fix: Remove binding overloads which provided event objects that included no additional
+   information (aside from the source view). To include the source view for an event, add it with
+   the `map` operator (e.g., `RxFoo.bar(sourceView).map(data -> new Pair<>(sourceView, data))`).
+    * `RxCompoundButton.checkedChangeEvents`
+    * `RxRadioGroup.checkedChangeEvents`
+    * `RxRecyclerView.scrollStateChangeEvents`
+    * `RxView.clickEvents`
+    * `RxView.dragEvents`
+    * `RxView.focusChangeEvents`
+    * `RxView.hoverEvents`
+    * `RxView.longClickEvents`
+    * `RxView.touchEvents`
 
 
 Version 0.2.0 *(2015-08-23)*

@@ -64,10 +64,11 @@ should be in the present tense, regardless of the platform's use (e.g., selected
 When there are multiple versions of the same verb, prefix with a qualifying noun or adjective that
 differentiates (e.g., click vs. long click, item selection vs. nothing selection).
 
-Each observable method factory also has an overload named in the singular and suffixed with
-"Events". This overload emits wrapper objects containing additional information about the event
-(origin view, timestamp). The name of the wrapper object is the concatenation of the view simple
-name, the verb (with optional adverb prefix), and "Event". These classes are in the public API.
+If the listener callback provides more than one parameter of useful data, a factory method overload
+named in the singular and suffixed with "Events" is included. This overload emits wrapper objects
+containing all the additional information about the event. The name of the wrapper object is the
+concatenation of the view simple name, the verb (with optional adverb prefix), and "Event". These
+classes are in the public API.
 
 Events for listeners with multiple methods should share an abstract base class. The naming follows
 the same rules as a normal event class but without the qualifying prefix. An inner `enum` named

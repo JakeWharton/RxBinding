@@ -22,21 +22,6 @@ public final class RxRadioGroup {
   }
 
   /**
-   * Create an observable of the checked view ID change events in {@code view}.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   * <p>
-   * <em>Note:</em> A value will be emitted immediately on subscribe.
-   */
-  @CheckResult @NonNull
-  public static Observable<RadioGroupCheckedChangeEvent> checkedChangeEvents(
-      @NonNull RadioGroup view) {
-    return Observable.create(new RadioGroupCheckedChangeEventOnSubscribe(view))
-        .distinctUntilChanged(); // Radio group can fire non-changes.
-  }
-
-  /**
    * An action which sets the checked child of {@code view} with ID. Passing {@code -1} will clear
    * any checked view.
    * <p>

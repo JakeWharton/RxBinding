@@ -21,9 +21,9 @@ public inline fun RecyclerView.childAttachStateChangeEvents(): Observable<Recycl
 public inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = RxRecyclerView.scrollEvents(this)
 
 /**
- * Create an observable of scroll state change events on `recyclerView`.
+ * Create an observable of scroll state changes on `recyclerView`.
  * 
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
-public inline fun RecyclerView.scrollStateChangeEvents(): Observable<RecyclerViewScrollStateChangeEvent> = RxRecyclerView.scrollStateChangeEvents(this)
+public inline fun RecyclerView.scrollStateChanges(): Observable<Int> = RxRecyclerView.scrollStateChanges(this)

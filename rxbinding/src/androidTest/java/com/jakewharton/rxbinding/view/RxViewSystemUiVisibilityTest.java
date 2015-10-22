@@ -60,46 +60,4 @@ public final class RxViewSystemUiVisibilityTest {
     });
     o.assertNoMoreEvents();
   }
-
-  @Test public void systemUiVisibilityChangeEvents() {
-    RecordingObserver<ViewSystemUiVisibilityChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.systemUiVisibilityChangeEvents(root)
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribe(o);
-    o.assertNoMoreEvents();
-
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-      }
-    });
-    ViewSystemUiVisibilityChangeEvent event1 = o.takeNext();
-    assertThat(event1.view()).isSameAs(root);
-    assertThat(event1.visibility()).isEqualTo(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-      }
-    });
-    ViewSystemUiVisibilityChangeEvent event2 = o.takeNext();
-    assertThat(event2.view()).isSameAs(root);
-    assertThat(event2.visibility()).isEqualTo(View.SYSTEM_UI_FLAG_VISIBLE);
-
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-      }
-    });
-    o.assertNoMoreEvents();
-
-    subscription.unsubscribe();
-
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-      }
-    });
-    o.assertNoMoreEvents();
-  }
 }

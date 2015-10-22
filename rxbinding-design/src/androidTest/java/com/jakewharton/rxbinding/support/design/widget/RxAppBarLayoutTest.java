@@ -53,23 +53,4 @@ public class RxAppBarLayoutTest {
     behavior.onLayoutChild(parent, view, View.LAYOUT_DIRECTION_LTR);
     o.assertNoMoreEvents();
   }
-
-  @TargetApi(JELLY_BEAN_MR1)
-  @SdkSuppress(minSdkVersion = JELLY_BEAN_MR1)
-  @Test @UiThreadTest public void offsetChangeEvents() {
-    RecordingObserver<AppBarLayoutOffsetChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxAppBarLayout.offsetChangeEvents(view).subscribe(o);
-    o.assertNoMoreEvents();
-
-    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
-    AppBarLayout.Behavior behavior = new AppBarLayout.Behavior();
-    params.setBehavior(behavior);
-    behavior.onLayoutChild(parent, view, View.LAYOUT_DIRECTION_LTR);
-    assertThat(o.takeNext()).isEqualTo(AppBarLayoutOffsetChangeEvent.create(view, 0));
-
-    subscription.unsubscribe();
-
-    behavior.onLayoutChild(parent, view, View.LAYOUT_DIRECTION_LTR);
-    o.assertNoMoreEvents();
-  }
 }
