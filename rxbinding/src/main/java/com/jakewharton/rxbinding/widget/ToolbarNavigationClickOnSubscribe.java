@@ -11,21 +11,20 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 @TargetApi(LOLLIPOP)
-final class ToolbarNavigationClickOnSubscribe implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ToolbarNavigationClickOnSubscribe implements Observable.OnSubscribe<Void> {
   private final Toolbar view;
 
   public ToolbarNavigationClickOnSubscribe(Toolbar view) {
     this.view = view;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     View.OnClickListener listener = new View.OnClickListener() {
       @Override public void onClick(View v) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
+          subscriber.onNext(null);
         }
       }
     };

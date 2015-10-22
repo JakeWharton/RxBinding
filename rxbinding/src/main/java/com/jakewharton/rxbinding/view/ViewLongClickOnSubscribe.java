@@ -8,8 +8,7 @@ import rx.functions.Func0;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class ViewLongClickOnSubscribe implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ViewLongClickOnSubscribe implements Observable.OnSubscribe<Void> {
   private final View view;
   private final Func0<Boolean> handled;
 
@@ -18,14 +17,14 @@ final class ViewLongClickOnSubscribe implements Observable.OnSubscribe<Object> {
     this.handled = handled;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     View.OnLongClickListener listener = new View.OnLongClickListener() {
       @Override public boolean onLongClick(View v) {
         if (handled.call()) {
           if (!subscriber.isUnsubscribed()) {
-            subscriber.onNext(event);
+            subscriber.onNext(null);
           }
           return true;
         }

@@ -7,22 +7,21 @@ import rx.Subscriber;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class ViewLayoutChangeOnSubscribe implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ViewLayoutChangeOnSubscribe implements Observable.OnSubscribe<Void> {
   private final View view;
 
   ViewLayoutChangeOnSubscribe(View view) {
     this.view = view;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     final View.OnLayoutChangeListener listener = new View.OnLayoutChangeListener() {
       @Override public void onLayoutChange(View v, int left, int top, int right, int bottom,
           int oldLeft, int oldTop, int oldRight, int oldBottom) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
+          subscriber.onNext(null);
         }
       }
     };

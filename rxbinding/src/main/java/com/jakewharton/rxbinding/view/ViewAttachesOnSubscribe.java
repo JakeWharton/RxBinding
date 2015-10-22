@@ -10,8 +10,7 @@ import rx.Subscriber;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Void> {
   private final boolean callOnAttach;
   private final View view;
 
@@ -20,19 +19,19 @@ final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Object> {
     this.callOnAttach = callOnAttach;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     final View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener() {
       @Override public void onViewAttachedToWindow(@NonNull final View v) {
         if (callOnAttach && !subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
+          subscriber.onNext(null);
         }
       }
 
       @Override public void onViewDetachedFromWindow(@NonNull final View v) {
         if (!callOnAttach && !subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
+          subscriber.onNext(null);
         }
       }
     };

@@ -56,17 +56,17 @@ public final class RxToolbarTest {
   }
 
   @Test public void navigationClicks() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxToolbar.navigationClicks(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 

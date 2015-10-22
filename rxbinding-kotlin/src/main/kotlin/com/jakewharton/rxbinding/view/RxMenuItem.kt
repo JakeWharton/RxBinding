@@ -17,7 +17,7 @@ import rx.functions.Func1
  * *Warning:* The created observable uses [MenuItem.setOnMenuItemClickListener] to
  * observe clicks. Only one observable can be used for a menu item at a time.
  */
-public inline fun MenuItem.clicks(): Observable<Any> = RxMenuItem.clicks(this)
+public inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map { Unit }
 
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
@@ -32,7 +32,7 @@ public inline fun MenuItem.clicks(): Observable<Any> = RxMenuItem.clicks(this)
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [MenuItem.OnMenuItemClickListener].
  */
-public inline fun MenuItem.clicks(handled: Func1<in MenuItem, Boolean>): Observable<Any> = RxMenuItem.clicks(this, handled)
+public inline fun MenuItem.clicks(handled: Func1<in MenuItem, Boolean>): Observable<Unit> = RxMenuItem.clicks(this, handled).map { Unit }
 
 /**
  * Create an observable of action view events for `menuItem`.

@@ -5,30 +5,27 @@ import android.view.ViewTreeObserver;
 import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func1;
+import rx.functions.Func0;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class ViewTreeObserverPreDrawOnSubscribe
-    implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ViewTreeObserverPreDrawOnSubscribe implements Observable.OnSubscribe<Void> {
   private final View view;
-  private final Func1<? super Object, Boolean> proceedDrawingPass;
+  private final Func0<Boolean> proceedDrawingPass;
 
-  public ViewTreeObserverPreDrawOnSubscribe(View view,
-      Func1<? super Object, Boolean> proceedDrawingPass) {
+  ViewTreeObserverPreDrawOnSubscribe(View view, Func0<Boolean> proceedDrawingPass) {
     this.view = view;
     this.proceedDrawingPass = proceedDrawingPass;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     final ViewTreeObserver.OnPreDrawListener listener = new ViewTreeObserver.OnPreDrawListener() {
       @Override public boolean onPreDraw() {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
-          return proceedDrawingPass.call(event);
+          subscriber.onNext(null);
+          return proceedDrawingPass.call();
         }
         return true;
       }

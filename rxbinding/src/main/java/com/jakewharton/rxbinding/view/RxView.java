@@ -29,7 +29,7 @@ public final class RxView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Observable<Object> attaches(@NonNull View view) {
+  public static Observable<Void> attaches(@NonNull View view) {
     return Observable.create(new ViewAttachesOnSubscribe(view, true));
   }
 
@@ -52,7 +52,7 @@ public final class RxView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Observable<Object> detaches(@NonNull View view) {
+  public static Observable<Void> detaches(@NonNull View view) {
     return Observable.create(new ViewAttachesOnSubscribe(view, false));
   }
 
@@ -67,7 +67,7 @@ public final class RxView {
    * clicks. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> clicks(@NonNull View view) {
+  public static Observable<Void> clicks(@NonNull View view) {
     return Observable.create(new ViewClickOnSubscribe(view));
   }
 
@@ -113,7 +113,7 @@ public final class RxView {
    * draws. Multiple observables can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> draws(@NonNull View view) {
+  public static Observable<Void> draws(@NonNull View view) {
     return Observable.create(new ViewTreeObserverDrawOnSubscribe(view));
   }
 
@@ -144,7 +144,7 @@ public final class RxView {
    * globalLayouts. Multiple observables can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> globalLayouts(@NonNull View view) {
+  public static Observable<Void> globalLayouts(@NonNull View view) {
     return Observable.create(new ViewTreeObserverGlobalLayoutOnSubscribe(view));
   }
 
@@ -188,7 +188,7 @@ public final class RxView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Observable<Object> layoutChanges(@NonNull View view) {
+  public static Observable<Void> layoutChanges(@NonNull View view) {
     return Observable.create(new ViewLayoutChangeOnSubscribe(view));
   }
 
@@ -214,7 +214,7 @@ public final class RxView {
    * long clicks. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> longClicks(@NonNull View view) {
+  public static Observable<Void> longClicks(@NonNull View view) {
     return Observable.create(new ViewLongClickOnSubscribe(view, Functions.FUNC0_ALWAYS_TRUE));
   }
 
@@ -232,7 +232,7 @@ public final class RxView {
    * underlying {@link View.OnLongClickListener}.
    */
   @CheckResult @NonNull
-  public static Observable<Object> longClicks(@NonNull View view, @NonNull Func0<Boolean> handled) {
+  public static Observable<Void> longClicks(@NonNull View view, @NonNull Func0<Boolean> handled) {
     return Observable.create(new ViewLongClickOnSubscribe(view, handled));
   }
 
@@ -246,8 +246,8 @@ public final class RxView {
    * preDraws. Multiple observables can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> preDraws(@NonNull View view,
-      @NonNull Func1<? super Object, Boolean> proceedDrawingPass) {
+  public static Observable<Void> preDraws(@NonNull View view,
+      @NonNull Func0<Boolean> proceedDrawingPass) {
     return Observable.create(new ViewTreeObserverPreDrawOnSubscribe(view, proceedDrawingPass));
   }
 
