@@ -49,17 +49,6 @@ public inline fun View.detaches(): Observable<Any> = RxView.detaches(this)
 public inline fun View.clicks(): Observable<Any> = RxView.clicks(this)
 
 /**
- * Create an observable of click events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnClickListener] to observe
- * clicks. Only one observable can be used for a view at a time.
- */
-public inline fun View.clickEvents(): Observable<ViewClickEvent> = RxView.clickEvents(this)
-
-/**
  * Create an observable of [DragEvent] for drags on `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
@@ -85,31 +74,6 @@ public inline fun View.drags(): Observable<DragEvent> = RxView.drags(this)
 public inline fun View.drags(handled: Func1<in DragEvent, Boolean>): Observable<DragEvent> = RxView.drags(this, handled)
 
 /**
- * Create an observable of drag events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnDragListener] to observe
- * drags. Only one observable can be used for a view at a time.
- */
-public inline fun View.dragEvents(): Observable<ViewDragEvent> = RxView.dragEvents(this)
-
-/**
- * Create an observable of drag events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnDragListener] to observe
- * drags. Only one observable can be used for a view at a time.
- *
- * @param handled Function invoked with each value to determine the return value of the
- * underlying [View.OnDragListener].
- */
-public inline fun View.dragEvents(handled: Func1<in ViewDragEvent, Boolean>): Observable<ViewDragEvent> = RxView.dragEvents(this, handled)
-
-/**
  * Create an observable for draws on `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
@@ -132,19 +96,6 @@ public inline fun View.draws(): Observable<Any> = RxView.draws(this)
  * *Note:* A value will be emitted immediately on subscribe.
  */
 public inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges(this)
-
-/**
- * Create an observable of focus-change events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnFocusChangeListener] to observe
- * focus change. Only one observable can be used for a view at a time.
- * 
- * *Note:* A value will be emitted immediately on subscribe.
- */
-public inline fun View.focusChangeEvents(): Observable<ViewFocusChangeEvent> = RxView.focusChangeEvents(this)
 
 /**
  * Create an observable which emits on `view` globalLayout events. The emitted value is
@@ -182,31 +133,6 @@ public inline fun View.hovers(): Observable<MotionEvent> = RxView.hovers(this)
  * underlying [View.OnHoverListener].
  */
 public inline fun View.hovers(handled: Func1<in MotionEvent, Boolean>): Observable<MotionEvent> = RxView.hovers(this, handled)
-
-/**
- * Create an observable of hover events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnHoverListener] to observe
- * touches. Only one observable can be used for a view at a time.
- */
-public inline fun View.hoverEvents(): Observable<ViewHoverEvent> = RxView.hoverEvents(this)
-
-/**
- * Create an observable of hover events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnHoverListener] to observe
- * touches. Only one observable can be used for a view at a time.
- *
- * @param handled Function invoked with each value to determine the return value of the
- * underlying [View.OnHoverListener].
- */
-public inline fun View.hoverEvents(handled: Func1<in ViewHoverEvent, Boolean>): Observable<ViewHoverEvent> = RxView.hoverEvents(this, handled)
 
 /**
  * Create an observable which emits on `view` layout changes. The emitted value is
@@ -253,31 +179,6 @@ public inline fun View.longClicks(): Observable<Any> = RxView.longClicks(this)
 public inline fun View.longClicks(handled: Func0<Boolean>): Observable<Any> = RxView.longClicks(this, handled)
 
 /**
- * Create an observable of long-clicks events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnLongClickListener] to observe
- * long clicks. Only one observable can be used for a view at a time.
- */
-public inline fun View.longClickEvents(): Observable<ViewLongClickEvent> = RxView.longClickEvents(this)
-
-/**
- * Create an observable of long-click events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnLongClickListener] to observe
- * long clicks. Only one observable can be used for a view at a time.
- *
- * @param handled Function invoked with each value to determine the return value of the
- * underlying [View.OnLongClickListener].
- */
-public inline fun View.longClickEvents(handled: Func1<in ViewLongClickEvent, Boolean>): Observable<ViewLongClickEvent> = RxView.longClickEvents(this, handled)
-
-/**
  * Create an observable for pre-draws on `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
@@ -309,18 +210,6 @@ public inline fun View.scrollChangeEvents(): Observable<ViewScrollChangeEvent> =
 public inline fun View.systemUiVisibilityChanges(): Observable<Int> = RxView.systemUiVisibilityChanges(this)
 
 /**
- * Create an observable of system UI visibility changes for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses
- * [View.setOnSystemUiVisibilityChangeListener] to observe system UI visibility changes.
- * Only one observable can be used for a view at a time.
- */
-public inline fun View.systemUiVisibilityChangeEvents(): Observable<ViewSystemUiVisibilityChangeEvent> = RxView.systemUiVisibilityChangeEvents(this)
-
-/**
  * Create an observable of touch events for `view`.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
@@ -344,31 +233,6 @@ public inline fun View.touches(): Observable<MotionEvent> = RxView.touches(this)
  * underlying [View.OnTouchListener].
  */
 public inline fun View.touches(handled: Func1<in MotionEvent, Boolean>): Observable<MotionEvent> = RxView.touches(this, handled)
-
-/**
- * Create an observable of touch events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnTouchListener] to observe
- * touches. Only one observable can be used for a view at a time.
- */
-public inline fun View.touchEvents(): Observable<ViewTouchEvent> = RxView.touchEvents(this)
-
-/**
- * Create an observable of touch events for `view`.
- * 
- * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
- * to free this reference.
- * 
- * *Warning:* The created observable uses [View.setOnTouchListener] to observe
- * touches. Only one observable can be used for a view at a time.
- *
- * @param handled Function invoked with each value to determine the return value of the
- * underlying [View.OnTouchListener].
- */
-public inline fun View.touchEvents(handled: Func1<in ViewTouchEvent, Boolean>): Observable<ViewTouchEvent> = RxView.touchEvents(this, handled)
 
 /**
  * An action which sets the activated property of `view`.

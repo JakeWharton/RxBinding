@@ -21,17 +21,6 @@ public final class RxAppBarLayout {
     return Observable.create(new AppBarLayoutOffsetChangeOnSubscribe(view));
   }
 
-  /**
-   * Create an observable which emits offsetChange events for the {@code view}.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   */
-  @CheckResult @NonNull
-  public static Observable<AppBarLayoutOffsetChangeEvent> offsetChangeEvents(@NonNull AppBarLayout view) {
-    return Observable.create(new AppBarLayoutOffsetChangeEventOnSubscribe(view));
-  }
-
   private RxAppBarLayout() {
     throw new AssertionError("No instances.");
   }

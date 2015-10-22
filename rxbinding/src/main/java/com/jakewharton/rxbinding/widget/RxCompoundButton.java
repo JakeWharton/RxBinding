@@ -28,23 +28,6 @@ public final class RxCompoundButton {
   }
 
   /**
-   * Create an observable of checked change events for {@code view}.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   * <p>
-   * <em>Warning:</em> The created observable uses {@link CompoundButton#setOnCheckedChangeListener}
-   * to observe checked changes. Only one observable can be used for a view at a time.
-   * <p>
-   * <em>Note:</em> A value will be emitted immediately on subscribe.
-   */
-  @CheckResult @NonNull
-  public static Observable<CompoundButtonCheckedChangeEvent> checkedChangeEvents(
-      @NonNull CompoundButton view) {
-    return Observable.create(new CompoundButtonCheckedChangeEventOnSubscribe(view));
-  }
-
-  /**
    * An action which sets the checked property of {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe

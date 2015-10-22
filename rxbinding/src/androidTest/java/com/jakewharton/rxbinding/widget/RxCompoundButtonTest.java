@@ -41,31 +41,6 @@ public final class RxCompoundButtonTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void checkedChangeEvents() {
-    view.setChecked(false);
-
-    RecordingObserver<CompoundButtonCheckedChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxCompoundButton.checkedChangeEvents(view).subscribe(o);
-    CompoundButtonCheckedChangeEvent event0 = o.takeNext();
-    assertThat(event0.view()).isSameAs(view);
-    assertThat(event0.isChecked()).isFalse();
-
-    view.setChecked(true);
-    CompoundButtonCheckedChangeEvent event1 = o.takeNext();
-    assertThat(event1.view()).isSameAs(view);
-    assertThat(event1.isChecked()).isTrue();
-
-    view.setChecked(false);
-    CompoundButtonCheckedChangeEvent event2 = o.takeNext();
-    assertThat(event2.view()).isSameAs(view);
-    assertThat(event2.isChecked()).isFalse();
-
-    subscription.unsubscribe();
-
-    view.setChecked(true);
-    o.assertNoMoreEvents();
-  }
-
   @Test @UiThreadTest public void checked() {
     view.setChecked(false);
     Action1<? super Boolean> toggle = RxCompoundButton.checked(view);
