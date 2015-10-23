@@ -75,6 +75,8 @@ Version 0.3.0 *(In Development)*
           * `pageSelections` - Page index selections.
  * Update Kotlin modules to the v1.0.0-beta-1038
  * Update support library dependencies to v23.1.0.
+ * Fix: Bindings whose values are irrelevant now use `Void` instead of `Object` (and `Unit` in
+   Kotlin).
  * Fix: Remove binding overloads which provided event objects that included no additional
    information (aside from the source view). To include the source view for an event, add it with
    the `map` operator (e.g., `RxFoo.bar(sourceView).map(data -> new Pair<>(sourceView, data))`).
