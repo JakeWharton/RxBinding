@@ -33,7 +33,7 @@ compile 'com.jakewharton.rxbinding:rxbinding-design:0.3.0'
 compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.3.0'
 ```
 
-`leanback-v17` library bindings:
+'leanback-v17' library bindings:
 ```groovy
 compile 'com.jakewharton.rxbinding:rxbinding-leanback-v17:0.3.0'
 ```
