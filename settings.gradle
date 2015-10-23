@@ -18,4 +18,7 @@ include ':rxbinding-recyclerview-v7-kotlin'
 include ':rxbinding-leanback-v17'
 include ':rxbinding-leanback-v17-kotlin'
 
+include ':rxbinding-preference-v7'
+include ':rxbinding-preference-v7-kotlin'
+
 include ':testing-utils'
