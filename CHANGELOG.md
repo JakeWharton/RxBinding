@@ -75,7 +75,7 @@ Version 0.3.0 *(2015-10-22)*
     * `rxbinding-support-v4`:
        * `RxViewPager`:
           * `pageSelections` - Page index selections.
- * Update Kotlin modules to the v1.0.0-beta-1038
+ * Update Kotlin modules dependency to v1.0.0-beta-1038.
  * Update support library dependencies to v23.1.0.
  * Fix: Bindings whose values are irrelevant now use `Void` instead of `Object` (and `Unit` in
    Kotlin).
