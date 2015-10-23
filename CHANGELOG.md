@@ -14,6 +14,8 @@ Version 0.3.0 *(In Development)*
           * `keyboardDismisses` - Keyboard dismisses.
  * New bindings!
     * `rxbinding`:
+       * `RxAutoCompleteTextView`:
+          * `itemClickEvents` - Suggestion item clicks.
        * `RxCheckedTextView`:
           * `checked` - Sets the checked state.
        * `RxMenuItem`:
