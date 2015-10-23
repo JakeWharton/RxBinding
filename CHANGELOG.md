@@ -1,8 +1,8 @@
 Change Log
 ==========
 
-Version 0.3.0 *(In Development)*
---------------------------------
+Version 0.3.0 *(2015-10-22)*
+----------------------------
 
  * New modules!
     * `rxbinding-leanback-v17` (and `rxbinding-leanback-v17-kotlin`) for the 'Leanback Support Library':
