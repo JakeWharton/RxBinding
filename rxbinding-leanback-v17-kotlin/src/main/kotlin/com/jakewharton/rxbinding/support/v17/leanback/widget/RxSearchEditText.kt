@@ -10,4 +10,4 @@ import rx.functions.Action1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun SearchEditText.keyboardDismisses(): Observable<Void> = RxSearchEditText.keyboardDismisses(this)
+public inline fun SearchEditText.keyboardDismisses(): Observable<Unit> = RxSearchEditText.keyboardDismisses(this).map { Unit }

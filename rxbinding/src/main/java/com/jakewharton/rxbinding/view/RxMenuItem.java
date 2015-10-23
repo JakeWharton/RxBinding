@@ -26,7 +26,7 @@ public final class RxMenuItem {
    * observe clicks. Only one observable can be used for a menu item at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> clicks(@NonNull MenuItem menuItem) {
+  public static Observable<Void> clicks(@NonNull MenuItem menuItem) {
     return Observable.create(new MenuItemClickOnSubscribe(menuItem, Functions.FUNC1_ALWAYS_TRUE));
   }
 
@@ -44,7 +44,7 @@ public final class RxMenuItem {
    * underlying {@link MenuItem.OnMenuItemClickListener}.
    */
   @CheckResult @NonNull
-  public static Observable<Object> clicks(@NonNull MenuItem menuItem,
+  public static Observable<Void> clicks(@NonNull MenuItem menuItem,
       @NonNull Func1<? super MenuItem, Boolean> handled) {
     return Observable.create(new MenuItemClickOnSubscribe(menuItem, handled));
   }

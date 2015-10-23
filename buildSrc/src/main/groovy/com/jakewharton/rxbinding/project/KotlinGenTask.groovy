@@ -244,12 +244,18 @@ class KotlinGenTask extends SourceTask {
       builder.append(typeParameters ? typeParameters + " " : "")
 
       // return type
-      builder.append("$extendedClass.${name}($fParams): ${resolveKotlinType(returnType)}")
+      def kotlinType = resolveKotlinType(returnType)
+      builder.append("$extendedClass.${name}($fParams): ${kotlinType}")
 
       builder.append(" = ")
 
       // target method call
       builder.append("$bindingClass.$name(${jParams ? "this, $jParams" : "this"})")
+
+      // Void --> Unit mapping
+      if (kotlinType.equals("Observable<Unit>")) {
+        builder.append(".map { Unit }")
+      }
 
       return builder.toString()
     }
@@ -286,6 +292,8 @@ class KotlinGenTask extends SourceTask {
     switch (input) {
       case "Object":
         return "Any"
+      case "Void":
+        return "Unit"
       case "Integer":
         return "Int"
       case "int":

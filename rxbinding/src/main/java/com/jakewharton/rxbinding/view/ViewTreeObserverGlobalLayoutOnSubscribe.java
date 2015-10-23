@@ -9,21 +9,20 @@ import rx.Subscriber;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubscribe<Void> {
   private final View view;
 
   ViewTreeObserverGlobalLayoutOnSubscribe(View view) {
     this.view = view;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     final ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override public void onGlobalLayout() {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
+          subscriber.onNext(null);
         }
       }
     };

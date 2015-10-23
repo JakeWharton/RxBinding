@@ -23,4 +23,4 @@ public inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemCli
  * *Warning:* The created observable uses [Toolbar.setNavigationOnClickListener]
  * to observe clicks. Only one observable can be used for a view at a time.
  */
-public inline fun Toolbar.navigationClicks(): Observable<Any> = RxToolbar.navigationClicks(this)
+public inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map { Unit }

@@ -17,7 +17,7 @@ import rx.functions.Func1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun View.attaches(): Observable<Any> = RxView.attaches(this)
+public inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map { Unit }
 
 /**
  * Create an observable of attach and detach events on `view`.
@@ -34,7 +34,7 @@ public inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.atta
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun View.detaches(): Observable<Any> = RxView.detaches(this)
+public inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map { Unit }
 
 /**
  * Create an observable which emits on `view` click events. The emitted value is
@@ -46,7 +46,7 @@ public inline fun View.detaches(): Observable<Any> = RxView.detaches(this)
  * *Warning:* The created observable uses [View.setOnClickListener] to observe
  * clicks. Only one observable can be used for a view at a time.
  */
-public inline fun View.clicks(): Observable<Any> = RxView.clicks(this)
+public inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map { Unit }
 
 /**
  * Create an observable of [DragEvent] for drags on `view`.
@@ -82,7 +82,7 @@ public inline fun View.drags(handled: Func1<in DragEvent, Boolean>): Observable<
  * *Warning:* The created observable uses [ViewTreeObserver.addOnDrawListener] to observe
  * draws. Multiple observables can be used for a view at a time.
  */
-public inline fun View.draws(): Observable<Any> = RxView.draws(this)
+public inline fun View.draws(): Observable<Unit> = RxView.draws(this).map { Unit }
 
 /**
  * Create an observable of booleans representing the focus of `view`.
@@ -107,7 +107,7 @@ public inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges
  * *Warning:* The created observable uses [ViewTreeObserver.addOnGlobalLayoutListener] to observe
  * globalLayouts. Multiple observables can be used for a view at a time.
  */
-public inline fun View.globalLayouts(): Observable<Any> = RxView.globalLayouts(this)
+public inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map { Unit }
 
 /**
  * Create an observable of hover events for `view`.
@@ -141,7 +141,7 @@ public inline fun View.hovers(handled: Func1<in MotionEvent, Boolean>): Observab
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun View.layoutChanges(): Observable<Any> = RxView.layoutChanges(this)
+public inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).map { Unit }
 
 /**
  * Create an observable of layout-change events for `view`.
@@ -161,7 +161,7 @@ public inline fun View.layoutChangeEvents(): Observable<ViewLayoutChangeEvent> =
  * *Warning:* The created observable uses [View.setOnLongClickListener] to observe
  * long clicks. Only one observable can be used for a view at a time.
  */
-public inline fun View.longClicks(): Observable<Any> = RxView.longClicks(this)
+public inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map { Unit }
 
 /**
  * Create an observable which emits on `view` long-click events. The emitted value is
@@ -176,7 +176,7 @@ public inline fun View.longClicks(): Observable<Any> = RxView.longClicks(this)
  * @param handled Function invoked each occurrence to determine the return value of the
  * underlying [View.OnLongClickListener].
  */
-public inline fun View.longClicks(handled: Func0<Boolean>): Observable<Any> = RxView.longClicks(this, handled)
+public inline fun View.longClicks(handled: Func0<Boolean>): Observable<Unit> = RxView.longClicks(this, handled).map { Unit }
 
 /**
  * Create an observable for pre-draws on `view`.
@@ -187,7 +187,7 @@ public inline fun View.longClicks(handled: Func0<Boolean>): Observable<Any> = Rx
  * *Warning:* The created observable uses [ViewTreeObserver.addOnPreDrawListener] to observe
  * preDraws. Multiple observables can be used for a view at a time.
  */
-public inline fun View.preDraws(proceedDrawingPass: Func1<in Any, Boolean>): Observable<Any> = RxView.preDraws(this, proceedDrawingPass)
+public inline fun View.preDraws(proceedDrawingPass: Func0<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map { Unit }
 
 /**
  * Create an observable of scroll-change events for `view`.

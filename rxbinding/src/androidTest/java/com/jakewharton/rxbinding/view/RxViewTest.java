@@ -39,15 +39,15 @@ public final class RxViewTest {
   private final View view = new View(context);
 
   @Test @UiThreadTest public void clicks() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.clicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     view.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 
@@ -78,12 +78,12 @@ public final class RxViewTest {
   @TargetApi(JELLY_BEAN)
   @SdkSuppress(minSdkVersion = JELLY_BEAN)
   @Test @UiThreadTest public void drawEvents() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.draws(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnDraw();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 
@@ -116,12 +116,12 @@ public final class RxViewTest {
   }
 
   @Test @UiThreadTest public void globalLayouts() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.globalLayouts(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnGlobalLayout();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
     view.getViewTreeObserver().dispatchOnGlobalLayout();
@@ -149,12 +149,12 @@ public final class RxViewTest {
   }
 
   @Test @UiThreadTest public void layoutChanges() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.layoutChanges(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
@@ -192,15 +192,15 @@ public final class RxViewTest {
     };
     parent.addView(view);
 
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.longClicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.performLongClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     view.performLongClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 
@@ -209,12 +209,12 @@ public final class RxViewTest {
   }
 
   @Test @UiThreadTest public void preDrawEvents() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
-    Subscription subscription = RxView.preDraws(view, Functions.FUNC1_ALWAYS_TRUE).subscribe(o);
+    RecordingObserver<Void> o = new RecordingObserver<>();
+    Subscription subscription = RxView.preDraws(view, Functions.FUNC0_ALWAYS_TRUE).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnPreDraw();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 

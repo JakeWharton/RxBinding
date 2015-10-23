@@ -32,15 +32,15 @@ import static com.google.common.truth.Truth.assertThat;
   private final TestMenuItem menuItem = new TestMenuItem(context);
 
   @Test @UiThreadTest public void clicks() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxMenuItem.clicks(menuItem).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     menuItem.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 

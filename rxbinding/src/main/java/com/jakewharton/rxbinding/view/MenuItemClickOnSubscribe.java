@@ -8,8 +8,7 @@ import rx.functions.Func1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class MenuItemClickOnSubscribe implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class MenuItemClickOnSubscribe implements Observable.OnSubscribe<Void> {
   private final MenuItem menuItem;
   private final Func1<? super MenuItem, Boolean> handled;
 
@@ -18,14 +17,14 @@ final class MenuItemClickOnSubscribe implements Observable.OnSubscribe<Object> {
     this.handled = handled;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     MenuItem.OnMenuItemClickListener listener = new MenuItem.OnMenuItemClickListener() {
       @Override public boolean onMenuItemClick(MenuItem item) {
         if (handled.call(menuItem)) {
           if (!subscriber.isUnsubscribed()) {
-            subscriber.onNext(event);
+            subscriber.onNext(null);
           }
           return true;
         }

@@ -38,7 +38,7 @@ public final class RxToolbar {
    * to observe clicks. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Object> navigationClicks(@NonNull Toolbar view) {
+  public static Observable<Void> navigationClicks(@NonNull Toolbar view) {
     return Observable.create(new ToolbarNavigationClickOnSubscribe(view));
   }
 

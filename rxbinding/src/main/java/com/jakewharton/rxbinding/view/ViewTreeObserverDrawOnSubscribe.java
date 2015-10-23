@@ -11,22 +11,20 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 
 @TargetApi(JELLY_BEAN)
-final class ViewTreeObserverDrawOnSubscribe
-    implements Observable.OnSubscribe<Object> {
-  private final Object event = new Object();
+final class ViewTreeObserverDrawOnSubscribe implements Observable.OnSubscribe<Void> {
   private final View view;
 
   public ViewTreeObserverDrawOnSubscribe(View view) {
     this.view = view;
   }
 
-  @Override public void call(final Subscriber<? super Object> subscriber) {
+  @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
     final ViewTreeObserver.OnDrawListener listener = new ViewTreeObserver.OnDrawListener() {
       @Override public void onDraw() {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(event);
+          subscriber.onNext(null);
         }
       }
     };

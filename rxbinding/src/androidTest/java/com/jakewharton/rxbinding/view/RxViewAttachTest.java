@@ -37,7 +37,7 @@ public final class RxViewAttachTest {
   }
 
   @Test public void attaches() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.attaches(child)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
@@ -48,7 +48,7 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
@@ -99,7 +99,7 @@ public final class RxViewAttachTest {
   }
 
   @Test public void detaches() {
-    RecordingObserver<Object> o = new RecordingObserver<>();
+    RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxView.detaches(child)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
@@ -116,7 +116,7 @@ public final class RxViewAttachTest {
         parent.removeView(child);
       }
     });
-    assertThat(o.takeNext()).isNotNull();
+    assertThat(o.takeNext()).isNull();
 
     subscription.unsubscribe();
 
