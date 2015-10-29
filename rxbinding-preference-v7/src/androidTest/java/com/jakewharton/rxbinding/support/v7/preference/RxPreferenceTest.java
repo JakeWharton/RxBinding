@@ -37,4 +37,18 @@ public final class RxPreferenceTest {
     preference.performClick();
     o.assertNoMoreEvents();
   }
+
+  @Test @UiThreadTest public void changes() {
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    Subscription subscription = RxPreference.changes(preference).subscribe(o);
+    o.assertNoMoreEvents();
+
+    Object newValue = new Object();
+    preference.callChangeListener(newValue);
+    assertThat(o.takeNext()).isSameAs(newValue);
+
+    subscription.unsubscribe();
+    preference.callChangeListener(newValue);
+    o.assertNoMoreEvents();
+  }
 }

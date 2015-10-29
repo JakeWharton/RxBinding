@@ -28,6 +28,20 @@ public final class RxPreference {
     return Observable.create(new PreferenceClickOnSubscribe(preference));
   }
 
+  /**
+   * Create an observable which emits on {@code Preference} change events.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code preference}. Unsubscribe
+   * to free this reference.
+   * <em>Warning:</em> The created observable uses {@link Preference#setOnPreferenceChangeListener} to observe
+   * changes. Only one observable can be used for a preference at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Object> changes(@NonNull Preference preference) {
+    checkNotNull(preference, "preference == null");
+    return Observable.create(new PreferenceChangeOnSubscribe(preference));
+  }
+
   private RxPreference() {
     throw new AssertionError("No instances.");
   }
