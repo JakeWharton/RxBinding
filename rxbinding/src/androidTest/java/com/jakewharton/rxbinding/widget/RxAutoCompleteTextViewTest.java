@@ -11,23 +11,23 @@ import com.jakewharton.rxbinding.test.R;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.google.common.truth.Truth.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.startsWith;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxAutoCompleteTextViewTest {
@@ -44,7 +44,6 @@ public final class RxAutoCompleteTextViewTest {
     autoCompleteTextView = activity.autoCompleteTextView;
   }
 
-  @Ignore("Does not work on Travis CI")
   @Test public void itemClickEvents() {
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -64,7 +63,7 @@ public final class RxAutoCompleteTextViewTest {
     o.assertNoMoreEvents();
 
     onView(withId(R.id.auto_complete)).perform(typeText("Tw"));
-    onView(withText("Twenty"))
+    onData(startsWith("Twenty"))
         .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
         .perform(click());
 
@@ -77,7 +76,7 @@ public final class RxAutoCompleteTextViewTest {
     subscription.unsubscribe();
 
     onView(withId(R.id.auto_complete)).perform(clearText(), typeText("Tw"));
-    onView(withText("Twenty"))
+    onData(startsWith("Twenty"))
         .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
         .perform(click());
 
