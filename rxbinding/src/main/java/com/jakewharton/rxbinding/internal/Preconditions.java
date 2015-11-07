@@ -22,6 +22,13 @@ public final class Preconditions {
     }
   }
 
+  public static <T> T checkNotNull(T value, String message) {
+    if (value == null) {
+      throw new NullPointerException(message);
+    }
+    return value;
+  }
+
   public static void checkUiThread() {
     if (Looper.getMainLooper() != Looper.myLooper()) {
       throw new IllegalStateException(

@@ -6,6 +6,8 @@ import android.widget.SearchView;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link SearchView}.
@@ -23,6 +25,7 @@ public final class RxSearchView {
   @CheckResult @NonNull
   public static Observable<SearchViewQueryTextEvent> queryTextChangeEvents(
       @NonNull SearchView view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SearchViewQueryTextChangeEventsOnSubscribe(view));
   }
 
@@ -36,6 +39,7 @@ public final class RxSearchView {
    */
   @CheckResult @NonNull
   public static Observable<CharSequence> queryTextChanges(@NonNull SearchView view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SearchViewQueryTextChangesOnSubscribe(view));
   }
 
@@ -50,6 +54,7 @@ public final class RxSearchView {
   @CheckResult @NonNull
   public static Action1<? super CharSequence> query(@NonNull final SearchView view,
       final boolean submit) {
+    checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
       @Override public void call(CharSequence text) {
         view.setQuery(text, submit);

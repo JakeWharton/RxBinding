@@ -6,6 +6,8 @@ import android.support.design.widget.Snackbar;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link Snackbar}.
@@ -19,6 +21,7 @@ public final class RxSnackbar {
    */
   @CheckResult @NonNull
   public static Observable<Integer> dismisses(@NonNull Snackbar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SnackbarDismissesOnSubscribe(view));
   }
 

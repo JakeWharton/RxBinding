@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Action1 actions} for {@link TextInputLayout}.
  */
@@ -18,6 +20,7 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean enable) {
         view.setCounterEnabled(enable);
@@ -33,6 +36,7 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer maxLength) {
         view.setCounterMaxLength(maxLength);
@@ -48,6 +52,7 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Action1<? super CharSequence> hint(@NonNull final TextInputLayout view) {
+    checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
       @Override public void call(CharSequence hint) {
         view.setHint(hint);
@@ -63,6 +68,7 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> hintRes(@NonNull final TextInputLayout view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer hintRes) {
         view.setHint(view.getContext().getResources().getText(hintRes));

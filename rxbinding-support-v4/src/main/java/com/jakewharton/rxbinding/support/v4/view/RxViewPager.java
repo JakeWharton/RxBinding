@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import rx.Observable;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 public final class RxViewPager {
   /**
    * Create an observable of page selected events on {@code view}.
@@ -16,6 +18,7 @@ public final class RxViewPager {
    */
   @CheckResult @NonNull
   public static Observable<Integer> pageSelections(@NonNull ViewPager view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewPagerPageSelectedOnSubscribe(view));
   }
 

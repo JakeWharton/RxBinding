@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import rx.Observable;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /** Static factory methods for creating {@linkplain Observable observables} for {@link Adapter}. */
 public final class RxRecyclerViewAdapter {
   /**
@@ -16,6 +18,7 @@ public final class RxRecyclerViewAdapter {
   @CheckResult @NonNull
   public static <T extends Adapter<? extends ViewHolder>> Observable<T> dataChanges(
       @NonNull T adapter) {
+    checkNotNull(adapter, "adapter == null");
     return Observable.create(new RecyclerAdapterDataChangeOnSubscribe<>(adapter));
   }
 

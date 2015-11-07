@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.widget.SeekBar;
 import rx.Observable;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 public final class RxSeekBar {
   /**
    * Create an observable of progress value changes on {@code view}.
@@ -16,6 +18,7 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static Observable<Integer> changes(@NonNull SeekBar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SeekBarChangeOnSubscribe(view, null));
   }
 
@@ -29,6 +32,7 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static Observable<Integer> userChanges(@NonNull SeekBar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SeekBarChangeOnSubscribe(view, true));
   }
 
@@ -42,6 +46,7 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static Observable<Integer> systemChanges(@NonNull SeekBar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SeekBarChangeOnSubscribe(view, false));
   }
 
@@ -55,6 +60,7 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static Observable<SeekBarChangeEvent> changeEvents(@NonNull SeekBar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SeekBarChangeEventOnSubscribe(view));
   }
 

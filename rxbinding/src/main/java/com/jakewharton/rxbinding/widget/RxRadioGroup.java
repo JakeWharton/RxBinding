@@ -6,6 +6,8 @@ import android.widget.RadioGroup;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 public final class RxRadioGroup {
   /**
    * Create an observable of the checked view ID changes in {@code view}.
@@ -17,6 +19,7 @@ public final class RxRadioGroup {
    */
   @CheckResult @NonNull
   public static Observable<Integer> checkedChanges(@NonNull RadioGroup view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new RadioGroupCheckedChangeOnSubscribe(view))
         .distinctUntilChanged(); // Radio group can fire non-changes.
   }
@@ -30,6 +33,7 @@ public final class RxRadioGroup {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> checked(@NonNull final RadioGroup view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         if (value == -1) {
