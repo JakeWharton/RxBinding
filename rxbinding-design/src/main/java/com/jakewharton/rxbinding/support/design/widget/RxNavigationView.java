@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link NavigationView}.
@@ -23,6 +25,7 @@ public final class RxNavigationView {
    */
   @CheckResult @NonNull
   public static Observable<MenuItem> itemSelections(@NonNull NavigationView view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new NavigationViewItemSelectionsOnSubscribe(view));
   }
 

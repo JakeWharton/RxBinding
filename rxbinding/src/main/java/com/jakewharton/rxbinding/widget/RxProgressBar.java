@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.widget.ProgressBar;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 public final class RxProgressBar {
   /**
    * An action which increments the progress value of {@code view}.
@@ -14,6 +16,7 @@ public final class RxProgressBar {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> incrementProgressBy(@NonNull final ProgressBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.incrementProgressBy(value);
@@ -30,6 +33,7 @@ public final class RxProgressBar {
   @CheckResult @NonNull
   public static Action1<? super Integer> incrementSecondaryProgressBy(
       @NonNull final ProgressBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.incrementSecondaryProgressBy(value);
@@ -45,6 +49,7 @@ public final class RxProgressBar {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> indeterminate(@NonNull final ProgressBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setIndeterminate(value);
@@ -60,6 +65,7 @@ public final class RxProgressBar {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> max(@NonNull final ProgressBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.setMax(value);
@@ -75,6 +81,7 @@ public final class RxProgressBar {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> progress(@NonNull final ProgressBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.setProgress(value);
@@ -90,6 +97,7 @@ public final class RxProgressBar {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> secondaryProgress(@NonNull final ProgressBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer value) {
         view.setSecondaryProgress(value);

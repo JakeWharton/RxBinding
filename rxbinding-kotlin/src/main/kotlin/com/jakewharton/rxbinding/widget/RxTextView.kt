@@ -1,6 +1,5 @@
 package com.jakewharton.rxbinding.widget
 
-import android.support.annotation.ColorInt
 import android.widget.TextView
 import com.jakewharton.rxbinding.internal.Functions
 import rx.Observable

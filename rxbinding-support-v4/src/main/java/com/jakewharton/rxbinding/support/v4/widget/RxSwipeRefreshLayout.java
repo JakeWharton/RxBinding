@@ -6,6 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 public final class RxSwipeRefreshLayout {
   /**
    * Create an observable of refresh events on {@code view}.
@@ -15,6 +17,7 @@ public final class RxSwipeRefreshLayout {
    */
   @CheckResult @NonNull
   public static Observable<Void> refreshes(@NonNull SwipeRefreshLayout view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SwipeRefreshLayoutRefreshOnSubscribe(view));
   }
 
@@ -26,6 +29,7 @@ public final class RxSwipeRefreshLayout {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> refreshing(@NonNull final SwipeRefreshLayout view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setRefreshing(value);

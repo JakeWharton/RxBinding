@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout.Tab;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link TabLayout}.
@@ -22,6 +24,7 @@ public final class RxTabLayout {
    */
   @CheckResult @NonNull
   public static Observable<Tab> selections(@NonNull TabLayout view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new TabLayoutSelectionsOnSubscribe(view));
   }
 
@@ -36,6 +39,7 @@ public final class RxTabLayout {
    */
   @CheckResult @NonNull
   public static Observable<TabLayoutSelectionEvent> selectionEvents(@NonNull TabLayout view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new TabLayoutSelectionEventOnSubscribe(view));
   }
 
@@ -47,6 +51,7 @@ public final class RxTabLayout {
    */
   @CheckResult @NonNull
   public static Action1<? super Integer> select(@NonNull final TabLayout view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer index) {
         if (index < 0 || index >= view.getTabCount()) {

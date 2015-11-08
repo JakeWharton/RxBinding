@@ -6,6 +6,8 @@ import android.support.v17.leanback.widget.SearchBar;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link SearchBar}.
@@ -23,6 +25,7 @@ public final class RxSearchBar {
   @NonNull
   public static Observable<SearchBarSearchQueryEvent> searchQueryChangeEvents(
           @NonNull SearchBar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SearchBarSearchQueryChangeEventsOnSubscribe(view));
   }
 
@@ -35,6 +38,7 @@ public final class RxSearchBar {
    */
   @CheckResult @NonNull
   public static Observable<String> searchQueryChanges(@NonNull SearchBar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new SearchBarSearchQueryChangesOnSubscribe(view));
   }
 
@@ -46,6 +50,7 @@ public final class RxSearchBar {
    */
   @CheckResult @NonNull
   public static Action1<? super String> searchQuery(@NonNull final SearchBar view) {
+    checkNotNull(view, "view == null");
     return new Action1<String>() {
       @Override public void call(String text) {
         view.setSearchQuery(text);

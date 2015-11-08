@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link RecyclerView}.
@@ -20,8 +22,9 @@ public final class RxRecyclerView {
    */
   @CheckResult @NonNull
   public static Observable<RecyclerViewChildAttachStateChangeEvent> childAttachStateChangeEvents(
-      @NonNull RecyclerView recyclerView) {
-    return Observable.create(new RecyclerViewChildAttachStateChangeEventOnSubscribe(recyclerView));
+      @NonNull RecyclerView view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new RecyclerViewChildAttachStateChangeEventOnSubscribe(view));
   }
 
   /**
@@ -32,8 +35,9 @@ public final class RxRecyclerView {
    */
   @CheckResult @NonNull
   public static Observable<RecyclerViewScrollEvent> scrollEvents(
-      @NonNull RecyclerView recyclerView) {
-    return Observable.create(new RecyclerViewScrollEventOnSubscribe(recyclerView));
+      @NonNull RecyclerView view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new RecyclerViewScrollEventOnSubscribe(view));
   }
 
   /**
@@ -43,8 +47,9 @@ public final class RxRecyclerView {
    * Unsubscribe to free this reference.
    */
   @CheckResult @NonNull
-  public static Observable<Integer> scrollStateChanges(@NonNull RecyclerView recyclerView) {
-    return Observable.create(new RecyclerViewScrollStateChangeOnSubscribe(recyclerView));
+  public static Observable<Integer> scrollStateChanges(@NonNull RecyclerView view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new RecyclerViewScrollStateChangeOnSubscribe(view));
   }
 
   private RxRecyclerView() {

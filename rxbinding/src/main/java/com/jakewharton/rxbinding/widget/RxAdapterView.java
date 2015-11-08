@@ -10,6 +10,8 @@ import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link AdapterView}.
@@ -27,6 +29,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<Integer> itemSelections(
       @NonNull AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new AdapterViewItemSelectionOnSubscribe(view));
   }
 
@@ -41,6 +44,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<AdapterViewSelectionEvent> selectionEvents(
       @NonNull AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new AdapterViewSelectionOnSubscribe(view));
   }
 
@@ -53,6 +57,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<Integer> itemClicks(
       @NonNull AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new AdapterViewItemClickOnSubscribe(view));
   }
 
@@ -65,6 +70,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<AdapterViewItemClickEvent> itemClickEvents(
       @NonNull AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new AdapterViewItemClickEventOnSubscribe(view));
   }
 
@@ -77,6 +83,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<Integer> itemLongClicks(
       @NonNull AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return itemLongClicks(view, Functions.FUNC0_ALWAYS_TRUE);
   }
 
@@ -92,6 +99,8 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<Integer> itemLongClicks(@NonNull AdapterView<T> view,
       @NonNull Func0<Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new AdapterViewItemLongClickOnSubscribe(view, handled));
   }
 
@@ -104,6 +113,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(
       @NonNull AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return itemLongClickEvents(view, Functions.FUNC1_ALWAYS_TRUE);
   }
 
@@ -120,6 +130,8 @@ public final class RxAdapterView {
   public static <T extends Adapter> Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(
       @NonNull AdapterView<T> view,
       @NonNull Func1<? super AdapterViewItemLongClickEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new AdapterViewItemLongClickEventOnSubscribe(view, handled));
   }
 
@@ -132,6 +144,7 @@ public final class RxAdapterView {
   @CheckResult @NonNull
   public static <T extends Adapter> Action1<? super Integer> selection(
       @NonNull final AdapterView<T> view) {
+    checkNotNull(view, "view == null");
     return new Action1<Integer>() {
       @Override public void call(Integer position) {
         view.setSelection(position);

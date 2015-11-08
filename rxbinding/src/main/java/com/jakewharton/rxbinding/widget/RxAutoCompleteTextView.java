@@ -7,6 +7,8 @@ import android.widget.AutoCompleteTextView;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link AutoCompleteTextView}.
@@ -21,6 +23,7 @@ public final class RxAutoCompleteTextView {
   @CheckResult
   @NonNull
   public static Observable<AdapterViewItemClickEvent> itemClickEvents(@NonNull AutoCompleteTextView view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new AutoCompleteTextViewItemClickEventOnSubscribe(view));
   }
 

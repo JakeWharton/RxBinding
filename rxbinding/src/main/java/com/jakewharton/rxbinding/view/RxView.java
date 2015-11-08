@@ -7,14 +7,17 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
 import com.jakewharton.rxbinding.internal.Functions;
+
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkArgument;
 import static android.os.Build.VERSION_CODES.M;
+import static com.jakewharton.rxbinding.internal.Preconditions.checkArgument;
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
@@ -30,6 +33,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> attaches(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewAttachesOnSubscribe(view, true));
   }
 
@@ -41,6 +45,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<ViewAttachEvent> attachEvents(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewAttachEventOnSubscribe(view));
   }
 
@@ -53,6 +58,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> detaches(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewAttachesOnSubscribe(view, false));
   }
 
@@ -68,6 +74,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> clicks(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewClickOnSubscribe(view));
   }
 
@@ -82,6 +89,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<DragEvent> drags(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewDragOnSubscribe(view, Functions.FUNC1_ALWAYS_TRUE));
   }
 
@@ -100,6 +108,8 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<DragEvent> drags(@NonNull View view,
       @NonNull Func1<? super DragEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new ViewDragOnSubscribe(view, handled));
   }
 
@@ -114,6 +124,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> draws(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewTreeObserverDrawOnSubscribe(view));
   }
 
@@ -130,6 +141,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Boolean> focusChanges(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewFocusChangeOnSubscribe(view));
   }
 
@@ -145,6 +157,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> globalLayouts(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewTreeObserverGlobalLayoutOnSubscribe(view));
   }
 
@@ -159,6 +172,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return hovers(view, Functions.FUNC1_ALWAYS_TRUE);
   }
 
@@ -177,6 +191,8 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view,
       @NonNull Func1<? super MotionEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new ViewHoverOnSubscribe(view, handled));
   }
 
@@ -189,6 +205,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> layoutChanges(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewLayoutChangeOnSubscribe(view));
   }
 
@@ -200,6 +217,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<ViewLayoutChangeEvent> layoutChangeEvents(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewLayoutChangeEventOnSubscribe(view));
   }
 
@@ -215,6 +233,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> longClicks(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewLongClickOnSubscribe(view, Functions.FUNC0_ALWAYS_TRUE));
   }
 
@@ -233,6 +252,8 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Void> longClicks(@NonNull View view, @NonNull Func0<Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new ViewLongClickOnSubscribe(view, handled));
   }
 
@@ -248,6 +269,8 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<Void> preDraws(@NonNull View view,
       @NonNull Func0<Boolean> proceedDrawingPass) {
+    checkNotNull(view, "view == null");
+    checkNotNull(proceedDrawingPass, "proceedDrawingPass == null");
     return Observable.create(new ViewTreeObserverPreDrawOnSubscribe(view, proceedDrawingPass));
   }
 
@@ -260,6 +283,7 @@ public final class RxView {
   @TargetApi(M)
   @CheckResult @NonNull
   public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewScrollChangeEventOnSubscribe(view));
   }
 
@@ -275,6 +299,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Integer> systemUiVisibilityChanges(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ViewSystemUiVisibilityChangeOnSubscribe(view));
   }
 
@@ -289,6 +314,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return touches(view, Functions.FUNC1_ALWAYS_TRUE);
   }
 
@@ -307,6 +333,8 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view,
       @NonNull Func1<? super MotionEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new ViewTouchOnSubscribe(view, handled));
   }
 
@@ -318,6 +346,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> activated(@NonNull final View view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setActivated(value);
@@ -333,6 +362,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> clickable(@NonNull final View view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setClickable(value);
@@ -348,6 +378,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> enabled(@NonNull final View view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setEnabled(value);
@@ -363,6 +394,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> pressed(@NonNull final View view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setPressed(value);
@@ -378,6 +410,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> selected(@NonNull final View view) {
+    checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean value) {
         view.setSelected(value);
@@ -394,6 +427,7 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Action1<? super Boolean> visibility(@NonNull View view) {
+    checkNotNull(view, "view == null");
     return visibility(view, View.GONE);
   }
 
@@ -409,6 +443,7 @@ public final class RxView {
   @CheckResult @NonNull
   public static Action1<? super Boolean> visibility(@NonNull final View view,
       final int visibilityWhenFalse) {
+    checkNotNull(view, "view == null");
     checkArgument(visibilityWhenFalse != View.VISIBLE,
         "Setting visibility to VISIBLE when false would have no effect.");
     checkArgument(visibilityWhenFalse == View.INVISIBLE || visibilityWhenFalse == View.GONE,

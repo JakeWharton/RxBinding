@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
  * actions} for {@link Toolbar}.
@@ -20,6 +22,7 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull
   public static Observable<MenuItem> itemClicks(@NonNull Toolbar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ToolbarItemClickOnSubscribe(view));
   }
 
@@ -35,6 +38,7 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull
   public static Observable<Void> navigationClicks(@NonNull Toolbar view) {
+    checkNotNull(view, "view == null");
     return Observable.create(new ToolbarNavigationClickOnSubscribe(view));
   }
 
