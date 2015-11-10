@@ -23,6 +23,5 @@ public final class RxAutoCompleteTextViewTestActivity extends Activity {
     autoCompleteTextView.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
     autoCompleteTextView.setId(R.id.auto_complete);
     layout.addView(autoCompleteTextView);
-
   }
 }
