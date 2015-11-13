@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.v4.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +10,7 @@ import android.widget.ScrollView;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
+@SuppressLint("Registered")
 public final class RxSwipeRefreshLayoutTestActivity extends Activity {
   SwipeRefreshLayout swipeRefreshLayout;
 

@@ -1,9 +1,11 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
+@SuppressLint("Registered")
 public final class RxSeekBarTestActivity extends Activity {
   SeekBar seekBar;
 

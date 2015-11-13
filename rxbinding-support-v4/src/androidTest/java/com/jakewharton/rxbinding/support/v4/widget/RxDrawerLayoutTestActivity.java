@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.v4.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import static android.view.Gravity.RIGHT;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
+@SuppressLint("Registered")
 public final class RxDrawerLayoutTestActivity extends Activity {
   DrawerLayout drawerLayout;
 

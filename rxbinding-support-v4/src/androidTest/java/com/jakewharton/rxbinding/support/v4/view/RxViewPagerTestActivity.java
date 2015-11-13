@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.v4.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+@SuppressLint("Registered")
 public final class RxViewPagerTestActivity extends Activity {
   ViewPager viewPager;
 

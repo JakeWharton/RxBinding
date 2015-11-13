@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.widget.Toolbar;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
+@SuppressLint("Registered")
 @TargetApi(LOLLIPOP)
 public final class RxToolbarTestActivity extends Activity {
   static final String NAVIGATION_CONTENT_DESCRIPTION = "click me!";

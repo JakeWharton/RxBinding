@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.v7.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+@SuppressLint("Registered")
 public final class RxRecyclerViewTestActivity extends Activity {
   RecyclerView recyclerView;
 
