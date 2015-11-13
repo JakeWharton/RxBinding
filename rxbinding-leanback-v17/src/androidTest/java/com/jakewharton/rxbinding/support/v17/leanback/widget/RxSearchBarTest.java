@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.support.v17.leanback.widget;
 
 import com.jakewharton.rxbinding.RecordingObserver;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

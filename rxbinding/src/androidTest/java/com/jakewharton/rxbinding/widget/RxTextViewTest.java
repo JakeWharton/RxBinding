@@ -5,28 +5,19 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 import android.widget.TextView;
 import com.jakewharton.rxbinding.test.R;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Observable;
-import rx.Observer;
+
 import rx.Subscription;
 import com.jakewharton.rxbinding.RecordingObserver;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.functions.Func3;
-import rx.functions.FuncN;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_GO;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.google.common.truth.Truth.assertThat;
-import static rx.Observable.combineLatest;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxTextViewTest {
