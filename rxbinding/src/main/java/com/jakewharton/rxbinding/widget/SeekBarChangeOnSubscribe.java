@@ -23,7 +23,8 @@ final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> 
 
     SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
       @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (!subscriber.isUnsubscribed() && (shouldBeFromUser == null || shouldBeFromUser == fromUser)) {
+        if (!subscriber.isUnsubscribed()
+            && (shouldBeFromUser == null || shouldBeFromUser == fromUser)) {
           subscriber.onNext(progress);
         }
       }

@@ -14,7 +14,8 @@ import android.view.ViewGroup;
  */
 public final class ViewGroupHierarchyChildViewRemoveEvent extends ViewGroupHierarchyChangeEvent {
   @CheckResult @NonNull
-  public static ViewGroupHierarchyChildViewRemoveEvent create(@NonNull ViewGroup viewGroup, View child) {
+  public static ViewGroupHierarchyChildViewRemoveEvent create(@NonNull ViewGroup viewGroup,
+      View child) {
     return new ViewGroupHierarchyChildViewRemoveEvent(viewGroup, child);
   }
 

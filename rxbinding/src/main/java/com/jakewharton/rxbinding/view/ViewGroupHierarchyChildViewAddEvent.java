@@ -14,7 +14,8 @@ import android.view.ViewGroup;
  */
 public final class ViewGroupHierarchyChildViewAddEvent extends ViewGroupHierarchyChangeEvent {
   @CheckResult @NonNull
-  public static ViewGroupHierarchyChildViewAddEvent create(@NonNull ViewGroup viewGroup, View child) {
+  public static ViewGroupHierarchyChildViewAddEvent create(@NonNull ViewGroup viewGroup,
+      View child) {
     return new ViewGroupHierarchyChildViewAddEvent(viewGroup, child);
   }
 

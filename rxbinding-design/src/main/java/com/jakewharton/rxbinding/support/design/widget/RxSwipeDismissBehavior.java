@@ -14,7 +14,8 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
  */
 public final class RxSwipeDismissBehavior {
   /**
-   * Create an observable which emits the dismiss events from {@code view} on {@link SwipeDismissBehavior}.
+   * Create an observable which emits the dismiss events from {@code view} on
+   * {@link SwipeDismissBehavior}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.

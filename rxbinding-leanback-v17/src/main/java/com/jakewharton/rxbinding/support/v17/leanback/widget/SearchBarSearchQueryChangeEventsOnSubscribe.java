@@ -1,9 +1,8 @@
 package com.jakewharton.rxbinding.support.v17.leanback.widget;
 
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
-
 import android.support.v17.leanback.widget.SearchBar;
-
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
+import com.jakewharton.rxbinding.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -24,19 +23,19 @@ final class SearchBarSearchQueryChangeEventsOnSubscribe
 
       @Override public void onSearchQueryChange(String query) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(SearchBarSearchQueryEvent.create(view, query, SearchBarSearchQueryEvent.Kind.CHANGED));
+          subscriber.onNext(SearchBarSearchQueryEvent.create(view, query, Kind.CHANGED));
         }
       }
 
       @Override public void onSearchQuerySubmit(String query) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(SearchBarSearchQueryEvent.create(view, query, SearchBarSearchQueryEvent.Kind.SUBMITTED));
+          subscriber.onNext(SearchBarSearchQueryEvent.create(view, query, Kind.SUBMITTED));
         }
       }
 
       @Override public void onKeyboardDismiss(String query) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(SearchBarSearchQueryEvent.create(view, query, SearchBarSearchQueryEvent.Kind.KEYBOARD_DISMISSED));
+          subscriber.onNext(SearchBarSearchQueryEvent.create(view, query, Kind.KEYBOARD_DISMISSED));
         }
       }
     };

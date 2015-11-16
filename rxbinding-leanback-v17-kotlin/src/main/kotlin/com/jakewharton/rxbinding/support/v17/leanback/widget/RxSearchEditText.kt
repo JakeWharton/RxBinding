@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.support.v17.leanback.widget
 
 import android.support.v17.leanback.widget.SearchEditText
 import rx.Observable
-import rx.functions.Action1
 
 /**
  * Create an observable which emits the keyboard dismiss events from `view`.

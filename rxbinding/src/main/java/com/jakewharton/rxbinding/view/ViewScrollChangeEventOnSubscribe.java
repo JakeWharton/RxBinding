@@ -10,7 +10,8 @@ import static android.os.Build.VERSION_CODES.M;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 @TargetApi(M)
-final class ViewScrollChangeEventOnSubscribe implements Observable.OnSubscribe<ViewScrollChangeEvent> {
+final class ViewScrollChangeEventOnSubscribe
+    implements Observable.OnSubscribe<ViewScrollChangeEvent> {
   private final View view;
 
   ViewScrollChangeEventOnSubscribe(View view) {
@@ -24,7 +25,8 @@ final class ViewScrollChangeEventOnSubscribe implements Observable.OnSubscribe<V
       @Override
       public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(ViewScrollChangeEvent.create(view, scrollX, scrollY, oldScrollX, oldScrollY));
+          subscriber.onNext(
+            ViewScrollChangeEvent.create(view, scrollX, scrollY, oldScrollX, oldScrollY));
         }
       }
     };

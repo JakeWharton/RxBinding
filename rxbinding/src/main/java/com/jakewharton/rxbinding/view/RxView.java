@@ -119,8 +119,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    * <p>
-   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnDrawListener} to observe
-   * draws. Multiple observables can be used for a view at a time.
+   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnDrawListener} to
+   * observe draws. Multiple observables can be used for a view at a time.
    */
   @CheckResult @NonNull
   public static Observable<Void> draws(@NonNull View view) {
@@ -152,8 +152,9 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    * <p>
-   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnGlobalLayoutListener} to observe
-   * globalLayouts. Multiple observables can be used for a view at a time.
+   * <em>Warning:</em> The created observable uses {@link
+   * ViewTreeObserver#addOnGlobalLayoutListener} to observe global layouts. Multiple observables
+   * can be used for a view at a time.
    */
   @CheckResult @NonNull
   public static Observable<Void> globalLayouts(@NonNull View view) {
@@ -263,8 +264,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    * <p>
-   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnPreDrawListener} to observe
-   * preDraws. Multiple observables can be used for a view at a time.
+   * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnPreDrawListener} to
+   * observe pre-draws. Multiple observables can be used for a view at a time.
    */
   @CheckResult @NonNull
   public static Observable<Void> preDraws(@NonNull View view,

@@ -50,9 +50,11 @@ public final class MenuItemActionViewEvent extends MenuItemEvent<MenuItem> {
   }
 
   @Override public String toString() {
-    return "MenuItemActionViewEvent{" +
-        "menuItem=" + menuItem() +
-        ", kind=" + kind +
-        '}';
+    return "MenuItemActionViewEvent{"
+        + "menuItem="
+        + menuItem()
+        + ", kind="
+        + kind
+        + '}';
   }
 }

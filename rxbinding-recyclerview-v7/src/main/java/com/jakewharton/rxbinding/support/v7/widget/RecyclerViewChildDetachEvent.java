@@ -14,7 +14,8 @@ import android.view.View;
  */
 public final class RecyclerViewChildDetachEvent extends RecyclerViewChildAttachStateChangeEvent {
   @CheckResult @NonNull
-  public static RecyclerViewChildDetachEvent create(@NonNull RecyclerView view, @NonNull View child) {
+  public static RecyclerViewChildDetachEvent create(@NonNull RecyclerView view,
+      @NonNull View child) {
     return new RecyclerViewChildDetachEvent(view, child);
   }
 

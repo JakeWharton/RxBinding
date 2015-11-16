@@ -1,6 +1,6 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
-import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.CoordinatorLayout.LayoutParams;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.view.View;
 import com.jakewharton.rxbinding.internal.MainThreadSubscription;
@@ -30,11 +30,11 @@ final class SwipeDismissBehaviorOnSubscribe implements Observable.OnSubscribe<Vi
       }
     };
 
-    if (!(view.getLayoutParams() instanceof CoordinatorLayout.LayoutParams)) {
+    if (!(view.getLayoutParams() instanceof LayoutParams)) {
       throw new IllegalArgumentException("The view is not in a Coordinator Layout.");
     }
-    final SwipeDismissBehavior behavior =
-        (SwipeDismissBehavior) ((CoordinatorLayout.LayoutParams) view.getLayoutParams()).getBehavior();
+    LayoutParams params = (LayoutParams) view.getLayoutParams();
+    final SwipeDismissBehavior behavior = (SwipeDismissBehavior) params.getBehavior();
     if (behavior == null) {
       throw new IllegalStateException("There's no behavior set on this view.");
     }

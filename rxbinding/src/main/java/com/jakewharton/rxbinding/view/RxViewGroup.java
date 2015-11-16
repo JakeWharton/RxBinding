@@ -15,11 +15,12 @@ public final class RxViewGroup {
   /**
    * Create an observable of hierarchy change events for {@code viewGroup}.
    * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code viewGroup}. Unsubscribe
-   * to free this reference.
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code viewGroup}.
+   * Unsubscribe to free this reference.
    */
   @CheckResult @NonNull
-  public static Observable<ViewGroupHierarchyChangeEvent> changeEvents(@NonNull ViewGroup viewGroup) {
+  public static Observable<ViewGroupHierarchyChangeEvent> changeEvents(
+      @NonNull ViewGroup viewGroup) {
     checkNotNull(viewGroup, "viewGroup == null");
     return Observable.create(new ViewGroupHierarchyChangeEventOnSubscribe(viewGroup));
   }

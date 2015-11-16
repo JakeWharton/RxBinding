@@ -8,7 +8,8 @@ import rx.Subscriber;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
-final class ViewGroupHierarchyChangeEventOnSubscribe implements Observable.OnSubscribe<ViewGroupHierarchyChangeEvent> {
+final class ViewGroupHierarchyChangeEventOnSubscribe
+    implements Observable.OnSubscribe<ViewGroupHierarchyChangeEvent> {
   private final ViewGroup viewGroup;
 
   ViewGroupHierarchyChangeEventOnSubscribe(ViewGroup viewGroup) {
@@ -21,13 +22,15 @@ final class ViewGroupHierarchyChangeEventOnSubscribe implements Observable.OnSub
     ViewGroup.OnHierarchyChangeListener listener = new ViewGroup.OnHierarchyChangeListener() {
       @Override public void onChildViewAdded(View parent, View child) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(ViewGroupHierarchyChildViewAddEvent.create(((ViewGroup) parent), child));
+          subscriber.onNext(
+            ViewGroupHierarchyChildViewAddEvent.create(((ViewGroup) parent), child));
         }
       }
 
       @Override public void onChildViewRemoved(View parent, View child) {
         if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(ViewGroupHierarchyChildViewRemoveEvent.create(((ViewGroup) parent), child));
+          subscriber.onNext(
+            ViewGroupHierarchyChildViewRemoveEvent.create(((ViewGroup) parent), child));
         }
       }
     };

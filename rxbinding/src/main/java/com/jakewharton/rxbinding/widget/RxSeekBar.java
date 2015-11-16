@@ -23,7 +23,8 @@ public final class RxSeekBar {
   }
 
   /**
-   * Create an observable of progress value changes on {@code view} that were made only from the user.
+   * Create an observable of progress value changes on {@code view} that were made only from the
+   * user.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
@@ -37,7 +38,8 @@ public final class RxSeekBar {
   }
 
   /**
-   * Create an observable of progress value changes on {@code view} that were made only from the system.
+   * Create an observable of progress value changes on {@code view} that were made only from the
+   * system.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.

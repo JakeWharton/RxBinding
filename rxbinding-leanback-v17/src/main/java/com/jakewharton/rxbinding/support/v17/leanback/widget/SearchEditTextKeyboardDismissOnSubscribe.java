@@ -1,9 +1,8 @@
 package com.jakewharton.rxbinding.support.v17.leanback.widget;
 
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
-
 import android.support.v17.leanback.widget.SearchEditText;
-
+import android.support.v17.leanback.widget.SearchEditText.OnKeyboardDismissListener;
+import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -19,7 +18,7 @@ final class SearchEditTextKeyboardDismissOnSubscribe implements Observable.OnSub
   @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
-    SearchEditText.OnKeyboardDismissListener listener = new SearchEditText.OnKeyboardDismissListener() {
+    OnKeyboardDismissListener listener = new OnKeyboardDismissListener() {
       @Override
       public void onKeyboardDismiss() {
         if (!subscriber.isUnsubscribed()) {

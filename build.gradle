@@ -9,11 +9,25 @@ subprojects {
     mavenCentral()
   }
 
+  plugins.apply('checkstyle')
+
+  task('checkstyle', type: Checkstyle) {
+    configFile rootProject.file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures false
+    showViolations true
+    include '**/*.java'
+
+    classpath = files()
+  }
+
   group = GROUP
   version = VERSION_NAME
 
-  // The default 'assemble' task only applies to normal variants. Add test variants as well.
   afterEvaluate {
+    tasks.findByName('check').dependsOn('checkstyle')
+
+    // The default 'assemble' task only applies to normal variants. Add test variants as well.
     android.testVariants.all { variant ->
       tasks.getByName('assemble').dependsOn variant.assemble
     }

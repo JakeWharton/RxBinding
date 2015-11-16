@@ -113,4 +113,8 @@ public final class TouchUtilsBackport {
         // Same as left -- do nothing
     }
   }
+
+  private TouchUtilsBackport() {
+    throw new AssertionError("No instances");
+  }
 }
