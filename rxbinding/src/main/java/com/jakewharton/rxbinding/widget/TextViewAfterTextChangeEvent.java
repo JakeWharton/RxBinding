@@ -27,7 +27,9 @@ public final class TextViewAfterTextChangeEvent extends ViewEvent<TextView> {
   }
 
   @NonNull
-  public Editable editable() { return editable; }
+  public Editable editable() {
+    return editable;
+  }
 
   @Override public boolean equals(Object o) {
     if (o == this) return true;

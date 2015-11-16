@@ -4,13 +4,13 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import rx.Observable;
-import rx.functions.Action1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain rx.functions.Action1
  * actions} for {@link Toolbar}.
  */
 public final class RxToolbar {

@@ -8,12 +8,12 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import rx.Subscription;
 
 public abstract class MainThreadSubscription implements Subscription, Runnable {
-  private static final Handler mainThread = new Handler(Looper.getMainLooper());
+  private static final Handler MAIN_THREAD = new Handler(Looper.getMainLooper());
 
   @Keep
-  @SuppressWarnings("unused") // Updated by 'unsubscribedUpdater' object.
+  @SuppressWarnings("unused") // Updated by 'UNSUBSCRIBED_UPDATER' object.
   private volatile int unsubscribed;
-  private static final AtomicIntegerFieldUpdater<MainThreadSubscription> unsubscribedUpdater =
+  private static final AtomicIntegerFieldUpdater<MainThreadSubscription> UNSUBSCRIBED_UPDATER =
       AtomicIntegerFieldUpdater.newUpdater(MainThreadSubscription.class, "unsubscribed");
 
   @Override public final boolean isUnsubscribed() {
@@ -21,11 +21,11 @@ public abstract class MainThreadSubscription implements Subscription, Runnable {
   }
 
   @Override public final void unsubscribe() {
-    if (unsubscribedUpdater.compareAndSet(this, 0, 1)) {
+    if (UNSUBSCRIBED_UPDATER.compareAndSet(this, 0, 1)) {
       if (Looper.getMainLooper() == Looper.myLooper()) {
         onUnsubscribe();
       } else {
-        mainThread.post(this);
+        MAIN_THREAD.post(this);
       }
     }
   }

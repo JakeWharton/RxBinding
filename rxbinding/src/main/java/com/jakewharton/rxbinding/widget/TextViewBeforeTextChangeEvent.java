@@ -38,11 +38,17 @@ public final class TextViewBeforeTextChangeEvent extends ViewEvent<TextView> {
     return text;
   }
 
-  public int start() { return start; }
+  public int start() {
+    return start;
+  }
 
-  public int count() { return count; }
+  public int count() {
+    return count;
+  }
 
-  public int after() { return after; }
+  public int after() {
+    return after;
+  }
 
   @Override public boolean equals(Object o) {
     if (o == this) return true;
