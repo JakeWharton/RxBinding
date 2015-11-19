@@ -29,4 +29,9 @@ subprojects {
   }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
 apply from: rootProject.file('dependencies.gradle')
