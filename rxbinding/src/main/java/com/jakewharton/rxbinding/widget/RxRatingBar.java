@@ -68,4 +68,8 @@ public final class RxRatingBar {
       }
     };
   }
+
+  private RxRatingBar() {
+    throw new AssertionError("No instances.");
+  }
 }

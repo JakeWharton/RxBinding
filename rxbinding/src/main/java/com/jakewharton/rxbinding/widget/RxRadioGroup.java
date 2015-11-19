@@ -44,4 +44,8 @@ public final class RxRadioGroup {
       }
     };
   }
+
+  private RxRadioGroup() {
+    throw new AssertionError("No instances.");
+  }
 }

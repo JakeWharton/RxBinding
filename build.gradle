@@ -1,4 +1,4 @@
-subprojects {
+subprojects { project ->
   buildscript {
     repositories {
       mavenCentral()
@@ -7,6 +7,18 @@ subprojects {
 
   repositories {
     mavenCentral()
+  }
+
+  project.plugins.apply('checkstyle')
+
+  project.task('checkstyle', type: Checkstyle) {
+    configFile rootProject.file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures false
+    showViolations true
+    include '**/*.java'
+
+    classpath = files()
   }
 
   group = GROUP
