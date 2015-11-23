@@ -79,8 +79,8 @@ public inline fun View.drags(handled: Func1<in DragEvent, Boolean>): Observable<
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  * 
- * *Warning:* The created observable uses [ViewTreeObserver.addOnDrawListener] to observe
- * draws. Multiple observables can be used for a view at a time.
+ * *Warning:* The created observable uses [ViewTreeObserver.addOnDrawListener] to
+ * observe draws. Multiple observables can be used for a view at a time.
  */
 public inline fun View.draws(): Observable<Unit> = RxView.draws(this).map { Unit }
 
@@ -104,8 +104,9 @@ public inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  * 
- * *Warning:* The created observable uses [ViewTreeObserver.addOnGlobalLayoutListener] to observe
- * globalLayouts. Multiple observables can be used for a view at a time.
+ * *Warning:* The created observable uses {@link
+ * ViewTreeObserver#addOnGlobalLayoutListener} to observe global layouts. Multiple observables
+ * can be used for a view at a time.
  */
 public inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map { Unit }
 
@@ -184,8 +185,8 @@ public inline fun View.longClicks(handled: Func0<Boolean>): Observable<Unit> = R
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  * 
- * *Warning:* The created observable uses [ViewTreeObserver.addOnPreDrawListener] to observe
- * preDraws. Multiple observables can be used for a view at a time.
+ * *Warning:* The created observable uses [ViewTreeObserver.addOnPreDrawListener] to
+ * observe pre-draws. Multiple observables can be used for a view at a time.
  */
 public inline fun View.preDraws(proceedDrawingPass: Func0<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map { Unit }
 

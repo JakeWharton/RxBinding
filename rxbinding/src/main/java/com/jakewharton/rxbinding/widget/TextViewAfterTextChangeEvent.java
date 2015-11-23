@@ -15,7 +15,8 @@ import com.jakewharton.rxbinding.view.ViewEvent;
  */
 public final class TextViewAfterTextChangeEvent extends ViewEvent<TextView> {
   @CheckResult @NonNull
-  public static TextViewAfterTextChangeEvent create(@NonNull TextView view, @NonNull Editable editable) {
+  public static TextViewAfterTextChangeEvent create(@NonNull TextView view,
+      @NonNull Editable editable) {
     return new TextViewAfterTextChangeEvent(view, editable);
   }
 
@@ -27,7 +28,9 @@ public final class TextViewAfterTextChangeEvent extends ViewEvent<TextView> {
   }
 
   @NonNull
-  public Editable editable() { return editable; }
+  public Editable editable() {
+    return editable;
+  }
 
   @Override public boolean equals(Object o) {
     if (o == this) return true;

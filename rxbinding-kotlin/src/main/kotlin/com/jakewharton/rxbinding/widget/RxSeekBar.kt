@@ -14,7 +14,8 @@ import rx.Observable
 public inline fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
 
 /**
- * Create an observable of progress value changes on `view` that were made only from the user.
+ * Create an observable of progress value changes on `view` that were made only from the
+ * user.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
@@ -24,7 +25,8 @@ public inline fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
 public inline fun SeekBar.userChanges(): Observable<Int> = RxSeekBar.userChanges(this)
 
 /**
- * Create an observable of progress value changes on `view` that were made only from the system.
+ * Create an observable of progress value changes on `view` that were made only from the
+ * system.
  * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.

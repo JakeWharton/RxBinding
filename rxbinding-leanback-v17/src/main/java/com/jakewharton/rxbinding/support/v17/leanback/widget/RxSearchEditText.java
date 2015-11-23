@@ -5,13 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.v17.leanback.widget.SearchEditText;
 
 import rx.Observable;
-import rx.functions.Action1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
- * actions} for {@link SearchEditText}.
+ * Static factory methods for creating {@linkplain Observable observables} for
+ * {@link SearchEditText}.
  */
 public final class RxSearchEditText {
   /**

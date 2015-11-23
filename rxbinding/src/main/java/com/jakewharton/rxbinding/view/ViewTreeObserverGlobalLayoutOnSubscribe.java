@@ -2,7 +2,7 @@ package com.jakewharton.rxbinding.view;
 
 import android.os.Build;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
@@ -19,7 +19,7 @@ final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubs
   @Override public void call(final Subscriber<? super Void> subscriber) {
     checkUiThread();
 
-    final ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener() {
+    final OnGlobalLayoutListener listener = new OnGlobalLayoutListener() {
       @Override public void onGlobalLayout() {
         if (!subscriber.isUnsubscribed()) {
           subscriber.onNext(null);

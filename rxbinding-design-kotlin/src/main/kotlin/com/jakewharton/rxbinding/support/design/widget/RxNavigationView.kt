@@ -3,7 +3,6 @@ package com.jakewharton.rxbinding.support.design.widget
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
 import rx.Observable
-import rx.functions.Action1
 
 /**
  * Create an observable which emits the selected item in `view`.

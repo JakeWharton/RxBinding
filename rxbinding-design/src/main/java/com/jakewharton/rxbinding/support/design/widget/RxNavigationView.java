@@ -4,14 +4,14 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
+
 import rx.Observable;
-import rx.functions.Action1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
- * actions} for {@link NavigationView}.
+ * Static factory methods for creating {@linkplain Observable observables} for
+ * {@link NavigationView}.
  */
 public final class RxNavigationView {
   /**

@@ -90,8 +90,22 @@ public final class ViewLayoutChangeEvent extends ViewEvent<View> {
   }
 
   @Override public String toString() {
-    return "ViewLayoutChangeEvent{left=" + left + ", top=" + top + ", right=" + right +
-        ", bottom=" + bottom + ", oldLeft=" + oldLeft + ", oldTop=" + oldTop +
-        ", oldRight=" + oldRight + ", oldBottom=" + oldBottom + '}';
+    return "ViewLayoutChangeEvent{left="
+        + left
+        + ", top="
+        + top
+        + ", right="
+        + right
+        + ", bottom="
+        + bottom
+        + ", oldLeft="
+        + oldLeft
+        + ", oldTop="
+        + oldTop
+        + ", oldRight="
+        + oldRight
+        + ", oldBottom="
+        + oldBottom
+        + '}';
   }
 }

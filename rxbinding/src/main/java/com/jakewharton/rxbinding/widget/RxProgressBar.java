@@ -104,4 +104,8 @@ public final class RxProgressBar {
       }
     };
   }
+
+  private RxProgressBar() {
+    throw new AssertionError("No instances.");
+  }
 }

@@ -19,7 +19,7 @@ public final class MotionEventUtil {
     int width = view.getWidth();
     int height = view.getHeight();
 
-    int topLeft[] = new int[2];
+    int[] topLeft = new int[2];
     view.getLocationInWindow(topLeft);
     int x1 = topLeft[0] + paddingLeft;
     int y1 = topLeft[1] + paddingTop;

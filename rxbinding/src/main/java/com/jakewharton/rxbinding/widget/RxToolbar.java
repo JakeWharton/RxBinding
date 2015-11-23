@@ -3,17 +3,16 @@ package com.jakewharton.rxbinding.widget;
 import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-import android.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toolbar;
+
 import rx.Observable;
-import rx.functions.Action1;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
- * actions} for {@link Toolbar}.
+ * Static factory methods for creating {@linkplain Observable observables} for {@link Toolbar}.
  */
 @TargetApi(LOLLIPOP)
 public final class RxToolbar {

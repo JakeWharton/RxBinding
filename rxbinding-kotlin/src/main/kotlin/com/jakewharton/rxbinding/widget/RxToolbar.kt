@@ -1,9 +1,8 @@
 package com.jakewharton.rxbinding.widget
 
-import android.widget.Toolbar
 import android.view.MenuItem
+import android.widget.Toolbar
 import rx.Observable
-import rx.functions.Action1
 
 /**
  * Create an observable which emits the clicked item in `view`'s menu.

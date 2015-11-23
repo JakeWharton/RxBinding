@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.support.design.widget
 
 import android.support.design.widget.Snackbar
 import rx.Observable
-import rx.functions.Action1
 
 /**
  * Create an observable which emits the dismiss events from `view`.

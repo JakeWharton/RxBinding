@@ -14,8 +14,8 @@ import com.jakewharton.rxbinding.view.ViewEvent;
  */
 public final class TextViewBeforeTextChangeEvent extends ViewEvent<TextView> {
   @CheckResult @NonNull
-  public static TextViewBeforeTextChangeEvent create(@NonNull TextView view, @NonNull CharSequence text,
-      int start, int count, int after) {
+  public static TextViewBeforeTextChangeEvent create(@NonNull TextView view,
+      @NonNull CharSequence text, int start, int count, int after) {
     return new TextViewBeforeTextChangeEvent(view, text, start, count, after);
   }
 
@@ -24,8 +24,8 @@ public final class TextViewBeforeTextChangeEvent extends ViewEvent<TextView> {
   private final int count;
   private final int after;
 
-  private TextViewBeforeTextChangeEvent(@NonNull TextView view, @NonNull CharSequence text, int start,
-      int count, int after) {
+  private TextViewBeforeTextChangeEvent(@NonNull TextView view, @NonNull CharSequence text,
+      int start, int count, int after) {
     super(view);
     this.text = text;
     this.start = start;
@@ -38,11 +38,17 @@ public final class TextViewBeforeTextChangeEvent extends ViewEvent<TextView> {
     return text;
   }
 
-  public int start() { return start; }
+  public int start() {
+    return start;
+  }
 
-  public int count() { return count; }
+  public int count() {
+    return count;
+  }
 
-  public int after() { return after; }
+  public int after() {
+    return after;
+  }
 
   @Override public boolean equals(Object o) {
     if (o == this) return true;

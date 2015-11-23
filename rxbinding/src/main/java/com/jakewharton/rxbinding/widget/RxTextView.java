@@ -124,7 +124,8 @@ public final class RxTextView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<TextViewBeforeTextChangeEvent> beforeTextChangeEvents(@NonNull TextView view) {
+  public static Observable<TextViewBeforeTextChangeEvent> beforeTextChangeEvents(
+      @NonNull TextView view) {
     checkNotNull(view, "view == null");
     return Observable.create(new TextViewBeforeTextChangeEventOnSubscribe(view));
   }
@@ -138,7 +139,8 @@ public final class RxTextView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<TextViewAfterTextChangeEvent> afterTextChangeEvents(@NonNull TextView view) {
+  public static Observable<TextViewAfterTextChangeEvent> afterTextChangeEvents(
+      @NonNull TextView view) {
     checkNotNull(view, "view == null");
     return Observable.create(new TextViewAfterTextChangeEventOnSubscribe(view));
   }
