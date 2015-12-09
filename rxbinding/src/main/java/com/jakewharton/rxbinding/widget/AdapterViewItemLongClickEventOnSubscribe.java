@@ -2,9 +2,9 @@ package com.jakewharton.rxbinding.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 import rx.functions.Func1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;

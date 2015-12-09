@@ -1,9 +1,9 @@
 package com.jakewharton.rxbinding.support.v4.view;
 
 import android.support.v4.view.ViewPager;
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 

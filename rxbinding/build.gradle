@@ -9,12 +9,12 @@ apply plugin: 'rxbinding-module'
 
 dependencies {
   compile rootProject.ext.rxJava
+  compile rootProject.ext.rxAndroid
   compile rootProject.ext.supportAnnotations
 
   androidTestCompile project(':testing-utils')
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules
-  androidTestCompile rootProject.ext.rxAndroid
   androidTestCompile rootProject.ext.truth
 }
 
