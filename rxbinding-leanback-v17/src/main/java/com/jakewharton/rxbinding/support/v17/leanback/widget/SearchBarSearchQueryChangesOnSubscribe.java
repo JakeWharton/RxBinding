@@ -1,11 +1,9 @@
 package com.jakewharton.rxbinding.support.v17.leanback.widget;
 
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
-
 import android.support.v17.leanback.widget.SearchBar;
-
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 

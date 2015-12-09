@@ -1,9 +1,9 @@
 package com.jakewharton.rxbinding.widget;
 
 import android.widget.CompoundButton;
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 

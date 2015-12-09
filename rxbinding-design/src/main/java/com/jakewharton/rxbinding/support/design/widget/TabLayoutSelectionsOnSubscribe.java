@@ -2,9 +2,9 @@ package com.jakewharton.rxbinding.support.design.widget;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 

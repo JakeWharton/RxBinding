@@ -3,9 +3,9 @@ package com.jakewharton.rxbinding.widget;
 import android.annotation.TargetApi;
 import android.view.MenuItem;
 import android.widget.Toolbar;
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;

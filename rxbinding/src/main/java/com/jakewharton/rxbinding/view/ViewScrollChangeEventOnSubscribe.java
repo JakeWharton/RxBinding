@@ -2,9 +2,9 @@ package com.jakewharton.rxbinding.view;
 
 import android.annotation.TargetApi;
 import android.view.View;
-import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static android.os.Build.VERSION_CODES.M;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
