@@ -8,9 +8,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AppBarLayoutOffsetChangeOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final AppBarLayout view;
+  final AppBarLayout view;
 
-  public AppBarLayoutOffsetChangeOnSubscribe(AppBarLayout view) {
+  AppBarLayoutOffsetChangeOnSubscribe(AppBarLayout view) {
     this.view = view;
   }
 

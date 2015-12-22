@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewPagerPageSelectedOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final ViewPager view;
+  final ViewPager view;
 
   ViewPagerPageSelectedOnSubscribe(ViewPager view) {
     this.view = view;

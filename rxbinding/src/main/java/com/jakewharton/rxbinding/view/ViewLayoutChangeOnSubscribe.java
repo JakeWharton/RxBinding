@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewLayoutChangeOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final View view;
+  final View view;
 
   ViewLayoutChangeOnSubscribe(View view) {
     this.view = view;

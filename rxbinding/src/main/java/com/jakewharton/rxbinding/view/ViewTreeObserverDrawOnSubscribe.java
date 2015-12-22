@@ -12,9 +12,9 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 
 @TargetApi(JELLY_BEAN)
 final class ViewTreeObserverDrawOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final View view;
+  final View view;
 
-  public ViewTreeObserverDrawOnSubscribe(View view) {
+  ViewTreeObserverDrawOnSubscribe(View view) {
     this.view = view;
   }
 

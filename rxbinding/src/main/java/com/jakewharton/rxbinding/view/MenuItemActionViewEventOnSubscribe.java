@@ -11,8 +11,8 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class MenuItemActionViewEventOnSubscribe
     implements Observable.OnSubscribe<MenuItemActionViewEvent> {
-  private final MenuItem menuItem;
-  private final Func1<? super MenuItemActionViewEvent, Boolean> handled;
+  final MenuItem menuItem;
+  final Func1<? super MenuItemActionViewEvent, Boolean> handled;
 
   MenuItemActionViewEventOnSubscribe(MenuItem menuItem,
       Func1<? super MenuItemActionViewEvent, Boolean> handled) {

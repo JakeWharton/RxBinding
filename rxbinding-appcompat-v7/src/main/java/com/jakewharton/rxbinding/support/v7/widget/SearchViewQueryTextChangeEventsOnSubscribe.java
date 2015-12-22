@@ -9,7 +9,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SearchViewQueryTextChangeEventsOnSubscribe
     implements Observable.OnSubscribe<SearchViewQueryTextEvent> {
-  private final SearchView view;
+  final SearchView view;
 
   SearchViewQueryTextChangeEventsOnSubscribe(SearchView view) {
     this.view = view;

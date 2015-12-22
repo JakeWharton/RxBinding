@@ -9,9 +9,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class TabLayoutSelectionsOnSubscribe implements Observable.OnSubscribe<Tab> {
-  private final TabLayout view;
+  final TabLayout view;
 
-  public TabLayoutSelectionsOnSubscribe(TabLayout view) {
+  TabLayoutSelectionsOnSubscribe(TabLayout view) {
     this.view = view;
   }
 

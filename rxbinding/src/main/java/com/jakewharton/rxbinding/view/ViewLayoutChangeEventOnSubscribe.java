@@ -9,7 +9,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewLayoutChangeEventOnSubscribe
     implements Observable.OnSubscribe<ViewLayoutChangeEvent> {
-  private final View view;
+  final View view;
 
   ViewLayoutChangeEventOnSubscribe(View view) {
     this.view = view;

@@ -11,9 +11,9 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class TabLayoutSelectionEventOnSubscribe
     implements Observable.OnSubscribe<TabLayoutSelectionEvent> {
-  private final TabLayout view;
+  final TabLayout view;
 
-  public TabLayoutSelectionEventOnSubscribe(TabLayout view) {
+  TabLayoutSelectionEventOnSubscribe(TabLayout view) {
     this.view = view;
   }
 

@@ -10,7 +10,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewGroupHierarchyChangeEventOnSubscribe
     implements Observable.OnSubscribe<ViewGroupHierarchyChangeEvent> {
-  private final ViewGroup viewGroup;
+  final ViewGroup viewGroup;
 
   ViewGroupHierarchyChangeEventOnSubscribe(ViewGroup viewGroup) {
     this.viewGroup = viewGroup;

@@ -11,7 +11,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RecyclerAdapterDataChangeOnSubscribe<T extends Adapter<? extends ViewHolder>>
     implements Observable.OnSubscribe<T> {
-  private final T adapter;
+  final T adapter;
 
   RecyclerAdapterDataChangeOnSubscribe(T adapter) {
     this.adapter = adapter;

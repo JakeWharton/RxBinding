@@ -10,8 +10,8 @@ import rx.functions.Func0;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewTreeObserverPreDrawOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final View view;
-  private final Func0<Boolean> proceedDrawingPass;
+  final View view;
+  final Func0<Boolean> proceedDrawingPass;
 
   ViewTreeObserverPreDrawOnSubscribe(View view, Func0<Boolean> proceedDrawingPass) {
     this.view = view;

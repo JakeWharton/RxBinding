@@ -9,7 +9,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SearchEditTextKeyboardDismissOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final SearchEditText view;
+  final SearchEditText view;
 
   public SearchEditTextKeyboardDismissOnSubscribe(SearchEditText view) {
     this.view = view;

@@ -11,7 +11,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AutoCompleteTextViewItemClickEventOnSubscribe
     implements Observable.OnSubscribe<AdapterViewItemClickEvent> {
-  private final AutoCompleteTextView view;
+  final AutoCompleteTextView view;
 
   public AutoCompleteTextViewItemClickEventOnSubscribe(AutoCompleteTextView view) {
     this.view = view;

@@ -11,7 +11,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RecyclerViewChildAttachStateChangeEventOnSubscribe
     implements Observable.OnSubscribe<RecyclerViewChildAttachStateChangeEvent> {
-  private final RecyclerView recyclerView;
+  final RecyclerView recyclerView;
 
   public RecyclerViewChildAttachStateChangeEventOnSubscribe(RecyclerView recyclerView) {
     this.recyclerView = recyclerView;

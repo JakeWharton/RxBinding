@@ -10,9 +10,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class TextViewTextOnSubscribe implements Observable.OnSubscribe<CharSequence> {
-  private final TextView view;
+  final TextView view;
 
-  public TextViewTextOnSubscribe(TextView view) {
+  TextViewTextOnSubscribe(TextView view) {
     this.view = view;
   }
 

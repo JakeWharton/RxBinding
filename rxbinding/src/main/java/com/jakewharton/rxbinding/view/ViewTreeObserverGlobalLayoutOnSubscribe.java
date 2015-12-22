@@ -10,7 +10,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final View view;
+  final View view;
 
   ViewTreeObserverGlobalLayoutOnSubscribe(View view) {
     this.view = view;

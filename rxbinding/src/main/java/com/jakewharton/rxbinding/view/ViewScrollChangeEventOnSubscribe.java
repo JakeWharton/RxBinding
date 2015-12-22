@@ -12,7 +12,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 @TargetApi(M)
 final class ViewScrollChangeEventOnSubscribe
     implements Observable.OnSubscribe<ViewScrollChangeEvent> {
-  private final View view;
+  final View view;
 
   ViewScrollChangeEventOnSubscribe(View view) {
     this.view = view;

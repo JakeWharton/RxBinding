@@ -8,9 +8,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewFocusChangeOnSubscribe implements Observable.OnSubscribe<Boolean> {
-  private final View view;
+  final View view;
 
-  public ViewFocusChangeOnSubscribe(View view) {
+  ViewFocusChangeOnSubscribe(View view) {
     this.view = view;
   }
 

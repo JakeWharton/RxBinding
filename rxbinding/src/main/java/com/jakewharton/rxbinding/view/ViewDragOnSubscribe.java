@@ -10,8 +10,8 @@ import rx.functions.Func1;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewDragOnSubscribe implements Observable.OnSubscribe<DragEvent> {
-  private final View view;
-  private final Func1<? super DragEvent, Boolean> handled;
+  final View view;
+  final Func1<? super DragEvent, Boolean> handled;
 
   ViewDragOnSubscribe(View view, Func1<? super DragEvent, Boolean> handled) {
     this.view = view;

@@ -9,8 +9,8 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final boolean callOnAttach;
-  private final View view;
+  final boolean callOnAttach;
+  final View view;
 
   ViewAttachesOnSubscribe(View view, boolean callOnAttach) {
     this.view = view;
