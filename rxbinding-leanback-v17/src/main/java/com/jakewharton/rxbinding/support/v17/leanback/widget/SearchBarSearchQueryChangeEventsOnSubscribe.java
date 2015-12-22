@@ -10,7 +10,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SearchBarSearchQueryChangeEventsOnSubscribe
     implements Observable.OnSubscribe<SearchBarSearchQueryEvent> {
-  private final SearchBar view;
+  final SearchBar view;
 
   SearchBarSearchQueryChangeEventsOnSubscribe(SearchBar view) {
     this.view = view;

@@ -10,9 +10,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class NavigationViewItemSelectionsOnSubscribe implements Observable.OnSubscribe<MenuItem> {
-  private final NavigationView view;
+  final NavigationView view;
 
-  public NavigationViewItemSelectionsOnSubscribe(NavigationView view) {
+  NavigationViewItemSelectionsOnSubscribe(NavigationView view) {
     this.view = view;
   }
 

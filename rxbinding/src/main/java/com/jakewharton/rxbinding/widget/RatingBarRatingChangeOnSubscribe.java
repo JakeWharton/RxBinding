@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RatingBarRatingChangeOnSubscribe implements Observable.OnSubscribe<Float> {
-  private final RatingBar view;
+  final RatingBar view;
 
   public RatingBarRatingChangeOnSubscribe(RatingBar view) {
     this.view = view;

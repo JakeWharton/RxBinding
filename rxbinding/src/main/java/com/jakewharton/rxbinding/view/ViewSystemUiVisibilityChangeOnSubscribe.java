@@ -8,9 +8,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ViewSystemUiVisibilityChangeOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final View view;
+  final View view;
 
-  public ViewSystemUiVisibilityChangeOnSubscribe(View view) {
+  ViewSystemUiVisibilityChangeOnSubscribe(View view) {
     this.view = view;
   }
 

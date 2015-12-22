@@ -11,7 +11,7 @@ import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.ATTACH;
 import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.DETACH;
 
 final class ViewAttachEventOnSubscribe implements Observable.OnSubscribe<ViewAttachEvent> {
-  private final View view;
+  final View view;
 
   ViewAttachEventOnSubscribe(View view) {
     this.view = view;

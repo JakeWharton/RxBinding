@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RecyclerViewScrollStateChangeOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final RecyclerView recyclerView;
+  final RecyclerView recyclerView;
 
   public RecyclerViewScrollStateChangeOnSubscribe(RecyclerView recyclerView) {
     this.recyclerView = recyclerView;

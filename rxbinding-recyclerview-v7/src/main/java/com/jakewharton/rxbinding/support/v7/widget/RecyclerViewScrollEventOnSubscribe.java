@@ -9,8 +9,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RecyclerViewScrollEventOnSubscribe
     implements Observable.OnSubscribe<RecyclerViewScrollEvent> {
-
-  private final RecyclerView recyclerView;
+  final RecyclerView recyclerView;
 
   public RecyclerViewScrollEventOnSubscribe(RecyclerView recyclerView) {
     this.recyclerView = recyclerView;

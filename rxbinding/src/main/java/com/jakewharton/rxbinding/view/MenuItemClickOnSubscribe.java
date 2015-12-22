@@ -9,8 +9,8 @@ import rx.functions.Func1;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class MenuItemClickOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final MenuItem menuItem;
-  private final Func1<? super MenuItem, Boolean> handled;
+  final MenuItem menuItem;
+  final Func1<? super MenuItem, Boolean> handled;
 
   MenuItemClickOnSubscribe(MenuItem menuItem, Func1<? super MenuItem, Boolean> handled) {
     this.menuItem = menuItem;

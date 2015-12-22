@@ -9,7 +9,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SeekBarChangeEventOnSubscribe
     implements Observable.OnSubscribe<SeekBarChangeEvent> {
-  private final SeekBar view;
+  final SeekBar view;
 
   public SeekBarChangeEventOnSubscribe(SeekBar view) {
     this.view = view;

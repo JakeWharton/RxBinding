@@ -9,7 +9,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RatingBarRatingChangeEventOnSubscribe
     implements Observable.OnSubscribe<RatingBarChangeEvent> {
-  private final RatingBar view;
+  final RatingBar view;
 
   public RatingBarRatingChangeEventOnSubscribe(RatingBar view) {
     this.view = view;

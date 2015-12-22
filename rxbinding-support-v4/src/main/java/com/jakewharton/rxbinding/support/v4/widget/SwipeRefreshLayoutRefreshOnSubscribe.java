@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SwipeRefreshLayoutRefreshOnSubscribe implements Observable.OnSubscribe<Void> {
-  private final SwipeRefreshLayout view;
+  final SwipeRefreshLayout view;
 
   SwipeRefreshLayoutRefreshOnSubscribe(SwipeRefreshLayout view) {
     this.view = view;

@@ -12,9 +12,9 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 @TargetApi(LOLLIPOP)
 final class ToolbarItemClickOnSubscribe implements Observable.OnSubscribe<MenuItem> {
-  private final Toolbar view;
+  final Toolbar view;
 
-  public ToolbarItemClickOnSubscribe(Toolbar view) {
+  ToolbarItemClickOnSubscribe(Toolbar view) {
     this.view = view;
   }
 

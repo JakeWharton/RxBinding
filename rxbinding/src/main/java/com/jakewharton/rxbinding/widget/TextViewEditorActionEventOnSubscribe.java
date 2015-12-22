@@ -11,10 +11,10 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class TextViewEditorActionEventOnSubscribe
     implements Observable.OnSubscribe<TextViewEditorActionEvent> {
-  private final TextView view;
-  private final Func1<? super TextViewEditorActionEvent, Boolean> handled;
+  final TextView view;
+  final Func1<? super TextViewEditorActionEvent, Boolean> handled;
 
-  public TextViewEditorActionEventOnSubscribe(TextView view,
+  TextViewEditorActionEventOnSubscribe(TextView view,
       Func1<? super TextViewEditorActionEvent, Boolean> handled) {
     this.view = view;
     this.handled = handled;

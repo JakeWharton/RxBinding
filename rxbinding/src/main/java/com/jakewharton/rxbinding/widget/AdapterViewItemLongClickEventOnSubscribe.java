@@ -11,8 +11,8 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewItemLongClickEventOnSubscribe
     implements Observable.OnSubscribe<AdapterViewItemLongClickEvent> {
-  private final AdapterView<?> view;
-  private final Func1<? super AdapterViewItemLongClickEvent, Boolean> handled;
+  final AdapterView<?> view;
+  final Func1<? super AdapterViewItemLongClickEvent, Boolean> handled;
 
   public AdapterViewItemLongClickEventOnSubscribe(AdapterView<?> view,
       Func1<? super AdapterViewItemLongClickEvent, Boolean> handled) {

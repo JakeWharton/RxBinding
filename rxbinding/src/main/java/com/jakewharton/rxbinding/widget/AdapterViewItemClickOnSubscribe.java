@@ -9,7 +9,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewItemClickOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final AdapterView<?> view;
+  final AdapterView<?> view;
 
   public AdapterViewItemClickOnSubscribe(AdapterView<?> view) {
     this.view = view;

@@ -11,7 +11,7 @@ public final class Functions {
   private static final class Always<T> implements Func1<Object, T>, Func0<T> {
     private final T value;
 
-    private Always(T value) {
+    Always(T value) {
       this.value = value;
     }
 

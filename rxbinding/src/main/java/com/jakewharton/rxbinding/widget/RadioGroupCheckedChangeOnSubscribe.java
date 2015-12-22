@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class RadioGroupCheckedChangeOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final RadioGroup view;
+  final RadioGroup view;
 
   public RadioGroupCheckedChangeOnSubscribe(RadioGroup view) {
     this.view = view;

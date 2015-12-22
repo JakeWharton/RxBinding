@@ -8,9 +8,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SnackbarDismissesOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final Snackbar view;
+  final Snackbar view;
 
-  public SnackbarDismissesOnSubscribe(Snackbar view) {
+  SnackbarDismissesOnSubscribe(Snackbar view) {
     this.view = view;
   }
 

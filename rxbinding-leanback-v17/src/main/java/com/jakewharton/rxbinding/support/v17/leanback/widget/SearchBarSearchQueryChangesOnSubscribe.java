@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SearchBarSearchQueryChangesOnSubscribe implements Observable.OnSubscribe<String> {
-  private final SearchBar view;
+  final SearchBar view;
 
   SearchBarSearchQueryChangesOnSubscribe(SearchBar view) {
     this.view = view;

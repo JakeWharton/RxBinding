@@ -8,7 +8,7 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class CompoundButtonCheckedChangeOnSubscribe implements Observable.OnSubscribe<Boolean> {
-  private final CompoundButton view;
+  final CompoundButton view;
 
   public CompoundButtonCheckedChangeOnSubscribe(CompoundButton view) {
     this.view = view;

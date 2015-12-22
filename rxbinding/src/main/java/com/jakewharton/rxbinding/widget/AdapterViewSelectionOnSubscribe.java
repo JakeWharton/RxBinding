@@ -11,7 +11,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewSelectionOnSubscribe
     implements Observable.OnSubscribe<AdapterViewSelectionEvent> {
-  private final AdapterView<?> view;
+  final AdapterView<?> view;
 
   public AdapterViewSelectionOnSubscribe(AdapterView<?> view) {
     this.view = view;

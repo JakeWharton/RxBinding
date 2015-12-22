@@ -11,9 +11,9 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class TextViewTextChangeEventOnSubscribe
     implements Observable.OnSubscribe<TextViewTextChangeEvent> {
-  private final TextView view;
+  final TextView view;
 
-  public TextViewTextChangeEventOnSubscribe(TextView view) {
+  TextViewTextChangeEventOnSubscribe(TextView view) {
     this.view = view;
   }
 

@@ -9,9 +9,9 @@ import rx.android.MainThreadSubscription;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class ToolbarItemClickOnSubscribe implements Observable.OnSubscribe<MenuItem> {
-  private final Toolbar view;
+  final Toolbar view;
 
-  public ToolbarItemClickOnSubscribe(Toolbar view) {
+  ToolbarItemClickOnSubscribe(Toolbar view) {
     this.view = view;
   }
 

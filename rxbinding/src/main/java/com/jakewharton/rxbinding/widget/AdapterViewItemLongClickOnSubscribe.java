@@ -10,8 +10,8 @@ import rx.functions.Func0;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewItemLongClickOnSubscribe implements Observable.OnSubscribe<Integer> {
-  private final AdapterView<?> view;
-  private final Func0<Boolean> handled;
+  final AdapterView<?> view;
+  final Func0<Boolean> handled;
 
   public AdapterViewItemLongClickOnSubscribe(AdapterView<?> view, Func0<Boolean> handled) {
     this.view = view;

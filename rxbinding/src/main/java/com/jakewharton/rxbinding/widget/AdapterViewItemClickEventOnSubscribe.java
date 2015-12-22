@@ -10,7 +10,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class AdapterViewItemClickEventOnSubscribe
     implements Observable.OnSubscribe<AdapterViewItemClickEvent> {
-  private final AdapterView<?> view;
+  final AdapterView<?> view;
 
   public AdapterViewItemClickEventOnSubscribe(AdapterView<?> view) {
     this.view = view;
