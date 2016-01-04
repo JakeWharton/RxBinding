@@ -3,8 +3,12 @@ package com.jakewharton.rxbinding.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SearchView;
+
+import com.jakewharton.rxbinding.internal.Functions;
+
 import rx.Observable;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -60,6 +64,53 @@ public final class RxSearchView {
         view.setQuery(text, submit);
       }
     };
+  }
+
+  /**
+   * Create an observable of booleans representing the focus of the query text field.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   */
+  @CheckResult @NonNull
+  public static Observable<Boolean> queryTextFocusChange(@NonNull SearchView view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new SearchViewQueryTextFocusChangeOnSubscribe(view));
+  }
+
+  /**
+   * Create an observable of the absolute position of the clicked item in the list of suggestions
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link SearchView#setOnSuggestionListener} to
+   * observe search view events. Only one observable can be used for a search view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<Integer> suggestionClick(@NonNull SearchView view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new SearchViewSuggestionClickOnSubscribe(view, Functions.FUNC1_ALWAYS_TRUE));
+  }
+
+  /**
+   * Create an observable of the absolute position of the clicked item in the list of suggestions
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link SearchView#setOnSuggestionListener} to
+   * observe search view events. Only one observable can be used for a search view at a time.
+   *
+   * @param handled Function invoked with each value to determine the return value of the
+   * underlying {@link SearchView.OnSuggestionListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<Integer> suggestionClick(@NonNull SearchView view,
+                                                    Func1<? super Integer, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new SearchViewSuggestionClickOnSubscribe(view, handled));
   }
 
   private RxSearchView() {
