@@ -91,7 +91,8 @@ public final class RxSearchView {
   @CheckResult @NonNull
   public static Observable<Integer> suggestionClick(@NonNull SearchView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SearchViewSuggestionClickOnSubscribe(view, Functions.FUNC1_ALWAYS_TRUE));
+    return Observable.create(new SearchViewSuggestionClickOnSubscribe(view,
+            Functions.FUNC1_ALWAYS_TRUE));
   }
 
   /**
@@ -108,8 +109,9 @@ public final class RxSearchView {
    */
   @CheckResult @NonNull
   public static Observable<Integer> suggestionClick(@NonNull SearchView view,
-                                                    Func1<? super Integer, Boolean> handled) {
+      @NonNull Func1<? super Integer, Boolean> handled) {
     checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
     return Observable.create(new SearchViewSuggestionClickOnSubscribe(view, handled));
   }
 
