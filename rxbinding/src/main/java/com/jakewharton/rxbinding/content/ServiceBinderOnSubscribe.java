@@ -14,18 +14,19 @@ import rx.subscriptions.Subscriptions;
 
 final class ServiceBinderOnSubscribe implements Observable.OnSubscribe<IBinder> {
 
-  final Context mContext;
-  final Intent mIntent;
-  final int mFlags;
+  final Context context;
+  final Intent intent;
+  final int flags;
 
   ServiceBinderOnSubscribe(@NonNull Context context,
                            @NonNull Intent intent,
                            int flags) {
-    mContext = context;
-    mIntent = intent;
-    mFlags = flags;
+    this.context = context;
+    this.intent = intent;
+    this.flags = flags;
   }
 
+  @SuppressWarnings("WrongConstant")
   @Override public void call(final Subscriber<? super IBinder> subscriber) {
     final ServiceConnection connection = new ServiceConnection() {
       @Override public void onServiceConnected(ComponentName name, IBinder binder) {
@@ -41,10 +42,10 @@ final class ServiceBinderOnSubscribe implements Observable.OnSubscribe<IBinder> 
 
     subscriber.add(Subscriptions.create(new Action0() {
       @Override public void call() {
-        mContext.unbindService(connection);
+        context.unbindService(connection);
       }
     }));
 
-    mContext.bindService(mIntent, connection, mFlags);
+    context.bindService(intent, connection, flags);
   }
 }

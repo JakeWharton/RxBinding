@@ -13,13 +13,13 @@ import rx.subscriptions.Subscriptions;
 
 final class BroadcastIntentOnSubscribe implements Observable.OnSubscribe<Intent> {
 
-  final Context mContext;
-  final IntentFilter mIntentFilter;
+  final Context context;
+  final IntentFilter intentFilter;
 
   BroadcastIntentOnSubscribe(@NonNull Context context,
                              @NonNull IntentFilter intentFilter) {
-    mContext = context;
-    mIntentFilter = intentFilter;
+    this.context = context;
+    this.intentFilter = intentFilter;
   }
 
   @Override public void call(final Subscriber<? super Intent> subscriber) {
@@ -30,10 +30,10 @@ final class BroadcastIntentOnSubscribe implements Observable.OnSubscribe<Intent>
         }
       }
     };
-    mContext.registerReceiver(receiver, mIntentFilter);
+    context.registerReceiver(receiver, intentFilter);
     subscriber.add(Subscriptions.create(new Action0() {
       @Override public void call() {
-        mContext.unregisterReceiver(receiver);
+        context.unregisterReceiver(receiver);
       }
     }));
   }
