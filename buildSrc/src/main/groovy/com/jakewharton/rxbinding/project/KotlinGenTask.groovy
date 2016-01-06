@@ -211,9 +211,12 @@ class KotlinGenTask extends SourceTask {
      *        need the type when we're passing params into the underlying Java implementation)
      */
     private String kParams(boolean specifyType) {
+      if (parameters.isEmpty()) {
+        return ""
+      }
       StringBuilder builder = new StringBuilder()
-      parameters.each { p -> builder.append("${p.id.name}${specifyType ? ": " + resolveKotlinType(p.type) : ""}") }
-      return builder.toString()
+      parameters.each { p -> builder.append(", ${p.id.name}${specifyType ? ": " + resolveKotlinType(p.type) : ""}") }
+      return builder.delete(0, 2).toString()
     }
 
     /**
