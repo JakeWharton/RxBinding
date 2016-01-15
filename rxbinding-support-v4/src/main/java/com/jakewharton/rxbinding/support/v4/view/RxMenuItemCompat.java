@@ -8,14 +8,13 @@ import com.jakewharton.rxbinding.internal.Functions;
 import com.jakewharton.rxbinding.view.MenuItemActionViewEvent;
 
 import rx.Observable;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
- * actions} for {@link MenuItem}.
+ * Static factory methods for creating {@linkplain Observable observables}
+ * for {@link android.support.v4.view.MenuItemCompat}.
  */
 public final class RxMenuItemCompat {
 
