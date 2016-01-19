@@ -49,7 +49,7 @@ public final class RxSearchView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    *
-   * @param submit weather to submit query right after updating query text
+   * @param submit whether to submit the query right after updating the query text
    */
   @CheckResult @NonNull
   public static Action1<? super CharSequence> query(@NonNull final SearchView view,
