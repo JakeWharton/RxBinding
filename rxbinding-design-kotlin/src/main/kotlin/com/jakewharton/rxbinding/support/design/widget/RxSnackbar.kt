@@ -5,7 +5,7 @@ import rx.Observable
 
 /**
  * Create an observable which emits the dismiss events from `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */

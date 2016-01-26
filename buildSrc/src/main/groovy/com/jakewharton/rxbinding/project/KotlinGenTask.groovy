@@ -188,6 +188,9 @@ class KotlinGenTask extends SourceTask {
 
           //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
           .replaceAll(/\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\}/) { String fullmatch, String foo, String bar, String baz -> "[$baz][$foo.$bar]" }
+
+          // Remove any trailing whitespace
+          .replaceAll(/(?m)\s+$/, "")
           .trim()
     }
 

@@ -6,7 +6,7 @@ import rx.functions.Action1
 
 /**
  * Create an observable of refresh events on `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -14,7 +14,7 @@ public inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefr
 
 /**
  * An action which sets whether the layout is showing the refreshing indicator.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */

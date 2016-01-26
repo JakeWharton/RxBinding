@@ -8,10 +8,10 @@ import rx.functions.Func1
 
 /**
  * Create an observable of action view events for `menuItem`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
- * 
+ *
  * *Warning:* The created observable uses [MenuItem.setOnActionExpandListener] to
  * observe action view events. Only one observable can be used for a menu item at a time.
  */
@@ -19,10 +19,10 @@ public inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEven
 
 /**
  * Create an observable of action view events for `menuItem`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
- * 
+ *
  * *Warning:* The created observable uses [MenuItem.setOnActionExpandListener] to
  * observe action view events. Only one observable can be used for a menu item at a time.
  *
