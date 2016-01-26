@@ -37,6 +37,17 @@ public class RxTextInputLayoutTest {
     assertThat(view.getCounterMaxLength()).isEqualTo(100);
   }
 
+  @Test @UiThreadTest public void error() {
+    RxTextInputLayout.error(view).call("Your error here");
+    assertThat(view.getError().toString()).isEqualTo("Your error here");
+  }
+
+  @Test @UiThreadTest public void errorRes() {
+    final String error = context.getString(R.string.error);
+    RxTextInputLayout.errorRes(view).call(R.string.error);
+    assertThat(view.getError().toString()).isEqualTo(error);
+  }
+
   @Test @UiThreadTest public void hint() {
     RxTextInputLayout.hint(view).call("Your name here");
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
