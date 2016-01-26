@@ -45,6 +45,40 @@ public final class RxTextInputLayout {
   }
 
   /**
+   * An action which sets the error text of {@code view} with a character sequence.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super CharSequence> error(@NonNull final TextInputLayout view) {
+    checkNotNull(view, "view == null");
+    return new Action1<CharSequence>() {
+      @Override
+      public void call(CharSequence error) {
+        view.setError(error);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the error text of {@code view} with a string resource.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> errorRes(@NonNull final TextInputLayout view) {
+    checkNotNull(view, "view == null");
+    return new Action1<Integer>() {
+      @Override
+      public void call(Integer errorRes) {
+        view.setError(view.getContext().getResources().getText(errorRes));
+      }
+    };
+  }
+
+  /**
    * An action which sets the hint property of {@code view} with character sequences.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe

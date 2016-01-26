@@ -1,3 +1,4 @@
 <resources>
   <string name="hint">Your name here</string>
+  <string name="error">Your error here</string>
 </resources>
