@@ -5,7 +5,7 @@ import rx.Observable
 
 /**
  * Create an observable of child attach state change events on `recyclerView`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
@@ -13,7 +13,7 @@ public inline fun RecyclerView.childAttachStateChangeEvents(): Observable<Recycl
 
 /**
  * Create an observable of scroll events on `recyclerView`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
@@ -21,7 +21,7 @@ public inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEven
 
 /**
  * Create an observable of scroll state changes on `recyclerView`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */

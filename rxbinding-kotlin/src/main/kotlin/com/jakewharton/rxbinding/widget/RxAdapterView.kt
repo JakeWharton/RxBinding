@@ -11,27 +11,27 @@ import rx.functions.Func1
 /**
  * Create an observable of the selected position of `view`. If nothing is selected,
  * [AdapterView.INVALID_POSITION] will be emitted.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- * 
+ *
  * *Note:* A value will be emitted immediately on subscribe.
  */
 public inline fun <T : Adapter> AdapterView<T>.itemSelections(): Observable<Int> = RxAdapterView.itemSelections(this)
 
 /**
  * Create an observable of selection events for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- * 
+ *
  * *Note:* A value will be emitted immediately on subscribe.
  */
 public inline fun <T : Adapter> AdapterView<T>.selectionEvents(): Observable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
 
 /**
  * Create an observable of the position of item clicks for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -39,7 +39,7 @@ public inline fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = R
 
 /**
  * Create an observable of the item click events for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -47,7 +47,7 @@ public inline fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<Ada
 
 /**
  * Create an observable of the position of item long-clicks for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -55,7 +55,7 @@ public inline fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int>
 
 /**
  * Create an observable of the position of item long-clicks for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
@@ -66,7 +66,7 @@ public inline fun <T : Adapter> AdapterView<T>.itemLongClicks(handled: Func0<Boo
 
 /**
  * Create an observable of the item long-click events for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -74,7 +74,7 @@ public inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable
 
 /**
  * Create an observable of the item long-click events for `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
@@ -85,7 +85,7 @@ public inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(handled: Func
 
 /**
  * An action which sets the selected position of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
