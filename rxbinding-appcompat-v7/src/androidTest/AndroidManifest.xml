@@ -8,5 +8,9 @@
         android:name="com.jakewharton.rxbinding.support.v7.widget.RxToolbarTestActivity"
         android:theme="@style/Theme.AppCompat"
         />
+    <activity
+        android:name="com.jakewharton.rxbinding.support.v7.widget.RxPopupMenuTestActivity"
+        android:theme="@style/Theme.AppCompat"
+        />
   </application>
 </manifest>
