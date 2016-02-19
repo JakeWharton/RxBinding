@@ -56,7 +56,9 @@ collections of reference-holding objects provided the caller unsubscribes.
 
 Mapping an observable to an Android event (e.g., view clicks) is a direct mapping. The
 library is not responsible for supporting multiple observables bound to the same view.
-Multiple listeners to the same view events can be achieved through `share()`.
+Multiple listeners to the same view events can be achieved through operators like `publish()`,
+`share()`, or `replay()`. Consult the RxJava documentation for which is appropriate for the
+behavior that you want.
 
 Naming conventions of classes and their packages should provide unambiguous information
 on where functionality can be found. Helpers for platform classes can be found in packages
