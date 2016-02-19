@@ -16,7 +16,7 @@ before_script:
   - if [ ! -z "$(git status --porcelain)" ]; then echo "Bindings changed. Did you run 'generateKotlin'?"; exit 1; fi
   # Create and start an emulator for instrumentation tests.
   - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
+  - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82
 

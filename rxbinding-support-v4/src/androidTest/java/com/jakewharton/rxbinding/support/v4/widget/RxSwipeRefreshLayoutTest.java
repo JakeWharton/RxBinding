@@ -3,12 +3,12 @@ package com.jakewharton.rxbinding.support.v4.widget;
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
-import android.support.test.filters.FlakyTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.SwipeRefreshLayout;
 import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public final class RxSwipeRefreshLayoutTest {
     view = activity.swipeRefreshLayout;
   }
 
-  @FlakyTest(detail = "https://github.com/JakeWharton/RxBinding/issues/72")
+  @Ignore("https://github.com/JakeWharton/RxBinding/issues/72")
   @Test public void refreshes() {
     RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxSwipeRefreshLayout.refreshes(view)
