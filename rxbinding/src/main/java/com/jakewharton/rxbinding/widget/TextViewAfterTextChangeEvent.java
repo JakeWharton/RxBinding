@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding.widget;
 import android.content.Context;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.widget.TextView;
 import com.jakewharton.rxbinding.view.ViewEvent;
@@ -16,18 +17,18 @@ import com.jakewharton.rxbinding.view.ViewEvent;
 public final class TextViewAfterTextChangeEvent extends ViewEvent<TextView> {
   @CheckResult @NonNull
   public static TextViewAfterTextChangeEvent create(@NonNull TextView view,
-      @NonNull Editable editable) {
+      @Nullable Editable editable) {
     return new TextViewAfterTextChangeEvent(view, editable);
   }
 
   private final Editable editable;
 
-  private TextViewAfterTextChangeEvent(@NonNull TextView view, @NonNull Editable editable) {
+  private TextViewAfterTextChangeEvent(@NonNull TextView view, @Nullable Editable editable) {
     super(view);
     this.editable = editable;
   }
 
-  @NonNull
+  @Nullable
   public Editable editable() {
     return editable;
   }
