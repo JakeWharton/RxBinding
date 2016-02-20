@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ActionMenuViewItemClickOnSubscribe implements Observable.OnSubscribe<MenuItem> {
   final ActionMenuView view;
@@ -17,7 +17,7 @@ final class ActionMenuViewItemClickOnSubscribe implements Observable.OnSubscribe
   }
 
   @Override public void call(final Subscriber<? super MenuItem> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     ActionMenuView.OnMenuItemClickListener listener =
       new ActionMenuView.OnMenuItemClickListener() {

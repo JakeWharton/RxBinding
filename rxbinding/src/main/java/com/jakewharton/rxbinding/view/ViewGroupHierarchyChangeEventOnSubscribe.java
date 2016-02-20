@@ -6,7 +6,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ViewGroupHierarchyChangeEventOnSubscribe
     implements Observable.OnSubscribe<ViewGroupHierarchyChangeEvent> {
@@ -17,7 +17,7 @@ final class ViewGroupHierarchyChangeEventOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super ViewGroupHierarchyChangeEvent> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     ViewGroup.OnHierarchyChangeListener listener = new ViewGroup.OnHierarchyChangeListener() {
       @Override public void onChildViewAdded(View parent, View child) {

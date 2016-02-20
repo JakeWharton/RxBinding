@@ -6,7 +6,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> {
   final SeekBar view;
@@ -18,7 +18,7 @@ final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> 
   }
 
   @Override public void call(final Subscriber<? super Integer> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
       @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

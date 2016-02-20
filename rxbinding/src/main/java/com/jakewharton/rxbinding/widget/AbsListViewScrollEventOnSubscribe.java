@@ -5,7 +5,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class AbsListViewScrollEventOnSubscribe
     implements Observable.OnSubscribe<AbsListViewScrollEvent> {
@@ -17,7 +17,7 @@ final class AbsListViewScrollEventOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super AbsListViewScrollEvent> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     AbsListView.OnScrollListener listener = new AbsListView.OnScrollListener() {
       int currentScrollState = SCROLL_STATE_IDLE;

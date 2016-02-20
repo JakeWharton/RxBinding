@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubscribe<Void> {
   final View view;
@@ -17,7 +17,7 @@ final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubs
   }
 
   @Override public void call(final Subscriber<? super Void> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     final OnGlobalLayoutListener listener = new OnGlobalLayoutListener() {
       @Override public void onGlobalLayout() {

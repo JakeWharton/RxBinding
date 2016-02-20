@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class SwipeDismissBehaviorOnSubscribe implements Observable.OnSubscribe<View> {
   private final View view;
@@ -17,7 +17,7 @@ final class SwipeDismissBehaviorOnSubscribe implements Observable.OnSubscribe<Vi
   }
 
   @Override public void call(final Subscriber<? super View> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     SwipeDismissBehavior.OnDismissListener listener = new SwipeDismissBehavior.OnDismissListener() {
       @Override public void onDismiss(View view) {

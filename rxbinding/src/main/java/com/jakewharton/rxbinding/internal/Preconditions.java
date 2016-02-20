@@ -13,8 +13,6 @@
  */
 package com.jakewharton.rxbinding.internal;
 
-import android.os.Looper;
-
 public final class Preconditions {
   public static void checkArgument(boolean assertion, String message) {
     if (!assertion) {
@@ -27,13 +25,6 @@ public final class Preconditions {
       throw new NullPointerException(message);
     }
     return value;
-  }
-
-  public static void checkUiThread() {
-    if (Looper.getMainLooper() != Looper.myLooper()) {
-      throw new IllegalStateException(
-          "Must be called from the main thread. Was: " + Thread.currentThread());
-    }
   }
 
   private Preconditions() {
