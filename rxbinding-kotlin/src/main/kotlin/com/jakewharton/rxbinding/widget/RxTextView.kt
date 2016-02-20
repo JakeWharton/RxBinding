@@ -59,6 +59,12 @@ public inline fun TextView.editorActionEvents(handled: Func1<in TextViewEditorAc
 /**
  * Create an observable of character sequences for text changes on `view`.
  *
+ * *Warning:* Values emitted by this observable are <b>mutable</b> and owned by the host
+ * `TextView` and thus are <b>not safe</b> to cache or delay reading (such as by observing
+ * on a different thread). If you want to cache or delay reading the items emitted then you must
+ * map values through a function which calls [String.valueOf] or
+ * {@link CharSequence#toString() .toString()} to create a copy.
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
@@ -68,6 +74,12 @@ public inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.
 
 /**
  * Create an observable of text change events for `view`.
+ *
+ * *Warning:* Values emitted by this observable contain a <b>mutable</b>
+ * [CharSequence] owned by the host `TextView` and thus are <b>not safe</b> to cache
+ * or delay reading (such as by observing on a different thread). If you want to cache or delay
+ * reading the items emitted then you must map values through a function which calls
+ * [String.valueOf] or {@link CharSequence#toString() .toString()} to create a copy.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.

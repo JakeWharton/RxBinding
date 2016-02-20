@@ -113,6 +113,12 @@ public inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(
 /**
  * Create an observable of hover events for `view`.
  *
+ * *Warning:* Values emitted by this observable are <b>mutable</b> and part of a shared
+ * object pool and thus are <b>not safe</b> to cache or delay reading (such as by observing
+ * on a different thread). If you want to cache or delay reading the items emitted then you must
+ * map values through a function which calls {@link MotionEvent#obtain(MotionEvent)} or
+ * {@link MotionEvent#obtainNoHistory(MotionEvent)} to create a copy.
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
@@ -123,6 +129,12 @@ public inline fun View.hovers(): Observable<MotionEvent> = RxView.hovers(this)
 
 /**
  * Create an observable of hover events for `view`.
+ *
+ * *Warning:* Values emitted by this observable are <b>mutable</b> and part of a shared
+ * object pool and thus are <b>not safe</b> to cache or delay reading (such as by observing
+ * on a different thread). If you want to cache or delay reading the items emitted then you must
+ * map values through a function which calls {@link MotionEvent#obtain(MotionEvent)} or
+ * {@link MotionEvent#obtainNoHistory(MotionEvent)} to create a copy.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
@@ -213,6 +225,12 @@ public inline fun View.systemUiVisibilityChanges(): Observable<Int> = RxView.sys
 /**
  * Create an observable of touch events for `view`.
  *
+ * *Warning:* Values emitted by this observable are <b>mutable</b> and part of a shared
+ * object pool and thus are <b>not safe</b> to cache or delay reading (such as by observing
+ * on a different thread). If you want to cache or delay reading the items emitted then you must
+ * map values through a function which calls {@link MotionEvent#obtain(MotionEvent)} or
+ * {@link MotionEvent#obtainNoHistory(MotionEvent)} to create a copy.
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
@@ -223,6 +241,12 @@ public inline fun View.touches(): Observable<MotionEvent> = RxView.touches(this)
 
 /**
  * Create an observable of touch events for `view`.
+ *
+ * *Warning:* Values emitted by this observable are <b>mutable</b> and part of a shared
+ * object pool and thus are <b>not safe</b> to cache or delay reading (such as by observing
+ * on a different thread). If you want to cache or delay reading the items emitted then you must
+ * map values through a function which calls {@link MotionEvent#obtain(MotionEvent)} or
+ * {@link MotionEvent#obtainNoHistory(MotionEvent)} to create a copy.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
