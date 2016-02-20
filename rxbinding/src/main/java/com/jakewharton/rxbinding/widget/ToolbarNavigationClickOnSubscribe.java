@@ -8,7 +8,7 @@ import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 @TargetApi(LOLLIPOP)
 final class ToolbarNavigationClickOnSubscribe implements Observable.OnSubscribe<Void> {
@@ -19,7 +19,7 @@ final class ToolbarNavigationClickOnSubscribe implements Observable.OnSubscribe<
   }
 
   @Override public void call(final Subscriber<? super Void> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     View.OnClickListener listener = new View.OnClickListener() {
       @Override public void onClick(View v) {

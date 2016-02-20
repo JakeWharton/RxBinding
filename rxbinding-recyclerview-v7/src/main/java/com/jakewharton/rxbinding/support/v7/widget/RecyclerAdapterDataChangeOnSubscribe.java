@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class RecyclerAdapterDataChangeOnSubscribe<T extends Adapter<? extends ViewHolder>>
     implements Observable.OnSubscribe<T> {
@@ -18,7 +18,7 @@ final class RecyclerAdapterDataChangeOnSubscribe<T extends Adapter<? extends Vie
   }
 
   @Override public void call(final Subscriber<? super T> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     final AdapterDataObserver observer = new AdapterDataObserver() {
       @Override public void onChanged() {

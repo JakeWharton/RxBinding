@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class DrawerLayoutDrawerOpenedOnSubscribe implements Observable.OnSubscribe<Boolean> {
   final DrawerLayout view;
@@ -19,7 +19,7 @@ final class DrawerLayoutDrawerOpenedOnSubscribe implements Observable.OnSubscrib
   }
 
   @Override public void call(final Subscriber<? super Boolean> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.SimpleDrawerListener() {
       @Override public void onDrawerOpened(View drawerView) {

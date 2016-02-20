@@ -6,7 +6,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Void> {
   final boolean callOnAttach;
@@ -18,7 +18,7 @@ final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Void> {
   }
 
   @Override public void call(final Subscriber<? super Void> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     final View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener() {
       @Override public void onViewAttachedToWindow(@NonNull final View v) {

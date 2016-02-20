@@ -11,7 +11,7 @@ import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 import rx.functions.Func1;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class MenuItemActionViewEventOnSubscribe
     implements Observable.OnSubscribe<MenuItemActionViewEvent> {
@@ -25,7 +25,7 @@ final class MenuItemActionViewEventOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super MenuItemActionViewEvent> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     MenuItemCompat.OnActionExpandListener listener = new MenuItemCompat.OnActionExpandListener() {
       @Override public boolean onMenuItemActionExpand(MenuItem item) {
