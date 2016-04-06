@@ -14,7 +14,9 @@ public class RxSwipeDismissBehaviorTestActivity extends Activity {
 
     parent = new CoordinatorLayout(this);
     view = new View(this);
+    view.setId(1);
     view.setLayoutParams(new CoordinatorLayout.LayoutParams(100, 100));
+    view.setBackgroundColor(0xFFFF0000);
     parent.addView(view);
 
     setContentView(parent);
