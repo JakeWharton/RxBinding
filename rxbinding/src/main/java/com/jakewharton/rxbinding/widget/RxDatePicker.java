@@ -11,7 +11,8 @@ import rx.functions.Action1;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} for {@link android.widget.DatePicker}.
+ * Static factory methods for creating {@linkplain Observable observables} for
+ * {@link android.widget.DatePicker}.
  */
 public class RxDatePicker {
 
@@ -23,23 +24,25 @@ public class RxDatePicker {
     /**
      * Create an observable of the time change events on {@code view}.
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      * <p/>
      * <em>Note:</em> A value will be emitted immediately on subscribe.
      */
     @CheckResult
     @NonNull
-    public static Observable<DatePickerChangeEvent> init(@NonNull DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    public static Observable<DatePickerChangeEvent> init(@NonNull DatePicker view, int year,
+                                                         int monthOfYear, int dayOfMonth) {
         checkNotNull(view, "view == null");
-        return Observable.create(new DatePickerChangeOnSubscribe(view, year, monthOfYear, dayOfMonth));
+        return Observable.create(new DatePickerChangeOnSubscribe(view, year, monthOfYear,
+                dayOfMonth));
     }
 
     /**
      * An action which updates the year
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -57,8 +60,8 @@ public class RxDatePicker {
     /**
      * An action which updates the month of the year
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -76,8 +79,8 @@ public class RxDatePicker {
     /**
      * An action which updates the day of the month
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -95,8 +98,8 @@ public class RxDatePicker {
     /**
      * An action which sets the first day of week
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -115,8 +118,8 @@ public class RxDatePicker {
      * An action which sets the maximal date supported by this {@link DatePicker} in
      * milliseconds since January 1, 1970 00:00:00 in
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -134,8 +137,8 @@ public class RxDatePicker {
      * An action which sets the minimal date supported by this {@link DatePicker} in
      * milliseconds since January 1, 1970 00:00:00 in
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -152,8 +155,8 @@ public class RxDatePicker {
     /**
      * An action which sets whether {@code view} show spinners.
      * <p/>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull

@@ -11,7 +11,8 @@ import static rx.android.MainThreadSubscription.verifyMainThread;
 /**
  * Observable that emits time change events
  */
-public class TimePickerTimeChangeOnSubscribe implements Observable.OnSubscribe<TimePickerTimeChangeEvent> {
+public class TimePickerTimeChangeOnSubscribe
+        implements Observable.OnSubscribe<TimePickerTimeChangeEvent> {
 
     /**
      * The time picker that emits events
@@ -26,11 +27,13 @@ public class TimePickerTimeChangeOnSubscribe implements Observable.OnSubscribe<T
     public void call(final Subscriber<? super TimePickerTimeChangeEvent> subscriber) {
         verifyMainThread();
 
-        TimePicker.OnTimeChangedListener onTimeChangedListener = new TimePicker.OnTimeChangedListener() {
+        TimePicker.OnTimeChangedListener onTimeChangedListener
+                = new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 if (!subscriber.isUnsubscribed()) {
-                    subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker, hourOfDay, minute));
+                    subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker, hourOfDay,
+                            minute));
                 }
             }
         };
@@ -45,9 +48,11 @@ public class TimePickerTimeChangeOnSubscribe implements Observable.OnSubscribe<T
 
         // Emit initial value
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
-            subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker, timePicker.getCurrentHour(), timePicker.getCurrentMinute()));
+            subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker,
+                    timePicker.getCurrentHour(), timePicker.getCurrentMinute()));
         } else {
-            subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker, timePicker.getHour(), timePicker.getMinute()));
+            subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker, timePicker.getHour(),
+                    timePicker.getMinute()));
         }
     }
 }

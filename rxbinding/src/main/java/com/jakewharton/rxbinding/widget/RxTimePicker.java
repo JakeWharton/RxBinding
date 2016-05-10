@@ -10,7 +10,8 @@ import rx.functions.Action1;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} for {@link android.widget.TimePicker}.
+ * Static factory methods for creating {@linkplain Observable observables} for
+ * {@link android.widget.TimePicker}.
  */
 public final class RxTimePicker {
 

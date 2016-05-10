@@ -3,7 +3,6 @@ package com.jakewharton.rxbinding.widget;
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
-import android.support.test.espresso.core.deps.guava.primitives.Booleans;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TimePicker;

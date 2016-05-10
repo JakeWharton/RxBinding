@@ -3,17 +3,15 @@ package com.jakewharton.rxbinding.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.jakewharton.rxbinding.view.ViewEvent;
-
-import rx.Observable;
 
 public class DatePickerChangeEvent extends ViewEvent<DatePicker> {
 
     @CheckResult
     @NonNull
-    public static DatePickerChangeEvent create(@NonNull DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    public static DatePickerChangeEvent create(@NonNull DatePicker view, int year, int monthOfYear,
+                                               int dayOfMonth) {
         return new DatePickerChangeEvent(view, year, monthOfYear, dayOfMonth);
     }
 
@@ -23,7 +21,8 @@ public class DatePickerChangeEvent extends ViewEvent<DatePicker> {
 
     private int dayOfMonth;
 
-    private DatePickerChangeEvent(@NonNull DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    private DatePickerChangeEvent(@NonNull DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
         super(view);
         this.year = year;
         this.monthOfYear = monthOfYear;
@@ -56,7 +55,8 @@ public class DatePickerChangeEvent extends ViewEvent<DatePicker> {
     public boolean equals(Object o) {
         if (o instanceof DatePickerChangeEvent) {
             DatePickerChangeEvent other = (DatePickerChangeEvent) o;
-            return this == other || this.year == other.getYear() && this.monthOfYear == other.getMonthOfYear()
+            return this == other || this.year == other.getYear()
+                    && this.monthOfYear == other.getMonthOfYear()
                     && this.dayOfMonth == other.getDayOfMonth();
         }
         return false;

@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-import android.widget.RatingBar;
 import android.widget.TimePicker;
 
 import com.jakewharton.rxbinding.view.ViewEvent;
@@ -14,7 +13,8 @@ public class TimePickerTimeChangeEvent extends ViewEvent<TimePicker> {
 
     @CheckResult
     @NonNull
-    public static TimePickerTimeChangeEvent create(@NonNull TimePicker view, int hourOfDay, int minute) {
+    public static TimePickerTimeChangeEvent create(@NonNull TimePicker view, int hourOfDay,
+                                                   int minute) {
         return new TimePickerTimeChangeEvent(view, hourOfDay, minute);
     }
 
@@ -63,7 +63,8 @@ public class TimePickerTimeChangeEvent extends ViewEvent<TimePicker> {
     public boolean equals(Object o) {
         if (o instanceof TimePickerTimeChangeEvent) {
             TimePickerTimeChangeEvent other = (TimePickerTimeChangeEvent) o;
-            return this == other || this.hourOfDay == other.getHourOfDay() && this.minute == other.getMinute();
+            return this == other || this.hourOfDay == other.getHourOfDay()
+                    && this.minute == other.getMinute();
         }
         return false;
     }

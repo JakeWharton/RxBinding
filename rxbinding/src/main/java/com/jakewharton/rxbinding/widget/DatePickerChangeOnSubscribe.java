@@ -32,7 +32,8 @@ public class DatePickerChangeOnSubscribe implements Observable.OnSubscribe<DateP
      */
     private DatePicker datePicker;
 
-    public DatePickerChangeOnSubscribe(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+    public DatePickerChangeOnSubscribe(DatePicker datePicker, int year, int monthOfYear,
+                                       int dayOfMonth) {
         this.datePicker = datePicker;
         this.year = year;
         this.monthOfYear = monthOfYear;
@@ -43,11 +44,13 @@ public class DatePickerChangeOnSubscribe implements Observable.OnSubscribe<DateP
     public void call(final Subscriber<? super DatePickerChangeEvent> subscriber) {
         verifyMainThread();
 
-        DatePicker.OnDateChangedListener onDateChangedListener = new DatePicker.OnDateChangedListener() {
+        DatePicker.OnDateChangedListener onDateChangedListener
+                = new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 if (!subscriber.isUnsubscribed()) {
-                    subscriber.onNext(DatePickerChangeEvent.create(view, year, monthOfYear, dayOfMonth));
+                    subscriber.onNext(DatePickerChangeEvent.create(view, year, monthOfYear,
+                            dayOfMonth));
                 }
             }
         };
@@ -55,6 +58,7 @@ public class DatePickerChangeOnSubscribe implements Observable.OnSubscribe<DateP
         datePicker.init(year, monthOfYear, dayOfMonth, onDateChangedListener);
 
         // Emit initial value
-        subscriber.onNext(DatePickerChangeEvent.create(datePicker, datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
+        subscriber.onNext(DatePickerChangeEvent.create(datePicker, datePicker.getYear(),
+                datePicker.getMonth(), datePicker.getDayOfMonth()));
     }
 }
