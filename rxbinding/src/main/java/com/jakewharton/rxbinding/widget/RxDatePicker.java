@@ -37,6 +37,63 @@ public class RxDatePicker {
     }
 
     /**
+     * An action which updates the year
+     * <p/>
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+     * to free this reference.
+     */
+    @CheckResult
+    @NonNull
+    @TargetApi(21)
+    public static Action1<? super Integer> updateYear(@NonNull final DatePicker view) {
+        checkNotNull(view, "view == null");
+        return new Action1<Integer>() {
+            @Override
+            public void call(Integer newYear) {
+                view.updateDate(newYear, view.getMonth(), view.getDayOfMonth());
+            }
+        };
+    }
+
+    /**
+     * An action which updates the month of the year
+     * <p/>
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+     * to free this reference.
+     */
+    @CheckResult
+    @NonNull
+    @TargetApi(21)
+    public static Action1<? super Integer> updateMonthOfYear(@NonNull final DatePicker view) {
+        checkNotNull(view, "view == null");
+        return new Action1<Integer>() {
+            @Override
+            public void call(Integer newMonth) {
+                view.updateDate(view.getYear(), newMonth, view.getDayOfMonth());
+            }
+        };
+    }
+
+    /**
+     * An action which updates the day of the month
+     * <p/>
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+     * to free this reference.
+     */
+    @CheckResult
+    @NonNull
+    @TargetApi(21)
+    public static Action1<? super Integer> updateDayOfMonth(@NonNull final DatePicker view) {
+        checkNotNull(view, "view == null");
+        return new Action1<Integer>() {
+            @Override
+            public void call(Integer newDay) {
+                view.updateDate(view.getYear(), view.getMonth(), newDay);
+            }
+        };
+    }
+
+    /**
      * An action which sets the first day of week
      * <p/>
      * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
@@ -101,7 +158,7 @@ public class RxDatePicker {
      */
     @CheckResult
     @NonNull
-    public static Action1<? super Boolean> areSpinnersShown(@NonNull final DatePicker view) {
+    public static Action1<? super Boolean> spinnersShown(@NonNull final DatePicker view) {
         checkNotNull(view, "view == null");
         return new Action1<Boolean>() {
             @Override
