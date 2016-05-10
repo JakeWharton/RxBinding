@@ -4,6 +4,7 @@ import android.widget.DatePicker;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 
 import static rx.android.MainThreadSubscription.verifyMainThread;
 
@@ -54,8 +55,15 @@ public class DatePickerChangeOnSubscribe implements Observable.OnSubscribe<DateP
                 }
             }
         };
-
         datePicker.init(year, monthOfYear, dayOfMonth, onDateChangedListener);
+
+        subscriber.add(new MainThreadSubscription() {
+            @Override
+            protected void onUnsubscribe() {
+                datePicker.init(datePicker.getYear(), datePicker.getMonth(),
+                        datePicker.getDayOfMonth(), null);
+            }
+        });
 
         // Emit initial value
         subscriber.onNext(DatePickerChangeEvent.create(datePicker, datePicker.getYear(),
