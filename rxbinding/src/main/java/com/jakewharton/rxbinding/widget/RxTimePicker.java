@@ -21,8 +21,8 @@ public final class RxTimePicker {
     /**
      * Create an observable of the time change events on {@code view}.
      * <p>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      * <p>
      * <em>Note:</em> A value will be emitted immediately on subscribe.
      */
@@ -36,8 +36,8 @@ public final class RxTimePicker {
     /**
      * An action which sets whether {@code view} is a 24 hour view.
      * <p>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -54,8 +54,8 @@ public final class RxTimePicker {
     /**
      * An action which sets the hour of {@code view}.
      * <p>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull
@@ -76,8 +76,8 @@ public final class RxTimePicker {
     /**
      * An action which sets the minute of {@code view}.
      * <p>
-     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-     * to free this reference.
+     * <em>Warning:</em> The created observable keeps a strong reference to {@code view}.
+     * Unsubscribe to free this reference.
      */
     @CheckResult
     @NonNull

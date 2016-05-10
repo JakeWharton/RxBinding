@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import rx.Observable;
 import rx.functions.Action1;
