@@ -65,8 +65,8 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 
   @Test public void ratingChangeEvents() {
     RecordingObserver<RatingBarChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRatingBar.ratingChangeEvents(view) //
-        .subscribeOn(AndroidSchedulers.mainThread()) //
+    Subscription subscription = RxRatingBar.ratingChangeEvents(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(RatingBarChangeEvent.create(view, 0f, false));
 

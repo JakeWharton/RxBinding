@@ -10,6 +10,9 @@ import static rx.android.MainThreadSubscription.verifyMainThread;
 
 public class TimePickerTimeChangeOnSubscribe implements Observable.OnSubscribe<TimePickerTimeChangeEvent> {
 
+    /**
+     * The time picker that emits events
+     */
     private TimePicker timePicker;
 
     protected TimePickerTimeChangeOnSubscribe(TimePicker timePicker) {
@@ -24,6 +27,8 @@ public class TimePickerTimeChangeOnSubscribe implements Observable.OnSubscribe<T
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 if (!subscriber.isUnsubscribed()) {
+                    int h = hourOfDay;
+                    int m = minute;
                     subscriber.onNext(TimePickerTimeChangeEvent.create(timePicker, hourOfDay, minute));
                 }
             }
