@@ -36,7 +36,7 @@ final class NestedScrollViewScrollChangeEventOnSubscribe
     nestedScrollView.setOnScrollChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
-      @Overrideł protected void onUnsubscribe() {
+      @Override protected void onUnsubscribe() {
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) null);
       }
     });
