@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -13,24 +12,18 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 public final class RxNestedScrollViewTestActivity extends Activity {
   NestedScrollView nestedScrollView;
   FrameLayout emptyView;
-  FrameLayout emptyView2;
-  LinearLayout linearLayout;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    nestedScrollView = new NestedScrollView(this);
     ScrollView scrollView = new ScrollView(this);
-    linearLayout = new LinearLayout(this);
+    nestedScrollView = new NestedScrollView(this);
     emptyView = new FrameLayout(this);
-    emptyView2 = new FrameLayout(this);
 
     LayoutParams scrollParams = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
-    LayoutParams emptyParams = new LayoutParams(MATCH_PARENT, 5000);
+    LayoutParams emptyParams = new LayoutParams(50000, 50000);
 
     nestedScrollView.addView(emptyView, emptyParams);
-    linearLayout.addView(nestedScrollView, emptyParams);
-    linearLayout.addView(emptyView2, emptyParams);
-    scrollView.addView(linearLayout, scrollParams);
-    setContentView(scrollView);
+    scrollView.addView(nestedScrollView, scrollParams);
+    setContentView(scrollView, scrollParams);
   }
 }

@@ -1,62 +1,49 @@
 package com.jakewharton.rxbinding.support.v4.widget;
 
 import android.support.test.annotation.UiThreadTest;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.ScrollToAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.NestedScrollView;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.view.ViewScrollChangeEvent;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
-import static android.support.test.espresso.Espresso.onView;
+import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxNestedScrollViewTest {
-    @Rule
-    public final ActivityTestRule<RxNestedScrollViewTestActivity> activityRule =
-            new ActivityTestRule<>(RxNestedScrollViewTestActivity.class);
+  @Rule public final ActivityTestRule<RxNestedScrollViewTestActivity> activityRule =
+      new ActivityTestRule<>(RxNestedScrollViewTestActivity.class);
 
-    private NestedScrollView view;
-    private FrameLayout emptyView;
+  private NestedScrollView view;
 
-    @Before
-    public void setUp() {
-        RxNestedScrollViewTestActivity activity = activityRule.getActivity();
-        view = activity.nestedScrollView;
-        emptyView = activity.emptyView;
-    }
+  @Before public void setUp() {
+    RxNestedScrollViewTestActivity activity = activityRule.getActivity();
+    view = activity.nestedScrollView;
+  }
 
-    @Test
-    @UiThreadTest
-    public void refreshes() {
-        RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
-        Subscription subscription = RxNestedScrollView.scrollChangeEvents(view)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(o);
-        o.assertNoMoreEvents();
+  @Test @UiThreadTest public void scrollChangeEvents() {
+    RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxNestedScrollView.scrollChangeEvents(view).subscribe(o);
+    o.assertNoMoreEvents();
 
-        onView(Matchers.is((View) emptyView)).perform(scrollTo());
-        o.takeNext();
+    view.scrollTo(1000, 0);
+    ViewScrollChangeEvent event = o.takeNext();
+    assertThat(event.view()).isSameAs(view);
+    assertThat(event.scrollX()).isEqualTo(1000);
+    assertThat(event.scrollY()).isEqualTo(0);
+    assertThat(event.oldScrollX()).isEqualTo(0);
+    assertThat(event.oldScrollY()).isEqualTo(0);
 
-        subscription.unsubscribe();
-        onView(Matchers.is((View) emptyView)).perform(scrollTo());
-        o.assertNoMoreEvents();
-    }
-
-    private static ViewAction scrollTo() {
-        return new ScrollToAction();
-    }
+    subscription.unsubscribe();
+    view.scrollTo(2000, 0);
+    o.assertNoMoreEvents();
+  }
 }

@@ -11,34 +11,35 @@ import rx.android.MainThreadSubscription;
 import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class NestedScrollViewScrollChangeEventOnSubscribe
-        implements Observable.OnSubscribe<ViewScrollChangeEvent> {
-    final NestedScrollView nestedScrollView;
+    implements Observable.OnSubscribe<ViewScrollChangeEvent> {
+  final NestedScrollView nestedScrollView;
 
-    NestedScrollViewScrollChangeEventOnSubscribe(NestedScrollView nestedScrollView) {
-        this.nestedScrollView = nestedScrollView;
-    }
+  NestedScrollViewScrollChangeEventOnSubscribe(NestedScrollView nestedScrollView) {
+    this.nestedScrollView = nestedScrollView;
+  }
 
-    @Override
-    public void call(final Subscriber<? super ViewScrollChangeEvent> subscriber) {
-        verifyMainThread();
+  @Override public void call(final Subscriber<? super ViewScrollChangeEvent> subscriber) {
+    verifyMainThread();
 
-        final NestedScrollView.OnScrollChangeListener listener = new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (!subscriber.isUnsubscribed()) {
-                    subscriber.onNext(
-                            ViewScrollChangeEvent.create(nestedScrollView, scrollX, scrollY, oldScrollX, oldScrollY));
-                }
+    final NestedScrollView.OnScrollChangeListener listener =
+        new NestedScrollView.OnScrollChangeListener() {
+          @Override
+          public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX,
+              int oldScrollY) {
+            if (!subscriber.isUnsubscribed()) {
+              subscriber.onNext(
+                  ViewScrollChangeEvent.create(nestedScrollView, scrollX, scrollY, oldScrollX,
+                      oldScrollY));
             }
+          }
         };
-        nestedScrollView.setOnScrollChangeListener(listener);
+    nestedScrollView.setOnScrollChangeListener(listener);
 
-        subscriber.add(new MainThreadSubscription() {
-            @Override
-            protected void onUnsubscribe() {
-                nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) null);
-            }
-        });
-    }
+    subscriber.add(new MainThreadSubscription() {
+      @Overrideł protected void onUnsubscribe() {
+        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) null);
+      }
+    });
+  }
 }
 
