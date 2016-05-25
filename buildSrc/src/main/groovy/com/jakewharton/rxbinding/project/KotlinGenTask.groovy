@@ -47,10 +47,14 @@ class KotlinGenTask extends SourceTask {
       "android.support.annotation.NonNull"
   )
 
+  /** System dependent file separator*/
+  private static final String SLASH = File.separator
+
+
   @TaskAction
   def generate(IncrementalTaskInputs inputs) {
     // Clear things out first to make sure no stragglers are left
-    File outputDir = new File("${project.projectDir}-kotlin/src/main/kotlin")
+    File outputDir = new File("${project.projectDir}-kotlin${SLASH}src${SLASH}main${SLASH}kotlin")
     outputDir.deleteDir()
 
     // Let's get going
@@ -58,8 +62,8 @@ class KotlinGenTask extends SourceTask {
   }
 
   void generateKotlin(File file) {
-    String outputPath = file.parent.replace("java", "kotlin").replace("/src", "-kotlin/src")
-    outputPath = outputPath.substring(0, outputPath.indexOf("com/jakewharton"))
+    String outputPath = file.parent.replace("java", "kotlin").replace("${SLASH}src", "-kotlin${SLASH}src")
+    outputPath = outputPath.substring(0, outputPath.indexOf("com${SLASH}jakewharton"))
     File outputDir = new File(outputPath)
 
     // Start parsing the java files
