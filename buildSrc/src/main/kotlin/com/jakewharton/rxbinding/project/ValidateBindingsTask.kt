@@ -63,7 +63,7 @@ open class ValidateBindingsTask : SourceTask() {
     val params = method.parameters
 
     // Validate annotations
-    params.forEach { p: Parameter ->
+    params.forEach { p ->
       if (p.type is ReferenceType) {
         if (p.annotations == null || !p.annotations.map { it.name.toString() }.contains("NonNull")) {
           throw IllegalStateException("Missing required @NonNull annotation on ${method.getEnclosingClass().name}#${method.name} parameter: \"${p.id.name}\"")
@@ -123,7 +123,7 @@ open class ValidateBindingsTask : SourceTask() {
     return Observable.from(method.parameters)
         .map { it.type.toString() }
         .toList()
-        .map { parameterTypeNames: List<String> ->
+        .map { parameterTypeNames ->
           "${(method.getEnclosingClass()).name}#${method.name}(${parameterTypeNames.joinToString()})"
         }
         .toSingle()

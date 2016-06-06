@@ -1,7 +1,6 @@
 package com.jakewharton.rxbinding.project
 
 import com.github.javaparser.JavaParser
-import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.ImportDeclaration
 import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.TypeParameter
@@ -64,20 +63,18 @@ open class KotlinGenTask : SourceTask() {
       if (inputType is ReferenceType) {
         return resolveKotlinType(inputType.type)
       } else if (inputType is ClassOrInterfaceType) {
-        val cit: ClassOrInterfaceType = inputType
-        val baseType: String = resolveKotlinTypeByName(cit.name)
-        if (cit.typeArgs == null || cit.typeArgs.isEmpty()) {
+        val baseType = resolveKotlinTypeByName(inputType.name)
+        if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
           return baseType
         }
-        return "$baseType<${cit.typeArgs.map { type: Type -> resolveKotlinType(type) }.joinToString()}>"
+        return "$baseType<${inputType.typeArgs.map { type: Type -> resolveKotlinType(type) }.joinToString()}>"
       } else if (inputType is PrimitiveType || inputType is VoidType) {
         return resolveKotlinTypeByName(inputType.toString())
       } else if (inputType is WildcardType) {
-        val wc: WildcardType = inputType
-        if (wc.`super` != null) {
-          return "in ${resolveKotlinType(wc.`super`)}"
-        } else if (wc.extends != null) {
-          return "out ${resolveKotlinType(wc.extends)}"
+        if (inputType.`super` != null) {
+          return "in ${resolveKotlinType(inputType.`super`)}"
+        } else if (inputType.extends != null) {
+          return "out ${resolveKotlinType(inputType.extends)}"
         } else {
           throw IllegalStateException("Wildcard with no super or extends")
         }
@@ -91,7 +88,7 @@ open class KotlinGenTask : SourceTask() {
   @Suppress("unused")
   fun generate(inputs: IncrementalTaskInputs) {
     // Clear things out first to make sure no stragglers are left
-    val outputDir: File = File("${project.projectDir}-kotlin${SLASH}src${SLASH}main${SLASH}kotlin")
+    val outputDir = File("${project.projectDir}-kotlin${SLASH}src${SLASH}main${SLASH}kotlin")
     outputDir.deleteDir()
 
     // Let's get going
@@ -102,10 +99,10 @@ open class KotlinGenTask : SourceTask() {
     val outputPath = file.parent.replace("java", "kotlin")
         .replace("${SLASH}src", "-kotlin${SLASH}src")
         .substringBefore("com${SLASH}jakewharton")
-    val outputDir: File = File(outputPath)
+    val outputDir = File(outputPath)
 
     // Start parsing the java files
-    val cu: CompilationUnit = JavaParser.parse(file)
+    val cu = JavaParser.parse(file)
 
     val kClass = KFile()
     kClass.fileName = file.name.replace(".java", ".kt")
@@ -150,8 +147,8 @@ open class KotlinGenTask : SourceTask() {
     var packageName: String by Delegates.notNull<String>()
     var bindingClass: String by Delegates.notNull<String>()
     var extendedClass: String by Delegates.notNull<String>()
-    val methods: MutableList<KMethod> = mutableListOf()
-    val imports: MutableList<String> = mutableListOf()
+    val methods = mutableListOf<KMethod>()
+    val imports = mutableListOf<String>()
 
     /** Generates the code and writes it to the desired directory */
     fun generate(directory: File) {
@@ -239,7 +236,7 @@ open class KotlinGenTask : SourceTask() {
         return null
       }
 
-      val builder: StringBuilder = StringBuilder()
+      val builder = StringBuilder()
       builder.append("<")
       params.forEach { p -> builder.append("${p.name} : ${resolveKotlinType(p.typeBound[0])}") }
       builder.append(">")
@@ -253,7 +250,7 @@ open class KotlinGenTask : SourceTask() {
      *        need the type when we're passing params into the underlying Java implementation)
      */
     private fun kParams(specifyType: Boolean): String {
-      val builder: StringBuilder = StringBuilder()
+      val builder = StringBuilder()
       parameters.forEach { p -> builder.append("${p.id.name}${if (specifyType) ": " + resolveKotlinType(p.type) else ""}") }
       return builder.toString()
     }
@@ -274,7 +271,7 @@ open class KotlinGenTask : SourceTask() {
       val fParams = kParams(true)
       val jParams = kParams(false)
 
-      val builder: StringBuilder = StringBuilder();
+      val builder = StringBuilder();
 
       // doc
       builder.append("${comment ?: ""}\n")
