@@ -1,15 +1,24 @@
-apply plugin: 'groovy'
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.2'
+  }
+}
+
+apply plugin: 'kotlin'
 
 apply from: rootProject.file('../dependencies.gradle')
 
 repositories {
-  mavenCentral()
+  jcenter()
 }
 
 dependencies {
   compile gradleApi()
-  compile localGroovy()
   compile rootProject.ext.androidPlugin
   compile rootProject.ext.javaParser
   compile rootProject.ext.rxJava
+  compile rootProject.ext.kotlinStdlib
 }
