@@ -49,7 +49,7 @@ open class ValidateBindingsTask : SourceTask() {
     val annotationNames = method.annotations.map { it.name.toString() }
     METHOD_ANNOTATIONS.forEach { annotation: String ->
       if (!annotationNames.contains(annotation)) {
-        throw IllegalStateException("Missing required @$annotation method annotation on ${(method.parentNode as ClassOrInterfaceDeclaration).name}#${method.name}")
+        throw IllegalStateException("Missing required @$annotation method annotation on ${(method.getEnclosingClass()).name}#${method.name}")
       }
     }
   }
@@ -124,7 +124,7 @@ open class ValidateBindingsTask : SourceTask() {
         .map { it.type.toString() }
         .toList()
         .map { parameterTypeNames: List<String> ->
-          "${(method.parentNode as ClassOrInterfaceDeclaration).name}#${method.name}(${parameterTypeNames.joinToString()})"
+          "${(method.getEnclosingClass()).name}#${method.name}(${parameterTypeNames.joinToString()})"
         }
         .toSingle()
         .toBlocking().value()
