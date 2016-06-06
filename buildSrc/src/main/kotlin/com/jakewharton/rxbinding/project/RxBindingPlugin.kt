@@ -1,7 +1,6 @@
 package com.jakewharton.rxbinding.project
 
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.api.LibraryVariant
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -19,7 +18,7 @@ class RxBindingPlugin : Plugin<Project> {
       // Convenience approach so that we can grab the source sets off of it
 
       val variants = project.extensions.getByType(LibraryExtension::class.java).libraryVariants
-      val variant: LibraryVariant = variants.find { v -> v.name == "release" }!!
+      val variant = variants.first { it.name == "release" }
       val variantJavaSources = variant.sourceSets.map { it.javaDirectories }
 
       // Create a "generateKotlinFor" task for generating kotlin bindings
