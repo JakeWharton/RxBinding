@@ -3,7 +3,7 @@ apply plugin: 'groovy'
 apply from: rootProject.file('../dependencies.gradle')
 
 repositories {
-  jcenter()
+  mavenCentral()
 }
 
 dependencies {
