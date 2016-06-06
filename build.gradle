@@ -1,12 +1,12 @@
 subprojects {
   buildscript {
     repositories {
-      mavenCentral()
+      jcenter()
     }
   }
 
   repositories {
-    mavenCentral()
+    jcenter()
   }
 
   plugins.apply('checkstyle')
