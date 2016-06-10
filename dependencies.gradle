@@ -2,7 +2,7 @@ ext {
   androidPlugin = 'com.android.tools.build:gradle:2.1.2'
   minSdkVersion = 14
   compileSdkVersion = 23
-  buildToolsVersion = '23.0.1'
+  buildToolsVersion = '23.0.3'
 
   ci = 'true'.equals(System.getenv('CI'))
 
