@@ -15,6 +15,7 @@ ext {
   supportAppCompat = 'com.android.support:appcompat-v7:23.1.0'
   supportDesign = 'com.android.support:design:23.1.0'
   supportLeanback = 'com.android.support:leanback-v17:23.1.0'
+  supportPreferenceV7 = 'com.android.support:preference-v7:23.1.0'
 
   supportTestRunner = 'com.android.support.test:runner:0.4.1'
   supportTestRules = 'com.android.support.test:rules:0.4.1'
