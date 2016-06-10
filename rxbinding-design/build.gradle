@@ -42,7 +42,6 @@ android {
   lintOptions {
     textReport true
     textOutput 'stdout'
-    disable 'ResourceType', 'PrivateResource'
   }
 
   buildTypes {
