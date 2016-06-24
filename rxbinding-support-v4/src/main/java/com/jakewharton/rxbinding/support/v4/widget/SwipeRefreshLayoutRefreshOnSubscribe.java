@@ -19,7 +19,9 @@ final class SwipeRefreshLayoutRefreshOnSubscribe implements Observable.OnSubscri
 
     SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
       @Override public void onRefresh() {
-        subscriber.onNext(null);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(null);
+        }
       }
     };
     view.setOnRefreshListener(listener);
