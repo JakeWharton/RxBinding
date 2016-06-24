@@ -11,13 +11,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.SwipeRefreshLayout;
 import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import com.jakewharton.rxbinding.support.v4.test.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -35,19 +35,18 @@ public final class RxSwipeRefreshLayoutTest {
     view = activity.swipeRefreshLayout;
   }
 
-  @Ignore("https://github.com/JakeWharton/RxBinding/issues/72")
-  @Test public void refreshes() {
+  @Test public void refreshes() throws InterruptedException {
     RecordingObserver<Void> o = new RecordingObserver<>();
     Subscription subscription = RxSwipeRefreshLayout.refreshes(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    onView(withId(1)).perform(swipeDown());
+    onView(withId(R.id.swipe_refresh_layout)).perform(swipeDown());
     o.takeNext();
 
     subscription.unsubscribe();
-    onView(withId(1)).perform(swipeDown());
+    onView(withId(R.id.swipe_refresh_layout)).perform(swipeDown());
     o.assertNoMoreEvents();
   }
 
