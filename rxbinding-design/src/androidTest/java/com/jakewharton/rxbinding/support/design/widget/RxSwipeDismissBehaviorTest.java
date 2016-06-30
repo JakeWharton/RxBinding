@@ -2,23 +2,22 @@ package com.jakewharton.rxbinding.support.design.widget;
 
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.SwipeDismissBehavior;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.GeneralLocation;
-import android.support.test.espresso.action.GeneralSwipeAction;
-import android.support.test.espresso.action.Press;
-import android.support.test.espresso.action.Swipe;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
+
 import com.jakewharton.rxbinding.RecordingObserver;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.google.common.truth.Truth.assertThat;
 
@@ -51,10 +50,5 @@ public final class RxSwipeDismissBehaviorTest {
 
     onView(withId(1)).perform(swipeRight());
     o.assertNoMoreEvents();
-  }
-
-  private static ViewAction swipeRight() {
-    return new GeneralSwipeAction(Swipe.SLOW, GeneralLocation.CENTER_LEFT,
-        GeneralLocation.CENTER_RIGHT, Press.FINGER);
   }
 }

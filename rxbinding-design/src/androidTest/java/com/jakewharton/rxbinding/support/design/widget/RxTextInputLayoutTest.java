@@ -7,11 +7,16 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
+import android.widget.EditText;
+
 import com.jakewharton.rxbinding.support.design.test.R;
-import java.lang.reflect.Field;
+
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.lang.reflect.Field;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -22,6 +27,12 @@ public class RxTextInputLayoutTest {
   private final Context rawContext = InstrumentationRegistry.getContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final TextInputLayout view = new TextInputLayout(context);
+  private final EditText editText = new EditText(context);
+
+  @Before
+  public void setUp() {
+    view.addView(editText);
+  }
 
   @Test @UiThreadTest public void counterEnabled()
       throws NoSuchFieldException, IllegalAccessException {
