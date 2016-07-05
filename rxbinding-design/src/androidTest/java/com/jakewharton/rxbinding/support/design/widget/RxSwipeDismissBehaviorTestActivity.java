@@ -9,6 +9,7 @@ public class RxSwipeDismissBehaviorTestActivity extends Activity {
   CoordinatorLayout parent;
   View view;
 
+  @SuppressWarnings("ResourceType")
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 

@@ -7,8 +7,9 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
+import android.widget.EditText;
 import com.jakewharton.rxbinding.support.design.test.R;
-import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +24,13 @@ public class RxTextInputLayoutTest {
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final TextInputLayout view = new TextInputLayout(context);
 
-  @Test @UiThreadTest public void counterEnabled()
-      throws NoSuchFieldException, IllegalAccessException {
+  @Before public void setUp() {
+    view.addView(new EditText(context));
+  }
+
+  @Test @UiThreadTest public void counterEnabled() {
     RxTextInputLayout.counterEnabled(view).call(true);
-    // TODO replace with getter once http://b.android.com/191175 is fixed.
-    Field field = view.getClass().getDeclaredField("mCounterEnabled");
-    field.setAccessible(true);
-    assertThat(field.get(view)).isEqualTo(true);
+    assertThat(view.isCounterEnabled()).isEqualTo(true);
   }
 
   @Test @UiThreadTest public void counterMaxLength() {
