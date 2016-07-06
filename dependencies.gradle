@@ -16,8 +16,8 @@ ext {
   supportDesign = 'com.android.support:design:24.0.0'
   supportLeanback = 'com.android.support:leanback-v17:24.0.0'
 
-  supportTestRunner = 'com.android.support.test:runner:0.4.1'
-  supportTestRules = 'com.android.support.test:rules:0.4.1'
+  supportTestRunner = 'com.android.support.test:runner:0.5'
+  supportTestRules = 'com.android.support.test:rules:0.5'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2.1'
   supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2.1'
   rxJava = 'io.reactivex:rxjava:1.1.0'
