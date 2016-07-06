@@ -37,6 +37,7 @@ android {
   }
 
   packagingOptions {
-    exclude 'LICENSE.txt'
+    exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+    exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
   }
 }
