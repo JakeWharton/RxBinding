@@ -23,7 +23,7 @@ ext {
   rxJava = 'io.reactivex:rxjava:1.1.0'
   rxAndroid = 'io.reactivex:rxandroid:1.1.0'
   junit = 'junit:junit:4.12'
-  truth = 'com.google.truth:truth:0.27'
+  truth = 'com.google.truth:truth:0.28'
 
   javaParser = 'com.github.javaparser:javaparser-core:2.1.0'
 }
