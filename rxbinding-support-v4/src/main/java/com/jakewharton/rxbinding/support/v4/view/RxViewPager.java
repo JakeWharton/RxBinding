@@ -9,6 +9,19 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 public final class RxViewPager {
   /**
+   * Create an observable of scroll state change events on {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   */
+  @CheckResult @NonNull
+  public static Observable<Integer> pageScrollStateChanges(@NonNull ViewPager view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new ViewPagerPageScrollStateChangedOnSubscribe(view));
+  }
+
+  /**
    * Create an observable of page selected events on {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe

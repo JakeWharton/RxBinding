@@ -4,6 +4,15 @@ import android.support.v4.view.ViewPager
 import rx.Observable
 
 /**
+ * Create an observable of scroll state change events on `view`.
+ *
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ *
+ */
+public inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pageScrollStateChanges(this)
+
+/**
  * Create an observable of page selected events on `view`.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
