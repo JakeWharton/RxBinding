@@ -11,10 +11,12 @@ import android.widget.FrameLayout;
 public final class RxViewPagerTestActivity extends Activity {
   ViewPager viewPager;
 
+  @SuppressWarnings("ResourceType")
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     viewPager = new ViewPager(this);
+    viewPager.setId(1);
     viewPager.setAdapter(new Adapter());
 
     setContentView(viewPager);
