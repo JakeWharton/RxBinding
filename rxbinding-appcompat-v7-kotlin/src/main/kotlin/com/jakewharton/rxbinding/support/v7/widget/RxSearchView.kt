@@ -34,3 +34,15 @@ public inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSe
  * @param submit weather to submit query right after updating query text
  */
 public inline fun SearchView.query(submit: Boolean): Action1<in CharSequence> = RxSearchView.query(this, submit)
+
+/**
+ * Create an observable which emits on {@code view} click events from the search button contained
+ * in {@code view}. The emitted value is unspecified and should only be used as notification.
+ * <p>
+ * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+ * to free this reference.
+ * <p>
+ * <em>Warning:</em> The created observable uses {@link SearchView#setOnSearchClickListener(View.OnClickListener)}
+ * to observe clicks. Only one observable can be used for a view at a time.
+ */
+public inline fun SearchView.clicksSearch(): Observable<Unit> = RxSearchView.clicksSearch(this).map { Unit }

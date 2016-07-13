@@ -3,6 +3,8 @@ package com.jakewharton.rxbinding.support.v7.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
+import android.view.View;
+
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -60,6 +62,23 @@ public final class RxSearchView {
         view.setQuery(text, submit);
       }
     };
+  }
+
+  /**
+   * Create an observable which emits on {@code view} click events from the search button contained
+   * in {@code view}. The emitted value is unspecified and should only be used as notification.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <p>
+   * <em>Warning:</em> The created observable uses {@link SearchView#setOnSearchClickListener(View.OnClickListener)}
+   * to observe clicks. Only one observable can be used for a view at a time.
+   */
+  @CheckResult
+  @NonNull
+  public static Observable<Void> clicksSearch(@NonNull final SearchView view) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new SearchViewClickSearchOnSubscribe(view));
   }
 
   private RxSearchView() {
