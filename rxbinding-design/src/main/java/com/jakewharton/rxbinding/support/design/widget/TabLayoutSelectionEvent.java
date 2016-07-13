@@ -56,6 +56,6 @@ public final class TabLayoutSelectionEvent extends ViewEvent<TabLayout> {
   }
 
   @Override public String toString() {
-    return "ViewTouchEvent{view=" + view() + ", kind=" + kind + ", tab=" + tab + '}';
+    return "TabLayoutSelectionEvent{view=" + view() + ", kind=" + kind + ", tab=" + tab + '}';
   }
 }
