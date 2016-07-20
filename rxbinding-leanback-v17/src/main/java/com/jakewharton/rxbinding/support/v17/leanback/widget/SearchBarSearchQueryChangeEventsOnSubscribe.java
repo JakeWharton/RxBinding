@@ -6,7 +6,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class SearchBarSearchQueryChangeEventsOnSubscribe
     implements Observable.OnSubscribe<SearchBarSearchQueryEvent> {
@@ -17,7 +17,7 @@ final class SearchBarSearchQueryChangeEventsOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super SearchBarSearchQueryEvent> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     SearchBar.SearchBarListener listener = new SearchBar.SearchBarListener() {
 

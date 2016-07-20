@@ -1,32 +1,33 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
-import android.app.Instrumentation;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.SwipeDismissBehavior;
-import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.GeneralLocation;
+import android.support.test.espresso.action.GeneralSwipeAction;
+import android.support.test.espresso.action.Press;
+import android.support.test.espresso.action.Swipe;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
-import static android.view.MotionEvent.ACTION_DOWN;
-import static android.view.MotionEvent.ACTION_MOVE;
-import static android.view.MotionEvent.ACTION_UP;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSwipeDismissBehaviorTest {
   @Rule public final ActivityTestRule<RxSwipeDismissBehaviorTestActivity> activityRule =
       new ActivityTestRule<>(RxSwipeDismissBehaviorTestActivity.class);
 
-  private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
   private View view;
 
   @Before public void setUp() {
@@ -34,6 +35,7 @@ public final class RxSwipeDismissBehaviorTest {
     view = activity.view;
   }
 
+  @Ignore("https://github.com/JakeWharton/RxBinding/issues/263")
   @Test public void dismisses() {
     ((CoordinatorLayout.LayoutParams) view.getLayoutParams()).setBehavior(
         new SwipeDismissBehavior());
@@ -44,18 +46,17 @@ public final class RxSwipeDismissBehaviorTest {
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    doSwipeGesture(view);
+    onView(withId(1)).perform(swipeRight());
     assertThat(o.takeNext()).isEqualTo(view);
 
     subscription.unsubscribe();
 
-    doSwipeGesture(view);
+    onView(withId(1)).perform(swipeRight());
     o.assertNoMoreEvents();
   }
 
-  private void doSwipeGesture(View view) {
-    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_DOWN, 50, 0));
-    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_MOVE, 500, 0));
-    instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_UP, 500, 0));
+  private static ViewAction swipeRight() {
+    return new GeneralSwipeAction(Swipe.SLOW, GeneralLocation.CENTER_LEFT,
+        GeneralLocation.CENTER_RIGHT, Press.FINGER);
   }
 }

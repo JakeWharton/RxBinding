@@ -7,7 +7,7 @@ import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 import rx.functions.Func1;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class TextViewEditorActionOnSubscribe implements Observable.OnSubscribe<Integer> {
   final TextView view;
@@ -19,7 +19,7 @@ final class TextViewEditorActionOnSubscribe implements Observable.OnSubscribe<In
   }
 
   @Override public void call(final Subscriber<? super Integer> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     TextView.OnEditorActionListener listener = new TextView.OnEditorActionListener() {
       @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

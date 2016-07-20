@@ -5,7 +5,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ViewPagerPageSelectedOnSubscribe implements Observable.OnSubscribe<Integer> {
   final ViewPager view;
@@ -15,7 +15,7 @@ final class ViewPagerPageSelectedOnSubscribe implements Observable.OnSubscribe<I
   }
 
   @Override public void call(final Subscriber<? super Integer> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     final ViewPager.OnPageChangeListener listener = new ViewPager.SimpleOnPageChangeListener() {
       @Override public void onPageSelected(int position) {

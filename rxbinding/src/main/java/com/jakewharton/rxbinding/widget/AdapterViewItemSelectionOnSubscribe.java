@@ -7,7 +7,7 @@ import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
 import static android.widget.AdapterView.INVALID_POSITION;
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class AdapterViewItemSelectionOnSubscribe implements Observable.OnSubscribe<Integer> {
   final AdapterView<?> view;
@@ -17,7 +17,7 @@ final class AdapterViewItemSelectionOnSubscribe implements Observable.OnSubscrib
   }
 
   @Override public void call(final Subscriber<? super Integer> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
       @Override

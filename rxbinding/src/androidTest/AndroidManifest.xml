@@ -7,9 +7,11 @@
     <activity android:name=".view.RxViewAttachTestActivity"/>
     <activity android:name=".view.RxViewSystemUiVisibilityTestActivity"/>
     <activity android:name=".widget.RxAdapterViewTestActivity"/>
+    <activity android:name=".widget.RxAbsListViewTestActivity"/>
     <activity android:name=".widget.RxAutoCompleteTextViewTestActivity"/>
     <activity android:name=".widget.RxRatingBarTestActivity"/>
     <activity android:name=".widget.RxSeekBarTestActivity"/>
+    <activity android:name=".widget.RxPopupMenuTestActivity"/>
     <activity
         android:name=".widget.RxToolbarTestActivity"
         android:theme="@android:style/Theme.Material"

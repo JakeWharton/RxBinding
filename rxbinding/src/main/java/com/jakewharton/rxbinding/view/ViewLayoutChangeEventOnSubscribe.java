@@ -5,7 +5,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ViewLayoutChangeEventOnSubscribe
     implements Observable.OnSubscribe<ViewLayoutChangeEvent> {
@@ -16,7 +16,7 @@ final class ViewLayoutChangeEventOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super ViewLayoutChangeEvent> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     final View.OnLayoutChangeListener listener = new View.OnLayoutChangeListener() {
       @Override public void onLayoutChange(View v, int left, int top, int right, int bottom,

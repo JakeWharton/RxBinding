@@ -1,6 +1,36 @@
 Change Log
 ==========
 
+Version 0.4.0 *(2016-02-18)*
+----------------------------
+
+ * New bindings!
+    * `rxbinding`:
+       * `RxAbsListView`:
+          * `scrollEvents` - List scroll events.
+       * `RxAutoCompleteTextView`:
+          * `completionHint` - Sets the hint text at the bottom of the suggestion list.
+          * `threshold` - Sets the minimum number of characters before suggestions are shown.
+       * `RxPopupMenu`:
+          * `itemClicks` - Menu item clicks.
+          * `dismisses` - Menu item dismissal.
+    * `rxbinding-appcompat-v7`:
+       * `RxActionMenuView`:
+          * `itemClicks` - Menu item clicks.
+       * `RxPopupMenu`:
+          * `itemClicks` - Menu item clicks.
+          * `dismisses` - Menu item dismissal.
+    * `rxbinding-design`:
+       * `RxTextInputLayout`:
+          * `error` - Sets the error text for the text input.
+          * `errorRes` - Sets the error text resource for the text input.
+    * `rxbinding-support-v4`:
+       * `RxMenuItemCompat`:
+          * `actionViewEvents`- Menu item action view events.
+ * Update Kotlin modules dependency to v1.0.0.
+ * Fix: Remove 76 needless synthetic accessor methods.
+
+
 Version 0.3.0 *(2015-10-22)*
 ----------------------------
 

@@ -5,7 +5,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class ViewClickOnSubscribe implements Observable.OnSubscribe<Void> {
   final View view;
@@ -15,7 +15,7 @@ final class ViewClickOnSubscribe implements Observable.OnSubscribe<Void> {
   }
 
   @Override public void call(final Subscriber<? super Void> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     View.OnClickListener listener = new View.OnClickListener() {
       @Override public void onClick(View v) {

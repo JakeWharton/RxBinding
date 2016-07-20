@@ -10,32 +10,32 @@ Download
 
 Platform bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 ```
 
 'support-v4' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.3.0'
+compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
 ```
 
 'appcompat-v7' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.3.0'
+compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
 ```
 
 'design' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-design:0.3.0'
+compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
 ```
 
 'recyclerview-v7' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.3.0'
+compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
 ```
 
 'leanback-v17' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-leanback-v17:0.3.0'
+compile 'com.jakewharton.rxbinding:rxbinding-leanback-v17:0.4.0'
 ```
 
 Kotlin extension methods for all of the above libraries are available by appending `-kotlin` to the
@@ -56,7 +56,9 @@ collections of reference-holding objects provided the caller unsubscribes.
 
 Mapping an observable to an Android event (e.g., view clicks) is a direct mapping. The
 library is not responsible for supporting multiple observables bound to the same view.
-Multiple listeners to the same view events can be achieved through `share()`.
+Multiple listeners to the same view events can be achieved through operators like `publish()`,
+`share()`, or `replay()`. Consult the RxJava documentation for which is appropriate for the
+behavior that you want.
 
 Naming conventions of classes and their packages should provide unambiguous information
 on where functionality can be found. Helpers for platform classes can be found in packages

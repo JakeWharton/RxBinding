@@ -7,7 +7,7 @@ import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 import rx.functions.Func0;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class AdapterViewItemLongClickOnSubscribe implements Observable.OnSubscribe<Integer> {
   final AdapterView<?> view;
@@ -19,7 +19,7 @@ final class AdapterViewItemLongClickOnSubscribe implements Observable.OnSubscrib
   }
 
   @Override public void call(final Subscriber<? super Integer> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     AdapterView.OnItemLongClickListener listener = new AdapterView.OnItemLongClickListener() {
       @Override

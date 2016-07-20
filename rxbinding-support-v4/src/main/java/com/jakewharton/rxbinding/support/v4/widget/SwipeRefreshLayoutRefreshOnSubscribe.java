@@ -5,7 +5,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class SwipeRefreshLayoutRefreshOnSubscribe implements Observable.OnSubscribe<Void> {
   final SwipeRefreshLayout view;
@@ -15,11 +15,13 @@ final class SwipeRefreshLayoutRefreshOnSubscribe implements Observable.OnSubscri
   }
 
   @Override public void call(final Subscriber<? super Void> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
       @Override public void onRefresh() {
-        subscriber.onNext(null);
+        if (!subscriber.isUnsubscribed()) {
+          subscriber.onNext(null);
+        }
       }
     };
     view.setOnRefreshListener(listener);

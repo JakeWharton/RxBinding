@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
+import static rx.android.MainThreadSubscription.verifyMainThread;
 
 final class TextViewAfterTextChangeEventOnSubscribe
     implements Observable.OnSubscribe<TextViewAfterTextChangeEvent> {
@@ -18,7 +18,7 @@ final class TextViewAfterTextChangeEventOnSubscribe
   }
 
   @Override public void call(final Subscriber<? super TextViewAfterTextChangeEvent> subscriber) {
-    checkUiThread();
+    verifyMainThread();
 
     final TextWatcher watcher = new TextWatcher() {
       @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
