@@ -7,12 +7,15 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.SearchView;
 import android.view.ContextThemeWrapper;
+
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.support.v7.appcompat.R;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -86,5 +89,22 @@ public final class RxSearchViewTest {
     SearchViewQueryTextEvent event1 = o.takeNext();
     assertThat(event1.queryText().toString()).isEqualTo("q");
     assertThat(event1.isSubmitted()).isTrue();
+  }
+
+  @Test @UiThreadTest public void clicksSearch() {
+    RecordingObserver<Void> o = new RecordingObserver<>();
+    Subscription subscription = RxSearchView.clicksSearch(searchView).subscribe(o);
+    o.assertNoMoreEvents(); // No initial value.
+
+    searchView.setIconified(false);
+    assertThat(o.takeNext()).isNull();
+
+    searchView.setIconified(false);
+    assertThat(o.takeNext()).isNull();
+
+    subscription.unsubscribe();
+
+    searchView.setIconified(false);
+    o.assertNoMoreEvents();
   }
 }
