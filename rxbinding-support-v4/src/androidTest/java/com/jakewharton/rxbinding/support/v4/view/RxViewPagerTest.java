@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -68,6 +69,14 @@ public final class RxViewPagerTest {
 
     view.setCurrentItem(0);
     o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void currentItem() {
+    Action1<? super Integer> action = RxViewPager.currentItem(view);
+    action.call(3);
+    assertThat(view.getCurrentItem()).isEqualTo(3);
+    action.call(5);
+    assertThat(view.getCurrentItem()).isEqualTo(5);
   }
 
   private static ViewAction swipeLeft() {
