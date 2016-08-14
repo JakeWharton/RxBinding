@@ -3,7 +3,9 @@ package com.jakewharton.rxbinding.support.v4.view;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+
 import rx.Observable;
+import rx.functions.Action1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -33,6 +35,22 @@ public final class RxViewPager {
   public static Observable<Integer> pageSelections(@NonNull ViewPager view) {
     checkNotNull(view, "view == null");
     return Observable.create(new ViewPagerPageSelectedOnSubscribe(view));
+  }
+
+  /**
+   * An action which sets the current item of {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> currentItem(@NonNull final ViewPager view) {
+    checkNotNull(view, "view == null");
+    return new Action1<Integer>() {
+      @Override public void call(Integer value) {
+        view.setCurrentItem(value);
+      }
+    };
   }
 
   private RxViewPager() {
