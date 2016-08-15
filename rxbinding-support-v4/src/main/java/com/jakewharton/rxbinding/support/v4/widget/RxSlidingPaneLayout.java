@@ -9,7 +9,8 @@ import rx.functions.Action1;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} for {@link SlidingPaneLayout}
+ * Static factory methods for creating {@linkplain Observable observables}
+ * for {@link SlidingPaneLayout}
  */
 public final class RxSlidingPaneLayout {
   /**
@@ -23,7 +24,8 @@ public final class RxSlidingPaneLayout {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull public static Observable<Boolean> paneOpen(@NonNull SlidingPaneLayout view) {
+  @CheckResult @NonNull public static Observable<Boolean> paneOpen(
+      @NonNull SlidingPaneLayout view) {
     checkNotNull(view, "view == null");
     return Observable.create(new SlidingPaneLayoutPaneOpenedOnSubscribe(view));
   }
@@ -48,7 +50,8 @@ public final class RxSlidingPaneLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull public static Action1<? super Boolean> open(@NonNull final SlidingPaneLayout view) {
+  @CheckResult @NonNull public static Action1<? super Boolean> open(
+      @NonNull final SlidingPaneLayout view) {
     checkNotNull(view, "view == null");
     return new Action1<Boolean>() {
       @Override public void call(Boolean aBoolean) {

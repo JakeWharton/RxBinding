@@ -18,19 +18,20 @@ final class SlidingPaneLayoutPaneOpenedOnSubscribe implements Observable.OnSubsc
   @Override public void call(final Subscriber<? super Boolean> subscriber) {
     verifyMainThread();
 
-    final SlidingPaneLayout.PanelSlideListener listener = new SlidingPaneLayout.SimplePanelSlideListener() {
-      @Override public void onPanelOpened(View panel) {
-        if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(true);
-        }
-      }
+    final SlidingPaneLayout.PanelSlideListener listener =
+        new SlidingPaneLayout.SimplePanelSlideListener() {
+          @Override public void onPanelOpened(View panel) {
+            if (!subscriber.isUnsubscribed()) {
+              subscriber.onNext(true);
+            }
+          }
 
-      @Override public void onPanelClosed(View panel) {
-        if (!subscriber.isUnsubscribed()) {
-          subscriber.onNext(false);
-        }
-      }
-    };
+          @Override public void onPanelClosed(View panel) {
+            if (!subscriber.isUnsubscribed()) {
+              subscriber.onNext(false);
+            }
+          }
+        };
 
     view.setPanelSlideListener(listener);
 
