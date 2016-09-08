@@ -18,7 +18,7 @@ public abstract class ViewEvent<T extends View> {
   }
 
   /** The view from which this event occurred. */
-  public @NonNull T view() {
+  @NonNull public T view() {
     return view;
   }
 }
