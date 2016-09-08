@@ -15,7 +15,7 @@ import rx.functions.Action1
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SlidingPaneLayout.paneOpen(): Observable<Boolean> = RxSlidingPaneLayout.paneOpen(this)
+public inline fun SlidingPaneLayout.paneOpens(): Observable<Boolean> = RxSlidingPaneLayout.paneOpens(this)
 
 /**
  * Create an observable of the slide offset of the pane of `view`
@@ -26,7 +26,7 @@ public inline fun SlidingPaneLayout.paneOpen(): Observable<Boolean> = RxSlidingP
  * *Warning:* The created observable uses [SlidingPaneLayout.setPanelSlideListener]
  * to observe dismiss change. Only one observable can be used for a view at a time.
  */
-public inline fun SlidingPaneLayout.slides(): Observable<Float> = RxSlidingPaneLayout.slides(this)
+public inline fun SlidingPaneLayout.paneSlides(): Observable<Float> = RxSlidingPaneLayout.paneSlides(this)
 
 /**
  * An action which sets whether the pane of `view` is open.
