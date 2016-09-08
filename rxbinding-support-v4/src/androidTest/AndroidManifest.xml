@@ -7,5 +7,6 @@
     <activity android:name=".widget.RxDrawerLayoutTestActivity"/>
     <activity android:name=".widget.RxNestedScrollViewTestActivity"/>
     <activity android:name=".widget.RxSwipeRefreshLayoutTestActivity"/>
+    <activity android:name=".widget.RxSlidingPaneLayoutTestActivity"/>
   </application>
 </manifest>
