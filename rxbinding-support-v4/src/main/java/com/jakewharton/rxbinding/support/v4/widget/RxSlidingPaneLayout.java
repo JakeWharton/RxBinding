@@ -24,7 +24,7 @@ public final class RxSlidingPaneLayout {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull public static Observable<Boolean> paneOpens(
+  @CheckResult @NonNull public static Observable<Boolean> panelOpens(
       @NonNull SlidingPaneLayout view) {
     checkNotNull(view, "view == null");
     return Observable.create(new SlidingPaneLayoutPaneOpenedOnSubscribe(view));
@@ -39,7 +39,7 @@ public final class RxSlidingPaneLayout {
    * <em>Warning:</em> The created observable uses {@link SlidingPaneLayout#setPanelSlideListener}
    * to observe dismiss change. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull public static Observable<Float> paneSlides(@NonNull SlidingPaneLayout view) {
+  @CheckResult @NonNull public static Observable<Float> panelSlides(@NonNull SlidingPaneLayout view) {
     checkNotNull(view, "view == null");
     return Observable.create(new SlidingPaneLayoutSlideOnSubscribe(view));
   }

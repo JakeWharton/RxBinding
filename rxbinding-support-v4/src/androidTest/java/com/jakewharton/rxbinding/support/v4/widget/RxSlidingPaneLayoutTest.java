@@ -51,7 +51,7 @@ import static com.google.common.truth.Truth.assertThat;
   @Test public void paneOpen() {
     RecordingObserver<Boolean> o = new RecordingObserver<>();
     Subscription subscription =
-        RxSlidingPaneLayout.paneOpens(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o);
+        RxSlidingPaneLayout.panelOpens(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o);
     assertThat(o.takeNext()).isFalse();
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -81,7 +81,7 @@ import static com.google.common.truth.Truth.assertThat;
   @Test public void slides() {
     RecordingObserver<Float> o1 = new RecordingObserver<>();
     Subscription subscription1 =
-        RxSlidingPaneLayout.paneSlides(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o1);
+        RxSlidingPaneLayout.panelSlides(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o1);
     o1.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -97,7 +97,7 @@ import static com.google.common.truth.Truth.assertThat;
 
     RecordingObserver<Float> o2 = new RecordingObserver<>();
     Subscription subscription2 =
-        RxSlidingPaneLayout.paneSlides(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o2);
+        RxSlidingPaneLayout.panelSlides(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o2);
     o2.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
