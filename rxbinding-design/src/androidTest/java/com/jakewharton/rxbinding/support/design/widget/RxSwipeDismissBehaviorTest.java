@@ -12,7 +12,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +34,6 @@ public final class RxSwipeDismissBehaviorTest {
     view = activity.view;
   }
 
-  @Ignore("https://github.com/JakeWharton/RxBinding/issues/263")
   @Test public void dismisses() {
     ((CoordinatorLayout.LayoutParams) view.getLayoutParams()).setBehavior(
         new SwipeDismissBehavior());
@@ -56,7 +54,7 @@ public final class RxSwipeDismissBehaviorTest {
   }
 
   private static ViewAction swipeRight() {
-    return new GeneralSwipeAction(Swipe.SLOW, GeneralLocation.CENTER_LEFT,
+    return new GeneralSwipeAction(Swipe.FAST, GeneralLocation.CENTER_LEFT,
         GeneralLocation.CENTER_RIGHT, Press.FINGER);
   }
 }
