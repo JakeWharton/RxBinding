@@ -364,6 +364,39 @@ public final class RxView {
   }
 
   /**
+   * Create an observable of key events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <em>Warning:</em> The created observable uses {@link View#setOnKeyListener} to observe
+   * key events. Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<ViewKeyEvent> keys(@NonNull View view) {
+    checkNotNull(view, "view == null");
+    return keys(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of key events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <em>Warning:</em> The created observable uses {@link View#setOnKeyListener} to observe
+   * key events. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked each occurrence to determine the return value of the
+   * underlying {@link View.OnKeyListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<ViewKeyEvent> keys(@NonNull View view,
+      @NonNull Func1<? super ViewKeyEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
+    return Observable.create(new ViewKeyOnSubscribe(view, handled));
+  }
+
+  /**
    * An action which sets the activated property of {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
