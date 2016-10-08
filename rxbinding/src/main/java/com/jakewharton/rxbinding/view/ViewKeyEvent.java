@@ -1,7 +1,6 @@
 package com.jakewharton.rxbinding.view;
 
 import android.content.Context;
-import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;

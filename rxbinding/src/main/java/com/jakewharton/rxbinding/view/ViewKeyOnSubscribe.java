@@ -1,6 +1,5 @@
 package com.jakewharton.rxbinding.view;
 
-import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
 
