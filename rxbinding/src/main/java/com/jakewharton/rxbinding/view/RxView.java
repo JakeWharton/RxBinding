@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.DragEvent;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -372,7 +373,7 @@ public final class RxView {
    * key events. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<ViewKeyEvent> keys(@NonNull View view) {
+  public static Observable<KeyEvent> keys(@NonNull View view) {
     checkNotNull(view, "view == null");
     return keys(view, Functions.FUNC1_ALWAYS_TRUE);
   }
@@ -389,8 +390,8 @@ public final class RxView {
    * underlying {@link View.OnKeyListener}.
    */
   @CheckResult @NonNull
-  public static Observable<ViewKeyEvent> keys(@NonNull View view,
-      @NonNull Func1<? super ViewKeyEvent, Boolean> handled) {
+  public static Observable<KeyEvent> keys(@NonNull View view,
+      @NonNull Func1<? super KeyEvent, Boolean> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return Observable.create(new ViewKeyOnSubscribe(view, handled));

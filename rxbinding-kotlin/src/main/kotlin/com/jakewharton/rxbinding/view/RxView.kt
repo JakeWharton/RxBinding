@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.view
 
 import android.view.DragEvent
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
@@ -267,7 +268,7 @@ public inline fun View.touches(handled: Func1<in MotionEvent, Boolean>): Observa
  * *Warning:* The created observable uses [View.setOnKeyListener] to observe
  * key events. Only one observable can be used for a view at a time.
  */
-public inline fun View.keys(): Observable<ViewKeyEvent> = RxView.keys(this)
+public inline fun View.keys(): Observable<KeyEvent> = RxView.keys(this)
 
 /**
  * Create an observable of key events for `view`.
@@ -280,7 +281,7 @@ public inline fun View.keys(): Observable<ViewKeyEvent> = RxView.keys(this)
  * @param handled Function invoked each occurrence to determine the return value of the
  * underlying [View.OnKeyListener].
  */
-public inline fun View.keys(handled: Func1<in ViewKeyEvent, Boolean>): Observable<ViewKeyEvent> = RxView.keys(this, handled)
+public inline fun View.keys(handled: Func1<in KeyEvent, Boolean>): Observable<KeyEvent> = RxView.keys(this, handled)
 
 /**
  * An action which sets the activated property of `view`.

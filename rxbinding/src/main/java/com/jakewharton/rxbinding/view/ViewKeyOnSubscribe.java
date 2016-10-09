@@ -10,16 +10,16 @@ import rx.functions.Func1;
 
 import static rx.android.MainThreadSubscription.verifyMainThread;
 
-final class ViewKeyOnSubscribe implements Observable.OnSubscribe<ViewKeyEvent> {
+final class ViewKeyOnSubscribe implements Observable.OnSubscribe<KeyEvent> {
   private final View view;
-  private final Func1<? super ViewKeyEvent, Boolean> handled;
+  private final Func1<? super KeyEvent, Boolean> handled;
 
-  ViewKeyOnSubscribe(View view, Func1<? super ViewKeyEvent, Boolean> handled) {
+  ViewKeyOnSubscribe(View view, Func1<? super KeyEvent, Boolean> handled) {
     this.view = view;
     this.handled = handled;
   }
 
-  @Override public void call(final Subscriber<? super ViewKeyEvent> subscriber) {
+  @Override public void call(final Subscriber<? super KeyEvent> subscriber) {
     verifyMainThread();
 
     View.OnKeyListener keyListener = new View.OnKeyListener() {
@@ -28,11 +28,10 @@ final class ViewKeyOnSubscribe implements Observable.OnSubscribe<ViewKeyEvent> {
           return false;
         }
 
-        ViewKeyEvent event = new ViewKeyEvent(view, keyCode, keyEvent);
-        if (!handled.call(event)) {
+        if (!handled.call(keyEvent)) {
           return false;
         } else {
-          subscriber.onNext(event);
+          subscriber.onNext(keyEvent);
           return true;
         }
       }

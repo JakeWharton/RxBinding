@@ -271,17 +271,17 @@ public final class RxViewTest {
   }
 
   @Test @UiThreadTest public void keys() {
-    RecordingObserver<ViewKeyEvent> o = new RecordingObserver<>();
+    RecordingObserver<KeyEvent> o = new RecordingObserver<>();
     Subscription subscription = RxView.keys(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_R));
-    ViewKeyEvent event1 = o.takeNext();
-    assertThat(event1.keyEvent().getAction()).isEqualTo(KeyEvent.ACTION_DOWN);
+    KeyEvent event1 = o.takeNext();
+    assertThat(event1.getAction()).isEqualTo(KeyEvent.ACTION_DOWN);
 
     view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_H));
-    ViewKeyEvent event2 = o.takeNext();
-    assertThat(event2.keyCode()).isEqualTo(KeyEvent.KEYCODE_H);
+    KeyEvent event2 = o.takeNext();
+    assertThat(event2.getKeyCode()).isEqualTo(KeyEvent.KEYCODE_H);
 
     subscription.unsubscribe();
 
