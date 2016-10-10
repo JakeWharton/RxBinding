@@ -17,7 +17,7 @@ import rx.functions.Func1
  * *Warning:* The created observable uses [MenuItem.setOnMenuItemClickListener] to
  * observe clicks. Only one observable can be used for a menu item at a time.
  */
-public inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map { Unit }
+inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map { Unit }
 
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
@@ -32,7 +32,7 @@ public inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [MenuItem.OnMenuItemClickListener].
  */
-public inline fun MenuItem.clicks(handled: Func1<in MenuItem, Boolean>): Observable<Unit> = RxMenuItem.clicks(this, handled).map { Unit }
+inline fun MenuItem.clicks(handled: Func1<in MenuItem, Boolean>): Observable<Unit> = RxMenuItem.clicks(this, handled).map { Unit }
 
 /**
  * Create an observable of action view events for `menuItem`.
@@ -43,7 +43,7 @@ public inline fun MenuItem.clicks(handled: Func1<in MenuItem, Boolean>): Observa
  * *Warning:* The created observable uses [MenuItem.setOnActionExpandListener] to
  * observe action view events. Only one observable can be used for a menu item at a time.
  */
-public inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this)
+inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this)
 
 /**
  * Create an observable of action view events for `menuItem`.
@@ -57,7 +57,7 @@ public inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEven
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [MenuItem.OnActionExpandListener].
  */
-public inline fun MenuItem.actionViewEvents(handled: Func1<in MenuItemActionViewEvent, Boolean>): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this, handled)
+inline fun MenuItem.actionViewEvents(handled: Func1<in MenuItemActionViewEvent, Boolean>): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this, handled)
 
 /**
  * An action which sets the checked property of `menuItem`.
@@ -65,7 +65,7 @@ public inline fun MenuItem.actionViewEvents(handled: Func1<in MenuItemActionView
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.checked(): Action1<in Boolean> = RxMenuItem.checked(this)
+inline fun MenuItem.checked(): Action1<in Boolean> = RxMenuItem.checked(this)
 
 /**
  * An action which sets the enabled property of `menuItem`.
@@ -73,7 +73,7 @@ public inline fun MenuItem.checked(): Action1<in Boolean> = RxMenuItem.checked(t
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.enabled(): Action1<in Boolean> = RxMenuItem.enabled(this)
+inline fun MenuItem.enabled(): Action1<in Boolean> = RxMenuItem.enabled(this)
 
 /**
  * An action which sets the icon property of `menuItem`.
@@ -81,7 +81,7 @@ public inline fun MenuItem.enabled(): Action1<in Boolean> = RxMenuItem.enabled(t
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.icon(): Action1<in Drawable> = RxMenuItem.icon(this)
+inline fun MenuItem.icon(): Action1<in Drawable> = RxMenuItem.icon(this)
 
 /**
  * An action which sets the icon property of `menuItem`.
@@ -89,7 +89,7 @@ public inline fun MenuItem.icon(): Action1<in Drawable> = RxMenuItem.icon(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.iconRes(): Action1<in Int> = RxMenuItem.iconRes(this)
+inline fun MenuItem.iconRes(): Action1<in Int> = RxMenuItem.iconRes(this)
 
 /**
  * An action which sets the title property of `menuItem`.
@@ -97,7 +97,7 @@ public inline fun MenuItem.iconRes(): Action1<in Int> = RxMenuItem.iconRes(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.title(): Action1<in CharSequence> = RxMenuItem.title(this)
+inline fun MenuItem.title(): Action1<in CharSequence> = RxMenuItem.title(this)
 
 /**
  * An action which sets the title property of `menuItem`.
@@ -105,7 +105,7 @@ public inline fun MenuItem.title(): Action1<in CharSequence> = RxMenuItem.title(
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.titleRes(): Action1<in Int> = RxMenuItem.titleRes(this)
+inline fun MenuItem.titleRes(): Action1<in Int> = RxMenuItem.titleRes(this)
 
 /**
  * An action which sets the visibility property of `menuItem`.
@@ -113,4 +113,4 @@ public inline fun MenuItem.titleRes(): Action1<in Int> = RxMenuItem.titleRes(thi
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-public inline fun MenuItem.visible(): Action1<in Boolean> = RxMenuItem.visible(this)
+inline fun MenuItem.visible(): Action1<in Boolean> = RxMenuItem.visible(this)

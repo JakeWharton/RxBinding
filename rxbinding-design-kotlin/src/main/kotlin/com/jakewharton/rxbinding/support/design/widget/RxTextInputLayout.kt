@@ -9,7 +9,7 @@ import rx.functions.Action1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextInputLayout.counterEnabled(): Action1<in Boolean> = RxTextInputLayout.counterEnabled(this)
+inline fun TextInputLayout.counterEnabled(): Action1<in Boolean> = RxTextInputLayout.counterEnabled(this)
 
 /**
  * An action which sets the counterMaxLength property of `view` with an integer value.
@@ -17,7 +17,7 @@ public inline fun TextInputLayout.counterEnabled(): Action1<in Boolean> = RxText
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextInputLayout.counterMaxLength(): Action1<in Int> = RxTextInputLayout.counterMaxLength(this)
+inline fun TextInputLayout.counterMaxLength(): Action1<in Int> = RxTextInputLayout.counterMaxLength(this)
 
 /**
  * An action which sets the error text of `view` with a character sequence.
@@ -25,7 +25,7 @@ public inline fun TextInputLayout.counterMaxLength(): Action1<in Int> = RxTextIn
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextInputLayout.error(): Action1<in CharSequence> = RxTextInputLayout.error(this)
+inline fun TextInputLayout.error(): Action1<in CharSequence> = RxTextInputLayout.error(this)
 
 /**
  * An action which sets the error text of `view` with a string resource.
@@ -33,7 +33,7 @@ public inline fun TextInputLayout.error(): Action1<in CharSequence> = RxTextInpu
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextInputLayout.errorRes(): Action1<in Int> = RxTextInputLayout.errorRes(this)
+inline fun TextInputLayout.errorRes(): Action1<in Int> = RxTextInputLayout.errorRes(this)
 
 /**
  * An action which sets the hint property of `view` with character sequences.
@@ -41,7 +41,7 @@ public inline fun TextInputLayout.errorRes(): Action1<in Int> = RxTextInputLayou
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextInputLayout.hint(): Action1<in CharSequence> = RxTextInputLayout.hint(this)
+inline fun TextInputLayout.hint(): Action1<in CharSequence> = RxTextInputLayout.hint(this)
 
 /**
  * An action which sets the hint property of `view` string resource IDs.
@@ -49,4 +49,4 @@ public inline fun TextInputLayout.hint(): Action1<in CharSequence> = RxTextInput
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextInputLayout.hintRes(): Action1<in Int> = RxTextInputLayout.hintRes(this)
+inline fun TextInputLayout.hintRes(): Action1<in Int> = RxTextInputLayout.hintRes(this)

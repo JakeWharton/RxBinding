@@ -15,7 +15,7 @@ import rx.functions.Func1
  * *Warning:* The created observable uses [TextView.OnEditorActionListener] to
  * observe actions. Only one observable can be used for a view at a time.
  */
-public inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorActions(this)
+inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorActions(this)
 
 /**
  * Create an observable of editor actions on `view`.
@@ -29,7 +29,7 @@ public inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorA
  * @param handled Function invoked each occurrence to determine the return value of the
  * underlying [TextView.OnEditorActionListener].
  */
-public inline fun TextView.editorActions(handled: Func1<in Int, Boolean>): Observable<Int> = RxTextView.editorActions(this, handled)
+inline fun TextView.editorActions(handled: Func1<in Int, Boolean>): Observable<Int> = RxTextView.editorActions(this, handled)
 
 /**
  * Create an observable of editor action events on `view`.
@@ -40,7 +40,7 @@ public inline fun TextView.editorActions(handled: Func1<in Int, Boolean>): Obser
  * *Warning:* The created observable uses [TextView.OnEditorActionListener] to
  * observe actions. Only one observable can be used for a view at a time.
  */
-public inline fun TextView.editorActionEvents(): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this)
+inline fun TextView.editorActionEvents(): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this)
 
 /**
  * Create an observable of editor action events on `view`.
@@ -54,7 +54,7 @@ public inline fun TextView.editorActionEvents(): Observable<TextViewEditorAction
  * @param handled Function invoked each occurrence to determine the return value of the
  * underlying [TextView.OnEditorActionListener].
  */
-public inline fun TextView.editorActionEvents(handled: Func1<in TextViewEditorActionEvent, Boolean>): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this, handled)
+inline fun TextView.editorActionEvents(handled: Func1<in TextViewEditorActionEvent, Boolean>): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this, handled)
 
 /**
  * Create an observable of character sequences for text changes on `view`.
@@ -70,7 +70,7 @@ public inline fun TextView.editorActionEvents(handled: Func1<in TextViewEditorAc
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.textChanges(this)
+inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.textChanges(this)
 
 /**
  * Create an observable of text change events for `view`.
@@ -86,7 +86,7 @@ public inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
+inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
 
 /**
  * Create an observable of before text change events for `view`.
@@ -96,7 +96,7 @@ public inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEven
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun TextView.beforeTextChangeEvents(): Observable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
+inline fun TextView.beforeTextChangeEvents(): Observable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
 
 /**
  * Create an observable of after text change events for `view`.
@@ -106,7 +106,7 @@ public inline fun TextView.beforeTextChangeEvents(): Observable<TextViewBeforeTe
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun TextView.afterTextChangeEvents(): Observable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
+inline fun TextView.afterTextChangeEvents(): Observable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
 
 /**
  * An action which sets the text property of `view` with character sequences.
@@ -114,7 +114,7 @@ public inline fun TextView.afterTextChangeEvents(): Observable<TextViewAfterText
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.text(): Action1<in CharSequence> = RxTextView.text(this)
+inline fun TextView.text(): Action1<in CharSequence> = RxTextView.text(this)
 
 /**
  * An action which sets the text property of `view` string resource IDs.
@@ -122,7 +122,7 @@ public inline fun TextView.text(): Action1<in CharSequence> = RxTextView.text(th
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.textRes(): Action1<in Int> = RxTextView.textRes(this)
+inline fun TextView.textRes(): Action1<in Int> = RxTextView.textRes(this)
 
 /**
  * An action which sets the error property of `view` with character sequences.
@@ -130,7 +130,7 @@ public inline fun TextView.textRes(): Action1<in Int> = RxTextView.textRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.error(): Action1<in CharSequence> = RxTextView.error(this)
+inline fun TextView.error(): Action1<in CharSequence> = RxTextView.error(this)
 
 /**
  * An action which sets the error property of `view` string resource IDs.
@@ -138,7 +138,7 @@ public inline fun TextView.error(): Action1<in CharSequence> = RxTextView.error(
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.errorRes(): Action1<in Int> = RxTextView.errorRes(this)
+inline fun TextView.errorRes(): Action1<in Int> = RxTextView.errorRes(this)
 
 /**
  * An action which sets the hint property of `view` with character sequences.
@@ -146,7 +146,7 @@ public inline fun TextView.errorRes(): Action1<in Int> = RxTextView.errorRes(thi
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.hint(): Action1<in CharSequence> = RxTextView.hint(this)
+inline fun TextView.hint(): Action1<in CharSequence> = RxTextView.hint(this)
 
 /**
  * An action which sets the hint property of `view` string resource IDs.
@@ -154,7 +154,7 @@ public inline fun TextView.hint(): Action1<in CharSequence> = RxTextView.hint(th
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.hintRes(): Action1<in Int> = RxTextView.hintRes(this)
+inline fun TextView.hintRes(): Action1<in Int> = RxTextView.hintRes(this)
 
 /**
  * An action which sets the color property of `view` with color integer.
@@ -162,4 +162,4 @@ public inline fun TextView.hintRes(): Action1<in Int> = RxTextView.hintRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextView.color(): Action1<in Int> = RxTextView.color(this)
+inline fun TextView.color(): Action1<in Int> = RxTextView.color(this)

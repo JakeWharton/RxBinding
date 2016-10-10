@@ -10,4 +10,4 @@ import rx.Observable
  * *Warning:* The created observable keeps a strong reference to `view`.
  * Unsubscribe to free this reference.
  */
-public inline fun NestedScrollView.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxNestedScrollView.scrollChangeEvents(this)
+inline fun NestedScrollView.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxNestedScrollView.scrollChangeEvents(this)

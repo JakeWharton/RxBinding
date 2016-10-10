@@ -13,7 +13,7 @@ import rx.functions.Action1
  *
  * *Note:* If a tab is already selected, it will be emitted immediately on subscribe.
  */
-public inline fun TabLayout.selections(): Observable<Tab> = RxTabLayout.selections(this)
+inline fun TabLayout.selections(): Observable<Tab> = RxTabLayout.selections(this)
 
 /**
  * Create an observable which emits selection, reselection, and unselection events for the tabs
@@ -24,7 +24,7 @@ public inline fun TabLayout.selections(): Observable<Tab> = RxTabLayout.selectio
  *
  * *Note:* If a tab is already selected, an event will be emitted immediately on subscribe.
  */
-public inline fun TabLayout.selectionEvents(): Observable<TabLayoutSelectionEvent> = RxTabLayout.selectionEvents(this)
+inline fun TabLayout.selectionEvents(): Observable<TabLayoutSelectionEvent> = RxTabLayout.selectionEvents(this)
 
 /**
  * An action which sets the selected tab of `view`.
@@ -32,4 +32,4 @@ public inline fun TabLayout.selectionEvents(): Observable<TabLayoutSelectionEven
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TabLayout.select(): Action1<in Int> = RxTabLayout.select(this)
+inline fun TabLayout.select(): Action1<in Int> = RxTabLayout.select(this)

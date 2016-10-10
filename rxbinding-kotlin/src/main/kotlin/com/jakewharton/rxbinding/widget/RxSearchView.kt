@@ -13,7 +13,7 @@ import rx.functions.Action1
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
+inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
 
 /**
  * Create an observable of character sequences for query text changes on `view`.
@@ -23,7 +23,7 @@ public inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQuery
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchView.queryTextChanges(this)
+inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchView.queryTextChanges(this)
 
 /**
  * An action which sets the query property of `view` with character sequences.
@@ -33,4 +33,4 @@ public inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSe
  *
  * @param submit weather to submit query right after updating query text
  */
-public inline fun SearchView.query(submit: Boolean): Action1<in CharSequence> = RxSearchView.query(this, submit)
+inline fun SearchView.query(submit: Boolean): Action1<in CharSequence> = RxSearchView.query(this, submit)

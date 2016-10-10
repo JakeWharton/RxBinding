@@ -13,4 +13,4 @@ import rx.Observable
  * *Note:* If an item is already selected, it will be emitted immediately on subscribe.
  * This behavior assumes but does not enforce that the items are exclusively checkable.
  */
-public inline fun NavigationView.itemSelections(): Observable<MenuItem> = RxNavigationView.itemSelections(this)
+inline fun NavigationView.itemSelections(): Observable<MenuItem> = RxNavigationView.itemSelections(this)

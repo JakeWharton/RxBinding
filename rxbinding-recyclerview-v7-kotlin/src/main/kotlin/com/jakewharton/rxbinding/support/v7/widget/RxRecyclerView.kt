@@ -9,7 +9,7 @@ import rx.Observable
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
-public inline fun RecyclerView.childAttachStateChangeEvents(): Observable<RecyclerViewChildAttachStateChangeEvent> = RxRecyclerView.childAttachStateChangeEvents(this)
+inline fun RecyclerView.childAttachStateChangeEvents(): Observable<RecyclerViewChildAttachStateChangeEvent> = RxRecyclerView.childAttachStateChangeEvents(this)
 
 /**
  * Create an observable of scroll events on `recyclerView`.
@@ -17,7 +17,7 @@ public inline fun RecyclerView.childAttachStateChangeEvents(): Observable<Recycl
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
-public inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = RxRecyclerView.scrollEvents(this)
+inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = RxRecyclerView.scrollEvents(this)
 
 /**
  * Create an observable of scroll state changes on `recyclerView`.
@@ -25,4 +25,4 @@ public inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEven
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
-public inline fun RecyclerView.scrollStateChanges(): Observable<Int> = RxRecyclerView.scrollStateChanges(this)
+inline fun RecyclerView.scrollStateChanges(): Observable<Int> = RxRecyclerView.scrollStateChanges(this)

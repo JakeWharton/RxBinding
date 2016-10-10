@@ -13,4 +13,4 @@ import rx.Observable
  * {@link AbsListView#setOnScrollListener(AbsListView.OnScrollListener)} to observe scroll
  * changes. Only one observable can be used for a view at a time.
  */
-public inline fun AbsListView.scrollEvents(): Observable<AbsListViewScrollEvent> = RxAbsListView.scrollEvents(this)
+inline fun AbsListView.scrollEvents(): Observable<AbsListViewScrollEvent> = RxAbsListView.scrollEvents(this)

@@ -12,7 +12,7 @@ import rx.functions.Action1
  * to free this reference.
  *
  */
-public inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryEvent> = RxSearchBar.searchQueryChangeEvents(this)
+inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryEvent> = RxSearchBar.searchQueryChangeEvents(this)
 
 /**
  * Create an observable of String values for search query changes on `view`.
@@ -21,7 +21,7 @@ public inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearc
  * to free this reference.
  *
  */
-public inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.searchQueryChanges(this)
+inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.searchQueryChanges(this)
 
 /**
  * An action which sets the searchQuery property of `view` with String values.
@@ -29,4 +29,4 @@ public inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchB
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun SearchBar.searchQuery(): Action1<in String> = RxSearchBar.searchQuery(this)
+inline fun SearchBar.searchQuery(): Action1<in String> = RxSearchBar.searchQuery(this)

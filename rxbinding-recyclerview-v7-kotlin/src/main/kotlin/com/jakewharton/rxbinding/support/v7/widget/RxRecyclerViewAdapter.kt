@@ -9,4 +9,4 @@ import rx.Observable
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun <T : Adapter<out ViewHolder>> T.dataChanges(): Observable<T> = RxRecyclerViewAdapter.dataChanges(this)
+inline fun <T : Adapter<out ViewHolder>> T.dataChanges(): Observable<T> = RxRecyclerViewAdapter.dataChanges(this)

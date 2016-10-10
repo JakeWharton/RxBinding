@@ -9,4 +9,4 @@ import rx.functions.Action1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun CheckedTextView.check(): Action1<in Boolean> = RxCheckedTextView.check(this)
+inline fun CheckedTextView.check(): Action1<in Boolean> = RxCheckedTextView.check(this)

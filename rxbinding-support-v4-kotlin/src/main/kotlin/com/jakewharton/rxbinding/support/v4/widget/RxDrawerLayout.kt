@@ -12,7 +12,7 @@ import rx.functions.Action1
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun DrawerLayout.drawerOpen(gravity: Int): Observable<Boolean> = RxDrawerLayout.drawerOpen(this, gravity)
+inline fun DrawerLayout.drawerOpen(gravity: Int): Observable<Boolean> = RxDrawerLayout.drawerOpen(this, gravity)
 
 /**
  * An action which sets whether the drawer with `gravity` of `view` is open.
@@ -20,4 +20,4 @@ public inline fun DrawerLayout.drawerOpen(gravity: Int): Observable<Boolean> = R
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun DrawerLayout.open(gravity: Int): Action1<in Boolean> = RxDrawerLayout.open(this, gravity)
+inline fun DrawerLayout.open(gravity: Int): Action1<in Boolean> = RxDrawerLayout.open(this, gravity)
