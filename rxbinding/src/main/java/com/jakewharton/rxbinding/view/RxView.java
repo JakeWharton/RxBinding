@@ -1,16 +1,14 @@
 package com.jakewharton.rxbinding.view;
 
-import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-
 import com.jakewharton.rxbinding.internal.Functions;
-
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func0;
@@ -294,7 +292,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @TargetApi(M)
+  @RequiresApi(M)
   @CheckResult @NonNull
   public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
     checkNotNull(view, "view == null");
