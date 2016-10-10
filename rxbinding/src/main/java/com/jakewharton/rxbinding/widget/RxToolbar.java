@@ -1,11 +1,10 @@
 package com.jakewharton.rxbinding.widget;
 
-import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.view.MenuItem;
 import android.widget.Toolbar;
-
 import rx.Observable;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
@@ -14,7 +13,7 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link Toolbar}.
  */
-@TargetApi(LOLLIPOP)
+@RequiresApi(LOLLIPOP)
 public final class RxToolbar {
   /**
    * Create an observable which emits the clicked item in {@code view}'s menu.

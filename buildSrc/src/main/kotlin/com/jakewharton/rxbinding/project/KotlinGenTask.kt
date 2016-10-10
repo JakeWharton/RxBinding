@@ -36,9 +36,9 @@ open class KotlinGenTask : SourceTask() {
      */
     private val IGNORED_IMPORTS = listOf(
         "java.util.List",
-        "android.annotation.TargetApi",
         "android.support.annotation.CheckResult",
-        "android.support.annotation.NonNull"
+        "android.support.annotation.NonNull",
+        "android.support.annotation.RequiresApi"
     )
 
     fun resolveKotlinTypeByName(input: String): String {
