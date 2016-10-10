@@ -33,13 +33,14 @@ final class AdapterViewItemSelectionOnSubscribe implements Observable.OnSubscrib
         }
       }
     };
-    view.setOnItemSelectedListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnItemSelectedListener(null);
       }
     });
+
+    view.setOnItemSelectedListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.getSelectedItemPosition());

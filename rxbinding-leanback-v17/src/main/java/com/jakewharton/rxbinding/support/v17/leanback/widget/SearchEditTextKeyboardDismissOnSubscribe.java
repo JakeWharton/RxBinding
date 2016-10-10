@@ -27,8 +27,6 @@ final class SearchEditTextKeyboardDismissOnSubscribe implements Observable.OnSub
       }
     };
 
-    view.setOnKeyboardDismissListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override
       protected void onUnsubscribe() {
@@ -40,5 +38,7 @@ final class SearchEditTextKeyboardDismissOnSubscribe implements Observable.OnSub
         });
       }
     });
+
+    view.setOnKeyboardDismissListener(listener);
   }
 }

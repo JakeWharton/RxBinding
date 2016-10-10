@@ -25,12 +25,13 @@ final class RecyclerViewScrollEventOnSubscribe
         }
       }
     };
-    recyclerView.addOnScrollListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         recyclerView.removeOnScrollListener(listener);
       }
     });
+
+    recyclerView.addOnScrollListener(listener);
   }
 }

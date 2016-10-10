@@ -32,12 +32,12 @@ final class MenuItemClickOnSubscribe implements Observable.OnSubscribe<Void> {
       }
     };
 
-    menuItem.setOnMenuItemClickListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         menuItem.setOnMenuItemClickListener(null);
       }
     });
+
+    menuItem.setOnMenuItemClickListener(listener);
   }
 }

@@ -33,12 +33,13 @@ final class ViewHoverOnSubscribe implements Observable.OnSubscribe<MotionEvent> 
         return false;
       }
     };
-    view.setOnHoverListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnHoverListener(null);
       }
     });
+
+    view.setOnHoverListener(listener);
   }
 }

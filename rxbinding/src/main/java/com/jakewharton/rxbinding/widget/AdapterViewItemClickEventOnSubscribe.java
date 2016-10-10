@@ -26,12 +26,13 @@ final class AdapterViewItemClickEventOnSubscribe
         }
       }
     };
-    view.setOnItemClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnItemClickListener(null);
       }
     });
+
+    view.setOnItemClickListener(listener);
   }
 }

@@ -31,12 +31,13 @@ final class ViewPagerPageScrollStateChangedOnSubscribe implements Observable.OnS
         }
       }
     };
-    view.addOnPageChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.removeOnPageChangeListener(listener);
       }
     });
+
+    view.addOnPageChangeListener(listener);
   }
 }

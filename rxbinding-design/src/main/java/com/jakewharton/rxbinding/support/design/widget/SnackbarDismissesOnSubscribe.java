@@ -25,12 +25,12 @@ final class SnackbarDismissesOnSubscribe implements Observable.OnSubscribe<Integ
       }
     };
 
-    view.setCallback(callback);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setCallback(null);
       }
     });
+
+    view.setCallback(callback);
   }
 }

@@ -45,12 +45,12 @@ final class MenuItemActionViewEventOnSubscribe
       }
     };
 
-    menuItem.setOnActionExpandListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         menuItem.setOnActionExpandListener(null);
       }
     });
+
+    menuItem.setOnActionExpandListener(listener);
   }
 }

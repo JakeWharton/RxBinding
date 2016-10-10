@@ -35,12 +35,12 @@ final class ViewGroupHierarchyChangeEventOnSubscribe
       }
     };
 
-    viewGroup.setOnHierarchyChangeListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         viewGroup.setOnHierarchyChangeListener(null);
       }
     });
+
+    viewGroup.setOnHierarchyChangeListener(listener);
   }
 }

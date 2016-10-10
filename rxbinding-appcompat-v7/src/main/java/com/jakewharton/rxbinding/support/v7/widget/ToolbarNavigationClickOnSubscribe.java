@@ -25,12 +25,13 @@ final class ToolbarNavigationClickOnSubscribe implements Observable.OnSubscribe<
         }
       }
     };
-    view.setNavigationOnClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setNavigationOnClickListener(null);
       }
     });
+
+    view.setNavigationOnClickListener(listener);
   }
 }

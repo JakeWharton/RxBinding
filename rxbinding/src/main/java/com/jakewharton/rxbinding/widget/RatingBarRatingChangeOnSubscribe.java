@@ -24,13 +24,14 @@ final class RatingBarRatingChangeOnSubscribe implements Observable.OnSubscribe<F
         }
       }
     };
-    view.setOnRatingBarChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnRatingBarChangeListener(null);
       }
     });
+
+    view.setOnRatingBarChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.getRating());

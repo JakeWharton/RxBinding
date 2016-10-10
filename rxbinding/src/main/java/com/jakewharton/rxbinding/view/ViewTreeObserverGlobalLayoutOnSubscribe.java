@@ -27,8 +27,6 @@ final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubs
       }
     };
 
-    view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -38,5 +36,7 @@ final class ViewTreeObserverGlobalLayoutOnSubscribe implements Observable.OnSubs
         }
       }
     });
+
+    view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
   }
 }

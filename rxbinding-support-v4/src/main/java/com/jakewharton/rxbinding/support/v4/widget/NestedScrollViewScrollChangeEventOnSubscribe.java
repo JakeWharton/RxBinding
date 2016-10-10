@@ -33,13 +33,14 @@ final class NestedScrollViewScrollChangeEventOnSubscribe
         }
       }
     };
-    nestedScrollView.setOnScrollChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         nestedScrollView.setOnScrollChangeListener((OnScrollChangeListener) null);
       }
     });
+
+    nestedScrollView.setOnScrollChangeListener(listener);
   }
 }
 

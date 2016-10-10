@@ -26,12 +26,13 @@ final class ToolbarItemClickOnSubscribe implements Observable.OnSubscribe<MenuIt
         return true;
       }
     };
-    view.setOnMenuItemClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnMenuItemClickListener(null);
       }
     });
+
+    view.setOnMenuItemClickListener(listener);
   }
 }

@@ -25,12 +25,13 @@ final class AdapterViewItemClickOnSubscribe implements Observable.OnSubscribe<In
         }
       }
     };
-    view.setOnItemClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnItemClickListener(null);
       }
     });
+
+    view.setOnItemClickListener(listener);
   }
 }

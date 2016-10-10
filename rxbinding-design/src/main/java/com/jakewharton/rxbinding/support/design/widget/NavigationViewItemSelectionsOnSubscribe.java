@@ -28,13 +28,14 @@ final class NavigationViewItemSelectionsOnSubscribe implements Observable.OnSubs
             return true;
           }
         };
-    view.setNavigationItemSelectedListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setNavigationItemSelectedListener(null);
       }
     });
+
+    view.setNavigationItemSelectedListener(listener);
 
     // Emit initial checked item, if one can be found.
     Menu menu = view.getMenu();

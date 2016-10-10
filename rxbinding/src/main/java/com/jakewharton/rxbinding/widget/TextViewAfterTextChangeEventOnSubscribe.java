@@ -33,13 +33,14 @@ final class TextViewAfterTextChangeEventOnSubscribe
         }
       }
     };
-    view.addTextChangedListener(watcher);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.removeTextChangedListener(watcher);
       }
     });
+
+    view.addTextChangedListener(watcher);
 
     // Emit initial value.
     subscriber.onNext(TextViewAfterTextChangeEvent.create(view, view.getEditableText()));

@@ -25,12 +25,13 @@ final class ViewSystemUiVisibilityChangeOnSubscribe implements Observable.OnSubs
             }
           }
         };
-    view.setOnSystemUiVisibilityChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnSystemUiVisibilityChangeListener(null);
       }
     });
+
+    view.setOnSystemUiVisibilityChangeListener(listener);
   }
 }

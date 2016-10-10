@@ -35,12 +35,13 @@ final class TextViewEditorActionEventOnSubscribe
         return false;
       }
     };
-    view.setOnEditorActionListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnEditorActionListener(null);
       }
     });
+
+    view.setOnEditorActionListener(listener);
   }
 }

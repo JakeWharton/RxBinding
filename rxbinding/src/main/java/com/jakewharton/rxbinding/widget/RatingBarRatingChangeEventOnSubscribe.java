@@ -25,13 +25,14 @@ final class RatingBarRatingChangeEventOnSubscribe
         }
       }
     };
-    view.setOnRatingBarChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnRatingBarChangeListener(null);
       }
     });
+
+    view.setOnRatingBarChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(RatingBarChangeEvent.create(view, view.getRating(), false));
