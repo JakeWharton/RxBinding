@@ -31,12 +31,12 @@ final class ViewTreeObserverPreDrawOnSubscribe implements Observable.OnSubscribe
       }
     };
 
-    view.getViewTreeObserver().addOnPreDrawListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.getViewTreeObserver().removeOnPreDrawListener(listener);
       }
     });
+
+    view.getViewTreeObserver().addOnPreDrawListener(listener);
   }
 }

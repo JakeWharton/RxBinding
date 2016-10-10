@@ -46,13 +46,14 @@ final class DrawerLayoutDrawerOpenedOnSubscribe implements Observable.OnSubscrib
         }
       }
     };
-    view.setDrawerListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setDrawerListener(null);
       }
     });
+
+    view.setDrawerListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.isDrawerOpen(gravity));

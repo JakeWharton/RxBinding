@@ -24,13 +24,14 @@ final class ViewPagerPageSelectedOnSubscribe implements Observable.OnSubscribe<I
         }
       }
     };
-    view.addOnPageChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.removeOnPageChangeListener(listener);
       }
     });
+
+    view.addOnPageChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.getCurrentItem());

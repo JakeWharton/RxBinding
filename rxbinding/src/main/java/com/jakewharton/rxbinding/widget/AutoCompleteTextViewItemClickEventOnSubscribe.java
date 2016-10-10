@@ -27,12 +27,13 @@ final class AutoCompleteTextViewItemClickEventOnSubscribe
         }
       }
     };
-    view.setOnItemClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnItemClickListener(null);
       }
     });
+
+    view.setOnItemClickListener(listener);
   }
 }

@@ -26,13 +26,14 @@ final class AdapterDataChangeOnSubscribe<T extends Adapter>
         }
       }
     };
-    adapter.registerDataSetObserver(observer);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         adapter.unregisterDataSetObserver(observer);
       }
     });
+
+    adapter.registerDataSetObserver(observer);
 
     // Emit initial value.
     subscriber.onNext(adapter);

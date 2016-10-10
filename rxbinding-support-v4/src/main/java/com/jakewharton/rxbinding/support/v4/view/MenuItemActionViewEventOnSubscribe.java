@@ -49,12 +49,12 @@ final class MenuItemActionViewEventOnSubscribe
       }
     };
 
-    MenuItemCompat.setOnActionExpandListener(menuItem, listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         MenuItemCompat.setOnActionExpandListener(menuItem, null);
       }
     });
+
+    MenuItemCompat.setOnActionExpandListener(menuItem, listener);
   }
 }

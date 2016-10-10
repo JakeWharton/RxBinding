@@ -44,13 +44,13 @@ final class AbsListViewScrollEventOnSubscribe
       }
     };
 
-    // Setting the listener automatically triggers the initial value.
-    view.setOnScrollListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnScrollListener(null);
       }
     });
+
+    // Setting the listener automatically triggers the initial value.
+    view.setOnScrollListener(listener);
   }
 }

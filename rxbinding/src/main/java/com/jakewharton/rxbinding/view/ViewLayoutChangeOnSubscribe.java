@@ -25,12 +25,13 @@ final class ViewLayoutChangeOnSubscribe implements Observable.OnSubscribe<Void> 
         }
       }
     };
-    view.addOnLayoutChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.removeOnLayoutChangeListener(listener);
       }
     });
+
+    view.addOnLayoutChangeListener(listener);
   }
 }

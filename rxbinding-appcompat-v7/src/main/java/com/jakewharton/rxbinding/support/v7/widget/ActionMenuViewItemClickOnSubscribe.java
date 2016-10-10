@@ -28,7 +28,6 @@ final class ActionMenuViewItemClickOnSubscribe implements Observable.OnSubscribe
           return true;
         }
       };
-    view.setOnMenuItemClickListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override
@@ -36,5 +35,7 @@ final class ActionMenuViewItemClickOnSubscribe implements Observable.OnSubscribe
         view.setOnMenuItemClickListener(null);
       }
     });
+
+    view.setOnMenuItemClickListener(listener);
   }
 }

@@ -36,13 +36,13 @@ final class SearchViewQueryTextChangeEventsOnSubscribe
       }
     };
 
-    view.setOnQueryTextListener(watcher);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnQueryTextListener(null);
       }
     });
+
+    view.setOnQueryTextListener(watcher);
 
     // Emit initial value.
     subscriber.onNext(SearchViewQueryTextEvent.create(view, view.getQuery(), false));

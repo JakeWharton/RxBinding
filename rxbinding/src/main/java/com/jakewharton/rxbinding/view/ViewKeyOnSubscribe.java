@@ -36,12 +36,13 @@ final class ViewKeyOnSubscribe implements Observable.OnSubscribe<KeyEvent> {
         }
       }
     };
-    view.setOnKeyListener(keyListener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnKeyListener(null);
       }
     });
+
+    view.setOnKeyListener(keyListener);
   }
 }

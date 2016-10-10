@@ -25,12 +25,13 @@ final class AppBarLayoutOffsetChangeOnSubscribe implements Observable.OnSubscrib
             }
           }
         };
-    view.addOnOffsetChangedListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.removeOnOffsetChangedListener(listener);
       }
     });
+
+    view.addOnOffsetChangedListener(listener);
   }
 }

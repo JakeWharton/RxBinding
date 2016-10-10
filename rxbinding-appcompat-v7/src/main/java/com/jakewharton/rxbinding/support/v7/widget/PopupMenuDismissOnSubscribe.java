@@ -26,12 +26,12 @@ final class PopupMenuDismissOnSubscribe implements Observable.OnSubscribe<Void> 
       }
     };
 
-    view.setOnDismissListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnDismissListener(null);
       }
     });
+
+    view.setOnDismissListener(listener);
   }
 }

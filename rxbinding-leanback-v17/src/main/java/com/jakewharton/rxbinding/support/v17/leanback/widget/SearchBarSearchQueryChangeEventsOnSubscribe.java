@@ -40,13 +40,13 @@ final class SearchBarSearchQueryChangeEventsOnSubscribe
       }
     };
 
-    view.setSearchBarListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override
       protected void onUnsubscribe() {
         view.setSearchBarListener(null);
       }
     });
+
+    view.setSearchBarListener(listener);
   }
 }

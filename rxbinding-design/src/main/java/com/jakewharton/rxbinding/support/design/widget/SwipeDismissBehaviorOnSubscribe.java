@@ -38,12 +38,13 @@ final class SwipeDismissBehaviorOnSubscribe implements Observable.OnSubscribe<Vi
     if (behavior == null) {
       throw new IllegalStateException("There's no behavior set on this view.");
     }
-    behavior.setListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         behavior.setListener(null);
       }
     });
+
+    behavior.setListener(listener);
   }
 }

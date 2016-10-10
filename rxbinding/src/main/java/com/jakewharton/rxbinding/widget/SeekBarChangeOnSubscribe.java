@@ -34,13 +34,14 @@ final class SeekBarChangeOnSubscribe implements Observable.OnSubscribe<Integer> 
       @Override public void onStopTrackingTouch(SeekBar seekBar) {
       }
     };
-    view.setOnSeekBarChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnSeekBarChangeListener(null);
       }
     });
+
+    view.setOnSeekBarChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.getProgress());

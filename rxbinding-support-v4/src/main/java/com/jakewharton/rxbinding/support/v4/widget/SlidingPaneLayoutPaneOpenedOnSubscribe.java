@@ -33,13 +33,13 @@ final class SlidingPaneLayoutPaneOpenedOnSubscribe implements Observable.OnSubsc
           }
         };
 
-    view.setPanelSlideListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setPanelSlideListener(null);
       }
     });
+
+    view.setPanelSlideListener(listener);
 
     subscriber.onNext(view.isOpen());
   }

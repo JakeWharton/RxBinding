@@ -24,13 +24,14 @@ final class RadioGroupCheckedChangeOnSubscribe implements Observable.OnSubscribe
         }
       }
     };
-    view.setOnCheckedChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnCheckedChangeListener(null);
       }
     });
+
+    view.setOnCheckedChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.getCheckedRadioButtonId());

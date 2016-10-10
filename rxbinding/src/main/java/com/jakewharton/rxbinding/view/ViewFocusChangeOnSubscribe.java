@@ -24,13 +24,14 @@ final class ViewFocusChangeOnSubscribe implements Observable.OnSubscribe<Boolean
         }
       }
     };
-    view.setOnFocusChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnFocusChangeListener(null);
       }
     });
+
+    view.setOnFocusChangeListener(listener);
 
     // Emit initial value.
     subscriber.onNext(view.hasFocus());

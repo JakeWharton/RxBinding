@@ -33,12 +33,13 @@ final class ViewAttachesOnSubscribe implements Observable.OnSubscribe<Void> {
         }
       }
     };
-    view.addOnAttachStateChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.removeOnAttachStateChangeListener(listener);
       }
     });
+
+    view.addOnAttachStateChangeListener(listener);
   }
 }

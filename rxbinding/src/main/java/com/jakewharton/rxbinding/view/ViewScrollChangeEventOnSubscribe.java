@@ -30,12 +30,13 @@ final class ViewScrollChangeEventOnSubscribe
         }
       }
     };
-    view.setOnScrollChangeListener(listener);
 
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnScrollChangeListener(null);
       }
     });
+
+    view.setOnScrollChangeListener(listener);
   }
 }

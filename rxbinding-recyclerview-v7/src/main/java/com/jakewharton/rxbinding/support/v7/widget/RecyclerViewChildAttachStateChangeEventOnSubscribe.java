@@ -35,12 +35,12 @@ final class RecyclerViewChildAttachStateChangeEventOnSubscribe
       }
     };
 
-    recyclerView.addOnChildAttachStateChangeListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         recyclerView.removeOnChildAttachStateChangeListener(listener);
       }
     });
+
+    recyclerView.addOnChildAttachStateChangeListener(listener);
   }
 }

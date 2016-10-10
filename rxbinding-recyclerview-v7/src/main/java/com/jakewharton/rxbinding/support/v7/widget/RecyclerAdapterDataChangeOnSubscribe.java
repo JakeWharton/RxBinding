@@ -28,13 +28,13 @@ final class RecyclerAdapterDataChangeOnSubscribe<T extends Adapter<? extends Vie
       }
     };
 
-    adapter.registerAdapterDataObserver(observer);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         adapter.unregisterAdapterDataObserver(observer);
       }
     });
+
+    adapter.registerAdapterDataObserver(observer);
 
     // Emit initial value.
     subscriber.onNext(adapter);

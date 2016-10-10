@@ -28,12 +28,12 @@ final class PopupMenuItemClickOnSubscribe implements Observable.OnSubscribe<Menu
       }
     };
 
-    view.setOnMenuItemClickListener(listener);
-
     subscriber.add(new MainThreadSubscription() {
       @Override protected void onUnsubscribe() {
         view.setOnMenuItemClickListener(null);
       }
     });
+
+    view.setOnMenuItemClickListener(listener);
   }
 }
