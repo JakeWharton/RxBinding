@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.DragEvent;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -361,6 +362,39 @@ public final class RxView {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return Observable.create(new ViewTouchOnSubscribe(view, handled));
+  }
+
+  /**
+   * Create an observable of key events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <em>Warning:</em> The created observable uses {@link View#setOnKeyListener} to observe
+   * key events. Only one observable can be used for a view at a time.
+   */
+  @CheckResult @NonNull
+  public static Observable<KeyEvent> keys(@NonNull View view) {
+    checkNotNull(view, "view == null");
+    return keys(view, Functions.FUNC1_ALWAYS_TRUE);
+  }
+
+  /**
+   * Create an observable of key events for {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   * <em>Warning:</em> The created observable uses {@link View#setOnKeyListener} to observe
+   * key events. Only one observable can be used for a view at a time.
+   *
+   * @param handled Function invoked each occurrence to determine the return value of the
+   * underlying {@link View.OnKeyListener}.
+   */
+  @CheckResult @NonNull
+  public static Observable<KeyEvent> keys(@NonNull View view,
+      @NonNull Func1<? super KeyEvent, Boolean> handled) {
+    checkNotNull(view, "view == null");
+    checkNotNull(handled, "handled == null");
+    return Observable.create(new ViewKeyOnSubscribe(view, handled));
   }
 
   /**

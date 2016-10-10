@@ -7,6 +7,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -266,6 +267,25 @@ public final class RxViewTest {
     subscription.unsubscribe();
 
     view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1, 50));
+    o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void keys() {
+    RecordingObserver<KeyEvent> o = new RecordingObserver<>();
+    Subscription subscription = RxView.keys(view).subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_R));
+    KeyEvent event1 = o.takeNext();
+    assertThat(event1.getAction()).isEqualTo(KeyEvent.ACTION_DOWN);
+
+    view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_H));
+    KeyEvent event2 = o.takeNext();
+    assertThat(event2.getKeyCode()).isEqualTo(KeyEvent.KEYCODE_H);
+
+    subscription.unsubscribe();
+
+    view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_S));
     o.assertNoMoreEvents();
   }
 
