@@ -9,12 +9,13 @@ ext {
   kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.3'
   kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.0.3'
 
-  supportAnnotations = 'com.android.support:support-annotations:24.0.0'
-  supportV4 = 'com.android.support:support-v4:24.0.0'
-  supportRecyclerView = 'com.android.support:recyclerview-v7:24.0.0'
-  supportAppCompat = 'com.android.support:appcompat-v7:24.0.0'
-  supportDesign = 'com.android.support:design:24.0.0'
-  supportLeanback = 'com.android.support:leanback-v17:24.0.0'
+  supportVersion = '24.2.1'
+  supportAnnotations = "com.android.support:support-annotations:$supportVersion"
+  supportV4CoreUi = "com.android.support:support-core-ui:$supportVersion"
+  supportRecyclerView = "com.android.support:recyclerview-v7:$supportVersion"
+  supportAppCompat = "com.android.support:appcompat-v7:$supportVersion"
+  supportDesign = "com.android.support:design:$supportVersion"
+  supportLeanback = "com.android.support:leanback-v17:$supportVersion"
 
   supportTestRunner = 'com.android.support.test:runner:0.5'
   supportTestRules = 'com.android.support.test:rules:0.5'
@@ -26,4 +27,16 @@ ext {
   truth = 'com.google.truth:truth:0.28'
 
   javaParser = 'com.github.javaparser:javaparser-core:2.1.0'
+}
+
+subprojects { project ->
+  project.configurations.all {
+    resolutionStrategy {
+      eachDependency { details ->
+        if (details.requested.group == 'com.android.support') {
+          details.useVersion(rootProject.ext.supportVersion)
+        }
+      }
+    }
+  }
 }

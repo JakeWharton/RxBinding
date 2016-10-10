@@ -9,7 +9,7 @@ apply plugin: 'rxbinding-module'
 
 dependencies {
   compile project(':rxbinding')
-  compile rootProject.ext.supportV4
+  compile rootProject.ext.supportV4CoreUi
 
   androidTestCompile project(':testing-utils')
   androidTestCompile rootProject.ext.supportTestRunner
