@@ -10,7 +10,7 @@ import rx.functions.Action1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayout.refreshes(this).map { Unit }
+inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayout.refreshes(this).map { Unit }
 
 /**
  * An action which sets whether the layout is showing the refreshing indicator.
@@ -18,4 +18,4 @@ public inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefr
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun SwipeRefreshLayout.refreshing(): Action1<in Boolean> = RxSwipeRefreshLayout.refreshing(this)
+inline fun SwipeRefreshLayout.refreshing(): Action1<in Boolean> = RxSwipeRefreshLayout.refreshing(this)

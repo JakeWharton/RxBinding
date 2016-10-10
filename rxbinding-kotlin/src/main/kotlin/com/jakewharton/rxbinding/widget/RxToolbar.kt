@@ -10,7 +10,7 @@ import rx.Observable
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(this)
+inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(this)
 
 /**
  * Create an observable which emits on `view` navigation click events. The emitted value is
@@ -22,4 +22,4 @@ public inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemCli
  * *Warning:* The created observable uses [Toolbar.setNavigationOnClickListener]
  * to observe clicks. Only one observable can be used for a view at a time.
  */
-public inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map { Unit }
+inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map { Unit }

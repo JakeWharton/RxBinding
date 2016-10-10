@@ -11,7 +11,7 @@ import rx.functions.Action1
  * to free this reference.
  *
  */
-public inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pageScrollStateChanges(this)
+inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pageScrollStateChanges(this)
 
 /**
  * Create an observable of page selected events on `view`.
@@ -21,7 +21,7 @@ public inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPa
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun ViewPager.pageSelections(): Observable<Int> = RxViewPager.pageSelections(this)
+inline fun ViewPager.pageSelections(): Observable<Int> = RxViewPager.pageSelections(this)
 
 /**
  * An action which sets the current item of `view`.
@@ -29,4 +29,4 @@ public inline fun ViewPager.pageSelections(): Observable<Int> = RxViewPager.page
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun ViewPager.currentItem(): Action1<in Int> = RxViewPager.currentItem(this)
+inline fun ViewPager.currentItem(): Action1<in Int> = RxViewPager.currentItem(this)

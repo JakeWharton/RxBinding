@@ -13,7 +13,7 @@ import rx.Observable
  * *Warning:* The created observable uses [PopupMenu.setOnMenuItemClickListener]
  * to observe dismiss change. Only one observable can be used for a view at a time.
  */
-public inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks(this)
+inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks(this)
 
 /**
  * Create an observable which emits on `view` dismiss events. The emitted value is
@@ -25,4 +25,4 @@ public inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.ite
  * *Warning:* The created observable uses [PopupMenu.setOnDismissListener] to
  * observe dismiss change. Only one observable can be used for a view at a time.
  */
-public inline fun PopupMenu.dismisses(): Observable<Unit> = RxPopupMenu.dismisses(this).map { Unit }
+inline fun PopupMenu.dismisses(): Observable<Unit> = RxPopupMenu.dismisses(this).map { Unit }

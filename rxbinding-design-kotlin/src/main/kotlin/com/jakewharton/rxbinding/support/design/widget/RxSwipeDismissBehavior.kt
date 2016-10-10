@@ -11,4 +11,4 @@ import rx.Observable
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun View.dismisses(): Observable<View> = RxSwipeDismissBehavior.dismisses(this)
+inline fun View.dismisses(): Observable<View> = RxSwipeDismissBehavior.dismisses(this)

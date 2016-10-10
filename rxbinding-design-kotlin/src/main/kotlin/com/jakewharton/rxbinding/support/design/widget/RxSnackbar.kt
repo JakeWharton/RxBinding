@@ -9,4 +9,4 @@ import rx.Observable
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun Snackbar.dismisses(): Observable<Int> = RxSnackbar.dismisses(this)
+inline fun Snackbar.dismisses(): Observable<Int> = RxSnackbar.dismisses(this)

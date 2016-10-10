@@ -15,7 +15,7 @@ import rx.functions.Action1
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompoundButton.checkedChanges(this)
+inline fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompoundButton.checkedChanges(this)
 
 /**
  * An action which sets the checked property of `view`.
@@ -23,7 +23,7 @@ public inline fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompo
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.checked(this)
+inline fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButton.checked(this)
 
 /**
  * An action which sets the toggles property of `view` with each value.
@@ -31,4 +31,4 @@ public inline fun CompoundButton.checked(): Action1<in Boolean> = RxCompoundButt
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun CompoundButton.toggle(): Action1<in Any> = RxCompoundButton.toggle(this)
+inline fun CompoundButton.toggle(): Action1<in Any> = RxCompoundButton.toggle(this)

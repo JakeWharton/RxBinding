@@ -10,7 +10,7 @@ import rx.functions.Action1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun AutoCompleteTextView.itemClickEvents(): Observable<AdapterViewItemClickEvent> = RxAutoCompleteTextView.itemClickEvents(this)
+inline fun AutoCompleteTextView.itemClickEvents(): Observable<AdapterViewItemClickEvent> = RxAutoCompleteTextView.itemClickEvents(this)
 
 /**
  * An action that sets the optional hint text that is displayed at the bottom of the the matching
@@ -20,7 +20,7 @@ public inline fun AutoCompleteTextView.itemClickEvents(): Observable<AdapterView
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun AutoCompleteTextView.completionHint(): Action1<in CharSequence> = RxAutoCompleteTextView.completionHint(this)
+inline fun AutoCompleteTextView.completionHint(): Action1<in CharSequence> = RxAutoCompleteTextView.completionHint(this)
 
 /**
  * An action that specifies the minimum number of characters the user has to type in the edit box
@@ -30,4 +30,4 @@ public inline fun AutoCompleteTextView.completionHint(): Action1<in CharSequence
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun AutoCompleteTextView.threshold(): Action1<in Int> = RxAutoCompleteTextView.threshold(this)
+inline fun AutoCompleteTextView.threshold(): Action1<in Int> = RxAutoCompleteTextView.threshold(this)

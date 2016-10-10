@@ -11,7 +11,7 @@ import rx.Observable
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
+inline fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
 
 /**
  * Create an observable of progress value changes on `view` that were made only from the
@@ -22,7 +22,7 @@ public inline fun SeekBar.changes(): Observable<Int> = RxSeekBar.changes(this)
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SeekBar.userChanges(): Observable<Int> = RxSeekBar.userChanges(this)
+inline fun SeekBar.userChanges(): Observable<Int> = RxSeekBar.userChanges(this)
 
 /**
  * Create an observable of progress value changes on `view` that were made only from the
@@ -33,7 +33,7 @@ public inline fun SeekBar.userChanges(): Observable<Int> = RxSeekBar.userChanges
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SeekBar.systemChanges(): Observable<Int> = RxSeekBar.systemChanges(this)
+inline fun SeekBar.systemChanges(): Observable<Int> = RxSeekBar.systemChanges(this)
 
 /**
  * Create an observable of progress change events for `view`.
@@ -43,4 +43,4 @@ public inline fun SeekBar.systemChanges(): Observable<Int> = RxSeekBar.systemCha
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SeekBar.changeEvents(): Observable<SeekBarChangeEvent> = RxSeekBar.changeEvents(this)
+inline fun SeekBar.changeEvents(): Observable<SeekBarChangeEvent> = RxSeekBar.changeEvents(this)

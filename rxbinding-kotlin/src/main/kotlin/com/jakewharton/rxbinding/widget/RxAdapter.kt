@@ -8,4 +8,4 @@ import rx.Observable
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun <T : Adapter> T.dataChanges(): Observable<T> = RxAdapter.dataChanges(this)
+inline fun <T : Adapter> T.dataChanges(): Observable<T> = RxAdapter.dataChanges(this)

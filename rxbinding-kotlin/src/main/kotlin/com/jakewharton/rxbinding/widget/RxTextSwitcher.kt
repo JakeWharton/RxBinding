@@ -10,7 +10,7 @@ import rx.functions.Action1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextSwitcher.text(): Action1<in CharSequence> = RxTextSwitcher.text(this)
+inline fun TextSwitcher.text(): Action1<in CharSequence> = RxTextSwitcher.text(this)
 
 /**
  * An action which sets the current text property of `view`.
@@ -18,4 +18,4 @@ public inline fun TextSwitcher.text(): Action1<in CharSequence> = RxTextSwitcher
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun TextSwitcher.currentText(): Action1<in CharSequence> = RxTextSwitcher.currentText(this)
+inline fun TextSwitcher.currentText(): Action1<in CharSequence> = RxTextSwitcher.currentText(this)

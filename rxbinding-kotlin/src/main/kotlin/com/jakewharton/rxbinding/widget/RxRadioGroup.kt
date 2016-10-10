@@ -12,7 +12,7 @@ import rx.functions.Action1
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.checkedChanges(this)
+inline fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.checkedChanges(this)
 
 /**
  * An action which sets the checked child of `view` with ID. Passing {@code -1} will clear
@@ -21,4 +21,4 @@ public inline fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.ch
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-public inline fun RadioGroup.checked(): Action1<in Int> = RxRadioGroup.checked(this)
+inline fun RadioGroup.checked(): Action1<in Int> = RxRadioGroup.checked(this)
