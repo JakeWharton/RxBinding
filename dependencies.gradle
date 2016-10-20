@@ -9,7 +9,7 @@ ext {
   kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.3'
   kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.0.3'
 
-  supportVersion = '24.2.1'
+  supportVersion = '25.0.0'
   supportAnnotations = "com.android.support:support-annotations:$supportVersion"
   supportV4CoreUi = "com.android.support:support-core-ui:$supportVersion"
   supportRecyclerView = "com.android.support:recyclerview-v7:$supportVersion"
