@@ -21,7 +21,6 @@ public final class RxBottomNavigationView {
    * to free this reference.
    * <p>
    * <em>Note:</em> If an item is already selected, it will be emitted immediately on subscribe.
-   * This behavior assumes but does not enforce that the items are exclusively checkable.
    */
   @CheckResult @NonNull public static Observable<MenuItem> itemSelections(
       @NonNull BottomNavigationView view) {
