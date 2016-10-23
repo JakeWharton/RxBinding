@@ -25,7 +25,7 @@ inline fun TextInputLayout.counterMaxLength(): Action1<in Int> = RxTextInputLayo
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun TextInputLayout.error(): Action1<in CharSequence> = RxTextInputLayout.error(this)
+inline fun TextInputLayout.error(): Action1<in CharSequence?> = RxTextInputLayout.error(this)
 
 /**
  * An action which sets the error text of `view` with a string resource.
@@ -33,7 +33,7 @@ inline fun TextInputLayout.error(): Action1<in CharSequence> = RxTextInputLayout
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun TextInputLayout.errorRes(): Action1<in Int> = RxTextInputLayout.errorRes(this)
+inline fun TextInputLayout.errorRes(): Action1<in Int?> = RxTextInputLayout.errorRes(this)
 
 /**
  * An action which sets the hint property of `view` with character sequences.
