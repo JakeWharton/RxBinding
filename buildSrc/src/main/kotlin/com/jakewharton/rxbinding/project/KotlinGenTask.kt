@@ -6,6 +6,9 @@ import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
+import com.github.javaparser.ast.expr.AnnotationExpr
+import com.github.javaparser.ast.expr.MarkerAnnotationExpr
+import com.github.javaparser.ast.expr.NameExpr
 import com.github.javaparser.ast.type.ClassOrInterfaceType
 import com.github.javaparser.ast.type.PrimitiveType
 import com.github.javaparser.ast.type.ReferenceType
@@ -37,8 +40,11 @@ open class KotlinGenTask : SourceTask() {
         "java.util.List",
         "android.support.annotation.CheckResult",
         "android.support.annotation.NonNull",
-        "android.support.annotation.RequiresApi"
+        "android.support.annotation.RequiresApi",
+        "com.jakewharton.rxbinding.internal.GenericTypeNullable"
     )
+
+    private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))
 
     fun resolveKotlinTypeByName(input: String): String {
       when (input) {
@@ -58,22 +64,28 @@ open class KotlinGenTask : SourceTask() {
     }
 
     /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
-    fun resolveKotlinType(inputType: Type): String {
+    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
       if (inputType is ReferenceType) {
-        return resolveKotlinType(inputType.type)
-      } else if (inputType is ClassOrInterfaceType) {
+        return resolveKotlinType(inputType.type, methodAnnotations)
+      }
+      else if (inputType is ClassOrInterfaceType) {
         val baseType = resolveKotlinTypeByName(inputType.name)
         if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
           return baseType
         }
-        return "$baseType<${inputType.typeArgs.map { type: Type -> resolveKotlinType(type) }.joinToString()}>"
+        return "$baseType<${inputType.typeArgs.map { type: Type -> resolveKotlinType(type, methodAnnotations) }.joinToString()}>"
       } else if (inputType is PrimitiveType || inputType is VoidType) {
         return resolveKotlinTypeByName(inputType.toString())
       } else if (inputType is WildcardType) {
+        var nullable = ""
+        methodAnnotations
+            ?.filter { it == GenericTypeNullableAnnotation }
+            ?.forEach { nullable = "?" }
+
         if (inputType.`super` != null) {
-          return "in ${resolveKotlinType(inputType.`super`)}"
+          return "in ${resolveKotlinType(inputType.`super`)}$nullable"
         } else if (inputType.extends != null) {
-          return "out ${resolveKotlinType(inputType.extends)}"
+          return "out ${resolveKotlinType(inputType.extends)}$nullable"
         } else {
           throw IllegalStateException("Wildcard with no super or extends")
         }
@@ -185,6 +197,7 @@ open class KotlinGenTask : SourceTask() {
    */
   class KMethod(val n: MethodDeclaration) {
     private val name = n.name
+    private val annotations: List<AnnotationExpr> = n.annotations
     private val comment = if (n.comment != null) cleanUpDoc(n.comment.toString()) else null
     private val extendedClass = n.parameters[0].type.toString()
     private val parameters = n.parameters.subList(1, n.parameters.size)
@@ -281,7 +294,7 @@ open class KotlinGenTask : SourceTask() {
       builder.append(if (typeParameters != null) typeParameters + " " else "")
 
       // return type
-      val kotlinType = resolveKotlinType(returnType)
+      val kotlinType = resolveKotlinType(returnType, annotations)
       builder.append("$extendedClass.$name($fParams): $kotlinType")
 
       builder.append(" = ")
