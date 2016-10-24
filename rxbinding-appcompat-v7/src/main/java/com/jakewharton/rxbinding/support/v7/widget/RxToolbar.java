@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.jakewharton.rxbinding.internal.GenericTypeNullable;
+
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -48,7 +50,7 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult @NonNull @GenericTypeNullable
   public static Action1<? super CharSequence> title(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
@@ -80,7 +82,7 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult @NonNull @GenericTypeNullable
   public static Action1<? super CharSequence> subtitle(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
