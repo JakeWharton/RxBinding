@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import rx.Observable;
+import rx.functions.Action1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -39,6 +40,70 @@ public final class RxToolbar {
   public static Observable<Void> navigationClicks(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
     return Observable.create(new ToolbarNavigationClickOnSubscribe(view));
+  }
+
+  /**
+   * An action which sets the title property of {@code view} with character sequences.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super CharSequence> title(@NonNull final Toolbar view) {
+    checkNotNull(view, "view == null");
+    return new Action1<CharSequence>() {
+      @Override public void call(CharSequence title) {
+        view.setTitle(title);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the title property of {@code view} string resource IDs.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> titleRes(@NonNull final Toolbar view) {
+    checkNotNull(view, "view == null");
+    return new Action1<Integer>() {
+      @Override public void call(Integer titleRes) {
+        view.setTitle(titleRes);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the subtitle property of {@code view} with character sequences.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super CharSequence> subtitle(@NonNull final Toolbar view) {
+    checkNotNull(view, "view == null");
+    return new Action1<CharSequence>() {
+      @Override public void call(CharSequence subtitle) {
+        view.setSubtitle(subtitle);
+      }
+    };
+  }
+
+  /**
+   * An action which sets the subtitle property of {@code view} string resource IDs.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Integer> subtitleRes(@NonNull final Toolbar view) {
+    checkNotNull(view, "view == null");
+    return new Action1<Integer>() {
+      @Override public void call(Integer subtitleRes) {
+        view.setSubtitle(subtitleRes);
+      }
+    };
   }
 
   private RxToolbar() {
