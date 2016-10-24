@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding.test.R;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -72,5 +74,25 @@ public final class RxToolbarTest {
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
     o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void title() {
+    RxToolbar.title(view).call("Hey");
+    assertThat(view.getTitle().toString()).isEqualTo("Hey");
+  }
+
+  @Test @UiThreadTest public void titleRes() {
+    RxToolbar.titleRes(view).call(R.string.hey);
+    assertThat(view.getTitle().toString()).isEqualTo("Hey");
+  }
+
+  @Test @UiThreadTest public void subtitle() {
+    RxToolbar.subtitle(view).call("Hey");
+    assertThat(view.getSubtitle().toString()).isEqualTo("Hey");
+  }
+
+  @Test @UiThreadTest public void subtitleRes() {
+    RxToolbar.subtitleRes(view).call(R.string.hey);
+    assertThat(view.getSubtitle().toString()).isEqualTo("Hey");
   }
 }
