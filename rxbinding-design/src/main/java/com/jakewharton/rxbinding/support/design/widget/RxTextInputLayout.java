@@ -3,6 +3,9 @@ package com.jakewharton.rxbinding.support.design.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+
+import com.jakewharton.rxbinding.internal.GenericTypeNullable;
+
 import rx.functions.Action1;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
@@ -50,7 +53,7 @@ public final class RxTextInputLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult @NonNull @GenericTypeNullable
   public static Action1<? super CharSequence> error(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
     return new Action1<CharSequence>() {
@@ -67,7 +70,7 @@ public final class RxTextInputLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult @NonNull @GenericTypeNullable
   public static Action1<? super Integer> errorRes(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
     return new Action1<Integer>() {
