@@ -23,6 +23,28 @@ public final class RxSnackbar {
     checkNotNull(view, "view == null");
     return Observable.create(new SnackbarDismissesOnSubscribe(view));
   }
+  /**
+   * Create an observable which emits the action clicked events from {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Observable<Integer> actionClicked(@NonNull Snackbar view, int resId) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new SnackbarActionOnSubscribe(view, resId));
+  }
+  /**
+   * Create an observable which emits the action clicked events from {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Observable<Integer> actionClicked(@NonNull Snackbar view, CharSequence text) {
+    checkNotNull(view, "view == null");
+    return Observable.create(new SnackbarActionOnSubscribe(view, text));
+  }
 
   private RxSnackbar() {
     throw new AssertionError("No instances.");
