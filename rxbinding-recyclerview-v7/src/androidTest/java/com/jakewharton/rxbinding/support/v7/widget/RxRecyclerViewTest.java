@@ -13,13 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
+import com.jakewharton.rxbinding.support.v7.recyclerview.test.R;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -32,7 +36,7 @@ public final class RxRecyclerViewTest {
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private RecyclerView view;
+  RecyclerView view;
   private ViewInteraction interaction;
   private ViewDirtyIdlingResource viewDirtyIdler;
   private View child;
@@ -219,6 +223,74 @@ public final class RxRecyclerViewTest {
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         view.scrollBy(50, 0);
+      }
+    });
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void itemsClicked() {
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.itemClick(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    final Adapter adapter = new Adapter();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(adapter);
+      }
+    });
+    for (int i = 0, childCount = view.getChildCount(); i < childCount; i++) {
+      final View childAt = view.getChildAt(i);
+      instrumentation.runOnMainSync(new Runnable() {
+        @Override public void run() {
+          childAt.performClick();
+        }
+      });
+      assertThat(o.takeNext()).isEqualTo(i);
+    }
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.getChildAt(0).performClick();
+      }
+    });
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void itemsLongClicked() {
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxRecyclerView.itemLongClick(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    final Adapter adapter = new Adapter();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(adapter);
+      }
+    });
+    for (int i = 0, childCount = view.getChildCount(); i < childCount; i++) {
+      final View childAt = view.getChildAt(i);
+      instrumentation.runOnMainSync(new Runnable() {
+        @Override public void run() {
+          childAt.performLongClick();
+        }
+      });
+      assertThat(o.takeNext()).isEqualTo(i);
+    }
+
+    subscription.unsubscribe();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.getChildAt(0).performLongClick();
       }
     });
     o.assertNoMoreEvents();
