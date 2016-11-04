@@ -13,6 +13,7 @@ apply from: rootProject.file('../dependencies.gradle')
 
 repositories {
   mavenCentral()
+  jcenter()
 }
 
 dependencies {
