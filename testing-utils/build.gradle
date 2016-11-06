@@ -8,6 +8,7 @@ apply plugin: 'com.android.library'
 
 dependencies {
   compile rootProject.ext.supportTestRunner
+  compile rootProject.ext.rxRelay
   compile rootProject.ext.rxAndroid
   compile rootProject.ext.truth
   compile rootProject.ext.supportTestEspresso

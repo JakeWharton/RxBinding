@@ -1,11 +1,16 @@
 package com.jakewharton.rxbinding;
 
 import android.util.Log;
+
 import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.Callable;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
 import rx.Observer;
+import rx.schedulers.Schedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -42,6 +47,20 @@ public final class RecordingObserver<T> implements Observer<T> {
     }
     assertThat(event).isInstanceOf(wanted);
     return wanted.cast(event);
+  }
+
+  public T takeNextWait() {
+    return Observable.fromCallable(new Callable<T>() {
+      @Override public T call() throws Exception {
+        while (events.isEmpty()) {
+          Thread.sleep(100);
+        }
+        Object e = events.takeFirst();
+        assertThat(e).isInstanceOf(OnNext.class);
+        //noinspection unchecked
+        return ((OnNext) e).value;
+      }
+    }).timeout(5, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).toBlocking().first();
   }
 
   public T takeNext() {
