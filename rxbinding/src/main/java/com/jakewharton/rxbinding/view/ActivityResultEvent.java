@@ -5,21 +5,20 @@ import android.support.annotation.Nullable;
 
 public class ActivityResultEvent {
 
-    private final int mResultCode;
-    private final Intent mData;
+  private final int resultCode;
+  private final Intent data;
 
-    public ActivityResultEvent(int resultCode, Intent data) {
-        mResultCode = resultCode;
-        mData = data;
-    }
+  public ActivityResultEvent(int resultCode, Intent data) {
+    this.resultCode = resultCode;
+    this.data = data;
+  }
 
-    public int getResultCode() {
-        return mResultCode;
-    }
+  public int getResultCode() {
+    return resultCode;
+  }
 
-    @Nullable
-    public Intent getData() {
-        return mData;
-    }
+  @Nullable public Intent getData() {
+    return data;
+  }
 
 }

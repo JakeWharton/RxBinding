@@ -24,87 +24,85 @@ import rx.subjects.PublishSubject;
  */
 public class RxActivityResult extends Fragment {
 
-    static final String TAG = RxActivityResult.class.getSimpleName();
-    private static final int REQUEST_CODE = new SecureRandom().nextInt();
-    public static final String KEY_INTENT = "KEY_INTENT";
-    public static final String KEY_OPTIONS = "KEY_OPTIONS";
+  static final String TAG = RxActivityResult.class.getSimpleName();
+  private static final int REQUEST_CODE = new SecureRandom().nextInt();
+  public static final String KEY_INTENT = "KEY_INTENT";
+  public static final String KEY_OPTIONS = "KEY_OPTIONS";
 
-    private final PublishSubject<ActivityResultEvent> resultSubject = PublishSubject.create();
+  private final PublishSubject<ActivityResultEvent> resultSubject = PublishSubject.create();
 
-    /**
-     * Start an activity and get an {@link Observable<ActivityResultEvent>} that only emits the result
-     * of the intent started.
-     *
-     * @param activity The Activity to host the intent start behavior.
-     * @param intent   The intent to start.
-     */
-    public static Observable<ActivityResultEvent> startActivityForResult(Activity activity,
-                                                                         Intent intent) {
-        return startActivityForResult(activity.getFragmentManager(), intent, null);
-    }
+  /**
+   * Start an activity and get an {@link Observable<ActivityResultEvent>} that only emits the result
+   * of the intent started.
+   *
+   * @param activity The Activity to host the intent start behavior.
+   * @param intent   The intent to start.
+   */
+  public static Observable<ActivityResultEvent> startActivityForResult(Activity activity,
+                                                                       Intent intent) {
+    return startActivityForResult(activity.getFragmentManager(), intent, null);
+  }
 
-    /**
-     * Start an activity and get an {@link Observable<ActivityResultEvent>} that only emits the result
-     * of the intent started.
-     *
-     * @param activity The Activity to host the intent start behavior.
-     * @param intent   The intent to start.
-     * @param options  Additional options for how the Activity should be started.
-     */
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public static Observable<ActivityResultEvent> startActivityForResult(Activity activity,
-                                                                         Intent intent,
-                                                                         Bundle options) {
-        return startActivityForResult(activity.getFragmentManager(), intent, options);
-    }
+  /**
+   * Start an activity and get an {@link Observable<ActivityResultEvent>} that only emits the result
+   * of the intent started.
+   *
+   * @param activity The Activity to host the intent start behavior.
+   * @param intent   The intent to start.
+   * @param options  Additional options for how the Activity should be started.
+   */
+  @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+  public static Observable<ActivityResultEvent> startActivityForResult(Activity activity,
+                                                                       Intent intent,
+                                                                       Bundle options) {
+    return startActivityForResult(activity.getFragmentManager(), intent, options);
+  }
 
-    private static Observable<ActivityResultEvent> startActivityForResult(final FragmentManager fragmentManager,
-                                                                          final Intent intent,
-                                                                          @Nullable final Bundle options) {
-        return Observable.defer(new Func0<Observable<ActivityResultEvent>>() {
-            @Override
-            public Observable<ActivityResultEvent> call() {
-                RxActivityResult rxActivityResult = new RxActivityResult();
-                Bundle args = new Bundle();
-                rxActivityResult.setArguments(args);
-                args.putParcelable(KEY_INTENT, intent);
-                if (options != null) {
-                    args.putParcelable(KEY_OPTIONS, options);
-                }
-
-                fragmentManager.beginTransaction()
-                        .add(rxActivityResult, TAG)
-                        .commit();
-                return rxActivityResult.resultSubject;
-            }
-        });
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        final Bundle arguments = getArguments();
-        Intent intent = arguments.getParcelable(KEY_INTENT);
-        Bundle options = arguments.getBundle(KEY_OPTIONS);
-        if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            startActivityForResult(intent, REQUEST_CODE, options);
-        } else {
-            startActivityForResult(intent, REQUEST_CODE);
+  private static Observable<ActivityResultEvent> startActivityForResult(final FragmentManager fragmentManager,
+                                                                        final Intent intent,
+                                                                        @Nullable final Bundle options) {
+    return Observable.defer(new Func0<Observable<ActivityResultEvent>>() {
+      @Override
+      public Observable<ActivityResultEvent> call() {
+        RxActivityResult rxActivityResult = new RxActivityResult();
+        Bundle args = new Bundle();
+        rxActivityResult.setArguments(args);
+        args.putParcelable(KEY_INTENT, intent);
+        if (options != null) {
+          args.putParcelable(KEY_OPTIONS, options);
         }
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE) {
-            resultSubject.onNext(new ActivityResultEvent(resultCode, data));
-            resultSubject.onCompleted();
-            getFragmentManager()
-                    .beginTransaction()
-                    .remove(this)
-                    .commit();
-        }
+        fragmentManager.beginTransaction()
+            .add(rxActivityResult, TAG)
+            .commit();
+        return rxActivityResult.resultSubject;
+      }
+    });
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setRetainInstance(true);
+    final Bundle arguments = getArguments();
+    Intent intent = arguments.getParcelable(KEY_INTENT);
+    Bundle options = arguments.getBundle(KEY_OPTIONS);
+    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+      startActivityForResult(intent, REQUEST_CODE, options);
+    } else {
+      startActivityForResult(intent, REQUEST_CODE);
     }
+  }
+
+  @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_CODE) {
+      resultSubject.onNext(new ActivityResultEvent(resultCode, data));
+      resultSubject.onCompleted();
+      getFragmentManager()
+          .beginTransaction()
+          .remove(this)
+          .commit();
+    }
+  }
 
 }
 
