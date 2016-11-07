@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,15 @@ public final class RxActivityResultTestActivity extends Activity {
     FrameLayout layout = new FrameLayout(this);
     TextView textView = new TextView(this);
     textView.setText(getIntent().getStringExtra(KEY_IDENTIFIER));
+    textView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent data = new Intent();
+        data.putExtra("key", "value");
+        setResult(Activity.RESULT_OK, data);
+        finish();
+      }
+    });
     layout.addView(textView);
     setContentView(layout);
   }

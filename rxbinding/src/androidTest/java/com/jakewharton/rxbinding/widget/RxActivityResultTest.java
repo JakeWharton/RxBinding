@@ -8,7 +8,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.jakewharton.rxbinding.ActivityMonitor;
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.view.ActivityResultEvent;
 
@@ -17,18 +16,20 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.jakewharton.rxbinding.widget.RxActivityResultTestActivity.KEY_IDENTIFIER;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 
 @RunWith(AndroidJUnit4.class)
 public class RxActivityResultTest {
 
   private Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
   private RxActivityResultTestActivity activity;
-  private ActivityMonitor activityMonitor;
 
   @Rule
   public final UiThreadTestRule uiThread = new UiThreadTestRule();
@@ -36,11 +37,6 @@ public class RxActivityResultTest {
   @Rule
   public final ActivityTestRule<RxActivityResultTestActivity> activityRule =
       new ActivityTestRule<RxActivityResultTestActivity>(RxActivityResultTestActivity.class) {
-
-        @Override
-        protected void beforeActivityLaunched() {
-          activityMonitor = new ActivityMonitor(instrumentation.getTargetContext());
-        }
 
         @Override
         protected Intent getActivityIntent() {
@@ -54,37 +50,29 @@ public class RxActivityResultTest {
   }
 
   @Test
-  public void control() throws Exception {
-    final Activity createdActivity = activityMonitor.waitForActivityCreationWithIntentStringExtra(KEY_IDENTIFIER, "TestActivity");
-    assertNotNull(createdActivity);
-    assertSame(activity, createdActivity);
-  }
-
-  @Test
   public void startActivityForResult() throws Exception {
+    // GIVEN an Activity (TestActivity) launches an Activity (ResultActivity)
+    onView(withText("TestActivity")).check(matches(isDisplayed()));
     final RecordingObserver<ActivityResultEvent> o = new RecordingObserver<>();
+
+    // AND observes the result
     final Intent intent = RxActivityResultTestActivity.createActivityStartIntent(activity, "ResultActivity");
-    RxActivityResult.startActivityForResult(activity, intent).subscribe(o);
+    RxActivityResult.startActivityForResult(activity, intent)
+        .subscribe(o);
 
-    final RxActivityResultTestActivity resultActivity = activityMonitor.waitForActivityCreationWithIntentStringExtra(KEY_IDENTIFIER, "ResultActivity");
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override
-      public void run() {
-        Intent data = new Intent();
-        data.putExtra("key", "value");
-        resultActivity.setResult(7979, data);
-        resultActivity.finish();
-      }
-    });
-    activityMonitor.waitForActivityDestructionWithIntentStringExtra(KEY_IDENTIFIER, "ResultActivity");
+    // WHEN the launched (ResultActivity) finishes
+    onView(withText("ResultActivity")).perform(click());
+    onView(withText("TestActivity")).check(matches(isDisplayed()));
 
+    // AND result was observed
     ActivityResultEvent resultEvent = o.takeNextWait();
     o.assertOnCompleted();
     assertNotNull(resultEvent);
-    assertEquals(7979, resultEvent.getResultCode());
+    assertEquals(Activity.RESULT_OK, resultEvent.getResultCode());
     assertNotNull(resultEvent.getData());
     assertEquals("value", resultEvent.getData().getStringExtra("key"));
 
+    // THEN the headless fragment was removed from the host Activity (TestActivity)
     instrumentation.runOnMainSync(new Runnable() {
       @Override
       public void run() {
