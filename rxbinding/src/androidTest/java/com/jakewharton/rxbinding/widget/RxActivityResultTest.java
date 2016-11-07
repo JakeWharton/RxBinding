@@ -89,7 +89,7 @@ public class RxActivityResultTest {
       @Override
       public void run() {
         activity.getFragmentManager().executePendingTransactions();
-        assertNull(activity.getFragmentManager().findFragmentByTag(RxActivityResult.TAG));
+        assertNull(activity.getFragmentManager().findFragmentByTag(ActivityResultBroker.TAG));
       }
     });
 
