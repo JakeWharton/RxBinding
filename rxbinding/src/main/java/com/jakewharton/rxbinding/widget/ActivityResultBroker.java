@@ -24,9 +24,8 @@ public class ActivityResultBroker extends Fragment {
 
   private final PublishSubject<ActivityResultEvent> resultSubject = PublishSubject.create();
 
-  static Observable<ActivityResultEvent> startActivityForResult(final FragmentManager fragmentManager,
-                                                                final Intent intent,
-                                                                @Nullable final Bundle options) {
+  static Observable<ActivityResultEvent> startActivityForResult(
+      final FragmentManager fragmentManager, final Intent intent, @Nullable final Bundle options) {
     return Observable.defer(new Func0<Observable<ActivityResultEvent>>() {
       @Override
       public Observable<ActivityResultEvent> call() {
@@ -63,7 +62,7 @@ public class ActivityResultBroker extends Fragment {
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE) {
-      resultSubject.onNext(new ActivityResultEvent(resultCode, data));
+      resultSubject.onNext(ActivityResultEvent.create(resultCode, data));
       resultSubject.onCompleted();
       getFragmentManager()
           .beginTransaction()
