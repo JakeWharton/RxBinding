@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import com.jakewharton.rxbinding.view.ActivityResultEvent;
 
 import java.security.SecureRandom;
+import java.util.concurrent.ThreadLocalRandom;
 
 import rx.Observable;
 import rx.functions.Func0;
@@ -18,7 +19,7 @@ import rx.subjects.PublishSubject;
 public class ActivityResultBroker extends Fragment {
 
   static final String TAG = ActivityResultBroker.class.getSimpleName();
-  private static final int REQUEST_CODE = new SecureRandom().nextInt();
+  private static final int REQUEST_CODE = randInt(0, 65535);
   public static final String KEY_INTENT = "KEY_INTENT";
   public static final String KEY_OPTIONS = "KEY_OPTIONS";
 
@@ -68,6 +69,17 @@ public class ActivityResultBroker extends Fragment {
           .beginTransaction()
           .remove(this)
           .commit();
+    }
+  }
+
+  /**
+   * @return a pseudo-random number between min and max, inclusive.
+   */
+  private static int randInt(int min, int max) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      return ThreadLocalRandom.current().nextInt(min, max + 1);
+    } else {
+      return new SecureRandom().nextInt((max - min) + 1) + min;
     }
   }
 
