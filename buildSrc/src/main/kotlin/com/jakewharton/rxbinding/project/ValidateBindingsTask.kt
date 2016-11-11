@@ -101,7 +101,7 @@ open class ValidateBindingsTask : SourceTask() {
         .forEach {
           val pName = it.first
           val expected = "checkNotNull($pName, \"$pName == null\");"
-          val found = it.second
+          val found = it.second.toString()
           if (!expected.equals(found)) {
             throw IllegalStateException("Missing proper checkNotNull call on parameter "
                 + pName
