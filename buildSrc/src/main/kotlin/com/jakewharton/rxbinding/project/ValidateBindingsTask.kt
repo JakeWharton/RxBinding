@@ -11,7 +11,6 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
-import rx.Observable
 import java.io.File
 
 open class ValidateBindingsTask : SourceTask() {
@@ -95,14 +94,11 @@ open class ValidateBindingsTask : SourceTask() {
     val parameters = method.parameters
     val statements = method.body.stmts
 
-    Observable.zip(
-        Observable.from(parameters)
-            .filter { it.type is ReferenceType }
-            .map { it.id.name },
-        Observable.from(statements),
-        { s, stmt -> Pair(s, stmt.toString()) }
-    )
-        .subscribe({
+    parameters
+        .filter { it.type is ReferenceType }
+        .map { it.id.name }
+        .zip(statements, { param, stmt -> Pair(param, stmt) })
+        .forEach {
           val pName = it.first
           val expected = "checkNotNull($pName, \"$pName == null\");"
           val found = it.second
@@ -115,19 +111,15 @@ open class ValidateBindingsTask : SourceTask() {
                 + "\nFound:\t" + found
             )
           }
-        })
+        }
   }
 
   /** Generates a nice String representation of the method signature (e.g. RxView#clicks(View)) */
   fun prettyMethodSignature(method: MethodDeclaration): String {
-    return Observable.from(method.parameters)
-        .map { it.type.toString() }
-        .toList()
-        .map { parameterTypeNames ->
-          "${(method.getEnclosingClass()).name}#${method.name}(${parameterTypeNames.joinToString()})"
-        }
-        .toSingle()
-        .toBlocking().value()
+    val parameterTypeNames = method.parameters
+      .map { it.type.toString() }
+      .joinToString()
+    return "${(method.getEnclosingClass()).name}#${method.name}($parameterTypeNames)"
   }
 
   fun Parameter.coerceClassType(): ClassOrInterfaceType {
