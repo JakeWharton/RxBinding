@@ -47,19 +47,13 @@ open class KotlinGenTask : SourceTask() {
     private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))
 
     fun resolveKotlinTypeByName(input: String): String {
-      when (input) {
-        "Object" ->
-          return "Any"
-        "Void" ->
-          return "Unit"
-        "Integer" ->
-          return "Int"
-        "int", "char", "boolean", "long", "float", "short", "byte" ->
-          return input.capitalize()
-        "List" ->
-          return "MutableList"
-        else ->
-          return input
+      return when (input) {
+        "Object" -> "Any"
+        "Void" -> "Unit"
+        "Integer" -> "Int"
+        "int", "char", "boolean", "long", "float", "short", "byte" -> input.capitalize()
+        "List" -> "MutableList"
+        else -> input
       }
     }
 
@@ -174,17 +168,14 @@ open class KotlinGenTask : SourceTask() {
       }
 
       File(finalDir, fileName).bufferedWriter().use { writer ->
-        // Package
         writer.append("package $packageName\n\n")
 
-        // imports
         imports.forEach { im ->
           if (!IGNORED_IMPORTS.contains(im)) {
             writer.append("import $im\n")
           }
         }
 
-        // fun!
         methods.forEach { m ->
           writer.append("\n${m.generate(bindingClass)}\n")
         }
@@ -195,10 +186,10 @@ open class KotlinGenTask : SourceTask() {
   /**
    * Represents a method implementation that needs to be wired up in Kotlin
    */
-  class KMethod(val n: MethodDeclaration) {
+  class KMethod(n: MethodDeclaration) {
     private val name = n.name
     private val annotations: List<AnnotationExpr> = n.annotations
-    private val comment = if (n.comment != null) cleanUpDoc(n.comment.toString()) else null
+    private val comment = n.comment?.toString()?.let { cleanUpDoc(it) }
     private val extendedClass = n.parameters[0].type.toString()
     private val parameters = n.parameters.subList(1, n.parameters.size)
     private val returnType = n.type
