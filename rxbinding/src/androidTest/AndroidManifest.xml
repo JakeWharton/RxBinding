@@ -12,6 +12,8 @@
     <activity android:name=".widget.RxRatingBarTestActivity"/>
     <activity android:name=".widget.RxSeekBarTestActivity"/>
     <activity android:name=".widget.RxPopupMenuTestActivity"/>
+    <activity android:name=".widget.RxTimePickerTestActivity"/>
+    <activity android:name=".widget.RxDatePickerTestActivity"/>
     <activity
         android:name=".widget.RxToolbarTestActivity"
         android:theme="@android:style/Theme.Material"
