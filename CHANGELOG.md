@@ -1,6 +1,43 @@
 Change Log
 ==========
 
+Version 1.0.0 *(2016-12-01)*
+----------------------------
+
+ * New bindings!
+    * `rxbinding`:
+       * `Toolbar`:
+          * `title` - Toolbar title.
+          * `titleRes` - Toolbar title from resource.
+          * `subtitle` - Toolbar subtitle.
+          * `subtitleRes` - Toolbar subtitle from resource.
+       * `View`:
+          * `keys` - View key events.
+    * `rxbinding-appcompat-v7`:
+       * `Toolbar`:
+          * `title` - Toolbar title.
+          * `titleRes` - Toolbar title from resource.
+          * `subtitle` - Toolbar subtitle.
+          * `subtitleRes` - Toolbar subtitle from resource.
+    * `rxbinding-design`:
+       * `BottomNavigationView`:
+          * `itemSelections` - Navigation item selections.
+    * `rxbinding-support-v4`:
+       * `NestedScrollView`:
+          * `scrollChangeEvents` - Nested scrolling change events.
+       * `SlidingPaneLayout`:
+          * `open` - Opens the panel.
+          * `panelOpens` - Sliding panel opens.
+          * `panelSlides` - Sliding panel open offsets.
+       * `ViewPager`:
+          * `pageScrollStateChanges` - Page scrolling change events.
+          * `currentItem` - Sets the current page item.
+ * New: `rxbinding-support-v4` now only depends on `support-core-ui`.
+ * Fix: Kotlin `Action` generic types now properly allow nulls when applicable.
+ * Fix: Correct nullability of `TextViewAfterTextChangeEvent`'s `editable` property.
+ * Fix: Correct nullability of `TextViewEditorActionEvent`'s `keyEvent` property.
+
+
 Version 0.4.0 *(2016-02-18)*
 ----------------------------
 
