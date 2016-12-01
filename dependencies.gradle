@@ -2,14 +2,14 @@ ext {
   androidPlugin = 'com.android.tools.build:gradle:2.2.2'
   minSdkVersion = 14
   compileSdkVersion = 25
-  buildToolsVersion = '25.0.0'
+  buildToolsVersion = '25.0.1'
 
   ci = 'true'.equals(System.getenv('CI'))
 
-  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.3'
-  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.0.3'
+  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.4'
+  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.0.4'
 
-  supportVersion = '25.0.0'
+  supportVersion = '25.0.1'
   supportAnnotations = "com.android.support:support-annotations:$supportVersion"
   supportV4CoreUi = "com.android.support:support-core-ui:$supportVersion"
   supportRecyclerView = "com.android.support:recyclerview-v7:$supportVersion"
@@ -21,10 +21,10 @@ ext {
   supportTestRules = 'com.android.support.test:rules:0.5'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2.1'
   supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2.1'
-  rxJava = 'io.reactivex:rxjava:1.2.2'
+  rxJava = 'io.reactivex:rxjava:1.2.3'
   rxAndroid = 'io.reactivex:rxandroid:1.2.1'
   junit = 'junit:junit:4.12'
-  truth = 'com.google.truth:truth:0.28'
+  truth = 'com.google.truth:truth:0.30'
 
   javaParser = 'com.github.javaparser:javaparser-core:2.1.0'
 }
