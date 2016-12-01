@@ -1,32 +1,38 @@
 package com.jakewharton.rxbinding.support.design.widget;
 
-import android.app.Instrumentation;
-import android.content.Context;
 import android.support.design.widget.Snackbar;
-import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.ContextThemeWrapper;
-import android.widget.FrameLayout;
+
 import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.support.design.R;
+
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static android.support.design.widget.Snackbar.Callback.DISMISS_EVENT_MANUAL;
-import static android.support.design.widget.Snackbar.LENGTH_SHORT;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSnackbarTest {
-  private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-  private final Context rawContext = InstrumentationRegistry.getContext();
-  private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
-  private final FrameLayout parent = new FrameLayout(context);
+  @Rule public final ActivityTestRule<RxSnackbarTestActivity> activityRule =
+        new ActivityTestRule<>(RxSnackbarTestActivity.class);
+
+  private Snackbar view;
+
+  @Before public void setUp() {
+    RxSnackbarTestActivity activity = activityRule.getActivity();
+    view = activity.snackbar;
+  }
 
   @Test public void dismisses() {
-    final Snackbar view = Snackbar.make(parent, "Hey", LENGTH_SHORT);
 
     RecordingObserver<Integer> o = new RecordingObserver<>();
     Subscription subscription = RxSnackbar.dismisses(view)
@@ -34,29 +40,43 @@ public final class RxSnackbarTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.show();
-      }
-    });
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.dismiss();
-      }
-    });
+    view.show();
+    view.dismiss();
     assertThat(o.takeNext()).isEqualTo(DISMISS_EVENT_MANUAL);
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.show();
-      }
-    });
+    view.show();
     subscription.unsubscribe();
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.dismiss();
-      }
-    });
+    view.dismiss();
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void actionIsClicked() {
+    String actionText = "Action";
+
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    RxSnackbar.actionClicked(view, actionText)
+          .subscribeOn(AndroidSchedulers.mainThread())
+          .subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.show();
+    onView(withText(actionText)).perform(click());
+    o.takeNext();
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void actionIsClickedButNotSubscribed() {
+    String actionText = "Action";
+
+    RecordingObserver<Integer> o = new RecordingObserver<>();
+    Subscription subscription = RxSnackbar.actionClicked(view, actionText)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    view.show();
+    subscription.unsubscribe();
+    onView(withText(actionText)).perform(click());
     o.assertNoMoreEvents();
   }
 }
