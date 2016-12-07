@@ -1,20 +1,27 @@
-package com.jakewharton.rxbinding;
+package com.jakewharton.rxbinding2;
 
 import android.util.Log;
 import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import rx.Observer;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public final class RecordingObserver<T> implements Observer<T> {
+public final class RecordingObserver<T> implements Observer<T>, Disposable {
   private static final String TAG = "RecordingObserver";
 
   private final BlockingDeque<Object> events = new LinkedBlockingDeque<>();
+  private Disposable disposable;
 
-  @Override public void onCompleted() {
+  @Override
+  public void onSubscribe(Disposable disposable) {
+    this.disposable = disposable;
+  }
+
+  @Override public void onComplete() {
     Log.v(TAG, "onCompleted");
     events.addLast(new OnCompleted());
   }
@@ -27,6 +34,16 @@ public final class RecordingObserver<T> implements Observer<T> {
   @Override public void onNext(T t) {
     Log.v(TAG, "onNext " + t);
     events.addLast(new OnNext(t));
+  }
+
+  @Override
+  public void dispose() {
+    disposable.dispose();
+  }
+
+  @Override
+  public boolean isDisposed() {
+    return disposable.isDisposed();
   }
 
   private <E> E takeEvent(Class<E> wanted) {
