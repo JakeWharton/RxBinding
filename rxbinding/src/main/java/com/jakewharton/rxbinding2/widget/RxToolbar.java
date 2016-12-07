@@ -1,15 +1,13 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.MenuItem;
 import android.widget.Toolbar;
-
 import com.jakewharton.rxbinding.internal.GenericTypeNullable;
-
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
@@ -28,7 +26,7 @@ public final class RxToolbar {
   @CheckResult @NonNull
   public static Observable<MenuItem> itemClicks(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ToolbarItemClickOnSubscribe(view));
+    return new ToolbarItemClickObservable(view);
   }
 
   /**
@@ -42,9 +40,9 @@ public final class RxToolbar {
    * to observe clicks. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Void> navigationClicks(@NonNull Toolbar view) {
+  public static Observable<Object> navigationClicks(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ToolbarNavigationClickOnSubscribe(view));
+    return new ToolbarNavigationClickObservable(view);
   }
 
   /**
@@ -54,10 +52,10 @@ public final class RxToolbar {
    * to free this reference.
    */
   @CheckResult @NonNull @GenericTypeNullable
-  public static Action1<? super CharSequence> title(@NonNull final Toolbar view) {
+  public static Consumer<? super CharSequence> title(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence title) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence title) {
         view.setTitle(title);
       }
     };
@@ -70,10 +68,10 @@ public final class RxToolbar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> titleRes(@NonNull final Toolbar view) {
+  public static Consumer<? super Integer> titleRes(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer titleRes) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer titleRes) {
         view.setTitle(titleRes);
       }
     };
@@ -86,10 +84,10 @@ public final class RxToolbar {
    * to free this reference.
    */
   @CheckResult @NonNull @GenericTypeNullable
-  public static Action1<? super CharSequence> subtitle(@NonNull final Toolbar view) {
+  public static Consumer<? super CharSequence> subtitle(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence subtitle) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence subtitle) {
         view.setSubtitle(subtitle);
       }
     };
@@ -102,10 +100,10 @@ public final class RxToolbar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> subtitleRes(@NonNull final Toolbar view) {
+  public static Consumer<? super Integer> subtitleRes(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer subtitleRes) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer subtitleRes) {
         view.setSubtitle(subtitleRes);
       }
     };
