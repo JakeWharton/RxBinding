@@ -7,14 +7,15 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class ViewKeyObservable extends Observable<KeyEvent> {
   private final View view;
-  private final Function<? super KeyEvent, Boolean> handled;
+  private final Predicate<? super KeyEvent> handled;
 
-  ViewKeyObservable(View view, Function<? super KeyEvent, Boolean> handled) {
+  ViewKeyObservable(View view, Predicate<? super KeyEvent> handled) {
     this.view = view;
     this.handled = handled;
   }
@@ -28,10 +29,10 @@ final class ViewKeyObservable extends Observable<KeyEvent> {
 
   static final class Listener extends MainThreadDisposable implements OnKeyListener {
     private final View view;
-    private final Function<? super KeyEvent, Boolean> handled;
+    private final Predicate<? super KeyEvent> handled;
     private final Observer<? super KeyEvent> observer;
 
-    Listener(View view, Function<? super KeyEvent, Boolean> handled,
+    Listener(View view, Predicate<? super KeyEvent> handled,
         Observer<? super KeyEvent> observer) {
       this.view = view;
       this.handled = handled;
@@ -41,7 +42,7 @@ final class ViewKeyObservable extends Observable<KeyEvent> {
     @Override public boolean onKey(View v, int keyCode, KeyEvent event) {
       if (!isDisposed()) {
         try {
-          if (handled.apply(event)) {
+          if (handled.test(event)) {
             observer.onNext(event);
             return true;
           }

@@ -7,14 +7,15 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class ViewHoverObservable extends Observable<MotionEvent> {
   private final View view;
-  private final Function<? super MotionEvent, Boolean> handled;
+  private final Predicate<? super MotionEvent> handled;
 
-  ViewHoverObservable(View view, Function<? super MotionEvent, Boolean> handled) {
+  ViewHoverObservable(View view, Predicate<? super MotionEvent> handled) {
     this.view = view;
     this.handled = handled;
   }
@@ -28,10 +29,10 @@ final class ViewHoverObservable extends Observable<MotionEvent> {
 
   static final class Listener extends MainThreadDisposable implements OnHoverListener {
     private final View view;
-    private final Function<? super MotionEvent, Boolean> handled;
+    private final Predicate<? super MotionEvent> handled;
     private final Observer<? super MotionEvent> observer;
 
-    Listener(View view, Function<? super MotionEvent, Boolean> handled,
+    Listener(View view, Predicate<? super MotionEvent> handled,
         Observer<? super MotionEvent> observer) {
       this.view = view;
       this.handled = handled;
@@ -41,7 +42,7 @@ final class ViewHoverObservable extends Observable<MotionEvent> {
     @Override public boolean onHover(View v, MotionEvent event) {
       if (!isDisposed()) {
         try {
-          if (handled.apply(event)) {
+          if (handled.test(event)) {
             observer.onNext(event);
             return true;
           }
