@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import com.jakewharton.rxbinding.internal.Functions;
+import com.jakewharton.rxbinding2.internal.Functions;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -30,7 +30,7 @@ public final class RxMenuItem {
   @CheckResult @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new MenuItemClickOnSubscribe(menuItem, Functions.FUNC1_ALWAYS_TRUE);
+    return new MenuItemClickOnSubscribe(menuItem, Functions.FUNCTION_ALWAYS_TRUE);
   }
 
   /**
@@ -66,7 +66,7 @@ public final class RxMenuItem {
   @CheckResult @NonNull
   public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new MenuItemActionViewEventObservable(menuItem, Functions.FUNC1_ALWAYS_TRUE);
+    return new MenuItemActionViewEventObservable(menuItem, Functions.FUNCTION_ALWAYS_TRUE);
   }
 
   /**
