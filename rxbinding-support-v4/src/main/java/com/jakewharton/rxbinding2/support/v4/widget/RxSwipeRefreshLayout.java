@@ -1,10 +1,11 @@
-package com.jakewharton.rxbinding.support.v4.widget;
+package com.jakewharton.rxbinding2.support.v4.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import rx.Observable;
-import rx.functions.Action1;
+import com.jakewharton.rxbinding2.internal.Notification;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -15,10 +16,10 @@ public final class RxSwipeRefreshLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
-  public static Observable<Void> refreshes(@NonNull SwipeRefreshLayout view) {
+  @CheckResult @NonNull public static Observable<Notification> refreshes(
+      @NonNull SwipeRefreshLayout view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SwipeRefreshLayoutRefreshOnSubscribe(view));
+    return new SwipeRefreshLayoutRefreshObservable(view);
   }
 
   /**
@@ -27,11 +28,11 @@ public final class RxSwipeRefreshLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
-  public static Action1<? super Boolean> refreshing(@NonNull final SwipeRefreshLayout view) {
+  @CheckResult @NonNull public static Consumer<? super Boolean> refreshing(
+      @NonNull final SwipeRefreshLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<Boolean>() {
-      @Override public void call(Boolean value) {
+    return new Consumer<Boolean>() {
+      @Override public void accept(Boolean value) {
         view.setRefreshing(value);
       }
     };
