@@ -1,10 +1,10 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
-import com.jakewharton.rxbinding.view.ViewEvent;
+import com.jakewharton.rxbinding2.view.ViewEvent;
 
 /**
  * A before text-change event on a view.
