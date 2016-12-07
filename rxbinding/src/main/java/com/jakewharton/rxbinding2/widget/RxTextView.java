@@ -1,19 +1,19 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.internal.Functions;
+import com.jakewharton.rxbinding2.internal.Functions;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link TextView}.
  */
 public final class RxTextView {
@@ -29,7 +29,7 @@ public final class RxTextView {
   @CheckResult @NonNull
   public static Observable<Integer> editorActions(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return editorActions(view, Functions.FUNC1_ALWAYS_TRUE);
+    return editorActions(view, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -41,15 +41,15 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
    * observe actions. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked each occurrence to determine the return value of the
+   * @param handled Predicate invoked each occurrence to determine the return value of the
    * underlying {@link TextView.OnEditorActionListener}.
    */
   @CheckResult @NonNull
   public static Observable<Integer> editorActions(@NonNull TextView view,
-      @NonNull Func1<? super Integer, Boolean> handled) {
+                                                  @NonNull Predicate<? super Integer> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
-    return Observable.create(new TextViewEditorActionOnSubscribe(view, handled));
+    return new TextViewEditorActionObservable(view, handled);
   }
 
   /**
@@ -64,7 +64,7 @@ public final class RxTextView {
   @CheckResult @NonNull
   public static Observable<TextViewEditorActionEvent> editorActionEvents(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return editorActionEvents(view, Functions.FUNC1_ALWAYS_TRUE);
+    return editorActionEvents(view, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -76,15 +76,15 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable uses {@link TextView.OnEditorActionListener} to
    * observe actions. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked each occurrence to determine the return value of the
+   * @param handled Predicate invoked each occurrence to determine the return value of the
    * underlying {@link TextView.OnEditorActionListener}.
    */
   @CheckResult @NonNull
   public static Observable<TextViewEditorActionEvent> editorActionEvents(@NonNull TextView view,
-      @NonNull Func1<? super TextViewEditorActionEvent, Boolean> handled) {
+      @NonNull Predicate<? super TextViewEditorActionEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
-    return Observable.create(new TextViewEditorActionEventOnSubscribe(view, handled));
+    return new TextViewEditorActionEventObservable(view, handled);
   }
 
   /**
@@ -104,7 +104,7 @@ public final class RxTextView {
   @CheckResult @NonNull
   public static Observable<CharSequence> textChanges(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new TextViewTextOnSubscribe(view));
+    return new TextViewTextObservable(view);
   }
 
   /**
@@ -124,7 +124,7 @@ public final class RxTextView {
   @CheckResult @NonNull
   public static Observable<TextViewTextChangeEvent> textChangeEvents(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new TextViewTextChangeEventOnSubscribe(view));
+    return new TextViewTextChangeEventObservable(view);
   }
 
   /**
@@ -139,7 +139,7 @@ public final class RxTextView {
   public static Observable<TextViewBeforeTextChangeEvent> beforeTextChangeEvents(
       @NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new TextViewBeforeTextChangeEventOnSubscribe(view));
+    return new TextViewBeforeTextChangeEventObservable(view);
   }
 
   /**
@@ -154,7 +154,7 @@ public final class RxTextView {
   public static Observable<TextViewAfterTextChangeEvent> afterTextChangeEvents(
       @NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new TextViewAfterTextChangeEventOnSubscribe(view));
+    return new TextViewAfterTextChangeEventObservable(view);
   }
 
   /**
@@ -164,10 +164,10 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> text(@NonNull final TextView view) {
+  public static Consumer<? super CharSequence> text(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence text) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence text) {
         view.setText(text);
       }
     };
@@ -180,10 +180,10 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> textRes(@NonNull final TextView view) {
+  public static Consumer<? super Integer> textRes(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer textRes) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer textRes) {
         view.setText(textRes);
       }
     };
@@ -196,10 +196,10 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> error(@NonNull final TextView view) {
+  public static Consumer<? super CharSequence> error(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence text) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence text) {
         view.setError(text);
       }
     };
@@ -212,10 +212,10 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> errorRes(@NonNull final TextView view) {
+  public static Consumer<? super Integer> errorRes(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer textRes) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer textRes) {
         view.setError(view.getContext().getResources().getText(textRes));
       }
     };
@@ -228,10 +228,10 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> hint(@NonNull final TextView view) {
+  public static Consumer<? super CharSequence> hint(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence hint) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence hint) {
         view.setHint(hint);
       }
     };
@@ -244,10 +244,10 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> hintRes(@NonNull final TextView view) {
+  public static Consumer<? super Integer> hintRes(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer hintRes) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer hintRes) {
         view.setHint(hintRes);
       }
     };
@@ -260,10 +260,11 @@ public final class RxTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> color(@NonNull final TextView view) {
+  public static Consumer<? super Integer> color(@NonNull final TextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer color) {
+    return new Consumer<Integer>() {
+      @Override
+      public void accept(Integer color) throws Exception {
         view.setTextColor(color);
       }
     };
