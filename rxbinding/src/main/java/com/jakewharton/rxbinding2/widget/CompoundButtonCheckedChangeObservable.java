@@ -24,11 +24,11 @@ final class CompoundButtonCheckedChangeObservable extends Observable<Boolean> {
         view.setOnCheckedChangeListener(listener);
     }
 
-    private static final class Listener extends MainThreadDisposable implements CompoundButton.OnCheckedChangeListener {
+    static final class Listener extends MainThreadDisposable implements CompoundButton.OnCheckedChangeListener {
         private final CompoundButton view;
         private final Observer<? super Boolean> observer;
 
-        private Listener(CompoundButton view, Observer<? super Boolean> observer) {
+        Listener(CompoundButton view, Observer<? super Boolean> observer) {
             this.view = view;
             this.observer = observer;
         }
