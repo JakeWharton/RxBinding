@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+
 import java.util.concurrent.Callable;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
@@ -18,7 +19,7 @@ import static android.os.Build.VERSION_CODES.M;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkArgument;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 import static com.jakewharton.rxbinding2.internal.Functions.CALLABLE_ALWAYS_TRUE;
-import static com.jakewharton.rxbinding2.internal.Functions.FUNCTION_ALWAYS_TRUE;
+import static com.jakewharton.rxbinding2.internal.Functions.PREDICATE_ALWAYS_TRUE;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
@@ -91,7 +92,7 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<DragEvent> drags(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new ViewDragObservable(view, FUNCTION_ALWAYS_TRUE);
+    return new ViewDragObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -103,12 +104,12 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnDragListener} to observe
    * drags. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked with each value to determine the return value of the
+   * @param handled Predicate invoked with each value to determine the return value of the
    * underlying {@link View.OnDragListener}.
    */
   @CheckResult @NonNull
   public static Observable<DragEvent> drags(@NonNull View view,
-      @NonNull Function<? super DragEvent, Boolean> handled) {
+      @NonNull Predicate<? super DragEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewDragObservable(view, handled);
@@ -182,7 +183,7 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new ViewHoverObservable(view, FUNCTION_ALWAYS_TRUE);
+    return new ViewHoverObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -200,12 +201,12 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnHoverListener} to observe
    * touches. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked with each value to determine the return value of the
+   * @param handled Predicate invoked with each value to determine the return value of the
    * underlying {@link View.OnHoverListener}.
    */
   @CheckResult @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view,
-      @NonNull Function<? super MotionEvent, Boolean> handled) {
+      @NonNull Predicate<? super MotionEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewHoverObservable(view, handled);
@@ -262,7 +263,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnLongClickListener} to observe
    * long clicks. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked each occurrence to determine the return value of the
+   * @param handled Predicate invoked each occurrence to determine the return value of the
    * underlying {@link View.OnLongClickListener}.
    */
   @CheckResult @NonNull
@@ -337,7 +338,7 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new ViewTouchObservable(view, FUNCTION_ALWAYS_TRUE);
+    return new ViewTouchObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -355,12 +356,12 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnTouchListener} to observe
    * touches. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked with each value to determine the return value of the
+   * @param handled Predicate invoked with each value to determine the return value of the
    * underlying {@link View.OnTouchListener}.
    */
   @CheckResult @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view,
-      @NonNull Function<? super MotionEvent, Boolean> handled) {
+      @NonNull Predicate<? super MotionEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewTouchObservable(view, handled);
@@ -377,7 +378,7 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<KeyEvent> keys(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new ViewKeyObservable(view, FUNCTION_ALWAYS_TRUE);
+    return new ViewKeyObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -388,12 +389,12 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnKeyListener} to observe
    * key events. Only one observable can be used for a view at a time.
    *
-   * @param handled Function invoked each occurrence to determine the return value of the
+   * @param handled Predicate invoked each occurrence to determine the return value of the
    * underlying {@link View.OnKeyListener}.
    */
   @CheckResult @NonNull
   public static Observable<KeyEvent> keys(@NonNull View view,
-      @NonNull Function<? super KeyEvent, Boolean> handled) {
+      @NonNull Predicate<? super KeyEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewKeyObservable(view, handled);
