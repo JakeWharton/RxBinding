@@ -32,7 +32,6 @@ public final class RxCompoundButton {
     return new CompoundButtonCheckedChangeObservable(view);
   }
 
-
   /**
    * An action which sets the checked property of {@code view}.
    * <p>
