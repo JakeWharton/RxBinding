@@ -1,10 +1,9 @@
-package com.jakewharton.rxbinding.support.v17.leanback.widget;
+package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v17.leanback.widget.SearchEditText;
-
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -22,7 +21,7 @@ public final class RxSearchEditText {
   @CheckResult @NonNull
   public static Observable<Void> keyboardDismisses(@NonNull SearchEditText view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SearchEditTextKeyboardDismissOnSubscribe(view));
+    return new SearchEditTextKeyboardDismissOnSubscribe(view);
   }
 
   private RxSearchEditText() {

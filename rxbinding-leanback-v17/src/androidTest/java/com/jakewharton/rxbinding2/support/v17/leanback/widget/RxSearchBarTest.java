@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v17.leanback.widget;
+package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
 import com.jakewharton.rxbinding.RecordingObserver;
 
@@ -17,8 +17,8 @@ import android.view.KeyEvent;
 import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.CHANGED;
-import static com.jakewharton.rxbinding.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.KEYBOARD_DISMISSED;
+import static com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.CHANGED;
+import static com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.KEYBOARD_DISMISSED;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSearchBarTest {

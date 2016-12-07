@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v17.leanback.widget;
+package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
 import com.jakewharton.rxbinding.RecordingObserver;
 
