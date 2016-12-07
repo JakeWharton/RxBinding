@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.view;
+package com.jakewharton.rxbinding2.view;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding.RecordingObserver;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -25,7 +24,7 @@ public final class RxViewGroupTest {
 
   @Test @UiThreadTest public void childViewEvents() {
     RecordingObserver<ViewGroupHierarchyChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxViewGroup.changeEvents(parent).subscribe(o);
+    RxViewGroup.changeEvents(parent).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     parent.addView(child);
@@ -35,7 +34,7 @@ public final class RxViewGroupTest {
     assertThat(o.takeNext()).isEqualTo(
         ViewGroupHierarchyChildViewRemoveEvent.create(parent, child));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     parent.addView(child);
     o.assertNoMoreEvents();
