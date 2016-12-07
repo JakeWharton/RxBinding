@@ -44,7 +44,7 @@ public final class RxCompoundButton {
     return new Consumer<Boolean>(){
       @Override
       public void accept(Boolean value) throws Exception {
-          view.setChecked(value);
+        view.setChecked(value);
       }
     };
   }
