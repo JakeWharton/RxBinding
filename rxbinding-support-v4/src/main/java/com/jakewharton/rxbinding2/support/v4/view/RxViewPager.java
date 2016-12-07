@@ -1,11 +1,10 @@
-package com.jakewharton.rxbinding.support.v4.view;
+package com.jakewharton.rxbinding2.support.v4.view;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -17,10 +16,10 @@ public final class RxViewPager {
    * to free this reference.
    * <p>
    */
-  @CheckResult @NonNull
-  public static Observable<Integer> pageScrollStateChanges(@NonNull ViewPager view) {
+  @CheckResult @NonNull public static Observable<Integer> pageScrollStateChanges(
+      @NonNull ViewPager view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ViewPagerPageScrollStateChangedOnSubscribe(view));
+    return new ViewPagerPageScrollStateChangedObservable(view);
   }
 
   /**
@@ -31,10 +30,9 @@ public final class RxViewPager {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
-  public static Observable<Integer> pageSelections(@NonNull ViewPager view) {
+  @CheckResult @NonNull public static Observable<Integer> pageSelections(@NonNull ViewPager view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ViewPagerPageSelectedOnSubscribe(view));
+    return new ViewPagerPageSelectedObservable(view);
   }
 
   /**
@@ -43,11 +41,11 @@ public final class RxViewPager {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
-  public static Action1<? super Integer> currentItem(@NonNull final ViewPager view) {
+  @CheckResult @NonNull public static Consumer<? super Integer> currentItem(
+      @NonNull final ViewPager view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         view.setCurrentItem(value);
       }
     };

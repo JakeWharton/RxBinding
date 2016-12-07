@@ -1,14 +1,12 @@
-package com.jakewharton.rxbinding.support.v4.view;
+package com.jakewharton.rxbinding2.support.v4.view;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
-
-import com.jakewharton.rxbinding.internal.Functions;
-import com.jakewharton.rxbinding.view.MenuItemActionViewEvent;
-
-import rx.Observable;
-import rx.functions.Func1;
+import com.jakewharton.rxbinding2.internal.Functions;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
+import io.reactivex.Observable;
+import io.reactivex.functions.Predicate;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -27,11 +25,10 @@ public final class RxMenuItemCompat {
    * <em>Warning:</em> The created observable uses {@link MenuItem#setOnActionExpandListener} to
    * observe action view events. Only one observable can be used for a menu item at a time.
    */
-  @CheckResult @NonNull
-  public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem) {
+  @CheckResult @NonNull public static Observable<MenuItemActionViewEvent> actionViewEvents(
+      @NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return Observable.create(new MenuItemActionViewEventOnSubscribe(menuItem,
-        Functions.FUNC1_ALWAYS_TRUE));
+    return new MenuItemActionViewEventObservable(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -46,12 +43,11 @@ public final class RxMenuItemCompat {
    * @param handled Function invoked with each value to determine the return value of the
    * underlying {@link MenuItem.OnActionExpandListener}.
    */
-  @CheckResult @NonNull
-  public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem,
-      @NonNull Func1<? super MenuItemActionViewEvent, Boolean> handled) {
+  @CheckResult @NonNull public static Observable<MenuItemActionViewEvent> actionViewEvents(
+      @NonNull MenuItem menuItem, @NonNull Predicate<? super MenuItemActionViewEvent> handled) {
     checkNotNull(menuItem, "menuItem == null");
     checkNotNull(handled, "handled == null");
-    return Observable.create(new MenuItemActionViewEventOnSubscribe(menuItem, handled));
+    return new MenuItemActionViewEventObservable(menuItem, handled);
   }
 
   private RxMenuItemCompat() {
