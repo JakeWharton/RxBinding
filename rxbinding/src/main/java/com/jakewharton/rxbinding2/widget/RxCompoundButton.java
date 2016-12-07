@@ -11,7 +11,7 @@ import io.reactivex.functions.Consumer;
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain io.reactivex.functions.Consumer
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link CompoundButton}.
  */
 public final class RxCompoundButton {
