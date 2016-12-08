@@ -7,7 +7,7 @@
     <activity android:name=".view.RxViewAttachTestActivity"/>
     <activity android:name=".view.RxViewSystemUiVisibilityTestActivity"/>
     <activity android:name=".widget.RxAdapterViewTestActivity"/>
-    <activity android:name=".widget.RxAbsListViewTestActivity"/>
+    <activity android:name="com.jakewharton.rxbinding2.widget.RxAbsListViewTestActivity"/>
     <activity android:name=".widget.RxAutoCompleteTextViewTestActivity"/>
     <activity android:name=".widget.RxRatingBarTestActivity"/>
     <activity android:name=".widget.RxSeekBarTestActivity"/>

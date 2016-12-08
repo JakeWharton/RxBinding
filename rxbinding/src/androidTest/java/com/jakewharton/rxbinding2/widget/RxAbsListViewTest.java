@@ -1,17 +1,16 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ListView;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -32,8 +31,8 @@ public final class RxAbsListViewTest {
 
   @Test public void scrollEvents() {
     RecordingObserver<AbsListViewScrollEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxAbsListView.scrollEvents(listView) //
-        .subscribeOn(AndroidSchedulers.mainThread()) //
+    RxAbsListView.scrollEvents(listView)
+        .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     AbsListViewScrollEvent event = o.takeNext();
     assertThat(event.totalItemCount()).isEqualTo(100);
@@ -49,7 +48,7 @@ public final class RxAbsListViewTest {
     assertThat(event1.view()).isEqualTo(listView);
     assertThat(event1.totalItemCount()).isEqualTo(100);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
