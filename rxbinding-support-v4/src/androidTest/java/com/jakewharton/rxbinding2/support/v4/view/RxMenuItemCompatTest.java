@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v4.view;
+package com.jakewharton.rxbinding2.support.v4.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,14 +13,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.view.MenuItemActionViewEvent;
-import com.jakewharton.rxbinding.view.MenuItemActionViewEvent.Kind;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Predicate;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.functions.Func1;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -33,7 +33,7 @@ public final class RxMenuItemCompatTest {
 
   @Test @UiThreadTest public void actionViewEvents() {
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxMenuItemCompat.actionViewEvents(menuItem).subscribe(o);
+    Disposable subscription = RxMenuItemCompat.actionViewEvents(menuItem).subscribeWith(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
@@ -42,29 +42,29 @@ public final class RxMenuItemCompatTest {
     menuItem.collapseActionView();
     assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE));
 
-    subscription.unsubscribe();
+    subscription.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
-    Func1<MenuItemActionViewEvent, Boolean> handled =
-        new Func1<MenuItemActionViewEvent, Boolean>() {
-          @Override public Boolean call(MenuItemActionViewEvent menuItem) {
-            return Boolean.FALSE;
+    Predicate<MenuItemActionViewEvent> handled =
+        new Predicate<MenuItemActionViewEvent>() {
+          @Override public boolean test(MenuItemActionViewEvent menuItem) {
+            return false;
           }
         };
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxMenuItemCompat.actionViewEvents(menuItem, handled).subscribe(o);
+    Disposable subscription = RxMenuItemCompat.actionViewEvents(menuItem, handled).subscribeWith(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
     assertThat(menuItem.isActionViewExpanded()).isEqualTo(false); // Should be prevented by handler
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    subscription.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();

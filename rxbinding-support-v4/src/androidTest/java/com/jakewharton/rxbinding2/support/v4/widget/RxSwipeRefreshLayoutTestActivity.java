@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v4.widget;
+package com.jakewharton.rxbinding2.support.v4.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
