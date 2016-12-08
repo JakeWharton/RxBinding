@@ -1,10 +1,10 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.RadioGroup;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -20,7 +20,7 @@ public final class RxRadioGroup {
   @CheckResult @NonNull
   public static Observable<Integer> checkedChanges(@NonNull RadioGroup view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new RadioGroupCheckedChangeOnSubscribe(view))
+    return new RadioGroupCheckedChangeObservable(view)
         .distinctUntilChanged(); // Radio group can fire non-changes.
   }
 
@@ -32,10 +32,10 @@ public final class RxRadioGroup {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> checked(@NonNull final RadioGroup view) {
+  public static Consumer<? super Integer> checked(@NonNull final RadioGroup view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         if (value == -1) {
           view.clearCheck();
         } else {
