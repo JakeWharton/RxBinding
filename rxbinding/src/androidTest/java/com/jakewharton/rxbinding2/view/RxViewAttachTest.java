@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.view;
+package com.jakewharton.rxbinding2.view;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
@@ -14,12 +14,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.ATTACH;
-import static com.jakewharton.rxbinding.view.ViewAttachEvent.Kind.DETACH;
+import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.ATTACH;
+import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.DETACH;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewAttachTest {
@@ -37,8 +36,8 @@ public final class RxViewAttachTest {
   }
 
   @Test public void attaches() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.attaches(child)
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.attaches(child)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -48,7 +47,7 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
@@ -56,7 +55,7 @@ public final class RxViewAttachTest {
     });
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -69,7 +68,7 @@ public final class RxViewAttachTest {
 
   @Test public void attachEvents() {
     RecordingObserver<ViewAttachEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.attachEvents(child)
+    RxView.attachEvents(child)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -87,7 +86,7 @@ public final class RxViewAttachTest {
     });
     assertThat(o.takeNext().kind()).isEqualTo(DETACH);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -99,8 +98,8 @@ public final class RxViewAttachTest {
   }
 
   @Test public void detaches() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.detaches(child)
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.detaches(child)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -116,9 +115,9 @@ public final class RxViewAttachTest {
         parent.removeView(child);
       }
     });
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
