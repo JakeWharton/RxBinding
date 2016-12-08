@@ -1,19 +1,19 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
+import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
-
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} for
- * {@link NavigationView}.
+ * {@link BottomNavigationView}.
  */
-public final class RxNavigationView {
+public final class RxBottomNavigationView {
+
   /**
    * Create an observable which emits the selected item in {@code view}.
    * <p>
@@ -21,15 +21,14 @@ public final class RxNavigationView {
    * to free this reference.
    * <p>
    * <em>Note:</em> If an item is already selected, it will be emitted immediately on subscribe.
-   * This behavior assumes but does not enforce that the items are exclusively checkable.
    */
-  @CheckResult @NonNull
-  public static Observable<MenuItem> itemSelections(@NonNull NavigationView view) {
+  @CheckResult @NonNull public static Observable<MenuItem> itemSelections(
+      @NonNull BottomNavigationView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new NavigationViewItemSelectionsOnSubscribe(view));
+    return new BottomNavigationViewItemSelectionsObservable(view);
   }
 
-  private RxNavigationView() {
+  private RxBottomNavigationView() {
     throw new AssertionError("No instances.");
   }
 }

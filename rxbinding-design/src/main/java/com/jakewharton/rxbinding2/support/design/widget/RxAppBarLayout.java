@@ -1,9 +1,9 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -21,7 +21,7 @@ public final class RxAppBarLayout {
   @CheckResult @NonNull
   public static Observable<Integer> offsetChanges(@NonNull AppBarLayout view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new AppBarLayoutOffsetChangeOnSubscribe(view));
+    return new AppBarLayoutOffsetChangeObservable(view);
   }
 
   private RxAppBarLayout() {

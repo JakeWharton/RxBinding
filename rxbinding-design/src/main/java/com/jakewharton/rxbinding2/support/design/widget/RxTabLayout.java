@@ -1,16 +1,16 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link TabLayout}.
  */
 public final class RxTabLayout {
@@ -25,7 +25,7 @@ public final class RxTabLayout {
   @CheckResult @NonNull
   public static Observable<Tab> selections(@NonNull TabLayout view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new TabLayoutSelectionsOnSubscribe(view));
+    return new TabLayoutSelectionsObservable(view);
   }
 
   /**
@@ -40,7 +40,7 @@ public final class RxTabLayout {
   @CheckResult @NonNull
   public static Observable<TabLayoutSelectionEvent> selectionEvents(@NonNull TabLayout view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new TabLayoutSelectionEventOnSubscribe(view));
+    return new TabLayoutSelectionEventObservable(view);
   }
 
   /**
@@ -50,10 +50,10 @@ public final class RxTabLayout {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> select(@NonNull final TabLayout view) {
+  public static Consumer<? super Integer> select(@NonNull final TabLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer index) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer index) {
         if (index < 0 || index >= view.getTabCount()) {
           throw new IllegalArgumentException("No tab for index " + index);
         }
