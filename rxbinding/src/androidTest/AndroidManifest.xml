@@ -13,7 +13,7 @@
     <activity android:name="com.jakewharton.rxbinding2.widget.RxSeekBarTestActivity"/>
     <activity android:name="com.jakewharton.rxbinding2.widget.RxPopupMenuTestActivity"/>
     <activity
-        android:name=".widget.RxToolbarTestActivity"
+        android:name="com.jakewharton.rxbinding2.widget.RxToolbarTestActivity"
         android:theme="@android:style/Theme.Material"
         />
   </application>
