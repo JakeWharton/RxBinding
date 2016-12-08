@@ -1,16 +1,16 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.TextSwitcher;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
- * actions} for {@link TextSwitcher}.
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
+ * consumers} for {@link TextSwitcher}.
  */
 public final class RxTextSwitcher {
   /**
@@ -20,10 +20,10 @@ public final class RxTextSwitcher {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> text(@NonNull final TextSwitcher view) {
+  public static Consumer<? super CharSequence> text(@NonNull final TextSwitcher view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence text) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence text) {
         view.setText(text);
       }
     };
@@ -36,10 +36,10 @@ public final class RxTextSwitcher {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> currentText(@NonNull final TextSwitcher view) {
+  public static Consumer<? super CharSequence> currentText(@NonNull final TextSwitcher view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence textRes) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence textRes) {
         view.setCurrentText(textRes);
       }
     };
