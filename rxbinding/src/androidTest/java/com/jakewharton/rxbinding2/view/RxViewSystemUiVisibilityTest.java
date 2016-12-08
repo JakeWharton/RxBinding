@@ -6,7 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.FrameLayout;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
