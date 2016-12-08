@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import com.jakewharton.rxbinding2.internal.Functions;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -30,7 +30,7 @@ public final class RxMenuItem {
   @CheckResult @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new MenuItemClickOnSubscribe(menuItem, Functions.FUNCTION_ALWAYS_TRUE);
+    return new MenuItemClickOnSubscribe(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -48,7 +48,7 @@ public final class RxMenuItem {
    */
   @CheckResult @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem,
-      @NonNull Function<? super MenuItem, Boolean> handled) {
+      @NonNull Predicate<? super MenuItem> handled) {
     checkNotNull(menuItem, "menuItem == null");
     checkNotNull(handled, "handled == null");
     return new MenuItemClickOnSubscribe(menuItem, handled);
@@ -66,7 +66,7 @@ public final class RxMenuItem {
   @CheckResult @NonNull
   public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new MenuItemActionViewEventObservable(menuItem, Functions.FUNCTION_ALWAYS_TRUE);
+    return new MenuItemActionViewEventObservable(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
   /**
@@ -83,7 +83,7 @@ public final class RxMenuItem {
    */
   @CheckResult @NonNull
   public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem,
-      @NonNull Function<? super MenuItemActionViewEvent, Boolean> handled) {
+      @NonNull Predicate<? super MenuItemActionViewEvent> handled) {
     checkNotNull(menuItem, "menuItem == null");
     checkNotNull(handled, "handled == null");
     return new MenuItemActionViewEventObservable(menuItem, handled);
