@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -7,12 +7,14 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
+
+import com.jakewharton.rxbinding2.RecordingObserver;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
-import rx.functions.Action1;
+
+import io.reactivex.functions.Consumer;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -27,7 +29,7 @@ public final class RxCompoundButtonTest {
     view.setChecked(false);
 
     RecordingObserver<Boolean> o = new RecordingObserver<>();
-    Subscription subscription = RxCompoundButton.checkedChanges(view).subscribe(o);
+    RxCompoundButton.checkedChanges(view).subscribe(o);
     assertThat(o.takeNext()).isFalse();
 
     view.setChecked(true);
@@ -35,31 +37,31 @@ public final class RxCompoundButtonTest {
     view.setChecked(false);
     assertThat(o.takeNext()).isFalse();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.setChecked(true);
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void checked() {
+  @Test @UiThreadTest public void checked() throws Exception {
     view.setChecked(false);
-    Action1<? super Boolean> toggle = RxCompoundButton.checked(view);
+    Consumer<? super Boolean> toggle = RxCompoundButton.checked(view);
 
-    toggle.call(true);
+    toggle.accept(true);
     assertThat(view.isChecked()).isTrue();
 
-    toggle.call(false);
+    toggle.accept(false);
     assertThat(view.isChecked()).isFalse();
   }
 
-  @Test @UiThreadTest public void toggle() {
+  @Test @UiThreadTest public void toggle() throws Exception {
     view.setChecked(false);
-    Action1<? super Object> toggle = RxCompoundButton.toggle(view);
+    Consumer<? super Object> toggle = RxCompoundButton.toggle(view);
 
-    toggle.call(null);
+    toggle.accept(null);
     assertThat(view.isChecked()).isTrue();
 
-    toggle.call("OMG TOGGLES");
+    toggle.accept("OMG TOGGLES");
     assertThat(view.isChecked()).isFalse();
   }
 }

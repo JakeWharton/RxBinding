@@ -22,6 +22,7 @@ final class CompoundButtonCheckedChangeObservable extends Observable<Boolean> {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnCheckedChangeListener(listener);
+    observer.onNext(view.isChecked());
   }
 
   static final class Listener extends MainThreadDisposable implements CompoundButton.OnCheckedChangeListener {
