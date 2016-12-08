@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
@@ -6,14 +6,13 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.RatingBar;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
@@ -34,8 +33,8 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 
   @Test public void ratingChanges() {
     RecordingObserver<Float> o = new RecordingObserver<>();
-    Subscription subscription = RxRatingBar.ratingChanges(view) //
-        .subscribeOn(AndroidSchedulers.mainThread()) //
+    RxRatingBar.ratingChanges(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0f);
 
@@ -53,7 +52,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
     });
     assertThat(o.takeNext()).isEqualTo(2f);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -65,7 +64,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 
   @Test public void ratingChangeEvents() {
     RecordingObserver<RatingBarChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRatingBar.ratingChangeEvents(view) //
+    RxRatingBar.ratingChangeEvents(view) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(RatingBarChangeEvent.create(view, 0f, false));
@@ -82,7 +81,7 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(RatingBarChangeEvent.create(view, 1f, true));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -92,21 +91,21 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void rating() {
-    Action1<? super Float> action = RxRatingBar.rating(view);
+  @Test @UiThreadTest public void rating() throws Exception {
+    Consumer<? super Float> action = RxRatingBar.rating(view);
     assertThat(view.getRating()).isEqualTo(0f);
-    action.call(1f);
+    action.accept(1f);
     assertThat(view.getRating()).isEqualTo(1f);
-    action.call(2f);
+    action.accept(2f);
     assertThat(view.getRating()).isEqualTo(2f);
   }
 
-  @Test @UiThreadTest public void isIndicator() {
-    Action1<? super Boolean> action = RxRatingBar.isIndicator(view);
+  @Test @UiThreadTest public void isIndicator() throws Exception {
+    Consumer<? super Boolean> action = RxRatingBar.isIndicator(view);
     assertThat(view.isIndicator()).isFalse();
-    action.call(true);
+    action.accept(true);
     assertThat(view.isIndicator()).isTrue();
-    action.call(false);
+    action.accept(false);
     assertThat(view.isIndicator()).isFalse();
   }
 }
