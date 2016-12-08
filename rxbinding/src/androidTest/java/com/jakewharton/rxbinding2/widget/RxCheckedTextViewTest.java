@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -19,9 +19,9 @@ public class RxCheckedTextViewTest {
   private final Context context = InstrumentationRegistry.getContext();
   private final CheckedTextView view = new CheckedTextView(context);
 
-  @Test @UiThreadTest public void check() {
+  @Test @UiThreadTest public void check() throws Exception {
     view.setChecked(false);
-    RxCheckedTextView.check(view).call(true);
+    RxCheckedTextView.check(view).accept(true);
     assertThat(view.isChecked()).isEqualTo(true);
   }
 }
