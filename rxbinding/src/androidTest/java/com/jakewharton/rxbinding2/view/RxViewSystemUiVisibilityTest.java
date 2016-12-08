@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.view;
+package com.jakewharton.rxbinding2.view;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
@@ -11,8 +11,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -32,7 +31,7 @@ public final class RxViewSystemUiVisibilityTest {
 
   @Test public void systemUiVisibilityChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxView.systemUiVisibilityChanges(root)
+    RxView.systemUiVisibilityChanges(root)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
@@ -51,7 +50,7 @@ public final class RxViewSystemUiVisibilityTest {
     });
     assertThat(o.takeNext()).isEqualTo(View.SYSTEM_UI_FLAG_VISIBLE);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
