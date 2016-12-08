@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -29,23 +29,23 @@ public final class RxTextSwitcherTest {
     view.addView(textView2);
   }
 
-  @Test @UiThreadTest public void text() {
-    Action1<? super CharSequence> action = RxTextSwitcher.text(view);
-    action.call("Hey");
+  @Test @UiThreadTest public void text() throws Exception {
+    Consumer<? super CharSequence> action = RxTextSwitcher.text(view);
+    action.accept("Hey");
     assertThat(textView2.getText().toString()).isEqualTo("Hey");
-    action.call("Hello");
+    action.accept("Hello");
     assertThat(textView1.getText().toString()).isEqualTo("Hello");
-    action.call("Hi");
+    action.accept("Hi");
     assertThat(textView2.getText().toString()).isEqualTo("Hi");
   }
 
-  @Test @UiThreadTest public void currentText() {
-    Action1<? super CharSequence> action = RxTextSwitcher.currentText(view);
-    action.call("Hey");
+  @Test @UiThreadTest public void currentText() throws Exception {
+    Consumer<? super CharSequence> action = RxTextSwitcher.currentText(view);
+    action.accept("Hey");
     assertThat(textView1.getText().toString()).isEqualTo("Hey");
-    action.call("Hello");
+    action.accept("Hello");
     assertThat(textView1.getText().toString()).isEqualTo("Hello");
-    action.call("Hi");
+    action.accept("Hi");
     assertThat(textView1.getText().toString()).isEqualTo("Hi");
   }
 }
