@@ -7,7 +7,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
