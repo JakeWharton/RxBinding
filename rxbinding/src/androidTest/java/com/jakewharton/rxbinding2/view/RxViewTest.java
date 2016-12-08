@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.view;
+package com.jakewharton.rxbinding2.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,8 +16,7 @@ import com.jakewharton.rxbinding.internal.Functions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
@@ -40,17 +39,17 @@ public final class RxViewTest {
   private final View view = new View(context);
 
   @Test @UiThreadTest public void clicks() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.clicks(view).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.clicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.performClick();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     view.performClick();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.performClick();
     o.assertNoMoreEvents();
@@ -58,7 +57,7 @@ public final class RxViewTest {
 
   @Test @UiThreadTest public void drags() {
     //RecordingObserver<ViewClickEvent> o = new RecordingObserver<>();
-    //Subscription subscription = RxView.clickEvents(view).subscribe(o);
+    //RxView.clickEvents(view).subscribe(o);
     //o.assertNoMoreEvents(); // No initial value.
     //
     //clock.advance(1, SECONDS);
@@ -69,7 +68,7 @@ public final class RxViewTest {
     //view.performClick();
     //assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view, 2000));
     //
-    //subscription.unsubscribe();
+    //o.dispose();
     //
     //clock.advance(1, SECONDS);
     //view.performClick();
@@ -79,14 +78,14 @@ public final class RxViewTest {
   @TargetApi(JELLY_BEAN)
   @SdkSuppress(minSdkVersion = JELLY_BEAN)
   @Test @UiThreadTest public void drawEvents() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.draws(view).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.draws(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnDraw();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.getViewTreeObserver().dispatchOnDraw();
     o.assertNoMoreEvents();
@@ -101,7 +100,7 @@ public final class RxViewTest {
     view.setFocusable(true);
 
     RecordingObserver<Boolean> o = new RecordingObserver<>();
-    Subscription subscription = RxView.focusChanges(view).subscribe(o);
+    RxView.focusChanges(view).subscribe(o);
     assertThat(o.takeNext()).isFalse();
 
     view.requestFocus();
@@ -110,21 +109,21 @@ public final class RxViewTest {
     view.clearFocus();
     assertThat(o.takeNext()).isFalse();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.requestFocus();
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void globalLayouts() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.globalLayouts(view).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.globalLayouts(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnGlobalLayout();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
     view.getViewTreeObserver().dispatchOnGlobalLayout();
 
     o.assertNoMoreEvents();
@@ -132,7 +131,7 @@ public final class RxViewTest {
 
   @Test @UiThreadTest public void hovers() {
     RecordingObserver<MotionEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.hovers(view).subscribe(o);
+    RxView.hovers(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.dispatchGenericMotionEvent(hoverMotionEventAtPosition(view, ACTION_HOVER_ENTER, 0, 50));
@@ -143,31 +142,31 @@ public final class RxViewTest {
     MotionEvent event2 = o.takeNext();
     assertThat(event2.getAction()).isEqualTo(ACTION_HOVER_MOVE);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.dispatchGenericMotionEvent(hoverMotionEventAtPosition(view, ACTION_HOVER_EXIT, 1, 50));
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void layoutChanges() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.layoutChanges(view).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.layoutChanges(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void layoutChangeEvents() {
     RecordingObserver<ViewLayoutChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.layoutChangeEvents(view).subscribe(o);
+    RxView.layoutChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
@@ -179,7 +178,7 @@ public final class RxViewTest {
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
   }
@@ -193,31 +192,31 @@ public final class RxViewTest {
     };
     parent.addView(view);
 
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.longClicks(view).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.longClicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.performLongClick();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     view.performLongClick();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.performLongClick();
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void preDrawEvents() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxView.preDraws(view, Functions.FUNC0_ALWAYS_TRUE).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxView.preDraws(view, Functions.FUNC0_ALWAYS_TRUE).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnPreDraw();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.getViewTreeObserver().dispatchOnPreDraw();
     o.assertNoMoreEvents();
@@ -227,7 +226,7 @@ public final class RxViewTest {
   @SdkSuppress(minSdkVersion = M)
   @Test @UiThreadTest public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.scrollChangeEvents(view).subscribe(o);
+    RxView.scrollChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.scrollTo(1, 1);
@@ -246,14 +245,14 @@ public final class RxViewTest {
     assertThat(event1.oldScrollX()).isEqualTo(1);
     assertThat(event1.oldScrollY()).isEqualTo(1);
 
-    subscription.unsubscribe();
+    o.dispose();
     view.scrollTo(3, 3);
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void touches() {
     RecordingObserver<MotionEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.touches(view).subscribe(o);
+    RxView.touches(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
@@ -264,7 +263,7 @@ public final class RxViewTest {
     MotionEvent event2 = o.takeNext();
     assertThat(event2.getAction()).isEqualTo(ACTION_MOVE);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_UP, 1, 50));
     o.assertNoMoreEvents();
@@ -272,7 +271,7 @@ public final class RxViewTest {
 
   @Test @UiThreadTest public void keys() {
     RecordingObserver<KeyEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxView.keys(view).subscribe(o);
+    RxView.keys(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_R));
@@ -283,72 +282,72 @@ public final class RxViewTest {
     KeyEvent event2 = o.takeNext();
     assertThat(event2.getKeyCode()).isEqualTo(KeyEvent.KEYCODE_H);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_S));
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void activated() {
+  @Test @UiThreadTest public void activated() throws Exception {
     view.setActivated(true);
-    Action1<? super Boolean> action = RxView.activated(view);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.activated(view);
+    action.accept(false);
     assertThat(view.isActivated()).isFalse();
-    action.call(true);
+    action.accept(true);
     assertThat(view.isActivated()).isTrue();
   }
 
-  @Test @UiThreadTest public void clickable() {
+  @Test @UiThreadTest public void clickable() throws Exception {
     view.setClickable(true);
-    Action1<? super Boolean> action = RxView.clickable(view);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.clickable(view);
+    action.accept(false);
     assertThat(view.isClickable()).isFalse();
-    action.call(true);
+    action.accept(true);
     assertThat(view.isClickable()).isTrue();
   }
 
-  @Test @UiThreadTest public void enabled() {
+  @Test @UiThreadTest public void enabled() throws Exception {
     view.setEnabled(true);
-    Action1<? super Boolean> action = RxView.enabled(view);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.enabled(view);
+    action.accept(false);
     assertThat(view.isEnabled()).isFalse();
-    action.call(true);
+    action.accept(true);
     assertThat(view.isEnabled()).isTrue();
   }
 
-  @Test @UiThreadTest public void pressed() {
+  @Test @UiThreadTest public void pressed() throws Exception {
     view.setPressed(true);
-    Action1<? super Boolean> action = RxView.pressed(view);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.pressed(view);
+    action.accept(false);
     assertThat(view.isPressed()).isFalse();
-    action.call(true);
+    action.accept(true);
     assertThat(view.isPressed()).isTrue();
   }
 
-  @Test @UiThreadTest public void selected() {
+  @Test @UiThreadTest public void selected() throws Exception {
     view.setSelected(true);
-    Action1<? super Boolean> action = RxView.selected(view);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.selected(view);
+    action.accept(false);
     assertThat(view.isSelected()).isFalse();
-    action.call(true);
+    action.accept(true);
     assertThat(view.isSelected()).isTrue();
   }
 
-  @Test @UiThreadTest public void visibility() {
+  @Test @UiThreadTest public void visibility() throws Exception {
     view.setVisibility(View.VISIBLE);
-    Action1<? super Boolean> action = RxView.visibility(view);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.visibility(view);
+    action.accept(false);
     assertThat(view.getVisibility()).isEqualTo(View.GONE);
-    action.call(true);
+    action.accept(true);
     assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
   }
 
-  @Test @UiThreadTest public void visibilityCustomFalse() {
+  @Test @UiThreadTest public void visibilityCustomFalse() throws Exception {
     view.setVisibility(View.VISIBLE);
-    Action1<? super Boolean> action = RxView.visibility(view, View.INVISIBLE);
-    action.call(false);
+    Consumer<? super Boolean> action = RxView.visibility(view, View.INVISIBLE);
+    action.accept(false);
     assertThat(view.getVisibility()).isEqualTo(View.INVISIBLE);
-    action.call(true);
+    action.accept(true);
     assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
   }
 
