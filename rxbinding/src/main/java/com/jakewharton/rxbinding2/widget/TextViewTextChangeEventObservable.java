@@ -23,6 +23,7 @@ final class TextViewTextChangeEventObservable extends Observable<TextViewTextCha
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addTextChangedListener(listener);
+    observer.onNext(TextViewTextChangeEvent.create(view, view.getText(), 0, 0, 0));
   }
 
   final static class Listener extends MainThreadDisposable implements TextWatcher {
