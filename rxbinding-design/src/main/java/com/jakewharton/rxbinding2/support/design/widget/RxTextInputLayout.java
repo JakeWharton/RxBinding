@@ -1,17 +1,15 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-
 import com.jakewharton.rxbinding.internal.GenericTypeNullable;
-
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Action1 actions} for {@link TextInputLayout}.
+ * Static factory methods for creating {@linkplain Consumer actions} for {@link TextInputLayout}.
  */
 public final class RxTextInputLayout {
 
@@ -22,10 +20,10 @@ public final class RxTextInputLayout {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<Boolean>() {
-      @Override public void call(Boolean enable) {
+    return new Consumer<Boolean>() {
+      @Override public void accept(Boolean enable) {
         view.setCounterEnabled(enable);
       }
     };
@@ -38,10 +36,10 @@ public final class RxTextInputLayout {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer maxLength) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer maxLength) {
         view.setCounterMaxLength(maxLength);
       }
     };
@@ -54,11 +52,11 @@ public final class RxTextInputLayout {
    * to free this reference.
    */
   @CheckResult @NonNull @GenericTypeNullable
-  public static Action1<? super CharSequence> error(@NonNull final TextInputLayout view) {
+  public static Consumer<? super CharSequence> error(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
+    return new Consumer<CharSequence>() {
       @Override
-      public void call(CharSequence error) {
+      public void accept(CharSequence error) {
         view.setError(error);
       }
     };
@@ -71,11 +69,11 @@ public final class RxTextInputLayout {
    * to free this reference.
    */
   @CheckResult @NonNull @GenericTypeNullable
-  public static Action1<? super Integer> errorRes(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Integer> errorRes(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
+    return new Consumer<Integer>() {
       @Override
-      public void call(Integer errorRes) {
+      public void accept(Integer errorRes) {
         view.setError(view.getContext().getResources().getText(errorRes));
       }
     };
@@ -88,10 +86,10 @@ public final class RxTextInputLayout {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> hint(@NonNull final TextInputLayout view) {
+  public static Consumer<? super CharSequence> hint(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence hint) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence hint) {
         view.setHint(hint);
       }
     };
@@ -104,10 +102,10 @@ public final class RxTextInputLayout {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> hintRes(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Integer> hintRes(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer hintRes) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer hintRes) {
         view.setHint(view.getContext().getResources().getText(hintRes));
       }
     };
