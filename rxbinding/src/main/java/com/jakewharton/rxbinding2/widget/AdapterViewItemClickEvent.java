@@ -1,10 +1,10 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
-import com.jakewharton.rxbinding.view.ViewEvent;
+import com.jakewharton.rxbinding2.view.ViewEvent;
 
 public final class AdapterViewItemClickEvent extends ViewEvent<AdapterView<?>> {
   @CheckResult @NonNull
