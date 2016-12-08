@@ -1,15 +1,17 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.CompoundButton;
-import rx.Observable;
-import rx.functions.Action1;
+
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link CompoundButton}.
  */
 public final class RxCompoundButton {
@@ -27,7 +29,7 @@ public final class RxCompoundButton {
   @CheckResult @NonNull
   public static Observable<Boolean> checkedChanges(@NonNull CompoundButton view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new CompoundButtonCheckedChangeOnSubscribe(view));
+    return new CompoundButtonCheckedChangeObservable(view);
   }
 
   /**
@@ -37,10 +39,11 @@ public final class RxCompoundButton {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Boolean> checked(@NonNull final CompoundButton view) {
+  public static Consumer<? super Boolean> checked(@NonNull final CompoundButton view) {
     checkNotNull(view, "view == null");
-    return new Action1<Boolean>() {
-      @Override public void call(Boolean value) {
+    return new Consumer<Boolean>(){
+      @Override
+      public void accept(Boolean value) throws Exception {
         view.setChecked(value);
       }
     };
@@ -53,10 +56,10 @@ public final class RxCompoundButton {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Object> toggle(@NonNull final CompoundButton view) {
+  public static Consumer<? super Object> toggle(@NonNull final CompoundButton view) {
     checkNotNull(view, "view == null");
-    return new Action1<Object>() {
-      @Override public void call(Object value) {
+    return new Consumer<Object>() {
+      @Override public void accept(Object value) {
         view.toggle();
       }
     };
