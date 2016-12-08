@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -6,12 +6,11 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.SearchView;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -30,7 +29,7 @@ public final class RxSearchViewTest {
   @Test @UiThreadTest public void queryTextChanges() {
     searchView.setQuery("Initial", false);
     RecordingObserver<CharSequence> o = new RecordingObserver<>();
-    Subscription subscription = RxSearchView.queryTextChanges(searchView).subscribe(o);
+    RxSearchView.queryTextChanges(searchView).subscribe(o);
     assertThat(o.takeNext().toString()).isEqualTo("Initial");
 
     searchView.setQuery("H", false);
@@ -41,17 +40,17 @@ public final class RxSearchViewTest {
     searchView.setQuery(null, false); // Internally coerced to empty string.
     assertThat(o.takeNext().toString()).isEmpty();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     searchView.setQuery("Silent", false);
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void query() {
-    RxSearchView.query(searchView, false).call("Hey");
+  @Test @UiThreadTest public void query() throws Exception {
+    RxSearchView.query(searchView, false).accept("Hey");
     assertThat(searchView.getQuery().toString()).isEqualTo("Hey");
 
-    RxSearchView.query(searchView, true).call("Bye");
+    RxSearchView.query(searchView, true).accept("Bye");
     assertThat(searchView.getQuery().toString()).isEqualTo("Bye");
   }
 
