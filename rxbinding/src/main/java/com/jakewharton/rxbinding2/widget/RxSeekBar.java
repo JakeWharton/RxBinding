@@ -1,9 +1,9 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SeekBar;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -19,7 +19,7 @@ public final class RxSeekBar {
   @CheckResult @NonNull
   public static Observable<Integer> changes(@NonNull SeekBar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SeekBarChangeOnSubscribe(view, null));
+    return new SeekBarChangeObservable(view, null);
   }
 
   /**
@@ -34,7 +34,7 @@ public final class RxSeekBar {
   @CheckResult @NonNull
   public static Observable<Integer> userChanges(@NonNull SeekBar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SeekBarChangeOnSubscribe(view, true));
+    return new SeekBarChangeObservable(view, true);
   }
 
   /**
@@ -49,7 +49,7 @@ public final class RxSeekBar {
   @CheckResult @NonNull
   public static Observable<Integer> systemChanges(@NonNull SeekBar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SeekBarChangeOnSubscribe(view, false));
+    return new SeekBarChangeObservable(view, false);
   }
 
   /**
@@ -63,7 +63,7 @@ public final class RxSeekBar {
   @CheckResult @NonNull
   public static Observable<SeekBarChangeEvent> changeEvents(@NonNull SeekBar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SeekBarChangeEventOnSubscribe(view));
+    return new SeekBarChangeEventObservable(view);
   }
 
   private RxSeekBar() {
