@@ -1,9 +1,9 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.ProgressBar;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -15,10 +15,10 @@ public final class RxProgressBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> incrementProgressBy(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> incrementProgressBy(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         view.incrementProgressBy(value);
       }
     };
@@ -31,11 +31,11 @@ public final class RxProgressBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> incrementSecondaryProgressBy(
+  public static Consumer<? super Integer> incrementSecondaryProgressBy(
       @NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         view.incrementSecondaryProgressBy(value);
       }
     };
@@ -48,10 +48,10 @@ public final class RxProgressBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Boolean> indeterminate(@NonNull final ProgressBar view) {
+  public static Consumer<? super Boolean> indeterminate(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Boolean>() {
-      @Override public void call(Boolean value) {
+    return new Consumer<Boolean>() {
+      @Override public void accept(Boolean value) {
         view.setIndeterminate(value);
       }
     };
@@ -64,10 +64,10 @@ public final class RxProgressBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> max(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> max(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         view.setMax(value);
       }
     };
@@ -80,10 +80,10 @@ public final class RxProgressBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> progress(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> progress(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         view.setProgress(value);
       }
     };
@@ -96,10 +96,10 @@ public final class RxProgressBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> secondaryProgress(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> secondaryProgress(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer value) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer value) {
         view.setSecondaryProgress(value);
       }
     };
