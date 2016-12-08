@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.view;
+package com.jakewharton.rxbinding2.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +16,11 @@ import android.view.SubMenu;
 import android.view.View;
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.test.R;
-import com.jakewharton.rxbinding.view.MenuItemActionViewEvent.Kind;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.functions.Func1;
+import io.reactivex.functions.Function;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -32,31 +31,31 @@ import static com.google.common.truth.Truth.assertThat;
   private final TestMenuItem menuItem = new TestMenuItem(context);
 
   @Test @UiThreadTest public void clicks() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxMenuItem.clicks(menuItem).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxMenuItem.clicks(menuItem).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.performClick();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     menuItem.performClick();
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void clicksAvoidHandling() {
-    Func1<MenuItem, Boolean> handled = new Func1<MenuItem, Boolean>() {
-      @Override public Boolean call(MenuItem menuItem) {
+    Function<MenuItem, Boolean> handled = new Function<MenuItem, Boolean>() {
+      @Override public Boolean apply(MenuItem menuItem) {
         return Boolean.FALSE;
       }
     };
 
     RecordingObserver<Object> o = new RecordingObserver<>();
-    Subscription subscription = RxMenuItem.clicks(menuItem, handled).subscribe(o);
+    RxMenuItem.clicks(menuItem, handled).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.performClick();
@@ -65,7 +64,7 @@ import static com.google.common.truth.Truth.assertThat;
     menuItem.performClick();
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();
@@ -73,7 +72,7 @@ import static com.google.common.truth.Truth.assertThat;
 
   @Test @UiThreadTest public void actionViewEvents() {
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxMenuItem.actionViewEvents(menuItem).subscribe(o);
+    RxMenuItem.actionViewEvents(menuItem).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
@@ -82,75 +81,75 @@ import static com.google.common.truth.Truth.assertThat;
     menuItem.collapseActionView();
     assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
-    Func1<MenuItemActionViewEvent, Boolean> handled =
-        new Func1<MenuItemActionViewEvent, Boolean>() {
-          @Override public Boolean call(MenuItemActionViewEvent menuItem) {
+    Function<MenuItemActionViewEvent, Boolean> handled =
+        new Function<MenuItemActionViewEvent, Boolean>() {
+          @Override public Boolean apply(MenuItemActionViewEvent menuItem) {
             return Boolean.FALSE;
           }
         };
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxMenuItem.actionViewEvents(menuItem, handled).subscribe(o);
+    RxMenuItem.actionViewEvents(menuItem, handled).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
     assertThat(menuItem.isActionViewExpanded()).isEqualTo(false); // Should be prevented by handler
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();
   }
 
-  @Test public void checked() {
+  @Test public void checked() throws Exception {
     menuItem.setCheckable(true);
-    RxMenuItem.checked(menuItem).call(true);
+    RxMenuItem.checked(menuItem).accept(true);
     assertThat(menuItem.isChecked()).isEqualTo(true);
-    RxMenuItem.checked(menuItem).call(false);
+    RxMenuItem.checked(menuItem).accept(false);
     assertThat(menuItem.isChecked()).isEqualTo(false);
   }
 
-  @Test public void enabled() {
-    RxMenuItem.enabled(menuItem).call(true);
+  @Test public void enabled() throws Exception {
+    RxMenuItem.enabled(menuItem).accept(true);
     assertThat(menuItem.isEnabled()).isEqualTo(true);
-    RxMenuItem.enabled(menuItem).call(false);
+    RxMenuItem.enabled(menuItem).accept(false);
     assertThat(menuItem.isEnabled()).isEqualTo(false);
   }
 
-  @Test public void icon() {
+  @Test public void icon() throws Exception {
     Drawable drawable = context.getResources().getDrawable(R.drawable.icon);
-    RxMenuItem.icon(menuItem).call(drawable);
+    RxMenuItem.icon(menuItem).accept(drawable);
     assertThat(menuItem.getIcon()).isEqualTo(drawable);
   }
 
-  @Test public void iconRes() {
+  @Test public void iconRes() throws Exception {
     ColorDrawable drawable = (ColorDrawable) context.getResources().getDrawable(R.drawable.icon);
-    RxMenuItem.iconRes(menuItem).call(R.drawable.icon);
+    RxMenuItem.iconRes(menuItem).accept(R.drawable.icon);
     assertThat(((ColorDrawable) menuItem.getIcon()).getColor()).isEqualTo(drawable.getColor());
   }
 
-  @Test public void title() {
-    RxMenuItem.title(menuItem).call("Hey");
+  @Test public void title() throws Exception {
+    RxMenuItem.title(menuItem).accept("Hey");
     assertThat(menuItem.getTitle()).isEqualTo("Hey");
   }
 
-  @Test public void titleRes() {
-    RxMenuItem.titleRes(menuItem).call(R.string.hey);
+  @Test public void titleRes() throws Exception {
+    RxMenuItem.titleRes(menuItem).accept(R.string.hey);
     assertThat(menuItem.getTitle()).isEqualTo(context.getText(R.string.hey));
   }
 
-  @Test public void visible() {
-    RxMenuItem.visible(menuItem).call(true);
+  @Test public void visible() throws Exception {
+    RxMenuItem.visible(menuItem).accept(true);
     assertThat(menuItem.isVisible()).isEqualTo(true);
-    RxMenuItem.visible(menuItem).call(false);
+    RxMenuItem.visible(menuItem).accept(false);
     assertThat(menuItem.isVisible()).isEqualTo(false);
   }
 
