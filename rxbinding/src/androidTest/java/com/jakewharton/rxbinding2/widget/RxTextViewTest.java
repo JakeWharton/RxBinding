@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -7,13 +7,11 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TextView;
 import com.jakewharton.rxbinding.test.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_GO;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
@@ -28,7 +26,7 @@ public final class RxTextViewTest {
 
   @Test @UiThreadTest public void editorActions() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxTextView.editorActions(view).subscribe(o);
+    RxTextView.editorActions(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.onEditorAction(IME_ACTION_GO);
@@ -37,7 +35,7 @@ public final class RxTextViewTest {
     view.onEditorAction(IME_ACTION_NEXT);
     assertThat(o.takeNext()).isEqualTo(IME_ACTION_NEXT);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.onEditorAction(IME_ACTION_GO);
     o.assertNoMoreEvents();
@@ -45,7 +43,7 @@ public final class RxTextViewTest {
 
   @Test @UiThreadTest public void editorActionEvents() {
     RecordingObserver<TextViewEditorActionEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxTextView.editorActionEvents(view).subscribe(o);
+    RxTextView.editorActionEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.onEditorAction(IME_ACTION_GO);
@@ -60,7 +58,7 @@ public final class RxTextViewTest {
     assertThat(event2.actionId()).isEqualTo(IME_ACTION_NEXT);
     assertThat(event2.keyEvent()).isNull(); // TODO figure out a user event?
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.onEditorAction(IME_ACTION_GO);
     o.assertNoMoreEvents();
@@ -70,7 +68,7 @@ public final class RxTextViewTest {
     view.setText("Initial");
 
     RecordingObserver<CharSequence> o = new RecordingObserver<>();
-    Subscription subscription = RxTextView.textChanges(view).subscribe(o);
+    RxTextView.textChanges(view).subscribe(o);
     assertThat(o.takeNext().toString()).isEqualTo("Initial");
 
     view.setText("H");
@@ -81,7 +79,7 @@ public final class RxTextViewTest {
     view.setText(null); // Internally coerced to empty string.
     assertThat(o.takeNext().toString()).isEqualTo("");
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.setText("Silent");
     o.assertNoMoreEvents();
@@ -91,7 +89,7 @@ public final class RxTextViewTest {
     view.setText("Initial");
 
     RecordingObserver<TextViewTextChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxTextView.textChangeEvents(view).subscribe(o);
+    RxTextView.textChangeEvents(view).subscribe(o);
     TextViewTextChangeEvent event0 = o.takeNext();
     assertThat(event0.view()).isSameAs(view);
     assertThat(event0.text().toString()).isEqualTo("Initial");
@@ -115,7 +113,7 @@ public final class RxTextViewTest {
     assertThat(event2.before()).isEqualTo(1);
     assertThat(event2.count()).isEqualTo(2);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.setText("Silent");
     o.assertNoMoreEvents();
@@ -125,7 +123,7 @@ public final class RxTextViewTest {
     view.setText("Initial");
 
     RecordingObserver<TextViewBeforeTextChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxTextView.beforeTextChangeEvents(view).subscribe(o);
+    RxTextView.beforeTextChangeEvents(view).subscribe(o);
     TextViewBeforeTextChangeEvent event0 = o.takeNext();
     assertThat(event0.view()).isSameAs(view);
     assertThat(event0.text().toString()).isEqualTo("Initial");
@@ -149,7 +147,7 @@ public final class RxTextViewTest {
     assertThat(event2.count()).isEqualTo(1);
     assertThat(event2.after()).isEqualTo(2);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.setText("Silent");
     o.assertNoMoreEvents();
@@ -159,7 +157,7 @@ public final class RxTextViewTest {
     view.setText("Initial");
 
     RecordingObserver<TextViewAfterTextChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxTextView.afterTextChangeEvents(view).subscribe(o);
+    RxTextView.afterTextChangeEvents(view).subscribe(o);
     TextViewAfterTextChangeEvent event0 = o.takeNext();
     assertThat(event0.view()).isSameAs(view);
     assertThat(event0.editable()).isEqualTo(null);
@@ -174,44 +172,44 @@ public final class RxTextViewTest {
     assertThat(event2.view()).isSameAs(view);
     assertThat(event2.editable().toString()).isEqualTo("He");
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.setText("Silent");
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void text() {
-    RxTextView.text(view).call("Hey");
+  @Test @UiThreadTest public void text() throws Exception {
+    RxTextView.text(view).accept("Hey");
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
 
-  @Test @UiThreadTest public void textRes() {
-    RxTextView.textRes(view).call(R.string.hey);
+  @Test @UiThreadTest public void textRes() throws Exception {
+    RxTextView.textRes(view).accept(R.string.hey);
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
 
-  @Test @UiThreadTest public void error() {
-    RxTextView.error(view).call("Ouch");
+  @Test @UiThreadTest public void error() throws Exception {
+    RxTextView.error(view).accept("Ouch");
     assertThat(view.getError().toString()).isEqualTo("Ouch");
   }
 
-  @Test @UiThreadTest public void errorRes() {
-    RxTextView.errorRes(view).call(R.string.ouch);
+  @Test @UiThreadTest public void errorRes() throws Exception {
+    RxTextView.errorRes(view).accept(R.string.ouch);
     assertThat(view.getError().toString()).isEqualTo("Ouch");
   }
 
-  @Test @UiThreadTest public void hint() {
-    RxTextView.hint(view).call("Your name here");
+  @Test @UiThreadTest public void hint() throws Exception {
+    RxTextView.hint(view).accept("Your name here");
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
 
-  @Test @UiThreadTest public void hintRes() {
-    RxTextView.hintRes(view).call(R.string.hint);
+  @Test @UiThreadTest public void hintRes() throws Exception {
+    RxTextView.hintRes(view).accept(R.string.hint);
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
 
-  @Test @UiThreadTest public void color() {
-    RxTextView.color(view).call(0x3F51B5);
+  @Test @UiThreadTest public void color() throws Exception {
+    RxTextView.color(view).accept(0x3F51B5);
     assertThat(view.getCurrentTextColor()).isEqualTo(0x3F51B5);
   }
 }

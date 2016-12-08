@@ -23,6 +23,7 @@ final class TextViewTextObservable extends Observable<CharSequence> {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addTextChangedListener(listener);
+    observer.onNext(view.getText());
   }
 
   final static class Listener extends MainThreadDisposable implements TextWatcher {
