@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
@@ -6,15 +6,14 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.SeekBar;
 
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
@@ -37,7 +36,7 @@ public final class RxSeekBarTest {
 
   @Test public void changes() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxSeekBar.changes(seekBar) //
+    RxSeekBar.changes(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
@@ -62,7 +61,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(85);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
@@ -79,7 +78,7 @@ public final class RxSeekBarTest {
 
   @Test public void systemChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxSeekBar.systemChanges(seekBar) //
+    RxSeekBar.systemChanges(seekBar) //
             .subscribeOn(AndroidSchedulers.mainThread()) //
             .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
@@ -96,7 +95,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(85);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
@@ -113,7 +112,7 @@ public final class RxSeekBarTest {
 
   @Test public void userChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxSeekBar.userChanges(seekBar) //
+    RxSeekBar.userChanges(seekBar) //
             .subscribeOn(AndroidSchedulers.mainThread()) //
             .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
@@ -138,7 +137,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
@@ -155,7 +154,7 @@ public final class RxSeekBarTest {
 
   @Test public void changeEvents() {
     RecordingObserver<SeekBarChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxSeekBar.changeEvents(seekBar) //
+    RxSeekBar.changeEvents(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
@@ -180,7 +179,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
