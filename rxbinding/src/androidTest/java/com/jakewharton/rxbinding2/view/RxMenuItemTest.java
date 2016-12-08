@@ -14,13 +14,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import com.jakewharton.rxbinding2.RecordingObserver;
+
 import com.jakewharton.rxbinding.test.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.functions.Function;
+
+import io.reactivex.functions.Predicate;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -48,9 +51,9 @@ import static com.google.common.truth.Truth.assertThat;
   }
 
   @Test @UiThreadTest public void clicksAvoidHandling() {
-    Function<MenuItem, Boolean> handled = new Function<MenuItem, Boolean>() {
-      @Override public Boolean apply(MenuItem menuItem) {
-        return Boolean.FALSE;
+    Predicate<MenuItem> handled = new Predicate<MenuItem>() {
+      @Override public boolean test(MenuItem menuItem) {
+        return false;
       }
     };
 
@@ -88,10 +91,10 @@ import static com.google.common.truth.Truth.assertThat;
   }
 
   @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
-    Function<MenuItemActionViewEvent, Boolean> handled =
-        new Function<MenuItemActionViewEvent, Boolean>() {
-          @Override public Boolean apply(MenuItemActionViewEvent menuItem) {
-            return Boolean.FALSE;
+    Predicate<MenuItemActionViewEvent> handled =
+        new Predicate<MenuItemActionViewEvent>() {
+          @Override public boolean test(MenuItemActionViewEvent menuItem) {
+            return false;
           }
         };
 
