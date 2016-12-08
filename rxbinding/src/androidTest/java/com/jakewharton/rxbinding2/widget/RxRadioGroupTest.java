@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -7,13 +7,12 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -36,7 +35,7 @@ public final class RxRadioGroupTest {
 
   @Test @UiThreadTest public void checkedChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxRadioGroup.checkedChanges(view).subscribe(o);
+    RxRadioGroup.checkedChanges(view).subscribe(o);
     assertThat(o.takeNext()).isEqualTo(-1);
 
     view.check(1);
@@ -48,20 +47,20 @@ public final class RxRadioGroupTest {
     view.check(2);
     assertThat(o.takeNext()).isEqualTo(2);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.check(1);
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void checked() {
-    Action1<? super Integer> action = RxRadioGroup.checked(view);
+  @Test @UiThreadTest public void checked() throws Exception {
+    Consumer<? super Integer> action = RxRadioGroup.checked(view);
     assertThat(view.getCheckedRadioButtonId()).isEqualTo(-1);
-    action.call(1);
+    action.accept(1);
     assertThat(view.getCheckedRadioButtonId()).isEqualTo(1);
-    action.call(-1);
+    action.accept(-1);
     assertThat(view.getCheckedRadioButtonId()).isEqualTo(-1);
-    action.call(2);
+    action.accept(2);
     assertThat(view.getCheckedRadioButtonId()).isEqualTo(2);
   }
 }
