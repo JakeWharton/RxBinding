@@ -1,10 +1,10 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.RatingBar;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -20,7 +20,7 @@ public final class RxRatingBar {
   @CheckResult @NonNull
   public static Observable<Float> ratingChanges(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new RatingBarRatingChangeOnSubscribe(view));
+    return new RatingBarRatingChangeObservable(view);
   }
 
   /**
@@ -34,7 +34,7 @@ public final class RxRatingBar {
   @CheckResult @NonNull
   public static Observable<RatingBarChangeEvent> ratingChangeEvents(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new RatingBarRatingChangeEventOnSubscribe(view));
+    return new RatingBarRatingChangeEventObservable(view);
   }
 
   /**
@@ -44,10 +44,10 @@ public final class RxRatingBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Float> rating(@NonNull final RatingBar view) {
+  public static Consumer<? super Float> rating(@NonNull final RatingBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Float>() {
-      @Override public void call(Float value) {
+    return new Consumer<Float>() {
+      @Override public void accept(Float value) {
         view.setRating(value);
       }
     };
@@ -60,10 +60,10 @@ public final class RxRatingBar {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Boolean> isIndicator(@NonNull final RatingBar view) {
+  public static Consumer<? super Boolean> isIndicator(@NonNull final RatingBar view) {
     checkNotNull(view, "view == null");
-    return new Action1<Boolean>() {
-      @Override public void call(Boolean value) {
+    return new Consumer<Boolean>() {
+      @Override public void accept(Boolean value) {
         view.setIsIndicator(value);
       }
     };
