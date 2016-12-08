@@ -4,7 +4,7 @@
     package="com.jakewharton.rxbinding">
 
   <application>
-    <activity android:name=".view.RxViewAttachTestActivity"/>
+    <activity android:name="com.jakewharton.rxbinding2.view.RxViewAttachTestActivity"/>
     <activity android:name=".view.RxViewSystemUiVisibilityTestActivity"/>
     <activity android:name="com.jakewharton.rxbinding2.widget.RxAdapterViewTestActivity"/>
     <activity android:name="com.jakewharton.rxbinding2.widget.RxAbsListViewTestActivity"/>

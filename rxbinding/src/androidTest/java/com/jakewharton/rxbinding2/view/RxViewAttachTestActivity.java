@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.view;
+package com.jakewharton.rxbinding2.view;
 
 import android.app.Activity;
 import android.os.Bundle;
