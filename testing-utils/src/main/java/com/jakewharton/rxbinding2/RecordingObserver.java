@@ -5,21 +5,14 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public final class RecordingObserver<T> implements Observer<T>, Disposable {
+public final class RecordingObserver<T> extends DisposableObserver<T> {
   private static final String TAG = "RecordingObserver";
 
   private final BlockingDeque<Object> events = new LinkedBlockingDeque<>();
-  private Disposable disposable;
-
-  @Override
-  public void onSubscribe(Disposable disposable) {
-    this.disposable = disposable;
-  }
 
   @Override public void onComplete() {
     Log.v(TAG, "onCompleted");
@@ -34,16 +27,6 @@ public final class RecordingObserver<T> implements Observer<T>, Disposable {
   @Override public void onNext(T t) {
     Log.v(TAG, "onNext " + t);
     events.addLast(new OnNext(t));
-  }
-
-  @Override
-  public void dispose() {
-    disposable.dispose();
-  }
-
-  @Override
-  public boolean isDisposed() {
-    return disposable.isDisposed();
   }
 
   private <E> E takeEvent(Class<E> wanted) {
