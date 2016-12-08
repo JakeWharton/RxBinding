@@ -6,15 +6,15 @@ import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
-import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class MenuItemClickOnSubscribe extends Observable<Object> {
   private final MenuItem menuItem;
-  private final Function<? super MenuItem, Boolean> handled;
+  private final Predicate<? super MenuItem> handled;
 
-  MenuItemClickOnSubscribe(MenuItem menuItem, Function<? super MenuItem, Boolean> handled) {
+  MenuItemClickOnSubscribe(MenuItem menuItem, Predicate<? super MenuItem> handled) {
     this.menuItem = menuItem;
     this.handled = handled;
   }
@@ -28,10 +28,10 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
 
   static final class Listener extends MainThreadDisposable implements OnMenuItemClickListener {
     private final MenuItem menuItem;
-    private final Function<? super MenuItem, Boolean> handled;
+    private final Predicate<? super MenuItem> handled;
     private final Observer<? super Object> observer;
 
-    Listener(MenuItem menuItem, Function<? super MenuItem, Boolean> handled,
+    Listener(MenuItem menuItem, Predicate<? super MenuItem> handled,
         Observer<? super Object> observer) {
       this.menuItem = menuItem;
       this.handled = handled;
@@ -41,7 +41,7 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
     @Override public boolean onMenuItemClick(MenuItem item) {
       if (!isDisposed()) {
         try {
-          if (handled.apply(menuItem)) {
+          if (handled.test(menuItem)) {
             observer.onNext(Notification.INSTANCE);
             return true;
           }

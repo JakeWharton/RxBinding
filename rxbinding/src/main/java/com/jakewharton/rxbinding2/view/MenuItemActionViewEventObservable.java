@@ -5,16 +5,16 @@ import android.view.MenuItem.OnActionExpandListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
-import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class MenuItemActionViewEventObservable extends Observable<MenuItemActionViewEvent> {
   private final MenuItem menuItem;
-  private final Function<? super MenuItemActionViewEvent, Boolean> handled;
+  private final Predicate<? super MenuItemActionViewEvent> handled;
 
   MenuItemActionViewEventObservable(MenuItem menuItem,
-      Function<? super MenuItemActionViewEvent, Boolean> handled) {
+      Predicate<? super MenuItemActionViewEvent> handled) {
     this.menuItem = menuItem;
     this.handled = handled;
   }
@@ -28,10 +28,10 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
 
   static final class Listener extends MainThreadDisposable implements OnActionExpandListener {
     private final MenuItem menuItem;
-    private final Function<? super MenuItemActionViewEvent, Boolean> handled;
+    private final Predicate<? super MenuItemActionViewEvent> handled;
     private final Observer<? super MenuItemActionViewEvent> observer;
 
-    Listener(MenuItem menuItem, Function<? super MenuItemActionViewEvent, Boolean> handled,
+    Listener(MenuItem menuItem, Predicate<? super MenuItemActionViewEvent> handled,
         Observer<? super MenuItemActionViewEvent> observer) {
       this.menuItem = menuItem;
       this.handled = handled;
@@ -51,7 +51,7 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
     private boolean onEvent(MenuItemActionViewEvent event) {
       if (!isDisposed()) {
         try {
-          if (handled.apply(event)) {
+          if (handled.test(event)) {
             observer.onNext(event);
             return true;
           }
