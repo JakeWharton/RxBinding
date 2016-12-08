@@ -1,10 +1,10 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.view.View;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -23,7 +23,7 @@ public final class RxSwipeDismissBehavior {
   @CheckResult @NonNull
   public static Observable<View> dismisses(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new SwipeDismissBehaviorOnSubscribe(view));
+    return new SwipeDismissBehaviorObservable(view);
   }
 
   private RxSwipeDismissBehavior() {

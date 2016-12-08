@@ -13,8 +13,7 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
   private final MenuItem menuItem;
   private final Function<? super MenuItemActionViewEvent, Boolean> handled;
 
-  MenuItemActionViewEventObservable(MenuItem menuItem,
-      Function<? super MenuItemActionViewEvent, Boolean> handled) {
+  MenuItemActionViewEventObservable(MenuItem menuItem, Function<? super MenuItemActionViewEvent, Boolean> handled) {
     this.menuItem = menuItem;
     this.handled = handled;
   }

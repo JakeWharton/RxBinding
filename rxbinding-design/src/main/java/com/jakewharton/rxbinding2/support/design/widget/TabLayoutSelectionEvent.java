@@ -1,10 +1,10 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
-import com.jakewharton.rxbinding.view.ViewEvent;
+import com.jakewharton.rxbinding2.view.ViewEvent;
 
 public final class TabLayoutSelectionEvent extends ViewEvent<TabLayout> {
   @CheckResult @NonNull
