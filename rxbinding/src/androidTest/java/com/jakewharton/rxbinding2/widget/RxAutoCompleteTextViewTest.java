@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.annotation.TargetApi;
 import android.app.Instrumentation;
@@ -10,16 +10,15 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.test.R;
-import java.util.Arrays;
-import java.util.List;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import java.util.Arrays;
+import java.util.List;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -61,8 +60,8 @@ public final class RxAutoCompleteTextViewTest {
     });
 
     RecordingObserver<AdapterViewItemClickEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxAutoCompleteTextView.itemClickEvents(autoCompleteTextView) //
-      .subscribeOn(AndroidSchedulers.mainThread()) //
+    RxAutoCompleteTextView.itemClickEvents(autoCompleteTextView)
+      .subscribeOn(AndroidSchedulers.mainThread())
       .subscribe(o);
     o.assertNoMoreEvents();
 
@@ -77,7 +76,7 @@ public final class RxAutoCompleteTextViewTest {
     assertThat(event.position()).isEqualTo(1); // Second item in two-item filtered list.
     assertThat(event.id()).isEqualTo(1); // Second item in two-item filtered list.
 
-    subscription.unsubscribe();
+    o.dispose();
 
     onView(withId(R.id.auto_complete)).perform(clearText(), typeText("Tw"));
     onData(startsWith("Twenty"))
@@ -89,13 +88,13 @@ public final class RxAutoCompleteTextViewTest {
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
   @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
-  @Test @UiThreadTest public void completionHint() {
-    RxAutoCompleteTextView.completionHint(autoCompleteTextView).call("Test hint");
+  @Test @UiThreadTest public void completionHint() throws Exception {
+    RxAutoCompleteTextView.completionHint(autoCompleteTextView).accept("Test hint");
     assertThat(autoCompleteTextView.getCompletionHint()).isEqualTo("Test hint");
   }
 
-  @Test @UiThreadTest public void threshold() {
-    RxAutoCompleteTextView.threshold(autoCompleteTextView).call(10);
+  @Test @UiThreadTest public void threshold() throws Exception {
+    RxAutoCompleteTextView.threshold(autoCompleteTextView).accept(10);
     assertThat(autoCompleteTextView.getThreshold()).isEqualTo(10);
   }
 }

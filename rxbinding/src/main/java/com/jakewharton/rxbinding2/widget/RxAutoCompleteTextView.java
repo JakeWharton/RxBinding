@@ -1,15 +1,15 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.AutoCompleteTextView;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
- * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Action1
+ * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link AutoCompleteTextView}.
  */
 public final class RxAutoCompleteTextView {
@@ -23,7 +23,7 @@ public final class RxAutoCompleteTextView {
   public static Observable<AdapterViewItemClickEvent> itemClickEvents(
       @NonNull AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new AutoCompleteTextViewItemClickEventOnSubscribe(view));
+    return new AutoCompleteTextViewItemClickEventObservable(view);
   }
 
   /**
@@ -35,11 +35,11 @@ public final class RxAutoCompleteTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super CharSequence> completionHint(
+  public static Consumer<? super CharSequence> completionHint(
       @NonNull final AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<CharSequence>() {
-      @Override public void call(CharSequence completionHint) {
+    return new Consumer<CharSequence>() {
+      @Override public void accept(CharSequence completionHint) {
         view.setCompletionHint(completionHint);
       }
     };
@@ -54,10 +54,10 @@ public final class RxAutoCompleteTextView {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Action1<? super Integer> threshold(@NonNull final AutoCompleteTextView view) {
+  public static Consumer<? super Integer> threshold(@NonNull final AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
-    return new Action1<Integer>() {
-      @Override public void call(Integer threshold) {
+    return new Consumer<Integer>() {
+      @Override public void accept(Integer threshold) {
         view.setThreshold(threshold);
       }
     };
