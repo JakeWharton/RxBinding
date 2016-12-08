@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
@@ -8,13 +8,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -36,7 +36,7 @@ import static com.google.common.truth.Truth.assertThat;
     MenuItem item2 = menu.add(0, 2, 0, "Hey");
 
     RecordingObserver<MenuItem> o = new RecordingObserver<>();
-    Subscription subscription = RxPopupMenu.itemClicks(view).subscribe(o);
+    RxPopupMenu.itemClicks(view).subscribe(o);
     o.assertNoMoreEvents();
 
     menu.performIdentifierAction(2, 0);
@@ -45,16 +45,15 @@ import static com.google.common.truth.Truth.assertThat;
     menu.performIdentifierAction(1, 0);
     assertThat(o.takeNext()).isSameAs(item1);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menu.performIdentifierAction(2, 0);
     o.assertNoMoreEvents();
   }
 
   @Test public void dismisses() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription =
-        RxPopupMenu.dismisses(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxPopupMenu.dismisses(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -69,9 +68,9 @@ import static com.google.common.truth.Truth.assertThat;
         view.dismiss();
       }
     });
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         view.show();
