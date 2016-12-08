@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.widget;
+package com.jakewharton.rxbinding2.widget;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
@@ -6,11 +6,10 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import com.jakewharton.rxbinding.RecordingObserver;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -22,7 +21,7 @@ public final class RxAdapterTest {
 
   @Test @UiThreadTest public void dataChanges() {
     RecordingObserver<Object> o = new RecordingObserver<>();
-    Subscription subscription = RxAdapter.dataChanges(adapter).subscribe(o);
+    RxAdapter.dataChanges(adapter).subscribe(o);
     assertThat(o.takeNext()).isSameAs(adapter);
 
     adapter.notifyDataSetChanged();
@@ -31,7 +30,7 @@ public final class RxAdapterTest {
     adapter.notifyDataSetChanged();
     assertThat(o.takeNext()).isSameAs(adapter);
 
-    subscription.unsubscribe();
+    o.dispose();
     adapter.notifyDataSetChanged();
     o.assertNoMoreEvents();
   }
