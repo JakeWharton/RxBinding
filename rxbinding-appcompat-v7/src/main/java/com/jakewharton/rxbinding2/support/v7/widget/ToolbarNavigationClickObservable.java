@@ -10,7 +10,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class ToolbarNavigationClickObservable extends Observable<Object> {
-  final Toolbar view;
+  private final Toolbar view;
 
   ToolbarNavigationClickObservable(Toolbar view) {
     this.view = view;
