@@ -2,20 +2,21 @@ package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
 import android.support.v17.leanback.widget.SearchEditText;
 import android.support.v17.leanback.widget.SearchEditText.OnKeyboardDismissListener;
+import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Void> {
+final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Notification> {
   final SearchEditText view;
 
   SearchEditTextKeyboardDismissOnSubscribe(SearchEditText view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(final Observer<? super Void> observer) {
+  @Override protected void subscribeActual(final Observer<? super Notification> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -24,16 +25,16 @@ final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Void> {
 
   static class Listener extends MainThreadDisposable implements OnKeyboardDismissListener {
     final SearchEditText view;
-    final Observer<? super Void> observer;
+    final Observer<? super Notification> observer;
 
-    Listener(final SearchEditText view, final Observer<? super Void> observer) {
+    Listener(SearchEditText view, Observer<? super Notification> observer) {
       this.view = view;
       this.observer = observer;
     }
 
     @Override public void onKeyboardDismiss() {
       if (!isDisposed()) {
-        observer.onNext(null); // TODO: can't be null need some generic object
+        observer.onNext(Notification.INSTANCE);
       }
     }
 

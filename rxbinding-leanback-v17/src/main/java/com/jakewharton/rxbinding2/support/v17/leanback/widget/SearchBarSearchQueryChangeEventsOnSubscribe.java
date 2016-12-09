@@ -28,8 +28,7 @@ final class SearchBarSearchQueryChangeEventsOnSubscribe
     final SearchBar view;
     final Observer<? super SearchBarSearchQueryEvent> observer;
 
-    Listener(final SearchBar view,
-        final Observer<? super SearchBarSearchQueryEvent> observer) {
+    Listener(SearchBar view, Observer<? super SearchBarSearchQueryEvent> observer) {
       this.view = view;
       this.observer = observer;
     }

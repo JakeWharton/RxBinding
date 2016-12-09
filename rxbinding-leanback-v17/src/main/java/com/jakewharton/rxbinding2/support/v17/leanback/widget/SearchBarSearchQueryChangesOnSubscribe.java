@@ -25,7 +25,7 @@ final class SearchBarSearchQueryChangesOnSubscribe extends Observable<String> {
     final SearchBar view;
     final Observer<? super String> observer;
 
-    Listener(final SearchBar view, final Observer<? super String> observer) {
+    Listener(SearchBar view, Observer<? super String> observer) {
       this.view = view;
       this.observer = observer;
     }
