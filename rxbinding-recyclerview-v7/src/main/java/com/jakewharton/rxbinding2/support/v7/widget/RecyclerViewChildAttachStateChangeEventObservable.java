@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnChildAttachStateChangeListener;
@@ -22,7 +22,7 @@ final class RecyclerViewChildAttachStateChangeEventObservable extends Observable
 
   final class Listener extends MainThreadDisposable implements OnChildAttachStateChangeListener {
     private final RecyclerView recyclerView;
-    private Observer<? super RecyclerViewChildAttachStateChangeEvent> observer;
+    private final Observer<? super RecyclerViewChildAttachStateChangeEvent> observer;
 
     Listener(final RecyclerView recyclerView, final Observer<? super RecyclerViewChildAttachStateChangeEvent> observer) {
       this.recyclerView = recyclerView;

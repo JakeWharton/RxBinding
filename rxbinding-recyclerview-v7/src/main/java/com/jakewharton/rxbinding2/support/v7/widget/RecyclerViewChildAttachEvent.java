@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.content.Context;
 import android.support.annotation.CheckResult;
@@ -7,26 +7,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * A child view detach event on a {@link RecyclerView}.
+ * A child view attach event on a {@link RecyclerView}.
  * <p>
  * <strong>Warning:</strong> Instances keep a strong reference to the view. Operators that cache
  * instances have the potential to leak the associated {@link Context}.
  */
-public final class RecyclerViewChildDetachEvent extends RecyclerViewChildAttachStateChangeEvent {
+public final class RecyclerViewChildAttachEvent extends RecyclerViewChildAttachStateChangeEvent {
   @CheckResult @NonNull
-  public static RecyclerViewChildDetachEvent create(@NonNull RecyclerView view,
+  public static RecyclerViewChildAttachEvent create(@NonNull RecyclerView view,
       @NonNull View child) {
-    return new RecyclerViewChildDetachEvent(view, child);
+    return new RecyclerViewChildAttachEvent(view, child);
   }
 
-  private RecyclerViewChildDetachEvent(@NonNull RecyclerView view, @NonNull View child) {
+  private RecyclerViewChildAttachEvent(@NonNull RecyclerView view, @NonNull View child) {
     super(view, child);
   }
 
   @Override public boolean equals(Object o) {
     if (o == this) return true;
-    if (!(o instanceof RecyclerViewChildDetachEvent)) return false;
-    RecyclerViewChildDetachEvent other = (RecyclerViewChildDetachEvent) o;
+    if (!(o instanceof RecyclerViewChildAttachEvent)) return false;
+    RecyclerViewChildAttachEvent other = (RecyclerViewChildAttachEvent) o;
     return other.view() == view()
         && other.child() == child();
   }
@@ -39,7 +39,7 @@ public final class RecyclerViewChildDetachEvent extends RecyclerViewChildAttachS
   }
 
   @Override public String toString() {
-    return "RecyclerViewChildDetachEvent{view="
+    return "RecyclerViewChildAttachEvent{view="
         + view()
         + ", child="
         + child()
