@@ -4,8 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.ActionMenuView;
 import android.view.MenuItem;
-
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -24,7 +23,7 @@ public final class RxActionMenuView {
   @CheckResult @NonNull
   public static Observable<MenuItem> itemClicks(@NonNull ActionMenuView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new ActionMenuViewItemClickOnSubscribe(view));
+    return new ActionMenuViewItemClickObservable(view);
   }
 
   private RxActionMenuView() {

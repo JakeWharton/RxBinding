@@ -41,7 +41,7 @@ public final class RxActionMenuViewTest {
     MenuItem item2 = menu.add(0, 2, 0, "Hey");
 
     RecordingObserver<MenuItem> o = new RecordingObserver<>();
-    Subscription subscription = RxActionMenuView.itemClicks(view).subscribe(o);
+    RxActionMenuView.itemClicks(view).subscribe(o);
     o.assertNoMoreEvents();
 
     menu.performIdentifierAction(2, 0);
@@ -50,7 +50,7 @@ public final class RxActionMenuViewTest {
     menu.performIdentifierAction(1, 0);
     assertThat(o.takeNext()).isSameAs(item1);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menu.performIdentifierAction(2, 0);
     o.assertNoMoreEvents();
