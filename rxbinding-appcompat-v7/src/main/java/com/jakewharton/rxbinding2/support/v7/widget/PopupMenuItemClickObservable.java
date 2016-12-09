@@ -1,6 +1,6 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -8,10 +8,11 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class ToolbarItemClickObservable extends Observable<MenuItem> {
-  private final Toolbar view;
+final class PopupMenuItemClickObservable extends Observable<MenuItem> {
 
-  ToolbarItemClickObservable(Toolbar view) {
+  private final PopupMenu view;
+
+  PopupMenuItemClickObservable(PopupMenu view) {
     this.view = view;
   }
 
@@ -22,12 +23,12 @@ final class ToolbarItemClickObservable extends Observable<MenuItem> {
     view.setOnMenuItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements Toolbar.OnMenuItemClickListener {
-    private final Toolbar toolbar;
+  static final class Listener extends MainThreadDisposable implements PopupMenu.OnMenuItemClickListener {
+    private final PopupMenu popupMenu;
     private final Observer<? super MenuItem> observer;
 
-    Listener(Toolbar toolbar, Observer<? super MenuItem> observer) {
-      this.toolbar = toolbar;
+    Listener(PopupMenu popupMenu, Observer<? super MenuItem> observer) {
+      this.popupMenu = popupMenu;
       this.observer = observer;
     }
 
@@ -39,7 +40,7 @@ final class ToolbarItemClickObservable extends Observable<MenuItem> {
     }
 
     @Override protected void onDispose() {
-      toolbar.setOnMenuItemClickListener(null);
+      popupMenu.setOnMenuItemClickListener(null);
     }
   }
 }

@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -9,8 +9,8 @@ import android.support.v7.widget.ActionMenuView;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.support.v7.appcompat.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.support.v7.appcompat.R;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

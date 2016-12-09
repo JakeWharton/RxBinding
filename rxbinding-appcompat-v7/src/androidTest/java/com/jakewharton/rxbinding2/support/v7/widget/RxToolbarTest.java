@@ -1,12 +1,12 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.support.v7.appcompat.test.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.support.v7.appcompat.test.R;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.support.v7.widget.RxToolbarTestActivity.NAVIGATION_CONTENT_DESCRIPTION;
+import static com.jakewharton.rxbinding2.support.v7.widget.RxToolbarTestActivity.NAVIGATION_CONTENT_DESCRIPTION;
 
 public final class RxToolbarTest {
   @Rule public final ActivityTestRule<RxToolbarTestActivity> activityRule =

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.rxbinding.support.v7.appcompat">
+    package="com.jakewharton.rxbinding2.support.v7.appcompat">
 
   <application>
     <activity
-        android:name="com.jakewharton.rxbinding.support.v7.widget.RxToolbarTestActivity"
+        android:name="com.jakewharton.rxbinding2.support.v7.widget.RxToolbarTestActivity"
         android:theme="@style/Theme.AppCompat"
         />
     <activity
-        android:name="com.jakewharton.rxbinding.support.v7.widget.RxPopupMenuTestActivity"
+        android:name="com.jakewharton.rxbinding2.support.v7.widget.RxPopupMenuTestActivity"
         android:theme="@style/Theme.AppCompat"
         />
   </application>
