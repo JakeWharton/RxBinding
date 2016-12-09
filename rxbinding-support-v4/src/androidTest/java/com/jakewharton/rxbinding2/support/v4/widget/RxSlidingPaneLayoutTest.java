@@ -10,8 +10,8 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.View;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.UnsafeRunnable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -25,7 +25,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.google.common.truth.Truth.assertThat;
-import static junit.framework.Assert.fail;
 
 @RunWith(AndroidJUnit4.class) public class RxSlidingPaneLayoutTest {
   @Rule public final ActivityTestRule<RxSlidingPaneLayoutTestActivity> activityRule =
@@ -51,9 +50,9 @@ import static junit.framework.Assert.fail;
 
   @Test public void paneOpen() {
     RecordingObserver<Boolean> o = new RecordingObserver<>();
-    Disposable subscription = RxSlidingPaneLayout.panelOpens(view)
+    RxSlidingPaneLayout.panelOpens(view)
         .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribeWith(o);
+        .subscribe(o);
     assertThat(o.takeNext()).isFalse();
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -70,7 +69,7 @@ import static junit.framework.Assert.fail;
     });
     assertThat(o.takeNext()).isFalse();
 
-    subscription.dispose();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -82,9 +81,9 @@ import static junit.framework.Assert.fail;
 
   @Test public void slides() {
     RecordingObserver<Float> o1 = new RecordingObserver<>();
-    Disposable subscription1 = RxSlidingPaneLayout.panelSlides(view)
+    RxSlidingPaneLayout.panelSlides(view)
         .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribeWith(o1);
+        .subscribe(o1);
     o1.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -95,13 +94,13 @@ import static junit.framework.Assert.fail;
     instrumentation.waitForIdleSync();
     assertThat(o1.takeNext()).isGreaterThan(0f);
 
-    subscription1.dispose();
+    o1.dispose();
     o1.assertNoMoreEvents();
 
     RecordingObserver<Float> o2 = new RecordingObserver<>();
-    Disposable subscription2 = RxSlidingPaneLayout.panelSlides(view)
+    RxSlidingPaneLayout.panelSlides(view)
         .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribeWith(o2);
+        .subscribe(o2);
     o2.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -112,7 +111,7 @@ import static junit.framework.Assert.fail;
     instrumentation.waitForIdleSync();
     assertThat(o2.takeNext()).isLessThan(1.0f);
 
-    subscription2.dispose();
+    o2.dispose();
     o2.assertNoMoreEvents();
   }
 
@@ -130,26 +129,18 @@ import static junit.framework.Assert.fail;
     });
 
     idler.increment();
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        try {
-          open.accept(true);
-        } catch (Exception e) {
-          fail();
-        }
+    instrumentation.runOnMainSync(new UnsafeRunnable() {
+      @Override protected void unsafeRun() throws Exception {
+        open.accept(true);
       }
     });
     instrumentation.waitForIdleSync();
     onView(withId(view.getId())).check(matches(isOpen()));
 
     idler.increment();
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        try {
-          open.accept(false);
-        } catch (Exception e) {
-          fail();
-        }
+    instrumentation.runOnMainSync(new UnsafeRunnable() {
+      @Override protected void unsafeRun() throws Exception {
+        open.accept(false);
       }
     });
     instrumentation.waitForIdleSync();

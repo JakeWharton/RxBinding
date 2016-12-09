@@ -16,7 +16,6 @@ import android.view.View;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Predicate;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,7 +32,7 @@ public final class RxMenuItemCompatTest {
 
   @Test @UiThreadTest public void actionViewEvents() {
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
-    Disposable subscription = RxMenuItemCompat.actionViewEvents(menuItem).subscribeWith(o);
+    RxMenuItemCompat.actionViewEvents(menuItem).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
@@ -42,7 +41,7 @@ public final class RxMenuItemCompatTest {
     menuItem.collapseActionView();
     assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE));
 
-    subscription.dispose();
+    o.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();
@@ -57,14 +56,14 @@ public final class RxMenuItemCompatTest {
         };
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
-    Disposable subscription = RxMenuItemCompat.actionViewEvents(menuItem, handled).subscribeWith(o);
+    RxMenuItemCompat.actionViewEvents(menuItem, handled).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
     assertThat(menuItem.isActionViewExpanded()).isEqualTo(false); // Should be prevented by handler
     o.assertNoMoreEvents();
 
-    subscription.dispose();
+    o.dispose();
 
     menuItem.performClick();
     o.assertNoMoreEvents();

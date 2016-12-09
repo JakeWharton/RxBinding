@@ -8,8 +8,8 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.DrawerLayout;
 import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.UnsafeRunnable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,6 @@ import static android.support.test.espresso.contrib.DrawerMatchers.isOpen;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.view.Gravity.RIGHT;
 import static com.google.common.truth.Truth.assertThat;
-import static junit.framework.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxDrawerLayoutTest {
@@ -50,9 +49,9 @@ public final class RxDrawerLayoutTest {
 
   @Test public void drawerOpen() {
     RecordingObserver<Boolean> o = new RecordingObserver<>();
-    Disposable subscription = RxDrawerLayout.drawerOpen(view, RIGHT) //
+    RxDrawerLayout.drawerOpen(view, RIGHT) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
-        .subscribeWith(o);
+        .subscribe(o);
     assertThat(o.takeNext()).isFalse();
 
     instrumentation.runOnMainSync(new Runnable() {
@@ -69,7 +68,7 @@ public final class RxDrawerLayoutTest {
     });
     assertThat(o.takeNext()).isFalse();
 
-    subscription.dispose();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -82,24 +81,17 @@ public final class RxDrawerLayoutTest {
   @Test public void open() {
     final Consumer<? super Boolean> open = RxDrawerLayout.open(view, RIGHT);
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        try {
-          open.accept(true);
-        } catch (Exception e) {
-          fail();
-        }
+    instrumentation.runOnMainSync(new UnsafeRunnable() {
+
+      @Override protected void unsafeRun() throws Exception {
+        open.accept(true);
       }
     });
     onView(withId(view.getId())).check(matches(isOpen(RIGHT)));
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        try {
-          open.accept(false);
-        } catch (Exception e) {
-          fail();
-        }
+    instrumentation.runOnMainSync(new UnsafeRunnable() {
+      @Override protected void unsafeRun() throws Exception {
+        open.accept(false);
       }
     });
     onView(withId(view.getId())).check(matches(isClosed(RIGHT)));

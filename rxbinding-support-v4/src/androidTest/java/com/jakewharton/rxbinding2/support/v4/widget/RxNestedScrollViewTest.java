@@ -6,7 +6,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.NestedScrollView;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.view.ViewScrollChangeEvent;
-import io.reactivex.disposables.Disposable;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +27,7 @@ public final class RxNestedScrollViewTest {
 
   @Test @UiThreadTest public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
-    Disposable subscription = RxNestedScrollView.scrollChangeEvents(view).subscribeWith(o);
+    RxNestedScrollView.scrollChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.scrollTo(1000, 0);
@@ -39,7 +38,7 @@ public final class RxNestedScrollViewTest {
     assertThat(event.oldScrollX()).isEqualTo(0);
     assertThat(event.oldScrollY()).isEqualTo(0);
 
-    subscription.dispose();
+    o.dispose();
     view.scrollTo(2000, 0);
     o.assertNoMoreEvents();
   }

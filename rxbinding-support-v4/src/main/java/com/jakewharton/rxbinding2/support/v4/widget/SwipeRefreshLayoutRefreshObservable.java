@@ -9,14 +9,14 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class SwipeRefreshLayoutRefreshObservable extends Observable<Notification> {
+final class SwipeRefreshLayoutRefreshObservable extends Observable<Object> {
   private final SwipeRefreshLayout view;
 
   SwipeRefreshLayoutRefreshObservable(SwipeRefreshLayout view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Notification> observer) {
+  @Override protected void subscribeActual(Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -25,9 +25,9 @@ final class SwipeRefreshLayoutRefreshObservable extends Observable<Notification>
 
   static final class Listener extends MainThreadDisposable implements OnRefreshListener {
     private final SwipeRefreshLayout view;
-    private final Observer<? super Notification> observer;
+    private final Observer<? super Object> observer;
 
-    Listener(SwipeRefreshLayout view, Observer<? super Notification> observer) {
+    Listener(SwipeRefreshLayout view, Observer<? super Object> observer) {
       this.view = view;
       this.observer = observer;
     }

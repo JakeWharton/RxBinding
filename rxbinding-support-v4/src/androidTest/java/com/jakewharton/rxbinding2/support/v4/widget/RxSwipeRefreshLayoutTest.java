@@ -11,9 +11,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.SwipeRefreshLayout;
 import com.jakewharton.rxbinding.support.v4.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
-import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,16 +34,16 @@ import static com.google.common.truth.Truth.assertThat;
   }
 
   @Test public void refreshes() throws InterruptedException {
-    RecordingObserver<Notification> o = new RecordingObserver<>();
-    Disposable subscription = RxSwipeRefreshLayout.refreshes(view)
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxSwipeRefreshLayout.refreshes(view)
         .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribeWith(o);
+        .subscribe(o);
     o.assertNoMoreEvents();
 
     onView(withId(R.id.swipe_refresh_layout)).perform(swipeDown());
     o.takeNext();
 
-    subscription.dispose();
+    o.dispose();
     onView(withId(R.id.swipe_refresh_layout)).perform(swipeDown());
     o.assertNoMoreEvents();
   }

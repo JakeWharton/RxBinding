@@ -11,7 +11,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.view.ViewPager;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,9 +36,9 @@ public final class RxViewPagerTest {
   @Test public void pageScrollStateChanges() {
     view.setCurrentItem(0);
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Disposable subscription = RxViewPager.pageScrollStateChanges(view)
+    RxViewPager.pageScrollStateChanges(view)
         .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribeWith(o);
+        .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     onView(withId(1)).perform(swipeLeft());
@@ -48,7 +47,7 @@ public final class RxViewPagerTest {
     assertThat(o.takeNext()).isEqualTo(ViewPager.SCROLL_STATE_IDLE);
     o.assertNoMoreEvents();
 
-    subscription.dispose();
+    o.dispose();
 
     onView(withId(1)).perform(swipeLeft());
     o.assertNoMoreEvents();
@@ -57,7 +56,7 @@ public final class RxViewPagerTest {
   @Test @UiThreadTest public void pageSelections() {
     view.setCurrentItem(0);
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Disposable subscription = RxViewPager.pageSelections(view).subscribeWith(o);
+    RxViewPager.pageSelections(view).subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
 
     view.setCurrentItem(3);
@@ -65,7 +64,7 @@ public final class RxViewPagerTest {
     view.setCurrentItem(5);
     assertThat(o.takeNext()).isEqualTo(5);
 
-    subscription.dispose();
+    o.dispose();
 
     view.setCurrentItem(0);
     o.assertNoMoreEvents();
