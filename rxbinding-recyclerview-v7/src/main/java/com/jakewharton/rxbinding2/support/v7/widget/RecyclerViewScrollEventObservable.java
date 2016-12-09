@@ -5,6 +5,8 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
+import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+
 final class RecyclerViewScrollEventObservable extends Observable<RecyclerViewScrollEvent> {
   private final RecyclerView view;
 
@@ -13,6 +15,7 @@ final class RecyclerViewScrollEventObservable extends Observable<RecyclerViewScr
   }
 
   @Override protected void subscribeActual(Observer<? super RecyclerViewScrollEvent> observer) {
+    verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addOnScrollListener(listener.scrollListener);
