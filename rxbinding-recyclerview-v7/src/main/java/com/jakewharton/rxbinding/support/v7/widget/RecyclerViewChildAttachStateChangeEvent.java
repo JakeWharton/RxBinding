@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding.support.v7.widget;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import com.jakewharton.rxbinding.view.ViewEvent;
+import com.jakewharton.rxbinding2.view.ViewEvent;
 
 public abstract class RecyclerViewChildAttachStateChangeEvent extends ViewEvent<RecyclerView> {
   private final View child;

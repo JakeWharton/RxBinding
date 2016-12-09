@@ -13,15 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -52,7 +51,7 @@ public final class RxRecyclerViewTest {
 
   @Test public void childAttachEvents() {
     RecordingObserver<RecyclerViewChildAttachStateChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRecyclerView.childAttachStateChangeEvents(view)
+    RxRecyclerView.childAttachStateChangeEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
@@ -66,7 +65,7 @@ public final class RxRecyclerViewTest {
     });
     assertThat(o.takeNext()).isEqualTo(RecyclerViewChildAttachEvent.create(view, child));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -87,7 +86,7 @@ public final class RxRecyclerViewTest {
     });
 
     RecordingObserver<RecyclerViewChildAttachStateChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRecyclerView.childAttachStateChangeEvents(view)
+    RxRecyclerView.childAttachStateChangeEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
@@ -99,7 +98,7 @@ public final class RxRecyclerViewTest {
     });
     assertThat(o.takeNext()).isEqualTo(RecyclerViewChildDetachEvent.create(view, child));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -118,7 +117,7 @@ public final class RxRecyclerViewTest {
     });
 
     RecordingObserver<RecyclerViewScrollEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRecyclerView.scrollEvents(view)
+    RxRecyclerView.scrollEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
@@ -156,7 +155,7 @@ public final class RxRecyclerViewTest {
     });
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -176,7 +175,7 @@ public final class RxRecyclerViewTest {
 
     instrumentation.waitForIdleSync();
     RecordingObserver<RecyclerViewScrollEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxRecyclerView.scrollEvents(view)
+    RxRecyclerView.scrollEvents(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents();
@@ -214,7 +213,7 @@ public final class RxRecyclerViewTest {
     });
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
