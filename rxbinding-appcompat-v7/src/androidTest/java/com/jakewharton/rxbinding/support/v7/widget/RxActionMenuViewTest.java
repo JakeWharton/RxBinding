@@ -9,14 +9,12 @@ import android.support.v7.widget.ActionMenuView;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.jakewharton.rxbinding.RecordingObserver;
 import com.jakewharton.rxbinding.support.v7.appcompat.R;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
