@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.support.v7.widget.ActionMenuView;
 import android.view.MenuItem;

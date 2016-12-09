@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v7.widget;
+package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
