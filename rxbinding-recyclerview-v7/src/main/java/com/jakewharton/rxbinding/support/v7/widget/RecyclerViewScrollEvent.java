@@ -5,7 +5,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
-import com.jakewharton.rxbinding.view.ViewEvent;
+import com.jakewharton.rxbinding2.view.ViewEvent;
 
 /**
  * A scroll event on a recyclerView.

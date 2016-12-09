@@ -35,7 +35,7 @@ public final class RxRecyclerView {
   public static Observable<RecyclerViewScrollEvent> scrollEvents(
       @NonNull RecyclerView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new RecyclerViewScrollEventOnSubscribe(view));
+    return new RecyclerViewScrollEventObservable(view);
   }
 
   /**
