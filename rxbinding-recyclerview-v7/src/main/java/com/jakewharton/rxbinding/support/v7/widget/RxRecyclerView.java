@@ -47,7 +47,7 @@ public final class RxRecyclerView {
   @CheckResult @NonNull
   public static Observable<Integer> scrollStateChanges(@NonNull RecyclerView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new RecyclerViewScrollStateChangeOnSubscribe(view));
+    return new RecyclerViewScrollStateChangeObservable(view);
   }
 
   private RxRecyclerView() {
