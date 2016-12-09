@@ -6,11 +6,10 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.ViewGroup;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -22,7 +21,7 @@ public final class RxRecyclerViewAdapterTest {
 
   @Test @UiThreadTest public void dataChanges() {
     RecordingObserver<Object> o = new RecordingObserver<>();
-    Subscription subscription = RxRecyclerViewAdapter.dataChanges(adapter).subscribe(o);
+    RxRecyclerViewAdapter.dataChanges(adapter).subscribe(o);
     assertThat(o.takeNext()).isSameAs(adapter);
 
     adapter.notifyDataSetChanged();
@@ -31,7 +30,7 @@ public final class RxRecyclerViewAdapterTest {
     adapter.notifyDataSetChanged();
     assertThat(o.takeNext()).isSameAs(adapter);
 
-    subscription.unsubscribe();
+    o.dispose();
     adapter.notifyDataSetChanged();
     o.assertNoMoreEvents();
   }
