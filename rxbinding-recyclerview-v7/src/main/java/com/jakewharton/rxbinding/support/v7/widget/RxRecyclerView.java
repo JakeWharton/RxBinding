@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding.support.v7.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -22,7 +22,7 @@ public final class RxRecyclerView {
   public static Observable<RecyclerViewChildAttachStateChangeEvent> childAttachStateChangeEvents(
       @NonNull RecyclerView view) {
     checkNotNull(view, "view == null");
-    return Observable.create(new RecyclerViewChildAttachStateChangeEventOnSubscribe(view));
+    return new RecyclerViewChildAttachStateChangeEventObservable(view);
   }
 
   /**
