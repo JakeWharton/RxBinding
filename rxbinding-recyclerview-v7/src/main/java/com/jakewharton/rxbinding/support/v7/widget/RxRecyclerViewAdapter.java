@@ -4,7 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
@@ -19,7 +19,7 @@ public final class RxRecyclerViewAdapter {
   public static <T extends Adapter<? extends ViewHolder>> Observable<T> dataChanges(
       @NonNull T adapter) {
     checkNotNull(adapter, "adapter == null");
-    return Observable.create(new RecyclerAdapterDataChangeOnSubscribe<>(adapter));
+    return new RecyclerAdapterDataChangeObservable<>(adapter);
   }
 
   private RxRecyclerViewAdapter() {
