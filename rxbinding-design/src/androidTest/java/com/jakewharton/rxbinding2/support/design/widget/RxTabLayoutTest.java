@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
@@ -7,19 +7,18 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.support.design.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.support.design.R;
+import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.functions.Action1;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.support.design.widget.TabLayoutSelectionEvent.Kind.RESELECTED;
-import static com.jakewharton.rxbinding.support.design.widget.TabLayoutSelectionEvent.Kind.SELECTED;
-import static com.jakewharton.rxbinding.support.design.widget.TabLayoutSelectionEvent.Kind.UNSELECTED;
+import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.RESELECTED;
+import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.SELECTED;
+import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.UNSELECTED;
 import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
@@ -39,7 +38,7 @@ public final class RxTabLayoutTest {
 
   @Test @UiThreadTest public void selectionEvents() {
     RecordingObserver<TabLayoutSelectionEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxTabLayout.selectionEvents(view).subscribe(o);
+    RxTabLayout.selectionEvents(view).subscribe(o);
     assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, SELECTED, tab1));
 
     tab2.select();
@@ -53,7 +52,7 @@ public final class RxTabLayoutTest {
     assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, UNSELECTED, tab2));
     assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, SELECTED, tab1));
 
-    subscription.unsubscribe();
+    o.dispose();
 
     tab2.select();
     o.assertNoMoreEvents();
@@ -69,7 +68,7 @@ public final class RxTabLayoutTest {
 
   @Test @UiThreadTest public void selections() {
     RecordingObserver<TabLayout.Tab> o = new RecordingObserver<>();
-    Subscription subscription = RxTabLayout.selections(view).subscribe(o);
+    RxTabLayout.selections(view).subscribe(o);
     assertThat(o.takeNext()).isSameAs(tab1);
 
     tab2.select();
@@ -81,7 +80,7 @@ public final class RxTabLayoutTest {
     tab1.select();
     assertThat(o.takeNext()).isSameAs(tab1);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     tab2.select();
     o.assertNoMoreEvents();
@@ -95,25 +94,25 @@ public final class RxTabLayoutTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void select() {
-    Action1<? super Integer> action = RxTabLayout.select(view);
+  @Test @UiThreadTest public void select() throws Exception {
+    Consumer<? super Integer> action = RxTabLayout.select(view);
     assertThat(view.getSelectedTabPosition()).isEqualTo(0);
-    action.call(1);
+    action.accept(1);
     assertThat(view.getSelectedTabPosition()).isEqualTo(1);
-    action.call(0);
+    action.accept(0);
     assertThat(view.getSelectedTabPosition()).isEqualTo(0);
   }
 
-  @Test @UiThreadTest public void selectInvalidValueThrows() {
-    Action1<? super Integer> action = RxTabLayout.select(view);
+  @Test @UiThreadTest public void selectInvalidValueThrows() throws Exception {
+    Consumer<? super Integer> action = RxTabLayout.select(view);
     try {
-      action.call(2);
+      action.accept(2);
       fail();
     } catch (IllegalArgumentException e) {
       assertThat(e).hasMessage("No tab for index 2");
     }
     try {
-      action.call(-1);
+      action.accept(-1);
       fail();
     } catch (IllegalArgumentException e) {
       assertThat(e).hasMessage("No tab for index -1");

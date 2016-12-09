@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.SwipeDismissBehavior;
@@ -10,13 +10,12 @@ import android.support.test.espresso.action.Swipe;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -39,7 +38,7 @@ public final class RxSwipeDismissBehaviorTest {
         new SwipeDismissBehavior());
 
     RecordingObserver<View> o = new RecordingObserver<>();
-    Subscription subscription = RxSwipeDismissBehavior.dismisses(view)
+    RxSwipeDismissBehavior.dismisses(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -47,7 +46,7 @@ public final class RxSwipeDismissBehaviorTest {
     onView(withId(1)).perform(swipeRight());
     assertThat(o.takeNext()).isEqualTo(view);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     onView(withId(1)).perform(swipeRight());
     o.assertNoMoreEvents();

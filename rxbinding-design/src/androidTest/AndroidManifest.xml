@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.rxbinding.support.design">
+    package="com.jakewharton.rxbinding2.support.design">
 
   <application>
     <activity
-        android:name="com.jakewharton.rxbinding.support.design.widget.RxSwipeDismissBehaviorTestActivity"
+        android:name="com.jakewharton.rxbinding2.support.design.widget.RxSwipeDismissBehaviorTestActivity"
         android:theme="@style/Theme.AppCompat"
         />
   </application>

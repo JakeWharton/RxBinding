@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
@@ -8,7 +8,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
 import android.widget.EditText;
-import com.jakewharton.rxbinding.support.design.test.R;
+import com.jakewharton.rxbinding2.support.design.test.R;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,34 +28,34 @@ public class RxTextInputLayoutTest {
     view.addView(new EditText(context));
   }
 
-  @Test @UiThreadTest public void counterEnabled() {
-    RxTextInputLayout.counterEnabled(view).call(true);
+  @Test @UiThreadTest public void counterEnabled() throws Exception {
+    RxTextInputLayout.counterEnabled(view).accept(true);
     assertThat(view.isCounterEnabled()).isEqualTo(true);
   }
 
-  @Test @UiThreadTest public void counterMaxLength() {
-    RxTextInputLayout.counterMaxLength(view).call(100);
+  @Test @UiThreadTest public void counterMaxLength() throws Exception {
+    RxTextInputLayout.counterMaxLength(view).accept(100);
     assertThat(view.getCounterMaxLength()).isEqualTo(100);
   }
 
-  @Test @UiThreadTest public void error() {
-    RxTextInputLayout.error(view).call("Your error here");
+  @Test @UiThreadTest public void error() throws Exception {
+    RxTextInputLayout.error(view).accept("Your error here");
     assertThat(view.getError().toString()).isEqualTo("Your error here");
   }
 
-  @Test @UiThreadTest public void errorRes() {
+  @Test @UiThreadTest public void errorRes() throws Exception {
     final String error = context.getString(R.string.error);
-    RxTextInputLayout.errorRes(view).call(R.string.error);
+    RxTextInputLayout.errorRes(view).accept(R.string.error);
     assertThat(view.getError().toString()).isEqualTo(error);
   }
 
-  @Test @UiThreadTest public void hint() {
-    RxTextInputLayout.hint(view).call("Your name here");
+  @Test @UiThreadTest public void hint() throws Exception {
+    RxTextInputLayout.hint(view).accept("Your name here");
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
 
-  @Test @UiThreadTest public void hintRes() {
-    RxTextInputLayout.hintRes(view).call(R.string.hint);
+  @Test @UiThreadTest public void hintRes() throws Exception {
+    RxTextInputLayout.hintRes(view).accept(R.string.hint);
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
 }
