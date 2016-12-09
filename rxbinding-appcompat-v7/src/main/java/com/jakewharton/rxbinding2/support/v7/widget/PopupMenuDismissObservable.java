@@ -9,7 +9,6 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class PopupMenuDismissObservable extends Observable<Object> {
-
   private final PopupMenu view;
 
   PopupMenuDismissObservable(PopupMenu view) {

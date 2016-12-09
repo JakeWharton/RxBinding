@@ -8,7 +8,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class SearchViewQueryTextChangesObservable extends Observable<CharSequence> {
-  final SearchView view;
+  private final SearchView view;
 
   SearchViewQueryTextChangesObservable(SearchView view) {
     this.view = view;

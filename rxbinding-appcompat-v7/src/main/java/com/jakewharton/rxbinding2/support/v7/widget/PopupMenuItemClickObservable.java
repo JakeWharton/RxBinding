@@ -9,7 +9,6 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class PopupMenuItemClickObservable extends Observable<MenuItem> {
-
   private final PopupMenu view;
 
   PopupMenuItemClickObservable(PopupMenu view) {
