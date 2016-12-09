@@ -7,6 +7,8 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
+import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+
 final class RecyclerAdapterDataChangeObservable<T extends Adapter<? extends ViewHolder>>
     extends Observable<T> {
   private final T adapter;
@@ -16,6 +18,7 @@ final class RecyclerAdapterDataChangeObservable<T extends Adapter<? extends View
   }
 
   @Override protected void subscribeActual(Observer<? super T> observer) {
+    verifyMainThread();
     Listener listener = new Listener(adapter, observer);
     observer.onSubscribe(listener);
     adapter.registerAdapterDataObserver(listener.dataObserver);

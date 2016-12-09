@@ -7,6 +7,8 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
+import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+
 final class RecyclerViewChildAttachStateChangeEventObservable extends Observable<RecyclerViewChildAttachStateChangeEvent> {
   private final RecyclerView view;
 
@@ -15,6 +17,7 @@ final class RecyclerViewChildAttachStateChangeEventObservable extends Observable
   }
 
   @Override protected void subscribeActual(Observer<? super RecyclerViewChildAttachStateChangeEvent> observer) {
+    verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addOnChildAttachStateChangeListener(listener);
@@ -24,7 +27,7 @@ final class RecyclerViewChildAttachStateChangeEventObservable extends Observable
     private final RecyclerView recyclerView;
     private final Observer<? super RecyclerViewChildAttachStateChangeEvent> observer;
 
-    Listener(final RecyclerView recyclerView, final Observer<? super RecyclerViewChildAttachStateChangeEvent> observer) {
+    Listener(RecyclerView recyclerView, Observer<? super RecyclerViewChildAttachStateChangeEvent> observer) {
       this.recyclerView = recyclerView;
       this.observer = observer;
     }
