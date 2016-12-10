@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding;
+package com.jakewharton.rxbinding2;
 
 import android.app.Activity;
 import android.support.test.espresso.IdlingResource;
