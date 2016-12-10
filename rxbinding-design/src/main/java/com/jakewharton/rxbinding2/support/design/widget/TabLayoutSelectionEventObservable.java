@@ -10,7 +10,7 @@ import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectio
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {
-  final TabLayout view;
+  private final TabLayout view;
 
   TabLayoutSelectionEventObservable(TabLayout view) {
     this.view = view;
@@ -20,7 +20,7 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.setOnTabSelectedListener(listener);
+    view.addOnTabSelectedListener(listener);
 
     int index = view.getSelectedTabPosition();
     if (index != -1) {
@@ -56,7 +56,7 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
     }
 
     @Override protected void onDispose() {
-      tabLayout.setOnTabSelectedListener(null);
+      tabLayout.removeOnTabSelectedListener(this);
     }
   }
 }

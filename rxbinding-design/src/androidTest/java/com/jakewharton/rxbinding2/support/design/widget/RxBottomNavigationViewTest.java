@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.content.Context;
 import android.support.design.widget.BottomNavigationView;
@@ -9,14 +9,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.support.design.test.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.support.design.test.R;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -38,7 +37,7 @@ import static com.google.common.truth.Truth.assertThat;
 
   @Test @UiThreadTest public void itemSelections() {
     RecordingObserver<MenuItem> o = new RecordingObserver<>();
-    Subscription subscription = RxBottomNavigationView.itemSelections(view).subscribe(o);
+    RxBottomNavigationView.itemSelections(view).subscribe(o);
 
     // initial value
     assertThat(o.takeNext().getItemId()).isEqualTo(R.id.menu_item_one);
@@ -49,7 +48,7 @@ import static com.google.common.truth.Truth.assertThat;
     menu.performIdentifierAction(R.id.menu_item_one, 0);
     assertThat(o.takeNext().getItemId()).isEqualTo(R.id.menu_item_one);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     menu.performIdentifierAction(R.id.menu_item_two, 0);
     o.assertNoMoreEvents();

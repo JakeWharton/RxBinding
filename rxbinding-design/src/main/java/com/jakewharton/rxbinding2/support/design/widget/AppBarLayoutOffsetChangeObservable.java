@@ -8,7 +8,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class AppBarLayoutOffsetChangeObservable extends Observable<Integer> {
-  final AppBarLayout view;
+  private final AppBarLayout view;
 
   AppBarLayoutOffsetChangeObservable(AppBarLayout view) {
     this.view = view;

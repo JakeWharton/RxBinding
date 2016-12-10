@@ -9,7 +9,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class TabLayoutSelectionsObservable extends Observable<Tab> {
-  final TabLayout view;
+  private final TabLayout view;
 
   TabLayoutSelectionsObservable(TabLayout view) {
     this.view = view;
@@ -19,7 +19,7 @@ final class TabLayoutSelectionsObservable extends Observable<Tab> {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.setOnTabSelectedListener(listener);
+    view.addOnTabSelectedListener(listener);
     int index = view.getSelectedTabPosition();
     if (index != -1) {
       observer.onNext(view.getTabAt(index));
@@ -36,7 +36,7 @@ final class TabLayoutSelectionsObservable extends Observable<Tab> {
     }
 
     @Override protected void onDispose() {
-      tabLayout.setOnTabSelectedListener(null);
+      tabLayout.removeOnTabSelectedListener(this);
     }
 
     @Override public void onTabSelected(Tab tab) {

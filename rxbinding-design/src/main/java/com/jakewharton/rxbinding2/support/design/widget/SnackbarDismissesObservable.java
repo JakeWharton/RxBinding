@@ -9,7 +9,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class SnackbarDismissesObservable extends Observable<Integer> {
-  final Snackbar view;
+  private final Snackbar view;
 
   SnackbarDismissesObservable(Snackbar view) {
     this.view = view;
@@ -24,18 +24,17 @@ final class SnackbarDismissesObservable extends Observable<Integer> {
 
   final class Listener extends MainThreadDisposable {
     private final Snackbar snackbar;
-    private Observer<? super Integer> observer;
-    private final Callback callback = new Callback() {
-      @Override public void onDismissed(Snackbar snackbar, int event) {
-        if (!isDisposed()) {
-          observer.onNext(event);
-        }
-      }
-    };
+    private final Callback callback;
 
-    Listener(Snackbar snackbar, Observer<? super Integer> observer) {
+    Listener(Snackbar snackbar, final Observer<? super Integer> observer) {
       this.snackbar = snackbar;
-      this.observer = observer;
+      this.callback = new Callback() {
+        @Override public void onDismissed(Snackbar snackbar, int event) {
+          if (!isDisposed()) {
+            observer.onNext(event);
+          }
+        }
+      };
     }
 
     @Override protected void onDispose() {

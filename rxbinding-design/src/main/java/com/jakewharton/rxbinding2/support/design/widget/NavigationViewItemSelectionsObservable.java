@@ -11,7 +11,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class NavigationViewItemSelectionsObservable extends Observable<MenuItem> {
-  final NavigationView view;
+  private final NavigationView view;
 
   NavigationViewItemSelectionsObservable(NavigationView view) {
     this.view = view;

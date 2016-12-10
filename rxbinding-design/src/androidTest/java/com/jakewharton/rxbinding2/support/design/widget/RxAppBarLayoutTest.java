@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,13 +11,12 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
 import android.view.View;
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.support.design.R;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.support.design.R;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
@@ -39,7 +38,7 @@ public class RxAppBarLayoutTest {
   @SdkSuppress(minSdkVersion = JELLY_BEAN_MR1)
   @Test @UiThreadTest public void offsetChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxAppBarLayout.offsetChanges(view).subscribe(o);
+    RxAppBarLayout.offsetChanges(view).subscribe(o);
     o.assertNoMoreEvents();
 
     CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
@@ -48,7 +47,7 @@ public class RxAppBarLayoutTest {
     behavior.onLayoutChild(parent, view, View.LAYOUT_DIRECTION_LTR);
     assertThat(o.takeNext()).isEqualTo(0);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     behavior.onLayoutChild(parent, view, View.LAYOUT_DIRECTION_LTR);
     o.assertNoMoreEvents();
