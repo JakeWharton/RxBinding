@@ -4,11 +4,11 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import com.jakewharton.rxbinding.internal.GenericTypeNullable;
+import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link Toolbar}.

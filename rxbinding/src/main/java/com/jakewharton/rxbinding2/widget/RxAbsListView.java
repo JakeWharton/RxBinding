@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.widget.AbsListView;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 public final class RxAbsListView {
   /**

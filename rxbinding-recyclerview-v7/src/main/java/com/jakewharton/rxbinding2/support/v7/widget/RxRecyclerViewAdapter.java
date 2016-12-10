@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 /** Static factory methods for creating {@linkplain Observable observables} for {@link Adapter}. */
 public final class RxRecyclerViewAdapter {

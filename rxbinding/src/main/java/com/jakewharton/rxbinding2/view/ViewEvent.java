@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding2.view;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 /**
  * A target view on which an event occurred (e.g., click).

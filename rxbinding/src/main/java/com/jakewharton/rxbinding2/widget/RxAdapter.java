@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.widget.Adapter;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link Adapter}.
