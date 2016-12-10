@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.jakewharton.rxbinding2.RecordingObserver;
-import com.jakewharton.rxbinding.internal.Functions;
+import com.jakewharton.rxbinding2.internal.Functions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -210,7 +210,7 @@ public final class RxViewTest {
 
   @Test @UiThreadTest public void preDrawEvents() {
     RecordingObserver<Object> o = new RecordingObserver<>();
-    RxView.preDraws(view, Functions.FUNC0_ALWAYS_TRUE).subscribe(o);
+    RxView.preDraws(view, Functions.CALLABLE_ALWAYS_TRUE).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnPreDraw();
