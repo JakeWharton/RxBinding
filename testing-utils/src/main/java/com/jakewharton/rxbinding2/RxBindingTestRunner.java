@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding;
+package com.jakewharton.rxbinding2;
 
 import android.app.KeyguardManager;
 import android.content.Context;
