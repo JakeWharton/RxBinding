@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding;
+package com.jakewharton.rxbinding2;
 
 import android.os.SystemClock;
 import android.view.InputDevice;
