@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.rxbinding.support.v17.leanback">
+    package="com.jakewharton.rxbinding2.support.v17.leanback">
 
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
   <application>
     <activity
-        android:name="com.jakewharton.rxbinding.support.v17.leanback.widget.RxSearchBarTestActivity"
+        android:name="com.jakewharton.rxbinding2.support.v17.leanback.widget.RxSearchBarTestActivity"
         android:theme="@style/Theme.Leanback"
     />
     </application>
