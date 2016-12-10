@@ -1,6 +1,6 @@
 package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,8 +14,6 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v17.leanback.widget.SearchEditText;
 import android.view.KeyEvent;
-
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -31,16 +29,16 @@ public final class RxSearchEditTextTest {
   }
 
   @Test @UiThreadTest public void keyboardDismisses() {
-    RecordingObserver<Void> o = new RecordingObserver<>();
-    Subscription subscription = RxSearchEditText.keyboardDismisses(view).subscribe(o);
+    RecordingObserver<Object> o = new RecordingObserver<>();
+    RxSearchEditText.keyboardDismisses(view).subscribe(o);
     o.assertNoMoreEvents();
 
     KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
 
     view.onKeyPreIme(KeyEvent.KEYCODE_BACK, event);
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.onKeyPreIme(KeyEvent.KEYCODE_BACK, event);
     o.assertNoMoreEvents();
