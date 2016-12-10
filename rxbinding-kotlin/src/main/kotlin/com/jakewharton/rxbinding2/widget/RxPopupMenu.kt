@@ -26,4 +26,4 @@ inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks
  * *Warning:* The created observable uses [PopupMenu.setOnDismissListener] to
  * observe dismiss change. Only one observable can be used for a view at a time.
  */
-inline fun PopupMenu.dismisses(): Observable<Notification> = RxPopupMenu.dismisses(this)
+inline fun PopupMenu.dismisses(): Observable<Any> = RxPopupMenu.dismisses(this)

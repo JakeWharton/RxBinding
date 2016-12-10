@@ -20,7 +20,7 @@ public final class RxSearchEditText {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Observable<Notification> keyboardDismisses(@NonNull SearchEditText view) {
+  public static Observable<Object> keyboardDismisses(@NonNull SearchEditText view) {
     checkNotNull(view, "view == null");
     return new SearchEditTextKeyboardDismissOnSubscribe(view);
   }

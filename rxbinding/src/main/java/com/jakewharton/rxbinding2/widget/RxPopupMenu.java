@@ -39,7 +39,7 @@ public final class RxPopupMenu {
    * observe dismiss change. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Notification> dismisses(@NonNull PopupMenu view) {
+  public static Observable<Object> dismisses(@NonNull PopupMenu view) {
     checkNotNull(view, "view == null");
     return new PopupMenuDismissObservable(view);
   }
