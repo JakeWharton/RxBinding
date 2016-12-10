@@ -69,7 +69,7 @@ import static com.google.common.truth.Truth.assertThat;
         view.dismiss();
       }
     });
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     o.dispose();
     instrumentation.runOnMainSync(new Runnable() {
