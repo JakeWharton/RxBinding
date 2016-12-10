@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.v4.view;
+package com.jakewharton.rxbinding2.support.v4.view;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.espresso.ViewAction;
@@ -9,14 +9,13 @@ import android.support.test.espresso.action.Swipe;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.view.ViewPager;
-import com.jakewharton.rxbinding.RecordingObserver;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -37,7 +36,7 @@ public final class RxViewPagerTest {
   @Test public void pageScrollStateChanges() {
     view.setCurrentItem(0);
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxViewPager.pageScrollStateChanges(view)
+    RxViewPager.pageScrollStateChanges(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -48,7 +47,7 @@ public final class RxViewPagerTest {
     assertThat(o.takeNext()).isEqualTo(ViewPager.SCROLL_STATE_IDLE);
     o.assertNoMoreEvents();
 
-    subscription.unsubscribe();
+    o.dispose();
 
     onView(withId(1)).perform(swipeLeft());
     o.assertNoMoreEvents();
@@ -57,7 +56,7 @@ public final class RxViewPagerTest {
   @Test @UiThreadTest public void pageSelections() {
     view.setCurrentItem(0);
     RecordingObserver<Integer> o = new RecordingObserver<>();
-    Subscription subscription = RxViewPager.pageSelections(view).subscribe(o);
+    RxViewPager.pageSelections(view).subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
 
     view.setCurrentItem(3);
@@ -65,17 +64,17 @@ public final class RxViewPagerTest {
     view.setCurrentItem(5);
     assertThat(o.takeNext()).isEqualTo(5);
 
-    subscription.unsubscribe();
+    o.dispose();
 
     view.setCurrentItem(0);
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void currentItem() {
-    Action1<? super Integer> action = RxViewPager.currentItem(view);
-    action.call(3);
+  @Test @UiThreadTest public void currentItem() throws Exception {
+    Consumer<? super Integer> action = RxViewPager.currentItem(view);
+    action.accept(3);
     assertThat(view.getCurrentItem()).isEqualTo(3);
-    action.call(5);
+    action.accept(5);
     assertThat(view.getCurrentItem()).isEqualTo(5);
   }
 

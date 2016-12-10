@@ -3,7 +3,6 @@ package com.jakewharton.rxbinding2.support.v4.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -16,7 +15,7 @@ public final class RxSwipeRefreshLayout {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull public static Observable<Notification> refreshes(
+  @CheckResult @NonNull public static Observable<Object> refreshes(
       @NonNull SwipeRefreshLayout view) {
     checkNotNull(view, "view == null");
     return new SwipeRefreshLayoutRefreshObservable(view);

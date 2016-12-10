@@ -1,19 +1,15 @@
-package com.jakewharton.rxbinding.support.v4.widget;
+package com.jakewharton.rxbinding2.support.v4.widget;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.NestedScrollView;
-
-import com.jakewharton.rxbinding.RecordingObserver;
-import com.jakewharton.rxbinding.view.ViewScrollChangeEvent;
-
+import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.view.ViewScrollChangeEvent;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import rx.Subscription;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -31,7 +27,7 @@ public final class RxNestedScrollViewTest {
 
   @Test @UiThreadTest public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
-    Subscription subscription = RxNestedScrollView.scrollChangeEvents(view).subscribe(o);
+    RxNestedScrollView.scrollChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
 
     view.scrollTo(1000, 0);
@@ -42,7 +38,7 @@ public final class RxNestedScrollViewTest {
     assertThat(event.oldScrollX()).isEqualTo(0);
     assertThat(event.oldScrollY()).isEqualTo(0);
 
-    subscription.unsubscribe();
+    o.dispose();
     view.scrollTo(2000, 0);
     o.assertNoMoreEvents();
   }
