@@ -59,10 +59,10 @@ public final class RxToolbarTest {
     o.assertNoMoreEvents(); // No initial value.
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
-    assertThat(o.takeNext()).isNull();
+    assertThat(o.takeNext()).isNotNull();
 
     o.dispose();
 
