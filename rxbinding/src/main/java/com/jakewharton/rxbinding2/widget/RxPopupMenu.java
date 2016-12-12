@@ -4,7 +4,6 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
-import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
@@ -39,7 +38,7 @@ public final class RxPopupMenu {
    * observe dismiss change. Only one observable can be used for a view at a time.
    */
   @CheckResult @NonNull
-  public static Observable<Notification> dismisses(@NonNull PopupMenu view) {
+  public static Observable<Object> dismisses(@NonNull PopupMenu view) {
     checkNotNull(view, "view == null");
     return new PopupMenuDismissObservable(view);
   }

@@ -9,14 +9,14 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Notification> {
+final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Object> {
   final SearchEditText view;
 
   SearchEditTextKeyboardDismissOnSubscribe(SearchEditText view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(final Observer<? super Notification> observer) {
+  @Override protected void subscribeActual(final Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -25,9 +25,9 @@ final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Notifica
 
   static class Listener extends MainThreadDisposable implements OnKeyboardDismissListener {
     final SearchEditText view;
-    final Observer<? super Notification> observer;
+    final Observer<? super Object> observer;
 
-    Listener(SearchEditText view, Observer<? super Notification> observer) {
+    Listener(SearchEditText view, Observer<? super Object> observer) {
       this.view = view;
       this.observer = observer;
     }
