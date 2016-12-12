@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<manifest package="com.jakewharton.rxbinding.support.v7.recyclerview"
+<manifest package="com.jakewharton.rxbinding2.support.v7.recyclerview"
           xmlns:android="http://schemas.android.com/apk/res/android">
   <application>
-    <activity android:name="com.jakewharton.rxbinding.support.v7.widget.RxRecyclerViewTestActivity"/>
+    <activity android:name="com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerViewTestActivity"/>
   </application>
 </manifest>
