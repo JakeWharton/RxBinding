@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.MenuItem;
 import android.widget.Toolbar;
-import com.jakewharton.rxbinding.internal.GenericTypeNullable;
+import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 

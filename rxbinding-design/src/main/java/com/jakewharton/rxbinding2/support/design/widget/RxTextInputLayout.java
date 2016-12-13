@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding2.support.design.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import com.jakewharton.rxbinding.internal.GenericTypeNullable;
+import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
