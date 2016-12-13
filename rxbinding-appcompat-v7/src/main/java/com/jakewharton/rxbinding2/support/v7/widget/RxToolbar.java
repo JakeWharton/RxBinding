@@ -4,7 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import com.jakewharton.rxbinding.internal.GenericTypeNullable;
+import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 

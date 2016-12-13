@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.internal;
+package com.jakewharton.rxbinding2.internal;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
