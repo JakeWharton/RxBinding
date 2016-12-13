@@ -17,7 +17,7 @@ import io.reactivex.functions.Consumer;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
+import static com.jakewharton.rxbinding2.MotionEventUtil.motionEventAtPosition;
 
 @RunWith(AndroidJUnit4.class) public final class RxRatingBarTest {
   @Rule public final ActivityTestRule<RxRatingBarTestActivity> activityRule =

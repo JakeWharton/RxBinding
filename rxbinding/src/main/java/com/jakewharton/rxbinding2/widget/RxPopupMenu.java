@@ -6,7 +6,7 @@ import android.view.MenuItem;
 import android.widget.PopupMenu;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link PopupMenu}.

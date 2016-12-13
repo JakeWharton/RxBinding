@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 public final class RxSwipeRefreshLayout {
   /**

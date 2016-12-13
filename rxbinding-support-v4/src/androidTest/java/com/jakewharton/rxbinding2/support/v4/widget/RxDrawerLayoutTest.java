@@ -6,7 +6,7 @@ import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.DrawerLayout;
-import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
+import com.jakewharton.rxbinding2.ViewDirtyIdlingResource;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.UnsafeRunnable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

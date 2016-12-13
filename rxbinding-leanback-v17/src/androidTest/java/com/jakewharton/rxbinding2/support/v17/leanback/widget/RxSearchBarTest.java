@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.reactivestreams.Subscription;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;

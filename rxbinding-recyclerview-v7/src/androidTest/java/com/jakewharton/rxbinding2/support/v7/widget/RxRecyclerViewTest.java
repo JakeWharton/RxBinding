@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.jakewharton.rxbinding2.RecordingObserver;
-import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
+import com.jakewharton.rxbinding2.ViewDirtyIdlingResource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.After;
 import org.junit.Before;

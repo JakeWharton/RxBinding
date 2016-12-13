@@ -16,8 +16,8 @@ import java.util.concurrent.Callable;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
-import static com.jakewharton.rxbinding.internal.Preconditions.checkArgument;
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkArgument;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 import static com.jakewharton.rxbinding2.internal.Functions.CALLABLE_ALWAYS_TRUE;
 import static com.jakewharton.rxbinding2.internal.Functions.PREDICATE_ALWAYS_TRUE;
 
