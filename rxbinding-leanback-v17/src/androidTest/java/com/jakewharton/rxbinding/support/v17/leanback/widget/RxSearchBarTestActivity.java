@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.support.v17.leanback.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.SearchBar;
@@ -7,6 +8,7 @@ import android.support.v17.leanback.widget.SearchEditText;
 import android.support.v17.leanback.widget.SearchOrbView;
 import com.jakewharton.rxbinding.support.v17.leanback.R;
 
+@SuppressLint("Registered")
 public final class RxSearchBarTestActivity extends Activity {
   SearchBar searchBar;
   SearchEditText searchEditText;

@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
@@ -10,6 +11,7 @@ import com.jakewharton.rxbinding.test.R;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
+@SuppressLint("Registered")
 public final class RxAutoCompleteTextViewTestActivity extends Activity {
   AutoCompleteTextView autoCompleteTextView;
 
