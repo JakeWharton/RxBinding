@@ -22,7 +22,9 @@ final class SearchViewQueryTextChangesObservable extends Observable<CharSequence
     observer.onNext(view.getQuery());
   }
 
-  static final class Listener extends MainThreadDisposable implements SearchView.OnQueryTextListener {
+  static final class Listener extends MainThreadDisposable
+          implements SearchView.OnQueryTextListener {
+
     private final SearchView view;
     private final Observer<? super CharSequence> observer;
 

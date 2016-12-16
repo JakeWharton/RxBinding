@@ -17,13 +17,16 @@ final class AdapterDataChangeObservable<T extends Adapter> extends Observable<T>
 
   @Override protected void subscribeActual(Observer<? super T> observer) {
     verifyMainThread();
-    MainThreadDisposableDataSetObserver<T> disposableDataSetObserver = new MainThreadDisposableDataSetObserver<>(adapter, observer);
+    MainThreadDisposableDataSetObserver<T> disposableDataSetObserver =
+            new MainThreadDisposableDataSetObserver<>(adapter, observer);
     adapter.registerDataSetObserver(disposableDataSetObserver.dataSetObserver);
     observer.onSubscribe(disposableDataSetObserver);
     observer.onNext(adapter);
   }
 
-  static final class MainThreadDisposableDataSetObserver<T extends Adapter> extends MainThreadDisposable {
+  static final class MainThreadDisposableDataSetObserver<T extends Adapter>
+          extends MainThreadDisposable {
+
     private final T adapter;
     private final DataSetObserver dataSetObserver;
 

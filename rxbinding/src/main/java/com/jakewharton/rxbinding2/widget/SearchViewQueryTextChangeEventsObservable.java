@@ -22,7 +22,9 @@ final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchV
     observer.onNext(SearchViewQueryTextEvent.create(view, view.getQuery(), false));
   }
 
-  static final class Listener extends MainThreadDisposable implements SearchView.OnQueryTextListener {
+  static final class Listener extends MainThreadDisposable
+          implements SearchView.OnQueryTextListener {
+
     private final SearchView view;
     private final Observer<? super SearchViewQueryTextEvent> observer;
 

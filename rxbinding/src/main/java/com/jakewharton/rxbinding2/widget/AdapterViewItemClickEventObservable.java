@@ -22,7 +22,9 @@ final class AdapterViewItemClickEventObservable extends Observable<AdapterViewIt
     view.setOnItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemClickListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemClickListener {
+
     private final AdapterView<?> view;
     private final Observer<? super AdapterViewItemClickEvent> observer;
 

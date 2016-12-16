@@ -25,7 +25,9 @@ final class AdapterViewItemLongClickObservable extends Observable<Integer> {
     view.setOnItemLongClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemLongClickListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemLongClickListener {
+
     private final AdapterView<?> view;
     private final Observer<? super Integer> observer;
     private final Callable<Boolean> handled;
@@ -37,7 +39,8 @@ final class AdapterViewItemLongClickObservable extends Observable<Integer> {
       this.handled = handled;
     }
 
-    @Override public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    @Override public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                             int position, long id) {
       if (!isDisposed()) {
         try {
           if (handled.call()) {

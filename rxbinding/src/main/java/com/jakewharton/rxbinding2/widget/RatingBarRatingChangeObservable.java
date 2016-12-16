@@ -22,7 +22,9 @@ final class RatingBarRatingChangeObservable extends Observable<Float> {
     observer.onNext(view.getRating());
   }
 
-  static final class Listener extends MainThreadDisposable implements RatingBar.OnRatingBarChangeListener {
+  static final class Listener extends MainThreadDisposable
+          implements RatingBar.OnRatingBarChangeListener {
+
     private final RatingBar view;
     private final Observer<? super Float> observer;
 

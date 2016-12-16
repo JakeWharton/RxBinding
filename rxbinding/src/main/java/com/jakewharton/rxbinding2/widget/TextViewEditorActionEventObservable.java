@@ -28,12 +28,16 @@ final class TextViewEditorActionEventObservable extends Observable<TextViewEdito
     view.setOnEditorActionListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements TextView.OnEditorActionListener {
+  static final class Listener extends MainThreadDisposable
+          implements TextView.OnEditorActionListener {
+
     private final TextView view;
     private final Observer<? super TextViewEditorActionEvent> observer;
     private final Predicate<? super TextViewEditorActionEvent> handled;
 
-    Listener(TextView view, Observer<? super TextViewEditorActionEvent> observer, Predicate<? super TextViewEditorActionEvent> handled) {
+    Listener(TextView view,
+             Observer<? super TextViewEditorActionEvent> observer,
+             Predicate<? super TextViewEditorActionEvent> handled) {
       this.view = view;
       this.observer = observer;
       this.handled = handled;

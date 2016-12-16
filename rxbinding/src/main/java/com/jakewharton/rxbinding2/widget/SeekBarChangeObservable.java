@@ -25,7 +25,9 @@ final class SeekBarChangeObservable extends Observable<Integer> {
     observer.onNext(view.getProgress());
   }
 
-  static final class Listener extends MainThreadDisposable implements SeekBar.OnSeekBarChangeListener {
+  static final class Listener extends MainThreadDisposable
+          implements SeekBar.OnSeekBarChangeListener {
+
     private final SeekBar view;
     private final Boolean shouldBeFromUser;
     private final Observer<? super Integer> observer;

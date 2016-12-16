@@ -6,7 +6,6 @@ import android.view.View.OnDragListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
-import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;

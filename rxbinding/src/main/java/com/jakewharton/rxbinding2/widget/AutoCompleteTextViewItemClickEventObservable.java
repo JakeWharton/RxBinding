@@ -9,7 +9,9 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class AutoCompleteTextViewItemClickEventObservable extends Observable<AdapterViewItemClickEvent> {
+final class AutoCompleteTextViewItemClickEventObservable
+        extends Observable<AdapterViewItemClickEvent> {
+
   private final AutoCompleteTextView view;
 
   AutoCompleteTextViewItemClickEventObservable(AutoCompleteTextView view) {
@@ -23,7 +25,9 @@ final class AutoCompleteTextViewItemClickEventObservable extends Observable<Adap
     view.setOnItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemClickListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemClickListener {
+
     private final AutoCompleteTextView view;
     private final Observer<? super AdapterViewItemClickEvent> observer;
 

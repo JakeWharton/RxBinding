@@ -41,7 +41,7 @@ public final class RxCompoundButton {
   @CheckResult @NonNull
   public static Consumer<? super Boolean> checked(@NonNull final CompoundButton view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>(){
+    return new Consumer<Boolean>() {
       @Override
       public void accept(Boolean value) throws Exception {
         view.setChecked(value);

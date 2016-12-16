@@ -24,7 +24,9 @@ final class AdapterViewItemSelectionObservable extends Observable<Integer> {
     observer.onNext(view.getSelectedItemPosition());
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemSelectedListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemSelectedListener {
+
     private final AdapterView<?> view;
     private final Observer<? super Integer> observer;
 
@@ -33,7 +35,8 @@ final class AdapterViewItemSelectionObservable extends Observable<Integer> {
       this.observer = observer;
     }
 
-    @Override public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+    @Override public void onItemSelected(AdapterView<?> adapterView, View view,
+                                         int position, long id) {
       if (!isDisposed()) {
         observer.onNext(position);
       }

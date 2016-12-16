@@ -22,7 +22,9 @@ final class PopupMenuItemClickObservable extends Observable<MenuItem> {
     observer.onSubscribe(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements PopupMenu.OnMenuItemClickListener {
+  static final class Listener extends MainThreadDisposable
+          implements PopupMenu.OnMenuItemClickListener {
+
     private final PopupMenu view;
     private final Observer<? super MenuItem> observer;
 

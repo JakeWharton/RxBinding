@@ -9,24 +9,29 @@ import io.reactivex.functions.Predicate;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class AdapterViewItemLongClickEventObservable extends Observable<AdapterViewItemLongClickEvent> {
+final class AdapterViewItemLongClickEventObservable
+        extends Observable<AdapterViewItemLongClickEvent> {
+
   private final AdapterView<?> view;
   private final Predicate<? super AdapterViewItemLongClickEvent> handled;
 
-  AdapterViewItemLongClickEventObservable(AdapterView<?> view,
-                                          Predicate<? super AdapterViewItemLongClickEvent> handled) {
+  AdapterViewItemLongClickEventObservable(
+          AdapterView<?> view, Predicate<? super AdapterViewItemLongClickEvent> handled) {
     this.view = view;
     this.handled = handled;
   }
 
-  @Override protected void subscribeActual(Observer<? super AdapterViewItemLongClickEvent> observer) {
+  @Override protected void subscribeActual(
+          Observer<? super AdapterViewItemLongClickEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer, handled);
     observer.onSubscribe(listener);
     view.setOnItemLongClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemLongClickListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemLongClickListener {
+
     private final AdapterView<?> view;
     private final Observer<? super AdapterViewItemLongClickEvent> observer;
     private final Predicate<? super AdapterViewItemLongClickEvent> handled;
@@ -38,7 +43,8 @@ final class AdapterViewItemLongClickEventObservable extends Observable<AdapterVi
       this.handled = handled;
     }
 
-    @Override public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    @Override public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                             int position, long id) {
       if (!isDisposed()) {
         AdapterViewItemLongClickEvent event =
                 AdapterViewItemLongClickEvent.create(parent, view, position, id);

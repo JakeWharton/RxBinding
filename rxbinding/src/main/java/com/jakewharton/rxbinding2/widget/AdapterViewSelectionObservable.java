@@ -35,7 +35,9 @@ final class AdapterViewSelectionObservable extends Observable<AdapterViewSelecti
     }
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemSelectedListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemSelectedListener {
+
     private final AdapterView<?> view;
     private final Observer<? super AdapterViewSelectionEvent> observer;
 

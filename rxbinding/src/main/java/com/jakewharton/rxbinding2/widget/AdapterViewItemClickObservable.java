@@ -22,7 +22,9 @@ final class AdapterViewItemClickObservable extends Observable<Integer> {
     view.setOnItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemClickListener {
+  static final class Listener extends MainThreadDisposable
+          implements AdapterView.OnItemClickListener {
+
     private final AdapterView<?> view;
     private final Observer<? super Integer> observer;
 
@@ -31,7 +33,8 @@ final class AdapterViewItemClickObservable extends Observable<Integer> {
       this.observer = observer;
     }
 
-    @Override public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+    @Override public void onItemClick(AdapterView<?> adapterView, View view,
+                                      int position, long id) {
       if (!isDisposed()) {
         observer.onNext(position);
       }

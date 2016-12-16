@@ -22,7 +22,9 @@ final class SeekBarChangeEventObservable extends Observable<SeekBarChangeEvent> 
     observer.onNext(SeekBarProgressChangeEvent.create(view, view.getProgress(), false));
   }
 
-  static final class Listener extends MainThreadDisposable implements SeekBar.OnSeekBarChangeListener {
+  static final class Listener extends MainThreadDisposable
+          implements SeekBar.OnSeekBarChangeListener {
+
     private final SeekBar view;
     private final Observer<? super SeekBarChangeEvent> observer;
 

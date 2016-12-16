@@ -41,8 +41,8 @@ final class AbsListViewScrollEventObservable extends Observable<AbsListViewScrol
       }
     }
 
-    @Override public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount,
-                         int totalItemCount) {
+    @Override public void onScroll(AbsListView absListView, int firstVisibleItem,
+                                   int visibleItemCount, int totalItemCount) {
       if (!isDisposed()) {
         AbsListViewScrollEvent event =
               AbsListViewScrollEvent.create(view, currentScrollState, firstVisibleItem,
