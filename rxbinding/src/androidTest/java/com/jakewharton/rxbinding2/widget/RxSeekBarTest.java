@@ -23,22 +23,25 @@ import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSeekBarTest {
-  @Rule public final ActivityTestRule<RxSeekBarTestActivity> activityRule =
-      new ActivityTestRule<>(RxSeekBarTestActivity.class);
+  @Rule
+  public final ActivityTestRule<RxSeekBarTestActivity> activityRule =
+          new ActivityTestRule<>(RxSeekBarTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private SeekBar seekBar;
 
-  @Before public void setUp() {
+  @Before
+  public void setUp() {
     seekBar = activityRule.getActivity().seekBar;
   }
 
-  @Test public void changes() {
+  @Test
+  public void changes() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxSeekBar.changes(seekBar) //
-        .subscribeOn(AndroidSchedulers.mainThread()) //
-        .subscribe(o);
+            .subscribeOn(AndroidSchedulers.mainThread()) //
+            .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(0);
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
@@ -54,7 +57,8 @@ public final class RxSeekBarTest {
     assertThat(o.takeNext()).isEqualTo(0);
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(85);
       }
     });
@@ -68,7 +72,8 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(85);
       }
     });
@@ -76,7 +81,8 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void systemChanges() {
+  @Test
+  public void systemChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxSeekBar.systemChanges(seekBar) //
             .subscribeOn(AndroidSchedulers.mainThread()) //
@@ -88,7 +94,8 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(85);
       }
     });
@@ -102,7 +109,8 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(85);
       }
     });
@@ -110,7 +118,8 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void userChanges() {
+  @Test
+  public void userChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxSeekBar.userChanges(seekBar) //
             .subscribeOn(AndroidSchedulers.mainThread()) //
@@ -130,7 +139,8 @@ public final class RxSeekBarTest {
     assertThat(o.takeNext()).isEqualTo(0);
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(85);
       }
     });
@@ -144,7 +154,8 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(85);
       }
     });
@@ -152,11 +163,12 @@ public final class RxSeekBarTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void changeEvents() {
+  @Test
+  public void changeEvents() {
     RecordingObserver<SeekBarChangeEvent> o = new RecordingObserver<>();
     RxSeekBar.changeEvents(seekBar) //
-        .subscribeOn(AndroidSchedulers.mainThread()) //
-        .subscribe(o);
+            .subscribeOn(AndroidSchedulers.mainThread()) //
+            .subscribe(o);
     assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
@@ -172,7 +184,8 @@ public final class RxSeekBarTest {
     assertThat(o.takeNext()).isEqualTo(SeekBarStopChangeEvent.create(seekBar));
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         seekBar.setProgress(0);
       }
     });

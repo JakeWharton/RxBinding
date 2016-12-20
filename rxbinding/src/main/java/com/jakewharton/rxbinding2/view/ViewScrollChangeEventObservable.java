@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.view;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.View.OnScrollChangeListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -18,7 +19,8 @@ final class ViewScrollChangeEventObservable extends Observable<ViewScrollChangeE
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super ViewScrollChangeEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super ViewScrollChangeEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -41,7 +43,8 @@ final class ViewScrollChangeEventObservable extends Observable<ViewScrollChangeE
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnScrollChangeListener(null);
     }
   }

@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.RatingBar;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -17,7 +18,8 @@ public final class RxRatingBar {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Float> ratingChanges(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
     return new RatingBarRatingChangeObservable(view);
@@ -31,7 +33,8 @@ public final class RxRatingBar {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<RatingBarChangeEvent> ratingChangeEvents(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
     return new RatingBarRatingChangeEventObservable(view);
@@ -43,11 +46,13 @@ public final class RxRatingBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Float> rating(@NonNull final RatingBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Float>() {
-      @Override public void accept(Float value) {
+      @Override
+      public void accept(Float value) {
         view.setRating(value);
       }
     };
@@ -59,11 +64,13 @@ public final class RxRatingBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> isIndicator(@NonNull final RatingBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setIsIndicator(value);
       }
     };

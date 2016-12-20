@@ -2,7 +2,9 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
+
 import com.jakewharton.rxbinding2.internal.Notification;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -19,7 +21,8 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
     this.handled = handled;
   }
 
-  @Override protected void subscribeActual(Observer<? super Object> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(menuItem, handled, observer);
     observer.onSubscribe(listener);
@@ -32,13 +35,14 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
     private final Observer<? super Object> observer;
 
     Listener(MenuItem menuItem, Predicate<? super MenuItem> handled,
-        Observer<? super Object> observer) {
+             Observer<? super Object> observer) {
       this.menuItem = menuItem;
       this.handled = handled;
       this.observer = observer;
     }
 
-    @Override public boolean onMenuItemClick(MenuItem item) {
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
       if (!isDisposed()) {
         try {
           if (handled.test(menuItem)) {
@@ -53,7 +57,8 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       menuItem.setOnMenuItemClickListener(null);
     }
   }

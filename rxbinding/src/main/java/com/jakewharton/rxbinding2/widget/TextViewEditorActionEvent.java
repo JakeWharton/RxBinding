@@ -9,17 +9,19 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding2.view.ViewEvent;
 
 public final class TextViewEditorActionEvent extends ViewEvent<TextView> {
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static TextViewEditorActionEvent create(@NonNull TextView view, int actionId,
-      @Nullable KeyEvent keyEvent) {
+                                                 @Nullable KeyEvent keyEvent) {
     return new TextViewEditorActionEvent(view, actionId, keyEvent);
   }
 
   private final int actionId;
-  @Nullable private final KeyEvent keyEvent;
+  @Nullable
+  private final KeyEvent keyEvent;
 
   private TextViewEditorActionEvent(@NonNull TextView view, int actionId,
-      @Nullable KeyEvent keyEvent) {
+                                    @Nullable KeyEvent keyEvent) {
     super(view);
     this.actionId = actionId;
     this.keyEvent = keyEvent;
@@ -29,20 +31,23 @@ public final class TextViewEditorActionEvent extends ViewEvent<TextView> {
     return actionId;
   }
 
-  @Nullable public KeyEvent keyEvent() {
+  @Nullable
+  public KeyEvent keyEvent() {
     return keyEvent;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof TextViewEditorActionEvent)) return false;
     TextViewEditorActionEvent other = (TextViewEditorActionEvent) o;
     return other.view() == view()
-        && other.actionId == actionId
-        && (other.keyEvent != null ? other.keyEvent.equals(keyEvent) : keyEvent == null);
+            && other.actionId == actionId
+            && (other.keyEvent != null ? other.keyEvent.equals(keyEvent) : keyEvent == null);
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + actionId;
@@ -50,13 +55,14 @@ public final class TextViewEditorActionEvent extends ViewEvent<TextView> {
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "TextViewEditorActionEvent{view="
-        + view()
-        + ", actionId="
-        + actionId
-        + ", keyEvent="
-        + keyEvent
-        + '}';
+            + view()
+            + ", actionId="
+            + actionId
+            + ", keyEvent="
+            + keyEvent
+            + '}';
   }
 }

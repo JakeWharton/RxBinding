@@ -11,16 +11,17 @@ import android.view.View;
  * instances have the potential to leak the associated {@link android.content.Context}.
  */
 public final class ViewScrollChangeEvent extends ViewEvent<View> {
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static ViewScrollChangeEvent create(@NonNull View view, int scrollX, int scrollY,
-      int oldScrollX, int oldScrollY) {
+                                             int oldScrollX, int oldScrollY) {
     return new ViewScrollChangeEvent(view, scrollX, scrollY, oldScrollX, oldScrollY);
   }
 
   private final int scrollX, scrollY, oldScrollX, oldScrollY;
 
   protected ViewScrollChangeEvent(@NonNull View view, int scrollX, int scrollY, int oldScrollX,
-      int oldScrollY) {
+                                  int oldScrollY) {
     super(view);
     this.scrollX = scrollX;
     this.scrollY = scrollY;
@@ -44,7 +45,8 @@ public final class ViewScrollChangeEvent extends ViewEvent<View> {
     return oldScrollY;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + scrollX;
@@ -54,16 +56,18 @@ public final class ViewScrollChangeEvent extends ViewEvent<View> {
     return result;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof ViewScrollChangeEvent)) return false;
     ViewScrollChangeEvent other = (ViewScrollChangeEvent) o;
     return other.view() == view() && other.scrollX == scrollX && other.scrollY == scrollY
-        && other.oldScrollX == oldScrollX && other.oldScrollY == oldScrollY;
+            && other.oldScrollX == oldScrollX && other.oldScrollY == oldScrollY;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "ViewScrollChangeEvent{scrollX=" + scrollX + ", scrollY=" + scrollY + ", oldScrollX="
-        + oldScrollX + ", oldScrollY=" + oldScrollY + '}';
+            + oldScrollX + ", oldScrollY=" + oldScrollY + '}';
   }
 }

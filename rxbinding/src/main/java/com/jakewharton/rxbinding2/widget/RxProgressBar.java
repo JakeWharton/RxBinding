@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.ProgressBar;
+
 import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
@@ -14,11 +15,13 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> incrementProgressBy(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         view.incrementProgressBy(value);
       }
     };
@@ -30,12 +33,14 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> incrementSecondaryProgressBy(
-      @NonNull final ProgressBar view) {
+          @NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         view.incrementSecondaryProgressBy(value);
       }
     };
@@ -47,11 +52,13 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> indeterminate(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setIndeterminate(value);
       }
     };
@@ -63,11 +70,13 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> max(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         view.setMax(value);
       }
     };
@@ -79,11 +88,13 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> progress(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         view.setProgress(value);
       }
     };
@@ -95,11 +106,13 @@ public final class RxProgressBar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> secondaryProgress(@NonNull final ProgressBar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         view.setSecondaryProgress(value);
       }
     };

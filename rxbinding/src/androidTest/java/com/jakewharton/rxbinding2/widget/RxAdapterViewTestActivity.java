@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,8 @@ public final class RxAdapterViewTestActivity extends Activity {
   List<String> values;
   ArrayAdapter<String> adapter;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     values = new ArrayList<>(Arrays.asList("One", "Two", "Three"));

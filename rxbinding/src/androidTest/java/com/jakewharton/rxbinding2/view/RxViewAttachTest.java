@@ -22,34 +22,39 @@ import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.DETACH;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewAttachTest {
-  @Rule public final ActivityTestRule<RxViewAttachTestActivity> activityRule =
-      new ActivityTestRule<>(RxViewAttachTestActivity.class);
+  @Rule
+  public final ActivityTestRule<RxViewAttachTestActivity> activityRule =
+          new ActivityTestRule<>(RxViewAttachTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
   private FrameLayout parent;
   private View child;
 
-  @Before public void setUp() {
+  @Before
+  public void setUp() {
     RxViewAttachTestActivity activity = activityRule.getActivity();
     parent = activity.parent;
     child = activity.child;
   }
 
-  @Test public void attaches() {
+  @Test
+  public void attaches() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.attaches(child)
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribe(o);
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.addView(child);
       }
     });
     assertThat(o.takeNext()).isNotNull();
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.removeView(child);
       }
     });
@@ -58,7 +63,8 @@ public final class RxViewAttachTest {
     o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.addView(child);
         parent.removeView(child);
       }
@@ -66,21 +72,24 @@ public final class RxViewAttachTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void attachEvents() {
+  @Test
+  public void attachEvents() {
     RecordingObserver<ViewAttachEvent> o = new RecordingObserver<>();
     RxView.attachEvents(child)
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribe(o);
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.addView(child);
       }
     });
     assertThat(o.takeNext().kind()).isEqualTo(ATTACH);
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.removeView(child);
       }
     });
@@ -89,7 +98,8 @@ public final class RxViewAttachTest {
     o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.addView(child);
         parent.removeView(child);
       }
@@ -97,21 +107,24 @@ public final class RxViewAttachTest {
     o.assertNoMoreEvents();
   }
 
-  @Test public void detaches() {
+  @Test
+  public void detaches() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.detaches(child)
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .subscribe(o);
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.addView(child);
       }
     });
     o.assertNoMoreEvents();
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.removeView(child);
       }
     });
@@ -120,7 +133,8 @@ public final class RxViewAttachTest {
     o.dispose();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         parent.addView(child);
         parent.removeView(child);
       }

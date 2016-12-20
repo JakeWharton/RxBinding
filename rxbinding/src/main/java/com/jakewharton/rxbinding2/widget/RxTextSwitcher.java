@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.TextSwitcher;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -19,11 +20,13 @@ public final class RxTextSwitcher {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super CharSequence> text(@NonNull final TextSwitcher view) {
     checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence text) {
+      @Override
+      public void accept(CharSequence text) {
         view.setText(text);
       }
     };
@@ -35,11 +38,13 @@ public final class RxTextSwitcher {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super CharSequence> currentText(@NonNull final TextSwitcher view) {
     checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence textRes) {
+      @Override
+      public void accept(CharSequence textRes) {
         view.setCurrentText(textRes);
       }
     };

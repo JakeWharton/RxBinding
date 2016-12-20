@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.internal;
 
 import java.util.concurrent.Callable;
+
 import io.reactivex.functions.Predicate;
 
 public final class Functions {
@@ -15,7 +16,8 @@ public final class Functions {
       this.value = value;
     }
 
-    @Override public Boolean call() {
+    @Override
+    public Boolean call() {
       return value;
     }
 

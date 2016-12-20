@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.MenuItem;
 import android.widget.PopupMenu;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -15,7 +16,8 @@ final class PopupMenuItemClickObservable extends Observable<MenuItem> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super MenuItem> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super MenuItem> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnMenuItemClickListener(listener);
@@ -33,7 +35,8 @@ final class PopupMenuItemClickObservable extends Observable<MenuItem> {
       this.observer = observer;
     }
 
-    @Override public boolean onMenuItemClick(MenuItem menuItem) {
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
       if (!isDisposed()) {
         observer.onNext(menuItem);
         return true;
@@ -41,7 +44,8 @@ final class PopupMenuItemClickObservable extends Observable<MenuItem> {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnMenuItemClickListener(null);
     }
   }

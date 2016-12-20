@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -16,7 +17,8 @@ final class AdapterViewItemSelectionObservable extends Observable<Integer> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Integer> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Integer> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnItemSelectedListener(listener);
@@ -35,20 +37,23 @@ final class AdapterViewItemSelectionObservable extends Observable<Integer> {
       this.observer = observer;
     }
 
-    @Override public void onItemSelected(AdapterView<?> adapterView, View view,
-                                         int position, long id) {
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view,
+                               int position, long id) {
       if (!isDisposed()) {
         observer.onNext(position);
       }
     }
 
-    @Override public void onNothingSelected(AdapterView<?> adapterView) {
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
       if (!isDisposed()) {
         observer.onNext(INVALID_POSITION);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnItemSelectedListener(null);
     }
   }

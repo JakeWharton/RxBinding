@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.RatingBar;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -14,7 +15,8 @@ final class RatingBarRatingChangeEventObservable extends Observable<RatingBarCha
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super RatingBarChangeEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super RatingBarChangeEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnRatingBarChangeListener(listener);
@@ -33,13 +35,15 @@ final class RatingBarRatingChangeEventObservable extends Observable<RatingBarCha
       this.observer = observer;
     }
 
-    @Override public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
       if (!isDisposed()) {
         observer.onNext(RatingBarChangeEvent.create(ratingBar, rating, fromUser));
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnRatingBarChangeListener(null);
     }
   }

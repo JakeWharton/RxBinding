@@ -17,8 +17,12 @@ public abstract class MenuItemEvent<T extends MenuItem> {
     this.menuItem = menuItem;
   }
 
-  /** The menu item from which this event occurred. */
-  public @NonNull T menuItem() {
+  /**
+   * The menu item from which this event occurred.
+   */
+  public
+  @NonNull
+  T menuItem() {
     return menuItem;
   }
 }

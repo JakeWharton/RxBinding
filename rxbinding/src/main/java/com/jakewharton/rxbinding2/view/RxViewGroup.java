@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.view;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.ViewGroup;
+
 import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
@@ -17,9 +18,10 @@ public final class RxViewGroup {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code viewGroup}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<ViewGroupHierarchyChangeEvent> changeEvents(
-      @NonNull ViewGroup viewGroup) {
+          @NonNull ViewGroup viewGroup) {
     checkNotNull(viewGroup, "viewGroup == null");
     return new ViewGroupHierarchyChangeEventObservable(viewGroup);
   }

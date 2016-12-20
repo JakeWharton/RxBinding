@@ -16,7 +16,8 @@ public final class MenuItemActionViewEvent extends MenuItemEvent<MenuItem> {
     EXPAND, COLLAPSE
   }
 
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static MenuItemActionViewEvent create(@NonNull MenuItem menuItem, @NonNull Kind kind) {
     return new MenuItemActionViewEvent(menuItem, kind);
   }
@@ -33,7 +34,8 @@ public final class MenuItemActionViewEvent extends MenuItemEvent<MenuItem> {
     return kind;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
@@ -43,18 +45,20 @@ public final class MenuItemActionViewEvent extends MenuItemEvent<MenuItem> {
     return kind == that.kind;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = menuItem().hashCode();
     result = 31 * result + kind.hashCode();
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "MenuItemActionViewEvent{"
-        + "menuItem="
-        + menuItem()
-        + ", kind="
-        + kind
-        + '}';
+            + "menuItem="
+            + menuItem()
+            + ", kind="
+            + kind
+            + '}';
   }
 }

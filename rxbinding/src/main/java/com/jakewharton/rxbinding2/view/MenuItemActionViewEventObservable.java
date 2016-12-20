@@ -2,7 +2,9 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
+
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -15,12 +17,13 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
   private final Predicate<? super MenuItemActionViewEvent> handled;
 
   MenuItemActionViewEventObservable(MenuItem menuItem,
-      Predicate<? super MenuItemActionViewEvent> handled) {
+                                    Predicate<? super MenuItemActionViewEvent> handled) {
     this.menuItem = menuItem;
     this.handled = handled;
   }
 
-  @Override protected void subscribeActual(Observer<? super MenuItemActionViewEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super MenuItemActionViewEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(menuItem, handled, observer);
     observer.onSubscribe(listener);
@@ -33,18 +36,20 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
     private final Observer<? super MenuItemActionViewEvent> observer;
 
     Listener(MenuItem menuItem, Predicate<? super MenuItemActionViewEvent> handled,
-        Observer<? super MenuItemActionViewEvent> observer) {
+             Observer<? super MenuItemActionViewEvent> observer) {
       this.menuItem = menuItem;
       this.handled = handled;
       this.observer = observer;
     }
 
-    @Override public boolean onMenuItemActionExpand(MenuItem item) {
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
       MenuItemActionViewEvent event = MenuItemActionViewEvent.create(menuItem, Kind.EXPAND);
       return onEvent(event);
     }
 
-    @Override public boolean onMenuItemActionCollapse(MenuItem item) {
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
       MenuItemActionViewEvent event = MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE);
       return onEvent(event);
     }
@@ -64,7 +69,8 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       menuItem.setOnActionExpandListener(null);
     }
   }

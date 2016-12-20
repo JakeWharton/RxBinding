@@ -16,7 +16,8 @@ public final class ViewAttachEvent extends ViewEvent<View> {
     ATTACH, DETACH
   }
 
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static ViewAttachEvent create(@NonNull View view, @NonNull Kind kind) {
     return new ViewAttachEvent(view, kind);
   }
@@ -33,26 +34,29 @@ public final class ViewAttachEvent extends ViewEvent<View> {
     return kind;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof ViewAttachEvent)) return false;
     ViewAttachEvent other = (ViewAttachEvent) o;
     return other.view() == view()
-        && other.kind() == kind();
+            && other.kind() == kind();
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + kind().hashCode();
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "ViewAttachEvent{view="
-        + view()
-        + ", kind="
-        + kind()
-        + '}';
+            + view()
+            + ", kind="
+            + kind()
+            + '}';
   }
 }

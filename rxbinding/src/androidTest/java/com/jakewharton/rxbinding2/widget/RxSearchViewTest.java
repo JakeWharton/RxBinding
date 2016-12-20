@@ -6,7 +6,9 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.SearchView;
+
 import com.jakewharton.rxbinding2.RecordingObserver;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,17 +18,21 @@ import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSearchViewTest {
-  @Rule public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
+  @Rule
+  public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
 
   private SearchView searchView;
 
-  @Before public void setUp() {
+  @Before
+  public void setUp() {
     searchView = new SearchView(context);
   }
 
-  @Test @UiThreadTest public void queryTextChanges() {
+  @Test
+  @UiThreadTest
+  public void queryTextChanges() {
     searchView.setQuery("Initial", false);
     RecordingObserver<CharSequence> o = new RecordingObserver<>();
     RxSearchView.queryTextChanges(searchView).subscribe(o);
@@ -46,7 +52,9 @@ public final class RxSearchViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void query() throws Exception {
+  @Test
+  @UiThreadTest
+  public void query() throws Exception {
     RxSearchView.query(searchView, false).accept("Hey");
     assertThat(searchView.getQuery().toString()).isEqualTo("Hey");
 
@@ -54,7 +62,9 @@ public final class RxSearchViewTest {
     assertThat(searchView.getQuery().toString()).isEqualTo("Bye");
   }
 
-  @Test @UiThreadTest public void queryTextEventNotSubmitted() {
+  @Test
+  @UiThreadTest
+  public void queryTextEventNotSubmitted() {
     RecordingObserver<SearchViewQueryTextEvent> o = new RecordingObserver<>();
     RxSearchView.queryTextChangeEvents(searchView).subscribe(o);
 
@@ -67,7 +77,9 @@ public final class RxSearchViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void queryTextEventSubmitted() {
+  @Test
+  @UiThreadTest
+  public void queryTextEventSubmitted() {
     RecordingObserver<SearchViewQueryTextEvent> o = new RecordingObserver<>();
     RxSearchView.queryTextChangeEvents(searchView).subscribe(o);
 

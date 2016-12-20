@@ -7,7 +7,8 @@ import android.widget.SeekBar;
 public final class RxSeekBarTestActivity extends Activity {
   SeekBar seekBar;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     seekBar = new SeekBar(this);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,8 @@ public final class RxAbsListViewTestActivity extends Activity {
   List<String> values;
   ArrayAdapter<String> adapter;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     values = createValues(100);

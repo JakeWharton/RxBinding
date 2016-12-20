@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -17,7 +18,8 @@ final class ViewAttachEventObservable extends Observable<ViewAttachEvent> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super ViewAttachEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super ViewAttachEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -33,19 +35,22 @@ final class ViewAttachEventObservable extends Observable<ViewAttachEvent> {
       this.observer = observer;
     }
 
-    @Override public void onViewAttachedToWindow(View v) {
+    @Override
+    public void onViewAttachedToWindow(View v) {
       if (!isDisposed()) {
         observer.onNext(ViewAttachEvent.create(view, ATTACH));
       }
     }
 
-    @Override public void onViewDetachedFromWindow(View v) {
+    @Override
+    public void onViewDetachedFromWindow(View v) {
       if (!isDisposed()) {
         observer.onNext(ViewAttachEvent.create(view, DETACH));
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.removeOnAttachStateChangeListener(this);
     }
   }

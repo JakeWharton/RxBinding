@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.view;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnHoverListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -19,7 +20,8 @@ final class ViewHoverObservable extends Observable<MotionEvent> {
     this.handled = handled;
   }
 
-  @Override protected void subscribeActual(Observer<? super MotionEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super MotionEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, handled, observer);
     observer.onSubscribe(listener);
@@ -32,13 +34,14 @@ final class ViewHoverObservable extends Observable<MotionEvent> {
     private final Observer<? super MotionEvent> observer;
 
     Listener(View view, Predicate<? super MotionEvent> handled,
-        Observer<? super MotionEvent> observer) {
+             Observer<? super MotionEvent> observer) {
       this.view = view;
       this.handled = handled;
       this.observer = observer;
     }
 
-    @Override public boolean onHover(View v, MotionEvent event) {
+    @Override
+    public boolean onHover(View v, MotionEvent event) {
       if (!isDisposed()) {
         try {
           if (handled.test(event)) {
@@ -53,7 +56,8 @@ final class ViewHoverObservable extends Observable<MotionEvent> {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnHoverListener(null);
     }
   }

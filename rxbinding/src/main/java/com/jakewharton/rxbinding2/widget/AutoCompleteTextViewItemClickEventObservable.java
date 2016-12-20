@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -18,7 +19,8 @@ final class AutoCompleteTextViewItemClickEventObservable
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super AdapterViewItemClickEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super AdapterViewItemClickEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -36,13 +38,15 @@ final class AutoCompleteTextViewItemClickEventObservable
       this.observer = observer;
     }
 
-    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       if (!isDisposed()) {
         observer.onNext(AdapterViewItemClickEvent.create(parent, view, position, id));
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnItemClickListener(null);
     }
   }

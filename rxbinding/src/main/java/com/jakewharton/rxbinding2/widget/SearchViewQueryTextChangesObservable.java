@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.SearchView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -14,7 +15,8 @@ final class SearchViewQueryTextChangesObservable extends Observable<CharSequence
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super CharSequence> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super CharSequence> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnQueryTextListener(listener);
@@ -33,7 +35,8 @@ final class SearchViewQueryTextChangesObservable extends Observable<CharSequence
       this.observer = observer;
     }
 
-    @Override public boolean onQueryTextChange(String s) {
+    @Override
+    public boolean onQueryTextChange(String s) {
       if (!isDisposed()) {
         observer.onNext(s);
         return true;
@@ -41,11 +44,13 @@ final class SearchViewQueryTextChangesObservable extends Observable<CharSequence
       return false;
     }
 
-    @Override public boolean onQueryTextSubmit(String query) {
+    @Override
+    public boolean onQueryTextSubmit(String query) {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnQueryTextListener(null);
     }
   }

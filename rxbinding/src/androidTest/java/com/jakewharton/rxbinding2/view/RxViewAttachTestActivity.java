@@ -9,7 +9,8 @@ public final class RxViewAttachTestActivity extends Activity {
   FrameLayout parent;
   View child;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     parent = new FrameLayout(this);
     child = new View(this);

@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -15,7 +16,8 @@ final class AdapterViewItemClickObservable extends Observable<Integer> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Integer> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Integer> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -33,14 +35,16 @@ final class AdapterViewItemClickObservable extends Observable<Integer> {
       this.observer = observer;
     }
 
-    @Override public void onItemClick(AdapterView<?> adapterView, View view,
-                                      int position, long id) {
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view,
+                            int position, long id) {
       if (!isDisposed()) {
         observer.onNext(position);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnItemClickListener(null);
     }
   }

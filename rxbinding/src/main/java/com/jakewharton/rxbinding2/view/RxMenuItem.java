@@ -4,7 +4,9 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+
 import com.jakewharton.rxbinding2.internal.Functions;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
@@ -27,7 +29,8 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable uses {@link MenuItem#setOnMenuItemClickListener} to
    * observe clicks. Only one observable can be used for a menu item at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new MenuItemClickOnSubscribe(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
@@ -44,11 +47,12 @@ public final class RxMenuItem {
    * observe clicks. Only one observable can be used for a menu item at a time.
    *
    * @param handled Function invoked with each value to determine the return value of the
-   * underlying {@link MenuItem.OnMenuItemClickListener}.
+   *                underlying {@link MenuItem.OnMenuItemClickListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem,
-      @NonNull Predicate<? super MenuItem> handled) {
+                                          @NonNull Predicate<? super MenuItem> handled) {
     checkNotNull(menuItem, "menuItem == null");
     checkNotNull(handled, "handled == null");
     return new MenuItemClickOnSubscribe(menuItem, handled);
@@ -63,7 +67,8 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable uses {@link MenuItem#setOnActionExpandListener} to
    * observe action view events. Only one observable can be used for a menu item at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new MenuItemActionViewEventObservable(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
@@ -79,11 +84,12 @@ public final class RxMenuItem {
    * observe action view events. Only one observable can be used for a menu item at a time.
    *
    * @param handled Function invoked with each value to determine the return value of the
-   * underlying {@link MenuItem.OnActionExpandListener}.
+   *                underlying {@link MenuItem.OnActionExpandListener}.
    */
-  @CheckResult @NonNull
-  public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem,
-      @NonNull Predicate<? super MenuItemActionViewEvent> handled) {
+  @CheckResult
+  @NonNull
+  public static Observable<MenuItemActionViewEvent> actionViewEvents(
+          @NonNull MenuItem menuItem, @NonNull Predicate<? super MenuItemActionViewEvent> handled) {
     checkNotNull(menuItem, "menuItem == null");
     checkNotNull(handled, "handled == null");
     return new MenuItemActionViewEventObservable(menuItem, handled);
@@ -95,11 +101,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> checked(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         menuItem.setChecked(value);
       }
     };
@@ -111,11 +119,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> enabled(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         menuItem.setEnabled(value);
       }
     };
@@ -127,11 +137,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Drawable> icon(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Drawable>() {
-      @Override public void accept(Drawable value) {
+      @Override
+      public void accept(Drawable value) {
         menuItem.setIcon(value);
       }
     };
@@ -143,11 +155,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> iconRes(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         menuItem.setIcon(value);
       }
     };
@@ -159,11 +173,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super CharSequence> title(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence value) {
+      @Override
+      public void accept(CharSequence value) {
         menuItem.setTitle(value);
       }
     };
@@ -175,11 +191,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> titleRes(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         menuItem.setTitle(value);
       }
     };
@@ -191,11 +209,13 @@ public final class RxMenuItem {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> visible(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         menuItem.setVisible(value);
       }
     };

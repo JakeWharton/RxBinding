@@ -13,7 +13,8 @@ public final class RxToolbarTestActivity extends Activity {
 
   Toolbar toolbar;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     toolbar = new Toolbar(this);

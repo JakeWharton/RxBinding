@@ -2,11 +2,14 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
+
 import com.jakewharton.rxbinding2.internal.Notification;
+
+import java.util.concurrent.Callable;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
-import java.util.concurrent.Callable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
@@ -19,7 +22,8 @@ final class ViewTreeObserverPreDrawObservable extends Observable<Object> {
     this.proceedDrawingPass = proceedDrawingPass;
   }
 
-  @Override protected void subscribeActual(Observer<? super Object> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, proceedDrawingPass, observer);
     observer.onSubscribe(listener);
@@ -37,7 +41,8 @@ final class ViewTreeObserverPreDrawObservable extends Observable<Object> {
       this.observer = observer;
     }
 
-    @Override public boolean onPreDraw() {
+    @Override
+    public boolean onPreDraw() {
       if (!isDisposed()) {
         observer.onNext(Notification.INSTANCE);
         try {
@@ -50,7 +55,8 @@ final class ViewTreeObserverPreDrawObservable extends Observable<Object> {
       return true;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.getViewTreeObserver().removeOnPreDrawListener(this);
     }
   }

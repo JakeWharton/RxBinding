@@ -4,7 +4,9 @@ import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toolbar;
+
 import com.jakewharton.rxbinding2.internal.Notification;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -20,7 +22,8 @@ final class ToolbarNavigationClickObservable extends Observable<Object> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Object> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -36,13 +39,15 @@ final class ToolbarNavigationClickObservable extends Observable<Object> {
       this.observer = observer;
     }
 
-    @Override public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
       if (!isDisposed()) {
         observer.onNext(Notification.INSTANCE);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setNavigationOnClickListener(null);
     }
   }

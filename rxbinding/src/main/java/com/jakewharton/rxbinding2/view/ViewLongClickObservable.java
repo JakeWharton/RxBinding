@@ -2,11 +2,14 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnLongClickListener;
+
 import com.jakewharton.rxbinding2.internal.Notification;
+
+import java.util.concurrent.Callable;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
-import java.util.concurrent.Callable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
@@ -19,7 +22,8 @@ final class ViewLongClickObservable extends Observable<Object> {
     this.handled = handled;
   }
 
-  @Override protected void subscribeActual(Observer<? super Object> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, handled, observer);
     observer.onSubscribe(listener);
@@ -37,7 +41,8 @@ final class ViewLongClickObservable extends Observable<Object> {
       this.handled = handled;
     }
 
-    @Override public boolean onLongClick(View v) {
+    @Override
+    public boolean onLongClick(View v) {
       if (!isDisposed()) {
         try {
           if (handled.call()) {
@@ -52,7 +57,8 @@ final class ViewLongClickObservable extends Observable<Object> {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnLongClickListener(null);
     }
   }

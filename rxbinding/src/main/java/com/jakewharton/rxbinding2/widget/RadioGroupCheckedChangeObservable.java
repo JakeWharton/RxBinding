@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.RadioGroup;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -14,7 +15,8 @@ final class RadioGroupCheckedChangeObservable extends Observable<Integer> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Integer> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Integer> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnCheckedChangeListener(listener);
@@ -33,13 +35,15 @@ final class RadioGroupCheckedChangeObservable extends Observable<Integer> {
       this.observer = observer;
     }
 
-    @Override public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
       if (!isDisposed()) {
         observer.onNext(checkedId);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnCheckedChangeListener(null);
     }
   }

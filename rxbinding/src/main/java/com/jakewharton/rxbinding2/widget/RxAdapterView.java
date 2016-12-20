@@ -4,8 +4,11 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+
 import com.jakewharton.rxbinding2.internal.Functions;
+
 import java.util.concurrent.Callable;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
@@ -26,9 +29,10 @@ public final class RxAdapterView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<Integer> itemSelections(
-      @NonNull AdapterView<T> view) {
+          @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new AdapterViewItemSelectionObservable(view);
   }
@@ -41,9 +45,10 @@ public final class RxAdapterView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<AdapterViewSelectionEvent> selectionEvents(
-      @NonNull AdapterView<T> view) {
+          @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new AdapterViewSelectionObservable(view);
   }
@@ -54,9 +59,10 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<Integer> itemClicks(
-      @NonNull AdapterView<T> view) {
+          @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new AdapterViewItemClickObservable(view);
   }
@@ -67,9 +73,10 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<AdapterViewItemClickEvent> itemClickEvents(
-      @NonNull AdapterView<T> view) {
+          @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new AdapterViewItemClickEventObservable(view);
   }
@@ -80,9 +87,10 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<Integer> itemLongClicks(
-      @NonNull AdapterView<T> view) {
+          @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return itemLongClicks(view, Functions.CALLABLE_ALWAYS_TRUE);
   }
@@ -94,11 +102,12 @@ public final class RxAdapterView {
    * to free this reference.
    *
    * @param handled Function invoked each occurrence to determine the return value of the
-   * underlying {@link AdapterView.OnItemLongClickListener}.
+   *                underlying {@link AdapterView.OnItemLongClickListener}.
    */
-  @CheckResult @NonNull
-  public static <T extends Adapter> Observable<Integer> itemLongClicks(@NonNull AdapterView<T> view,
-      @NonNull Callable<Boolean> handled) {
+  @CheckResult
+  @NonNull
+  public static <T extends Adapter> Observable<Integer> itemLongClicks(
+          @NonNull AdapterView<T> view, @NonNull Callable<Boolean> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new AdapterViewItemLongClickObservable(view, handled);
@@ -110,9 +119,10 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(
-      @NonNull AdapterView<T> view) {
+          @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return itemLongClickEvents(view, Functions.PREDICATE_ALWAYS_TRUE);
   }
@@ -124,12 +134,13 @@ public final class RxAdapterView {
    * to free this reference.
    *
    * @param handled Function invoked with each value to determine the return value of the
-   * underlying {@link AdapterView.OnItemLongClickListener}.
+   *                underlying {@link AdapterView.OnItemLongClickListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Observable<AdapterViewItemLongClickEvent> itemLongClickEvents(
-      @NonNull AdapterView<T> view,
-      @NonNull Predicate<? super AdapterViewItemLongClickEvent> handled) {
+          @NonNull AdapterView<T> view,
+          @NonNull Predicate<? super AdapterViewItemLongClickEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new AdapterViewItemLongClickEventObservable(view, handled);
@@ -141,12 +152,14 @@ public final class RxAdapterView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static <T extends Adapter> Consumer<? super Integer> selection(
-      @NonNull final AdapterView<T> view) {
+          @NonNull final AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer position) {
+      @Override
+      public void accept(Integer position) {
         view.setSelection(position);
       }
     };

@@ -8,7 +8,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
+
 import com.jakewharton.rxbinding2.RecordingObserver;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,19 +20,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
-@RunWith(AndroidJUnit4.class) public final class RxPopupMenuTest {
-  @Rule public final ActivityTestRule<RxPopupMenuTestActivity> activityRule =
-      new ActivityTestRule<>(RxPopupMenuTestActivity.class);
+@RunWith(AndroidJUnit4.class)
+public final class RxPopupMenuTest {
+  @Rule
+  public final ActivityTestRule<RxPopupMenuTestActivity> activityRule =
+          new ActivityTestRule<>(RxPopupMenuTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private PopupMenu view;
 
-  @Before public void setUp() {
+  @Before
+  public void setUp() {
     view = activityRule.getActivity().popupMenu;
   }
 
-  @Test @UiThreadTest public void itemClicks() {
+  @Test
+  @UiThreadTest
+  public void itemClicks() {
     Menu menu = view.getMenu();
     MenuItem item1 = menu.add(0, 1, 0, "Hi");
     MenuItem item2 = menu.add(0, 2, 0, "Hey");
@@ -51,20 +58,23 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
   }
 
-  @Test public void dismisses() {
+  @Test
+  public void dismisses() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxPopupMenu.dismisses(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         view.show();
       }
     });
     o.assertNoMoreEvents();
 
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         view.dismiss();
       }
     });
@@ -72,12 +82,14 @@ import static com.google.common.truth.Truth.assertThat;
 
     o.dispose();
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         view.show();
       }
     });
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         view.dismiss();
       }
     });

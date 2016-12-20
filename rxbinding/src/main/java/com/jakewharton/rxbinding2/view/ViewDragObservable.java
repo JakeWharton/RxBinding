@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.view;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -19,7 +20,8 @@ final class ViewDragObservable extends Observable<DragEvent> {
     this.handled = handled;
   }
 
-  @Override protected void subscribeActual(Observer<? super DragEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super DragEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, handled, observer);
     observer.onSubscribe(listener);
@@ -32,13 +34,14 @@ final class ViewDragObservable extends Observable<DragEvent> {
     private final Observer<? super DragEvent> observer;
 
     Listener(View view, Predicate<? super DragEvent> handled,
-        Observer<? super DragEvent> observer) {
+             Observer<? super DragEvent> observer) {
       this.view = view;
       this.handled = handled;
       this.observer = observer;
     }
 
-    @Override public boolean onDrag(View v, DragEvent event) {
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
       if (!isDisposed()) {
         try {
           if (handled.test(event)) {
@@ -53,7 +56,8 @@ final class ViewDragObservable extends Observable<DragEvent> {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnDragListener(null);
     }
   }

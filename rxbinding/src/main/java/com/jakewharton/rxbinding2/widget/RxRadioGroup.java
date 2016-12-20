@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.RadioGroup;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -17,11 +18,12 @@ public final class RxRadioGroup {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Integer> checkedChanges(@NonNull RadioGroup view) {
     checkNotNull(view, "view == null");
     return new RadioGroupCheckedChangeObservable(view)
-        .distinctUntilChanged(); // Radio group can fire non-changes.
+            .distinctUntilChanged(); // Radio group can fire non-changes.
   }
 
   /**
@@ -31,11 +33,13 @@ public final class RxRadioGroup {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> checked(@NonNull final RadioGroup view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
+      @Override
+      public void accept(Integer value) {
         if (value == -1) {
           view.clearCheck();
         } else {

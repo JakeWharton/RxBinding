@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SearchView;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -22,9 +23,10 @@ public final class RxSearchView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<SearchViewQueryTextEvent> queryTextChangeEvents(
-      @NonNull SearchView view) {
+          @NonNull SearchView view) {
     checkNotNull(view, "view == null");
     return new SearchViewQueryTextChangeEventsObservable(view);
   }
@@ -37,7 +39,8 @@ public final class RxSearchView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<CharSequence> queryTextChanges(@NonNull SearchView view) {
     checkNotNull(view, "view == null");
     return new SearchViewQueryTextChangesObservable(view);
@@ -51,12 +54,14 @@ public final class RxSearchView {
    *
    * @param submit weather to submit query right after updating query text
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super CharSequence> query(@NonNull final SearchView view,
-      final boolean submit) {
+                                                     final boolean submit) {
     checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence text) {
+      @Override
+      public void accept(CharSequence text) {
         view.setQuery(text, submit);
       }
     };

@@ -7,7 +7,8 @@ import android.widget.FrameLayout;
 public final class RxViewSystemUiVisibilityTestActivity extends Activity {
   FrameLayout root;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     root = new FrameLayout(this);
     setContentView(root);
