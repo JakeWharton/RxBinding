@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
+
 import com.jakewharton.rxbinding2.view.ViewEvent;
 
 /**
@@ -13,9 +14,10 @@ import com.jakewharton.rxbinding2.view.ViewEvent;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static TextViewTextChangeEvent create(@NonNull TextView view, @NonNull CharSequence text,
-      int start, int before, int count) {
+                                               int start, int before, int count) {
     return new TextViewTextChangeEvent(view, text, start, before, count);
   }
 
@@ -25,7 +27,7 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
   private final int count;
 
   private TextViewTextChangeEvent(@NonNull TextView view, @NonNull CharSequence text, int start,
-      int before, int count) {
+                                  int before, int count) {
     super(view);
     this.text = text;
     this.start = start;
@@ -50,18 +52,20 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
     return count;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof TextViewTextChangeEvent)) return false;
     TextViewTextChangeEvent other = (TextViewTextChangeEvent) o;
     return other.view() == view()
-        && text.equals(other.text)
-        && start == other.start
-        && before == other.before
-        && count == other.count;
+            && text.equals(other.text)
+            && start == other.start
+            && before == other.before
+            && count == other.count;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + text.hashCode();
@@ -71,17 +75,18 @@ public final class TextViewTextChangeEvent extends ViewEvent<TextView> {
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "TextViewTextChangeEvent{text="
-        + text
-        + ", start="
-        + start
-        + ", before="
-        + before
-        + ", count="
-        + count
-        + ", view="
-        + view()
-        + '}';
+            + text
+            + ", start="
+            + start
+            + ", before="
+            + before
+            + ", count="
+            + count
+            + ", view="
+            + view()
+            + '}';
   }
 }

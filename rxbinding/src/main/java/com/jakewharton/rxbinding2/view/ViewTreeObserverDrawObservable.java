@@ -3,7 +3,9 @@ package com.jakewharton.rxbinding2.view;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewTreeObserver.OnDrawListener;
+
 import com.jakewharton.rxbinding2.internal.Notification;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -19,7 +21,8 @@ final class ViewTreeObserverDrawObservable extends Observable<Object> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Object> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Object> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -35,13 +38,15 @@ final class ViewTreeObserverDrawObservable extends Observable<Object> {
       this.observer = observer;
     }
 
-    @Override public void onDraw() {
+    @Override
+    public void onDraw() {
       if (!isDisposed()) {
         observer.onNext(Notification.INSTANCE);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.getViewTreeObserver().removeOnDrawListener(this);
     }
   }

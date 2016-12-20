@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.AutoCompleteTextView;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -19,9 +20,10 @@ public final class RxAutoCompleteTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<AdapterViewItemClickEvent> itemClickEvents(
-      @NonNull AutoCompleteTextView view) {
+          @NonNull AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
     return new AutoCompleteTextViewItemClickEventObservable(view);
   }
@@ -34,12 +36,14 @@ public final class RxAutoCompleteTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super CharSequence> completionHint(
-      @NonNull final AutoCompleteTextView view) {
+          @NonNull final AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence completionHint) {
+      @Override
+      public void accept(CharSequence completionHint) {
         view.setCompletionHint(completionHint);
       }
     };
@@ -53,11 +57,13 @@ public final class RxAutoCompleteTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> threshold(@NonNull final AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer threshold) {
+      @Override
+      public void accept(Integer threshold) {
         view.setThreshold(threshold);
       }
     };

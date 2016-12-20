@@ -10,14 +10,18 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+
 import com.jakewharton.rxbinding.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import java.util.Arrays;
 import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static android.support.test.espresso.Espresso.onData;
@@ -34,41 +38,45 @@ import static org.hamcrest.CoreMatchers.startsWith;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxAutoCompleteTextViewTest {
-  @Rule public final ActivityTestRule<RxAutoCompleteTextViewTestActivity> activityRule =
-      new ActivityTestRule<>(RxAutoCompleteTextViewTestActivity.class);
+  @Rule
+  public final ActivityTestRule<RxAutoCompleteTextViewTestActivity> activityRule =
+          new ActivityTestRule<>(RxAutoCompleteTextViewTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private RxAutoCompleteTextViewTestActivity activity;
   private AutoCompleteTextView autoCompleteTextView;
 
-  @Before public void setUp() {
+  @Before
+  public void setUp() {
     activity = activityRule.getActivity();
     autoCompleteTextView = activity.autoCompleteTextView;
   }
 
-  @Test public void itemClickEvents() {
+  @Test
+  public void itemClickEvents() {
     instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
+      @Override
+      public void run() {
         autoCompleteTextView.setThreshold(1);
 
         List<String> values = Arrays.asList("Two", "Three", "Twenty");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(autoCompleteTextView.getContext(),
-            android.R.layout.simple_list_item_1, values);
+                android.R.layout.simple_list_item_1, values);
         autoCompleteTextView.setAdapter(adapter);
       }
     });
 
     RecordingObserver<AdapterViewItemClickEvent> o = new RecordingObserver<>();
     RxAutoCompleteTextView.itemClickEvents(autoCompleteTextView)
-      .subscribeOn(AndroidSchedulers.mainThread())
-      .subscribe(o);
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(o);
     o.assertNoMoreEvents();
 
     onView(withId(R.id.auto_complete)).perform(typeText("Tw"));
     onData(startsWith("Twenty"))
-        .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
-        .perform(click());
+            .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
+            .perform(click());
 
     AdapterViewItemClickEvent event = o.takeNext();
     assertThat(event.view()).isNotNull();
@@ -80,20 +88,24 @@ public final class RxAutoCompleteTextViewTest {
 
     onView(withId(R.id.auto_complete)).perform(clearText(), typeText("Tw"));
     onData(startsWith("Twenty"))
-        .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
-        .perform(click());
+            .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
+            .perform(click());
 
     o.assertNoMoreEvents();
   }
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
   @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
-  @Test @UiThreadTest public void completionHint() throws Exception {
+  @Test
+  @UiThreadTest
+  public void completionHint() throws Exception {
     RxAutoCompleteTextView.completionHint(autoCompleteTextView).accept("Test hint");
     assertThat(autoCompleteTextView.getCompletionHint()).isEqualTo("Test hint");
   }
 
-  @Test @UiThreadTest public void threshold() throws Exception {
+  @Test
+  @UiThreadTest
+  public void threshold() throws Exception {
     RxAutoCompleteTextView.threshold(autoCompleteTextView).accept(10);
     assertThat(autoCompleteTextView.getThreshold()).isEqualTo(10);
   }

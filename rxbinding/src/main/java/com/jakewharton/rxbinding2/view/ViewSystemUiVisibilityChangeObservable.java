@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnSystemUiVisibilityChangeListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -15,7 +16,8 @@ final class ViewSystemUiVisibilityChangeObservable extends Observable<Integer> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Integer> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Integer> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -23,7 +25,7 @@ final class ViewSystemUiVisibilityChangeObservable extends Observable<Integer> {
   }
 
   static final class Listener extends MainThreadDisposable
-      implements OnSystemUiVisibilityChangeListener {
+          implements OnSystemUiVisibilityChangeListener {
     private final View view;
     private final Observer<? super Integer> observer;
 
@@ -32,13 +34,15 @@ final class ViewSystemUiVisibilityChangeObservable extends Observable<Integer> {
       this.observer = observer;
     }
 
-    @Override public void onSystemUiVisibilityChange(int visibility) {
+    @Override
+    public void onSystemUiVisibilityChange(int visibility) {
       if (!isDisposed()) {
         observer.onNext(visibility);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnSystemUiVisibilityChangeListener(null);
     }
   }

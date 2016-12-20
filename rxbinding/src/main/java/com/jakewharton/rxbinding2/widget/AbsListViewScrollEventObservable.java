@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.AbsListView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -14,7 +15,8 @@ final class AbsListViewScrollEventObservable extends Observable<AbsListViewScrol
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super AbsListViewScrollEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super AbsListViewScrollEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -31,27 +33,30 @@ final class AbsListViewScrollEventObservable extends Observable<AbsListViewScrol
       this.observer = observer;
     }
 
-    @Override public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
       currentScrollState = scrollState;
       if (!isDisposed()) {
         AbsListViewScrollEvent event =
-              AbsListViewScrollEvent.create(view, scrollState, view.getFirstVisiblePosition(),
-                  view.getChildCount(), view.getCount());
+                AbsListViewScrollEvent.create(view, scrollState, view.getFirstVisiblePosition(),
+                        view.getChildCount(), view.getCount());
         observer.onNext(event);
       }
     }
 
-    @Override public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount,
-                         int totalItemCount) {
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem,
+                         int visibleItemCount, int totalItemCount) {
       if (!isDisposed()) {
         AbsListViewScrollEvent event =
-              AbsListViewScrollEvent.create(view, currentScrollState, firstVisibleItem,
-                  visibleItemCount, totalItemCount);
+                AbsListViewScrollEvent.create(view, currentScrollState, firstVisibleItem,
+                        visibleItemCount, totalItemCount);
         observer.onNext(event);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnScrollListener(null);
     }
   }

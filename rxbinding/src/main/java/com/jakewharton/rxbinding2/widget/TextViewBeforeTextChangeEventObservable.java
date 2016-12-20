@@ -10,7 +10,9 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class TextViewBeforeTextChangeEventObservable extends Observable<TextViewBeforeTextChangeEvent> {
+final class TextViewBeforeTextChangeEventObservable
+        extends Observable<TextViewBeforeTextChangeEvent> {
+
   private final TextView view;
 
   TextViewBeforeTextChangeEventObservable(TextView view) {

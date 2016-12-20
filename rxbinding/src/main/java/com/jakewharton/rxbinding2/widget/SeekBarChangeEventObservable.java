@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.SeekBar;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -14,7 +15,8 @@ final class SeekBarChangeEventObservable extends Observable<SeekBarChangeEvent> 
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super SeekBarChangeEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super SeekBarChangeEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnSeekBarChangeListener(listener);
@@ -22,7 +24,9 @@ final class SeekBarChangeEventObservable extends Observable<SeekBarChangeEvent> 
     observer.onNext(SeekBarProgressChangeEvent.create(view, view.getProgress(), false));
   }
 
-  static final class Listener extends MainThreadDisposable implements SeekBar.OnSeekBarChangeListener {
+  static final class Listener extends MainThreadDisposable
+          implements SeekBar.OnSeekBarChangeListener {
+
     private final SeekBar view;
     private final Observer<? super SeekBarChangeEvent> observer;
 
@@ -31,25 +35,29 @@ final class SeekBarChangeEventObservable extends Observable<SeekBarChangeEvent> 
       this.observer = observer;
     }
 
-    @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
       if (!isDisposed()) {
         observer.onNext(SeekBarProgressChangeEvent.create(seekBar, progress, fromUser));
       }
     }
 
-    @Override public void onStartTrackingTouch(SeekBar seekBar) {
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
       if (!isDisposed()) {
         observer.onNext(SeekBarStartChangeEvent.create(seekBar));
       }
     }
 
-    @Override public void onStopTrackingTouch(SeekBar seekBar) {
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
       if (!isDisposed()) {
         observer.onNext(SeekBarStopChangeEvent.create(seekBar));
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnSeekBarChangeListener(null);
     }
   }

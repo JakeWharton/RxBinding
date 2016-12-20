@@ -12,7 +12,9 @@ public abstract class ViewGroupHierarchyChangeEvent extends ViewEvent<ViewGroup>
     this.child = child;
   }
 
-  /** The child from which this event occurred. */
+  /**
+   * The child from which this event occurred.
+   */
   @NonNull
   public final View child() {
     return child;

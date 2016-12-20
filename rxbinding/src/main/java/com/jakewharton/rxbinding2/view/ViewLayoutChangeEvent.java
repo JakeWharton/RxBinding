@@ -12,17 +12,19 @@ import android.view.View;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewLayoutChangeEvent extends ViewEvent<View> {
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static ViewLayoutChangeEvent create(@NonNull View view, int left, int top, int right,
-      int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                                             int bottom, int oldLeft, int oldTop, int oldRight,
+                                             int oldBottom) {
     return new ViewLayoutChangeEvent(view, left, top, right, bottom,
-        oldLeft, oldTop, oldRight, oldBottom);
+            oldLeft, oldTop, oldRight, oldBottom);
   }
 
   private final int left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom;
 
   private ViewLayoutChangeEvent(@NonNull View view, int left, int top, int right, int bottom,
-      int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                                int oldLeft, int oldTop, int oldRight, int oldBottom) {
     super(view);
     this.left = left;
     this.top = top;
@@ -66,7 +68,8 @@ public final class ViewLayoutChangeEvent extends ViewEvent<View> {
     return oldBottom;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + left;
@@ -80,32 +83,34 @@ public final class ViewLayoutChangeEvent extends ViewEvent<View> {
     return result;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof ViewLayoutChangeEvent)) return false;
     ViewLayoutChangeEvent other = (ViewLayoutChangeEvent) o;
     return other.view() == view() && other.left == left && other.top == top && other.right == right
-        && other.bottom == bottom && other.oldLeft == oldLeft && other.oldTop == oldTop
-        && other.oldRight == oldRight && other.oldBottom == oldBottom;
+            && other.bottom == bottom && other.oldLeft == oldLeft && other.oldTop == oldTop
+            && other.oldRight == oldRight && other.oldBottom == oldBottom;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "ViewLayoutChangeEvent{left="
-        + left
-        + ", top="
-        + top
-        + ", right="
-        + right
-        + ", bottom="
-        + bottom
-        + ", oldLeft="
-        + oldLeft
-        + ", oldTop="
-        + oldTop
-        + ", oldRight="
-        + oldRight
-        + ", oldBottom="
-        + oldBottom
-        + '}';
+            + left
+            + ", top="
+            + top
+            + ", right="
+            + right
+            + ", bottom="
+            + bottom
+            + ", oldLeft="
+            + oldLeft
+            + ", oldTop="
+            + oldTop
+            + ", oldRight="
+            + oldRight
+            + ", oldBottom="
+            + oldBottom
+            + '}';
   }
 }

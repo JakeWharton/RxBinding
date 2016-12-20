@@ -27,13 +27,17 @@ import io.reactivex.functions.Predicate;
 
 import static com.google.common.truth.Truth.assertThat;
 
-@RunWith(AndroidJUnit4.class) public final class RxMenuItemTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
+@RunWith(AndroidJUnit4.class)
+public final class RxMenuItemTest {
+  @Rule
+  public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
   private final TestMenuItem menuItem = new TestMenuItem(context);
 
-  @Test @UiThreadTest public void clicks() {
+  @Test
+  @UiThreadTest
+  public void clicks() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxMenuItem.clicks(menuItem).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -50,9 +54,12 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void clicksAvoidHandling() {
+  @Test
+  @UiThreadTest
+  public void clicksAvoidHandling() {
     Predicate<MenuItem> handled = new Predicate<MenuItem>() {
-      @Override public boolean test(MenuItem menuItem) {
+      @Override
+      public boolean test(MenuItem menuItem) {
         return false;
       }
     };
@@ -73,7 +80,9 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void actionViewEvents() {
+  @Test
+  @UiThreadTest
+  public void actionViewEvents() {
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
     RxMenuItem.actionViewEvents(menuItem).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -90,13 +99,16 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
+  @Test
+  @UiThreadTest
+  public void actionViewEventsAvoidHandling() {
     Predicate<MenuItemActionViewEvent> handled =
-        new Predicate<MenuItemActionViewEvent>() {
-          @Override public boolean test(MenuItemActionViewEvent menuItem) {
-            return false;
-          }
-        };
+            new Predicate<MenuItemActionViewEvent>() {
+              @Override
+              public boolean test(MenuItemActionViewEvent menuItem) {
+                return false;
+              }
+            };
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
     RxMenuItem.actionViewEvents(menuItem, handled).subscribe(o);
@@ -112,7 +124,8 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
   }
 
-  @Test public void checked() throws Exception {
+  @Test
+  public void checked() throws Exception {
     menuItem.setCheckable(true);
     RxMenuItem.checked(menuItem).accept(true);
     assertThat(menuItem.isChecked()).isEqualTo(true);
@@ -120,36 +133,42 @@ import static com.google.common.truth.Truth.assertThat;
     assertThat(menuItem.isChecked()).isEqualTo(false);
   }
 
-  @Test public void enabled() throws Exception {
+  @Test
+  public void enabled() throws Exception {
     RxMenuItem.enabled(menuItem).accept(true);
     assertThat(menuItem.isEnabled()).isEqualTo(true);
     RxMenuItem.enabled(menuItem).accept(false);
     assertThat(menuItem.isEnabled()).isEqualTo(false);
   }
 
-  @Test public void icon() throws Exception {
+  @Test
+  public void icon() throws Exception {
     Drawable drawable = context.getResources().getDrawable(R.drawable.icon);
     RxMenuItem.icon(menuItem).accept(drawable);
     assertThat(menuItem.getIcon()).isEqualTo(drawable);
   }
 
-  @Test public void iconRes() throws Exception {
+  @Test
+  public void iconRes() throws Exception {
     ColorDrawable drawable = (ColorDrawable) context.getResources().getDrawable(R.drawable.icon);
     RxMenuItem.iconRes(menuItem).accept(R.drawable.icon);
     assertThat(((ColorDrawable) menuItem.getIcon()).getColor()).isEqualTo(drawable.getColor());
   }
 
-  @Test public void title() throws Exception {
+  @Test
+  public void title() throws Exception {
     RxMenuItem.title(menuItem).accept("Hey");
     assertThat(menuItem.getTitle()).isEqualTo("Hey");
   }
 
-  @Test public void titleRes() throws Exception {
+  @Test
+  public void titleRes() throws Exception {
     RxMenuItem.titleRes(menuItem).accept(R.string.hey);
     assertThat(menuItem.getTitle()).isEqualTo(context.getText(R.string.hey));
   }
 
-  @Test public void visible() throws Exception {
+  @Test
+  public void visible() throws Exception {
     RxMenuItem.visible(menuItem).accept(true);
     assertThat(menuItem.isVisible()).isEqualTo(true);
     RxMenuItem.visible(menuItem).accept(false);
@@ -191,131 +210,159 @@ import static com.google.common.truth.Truth.assertThat;
       }
     }
 
-    @Override public int getItemId() {
+    @Override
+    public int getItemId() {
       return itemId;
     }
 
-    @Override public int getGroupId() {
+    @Override
+    public int getGroupId() {
       return groupId;
     }
 
-    @Override public int getOrder() {
+    @Override
+    public int getOrder() {
       return order;
     }
 
-    @Override public MenuItem setTitle(CharSequence title) {
+    @Override
+    public MenuItem setTitle(CharSequence title) {
       this.title = title;
       return this;
     }
 
-    @Override public MenuItem setTitle(int title) {
+    @Override
+    public MenuItem setTitle(int title) {
       this.title = context.getText(title);
       return this;
     }
 
-    @Override public CharSequence getTitle() {
+    @Override
+    public CharSequence getTitle() {
       return title;
     }
 
-    @Override public MenuItem setTitleCondensed(CharSequence title) {
+    @Override
+    public MenuItem setTitleCondensed(CharSequence title) {
       this.titleCondensed = title;
       return this;
     }
 
-    @Override public CharSequence getTitleCondensed() {
+    @Override
+    public CharSequence getTitleCondensed() {
       return titleCondensed;
     }
 
-    @Override public MenuItem setIcon(Drawable icon) {
+    @Override
+    public MenuItem setIcon(Drawable icon) {
       this.icon = icon;
       return this;
     }
 
-    @Override public MenuItem setIcon(int iconRes) {
+    @Override
+    public MenuItem setIcon(int iconRes) {
       this.icon = context.getResources().getDrawable(iconRes);
       return this;
     }
 
-    @Override public Drawable getIcon() {
+    @Override
+    public Drawable getIcon() {
       return icon;
     }
 
-    @Override public MenuItem setIntent(Intent intent) {
+    @Override
+    public MenuItem setIntent(Intent intent) {
       this.intent = intent;
       return this;
     }
 
-    @Override public Intent getIntent() {
+    @Override
+    public Intent getIntent() {
       return intent;
     }
 
-    @Override public MenuItem setShortcut(char numericChar, char alphaChar) {
+    @Override
+    public MenuItem setShortcut(char numericChar, char alphaChar) {
       this.numericChar = numericChar;
       this.alphaChar = alphaChar;
       return this;
     }
 
-    @Override public MenuItem setNumericShortcut(char numericChar) {
+    @Override
+    public MenuItem setNumericShortcut(char numericChar) {
       this.numericChar = numericChar;
       return this;
     }
 
-    @Override public char getNumericShortcut() {
+    @Override
+    public char getNumericShortcut() {
       return numericChar;
     }
 
-    @Override public MenuItem setAlphabeticShortcut(char alphaChar) {
+    @Override
+    public MenuItem setAlphabeticShortcut(char alphaChar) {
       this.alphaChar = alphaChar;
       return this;
     }
 
-    @Override public char getAlphabeticShortcut() {
+    @Override
+    public char getAlphabeticShortcut() {
       return alphaChar;
     }
 
-    @Override public MenuItem setCheckable(boolean checkable) {
+    @Override
+    public MenuItem setCheckable(boolean checkable) {
       this.checkable = checkable;
       return this;
     }
 
-    @Override public boolean isCheckable() {
+    @Override
+    public boolean isCheckable() {
       return checkable;
     }
 
-    @Override public MenuItem setChecked(boolean checked) {
+    @Override
+    public MenuItem setChecked(boolean checked) {
       if (checkable) {
         this.checked = checked;
       }
       return this;
     }
 
-    @Override public boolean isChecked() {
+    @Override
+    public boolean isChecked() {
       return checked;
     }
 
-    @Override public MenuItem setVisible(boolean visible) {
+    @Override
+    public MenuItem setVisible(boolean visible) {
       this.visible = visible;
       return this;
     }
 
-    @Override public boolean isVisible() {
+    @Override
+    public boolean isVisible() {
       return visible;
     }
 
-    @Override public MenuItem setEnabled(boolean enabled) {
+    @Override
+    public MenuItem setEnabled(boolean enabled) {
       this.enabled = enabled;
       return this;
     }
 
-    @Override public boolean isEnabled() {
+    @Override
+    public boolean isEnabled() {
       return enabled;
     }
 
-    @Override public boolean hasSubMenu() {
+    @Override
+    public boolean hasSubMenu() {
       return false;
     }
 
-    @Override public SubMenu getSubMenu() {
+    @Override
+    public SubMenu getSubMenu() {
       return null;
     }
 
@@ -325,43 +372,52 @@ import static com.google.common.truth.Truth.assertThat;
       return this;
     }
 
-    @Override public ContextMenu.ContextMenuInfo getMenuInfo() {
+    @Override
+    public ContextMenu.ContextMenuInfo getMenuInfo() {
       return null;
     }
 
-    @Override public void setShowAsAction(int actionEnum) {
+    @Override
+    public void setShowAsAction(int actionEnum) {
       this.actionEnum = actionEnum;
     }
 
-    @Override public MenuItem setShowAsActionFlags(int actionEnum) {
+    @Override
+    public MenuItem setShowAsActionFlags(int actionEnum) {
       this.actionEnum = actionEnum;
       return this;
     }
 
-    @Override public MenuItem setActionView(View view) {
+    @Override
+    public MenuItem setActionView(View view) {
       this.actionView = view;
       return this;
     }
 
-    @Override public MenuItem setActionView(int resId) {
+    @Override
+    public MenuItem setActionView(int resId) {
       this.actionView = LayoutInflater.from(context).inflate(resId, null);
       return this;
     }
 
-    @Override public View getActionView() {
+    @Override
+    public View getActionView() {
       return actionView;
     }
 
-    @Override public MenuItem setActionProvider(ActionProvider actionProvider) {
+    @Override
+    public MenuItem setActionProvider(ActionProvider actionProvider) {
       this.actionProvider = actionProvider;
       return this;
     }
 
-    @Override public ActionProvider getActionProvider() {
+    @Override
+    public ActionProvider getActionProvider() {
       return actionProvider;
     }
 
-    @Override public boolean expandActionView() {
+    @Override
+    public boolean expandActionView() {
       if (isActionViewExpanded) {
         return false;
       }
@@ -374,7 +430,8 @@ import static com.google.common.truth.Truth.assertThat;
       return true;
     }
 
-    @Override public boolean collapseActionView() {
+    @Override
+    public boolean collapseActionView() {
       if (!isActionViewExpanded) {
         return false;
       }
@@ -387,11 +444,13 @@ import static com.google.common.truth.Truth.assertThat;
       return true;
     }
 
-    @Override public boolean isActionViewExpanded() {
+    @Override
+    public boolean isActionViewExpanded() {
       return isActionViewExpanded;
     }
 
-    @Override public MenuItem setOnActionExpandListener(OnActionExpandListener listener) {
+    @Override
+    public MenuItem setOnActionExpandListener(OnActionExpandListener listener) {
       this.actionExpandListener = listener;
       return this;
     }

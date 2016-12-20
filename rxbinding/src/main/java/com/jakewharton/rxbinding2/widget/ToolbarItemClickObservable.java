@@ -4,6 +4,7 @@ import android.support.annotation.RequiresApi;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 import android.widget.Toolbar.OnMenuItemClickListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -19,7 +20,8 @@ final class ToolbarItemClickObservable extends Observable<MenuItem> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super MenuItem> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super MenuItem> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -35,7 +37,8 @@ final class ToolbarItemClickObservable extends Observable<MenuItem> {
       this.observer = observer;
     }
 
-    @Override public boolean onMenuItemClick(MenuItem item) {
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
       if (!isDisposed()) {
         observer.onNext(item);
         return true;
@@ -43,7 +46,8 @@ final class ToolbarItemClickObservable extends Observable<MenuItem> {
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnMenuItemClickListener(null);
     }
   }

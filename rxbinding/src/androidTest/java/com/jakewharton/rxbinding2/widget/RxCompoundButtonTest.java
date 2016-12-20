@@ -20,12 +20,15 @@ import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxCompoundButtonTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
+  @Rule
+  public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
   private final CompoundButton view = new ToggleButton(context);
 
-  @Test @UiThreadTest public void checkedChanges() {
+  @Test
+  @UiThreadTest
+  public void checkedChanges() {
     view.setChecked(false);
 
     RecordingObserver<Boolean> o = new RecordingObserver<>();
@@ -43,7 +46,9 @@ public final class RxCompoundButtonTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void checked() throws Exception {
+  @Test
+  @UiThreadTest
+  public void checked() throws Exception {
     view.setChecked(false);
     Consumer<? super Boolean> toggle = RxCompoundButton.checked(view);
 
@@ -54,7 +59,9 @@ public final class RxCompoundButtonTest {
     assertThat(view.isChecked()).isFalse();
   }
 
-  @Test @UiThreadTest public void toggle() throws Exception {
+  @Test
+  @UiThreadTest
+  public void toggle() throws Exception {
     view.setChecked(false);
     Consumer<? super Object> toggle = RxCompoundButton.toggle(view);
 

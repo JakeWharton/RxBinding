@@ -8,11 +8,12 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import java.util.concurrent.Callable;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
-
-import java.util.concurrent.Callable;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
@@ -33,7 +34,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> attaches(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewAttachesObservable(view, true);
@@ -45,7 +47,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<ViewAttachEvent> attachEvents(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewAttachEventObservable(view);
@@ -58,7 +61,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> detaches(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewAttachesObservable(view, false);
@@ -74,7 +78,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnClickListener} to observe
    * clicks. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> clicks(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewClickObservable(view);
@@ -89,7 +94,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnDragListener} to observe
    * drags. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<DragEvent> drags(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewDragObservable(view, PREDICATE_ALWAYS_TRUE);
@@ -105,11 +111,12 @@ public final class RxView {
    * drags. Only one observable can be used for a view at a time.
    *
    * @param handled Predicate invoked with each value to determine the return value of the
-   * underlying {@link View.OnDragListener}.
+   *                underlying {@link View.OnDragListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<DragEvent> drags(@NonNull View view,
-      @NonNull Predicate<? super DragEvent> handled) {
+                                            @NonNull Predicate<? super DragEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewDragObservable(view, handled);
@@ -125,7 +132,8 @@ public final class RxView {
    * observe draws. Multiple observables can be used for a view at a time.
    */
   @RequiresApi(JELLY_BEAN)
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> draws(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewTreeObserverDrawObservable(view);
@@ -142,7 +150,8 @@ public final class RxView {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Boolean> focusChanges(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewFocusChangeObservable(view);
@@ -159,7 +168,8 @@ public final class RxView {
    * ViewTreeObserver#addOnGlobalLayoutListener} to observe global layouts. Multiple observables
    * can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> globalLayouts(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewTreeObserverGlobalLayoutObservable(view);
@@ -180,7 +190,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnHoverListener} to observe
    * touches. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewHoverObservable(view, PREDICATE_ALWAYS_TRUE);
@@ -202,11 +213,12 @@ public final class RxView {
    * touches. Only one observable can be used for a view at a time.
    *
    * @param handled Predicate invoked with each value to determine the return value of the
-   * underlying {@link View.OnHoverListener}.
+   *                underlying {@link View.OnHoverListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view,
-      @NonNull Predicate<? super MotionEvent> handled) {
+                                               @NonNull Predicate<? super MotionEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewHoverObservable(view, handled);
@@ -219,7 +231,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> layoutChanges(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewLayoutChangeObservable(view);
@@ -231,7 +244,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<ViewLayoutChangeEvent> layoutChangeEvents(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewLayoutChangeEventObservable(view);
@@ -247,7 +261,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnLongClickListener} to observe
    * long clicks. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> longClicks(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewLongClickObservable(view, CALLABLE_ALWAYS_TRUE);
@@ -264,11 +279,12 @@ public final class RxView {
    * long clicks. Only one observable can be used for a view at a time.
    *
    * @param handled Predicate invoked each occurrence to determine the return value of the
-   * underlying {@link View.OnLongClickListener}.
+   *                underlying {@link View.OnLongClickListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> longClicks(@NonNull View view,
-      @NonNull Callable<Boolean> handled) {
+                                              @NonNull Callable<Boolean> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewLongClickObservable(view, handled);
@@ -283,9 +299,10 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnPreDrawListener} to
    * observe pre-draws. Multiple observables can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> preDraws(@NonNull View view,
-      @NonNull Callable<Boolean> proceedDrawingPass) {
+                                            @NonNull Callable<Boolean> proceedDrawingPass) {
     checkNotNull(view, "view == null");
     checkNotNull(proceedDrawingPass, "proceedDrawingPass == null");
     return new ViewTreeObserverPreDrawObservable(view, proceedDrawingPass);
@@ -298,7 +315,8 @@ public final class RxView {
    * to free this reference.
    */
   @RequiresApi(M)
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewScrollChangeEventObservable(view);
@@ -314,7 +332,8 @@ public final class RxView {
    * {@link View#setOnSystemUiVisibilityChangeListener} to observe system UI visibility changes.
    * Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Integer> systemUiVisibilityChanges(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewSystemUiVisibilityChangeObservable(view);
@@ -335,7 +354,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnTouchListener} to observe
    * touches. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewTouchObservable(view, PREDICATE_ALWAYS_TRUE);
@@ -357,11 +377,12 @@ public final class RxView {
    * touches. Only one observable can be used for a view at a time.
    *
    * @param handled Predicate invoked with each value to determine the return value of the
-   * underlying {@link View.OnTouchListener}.
+   *                underlying {@link View.OnTouchListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view,
-      @NonNull Predicate<? super MotionEvent> handled) {
+                                                @NonNull Predicate<? super MotionEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewTouchObservable(view, handled);
@@ -375,7 +396,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link View#setOnKeyListener} to observe
    * key events. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<KeyEvent> keys(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewKeyObservable(view, PREDICATE_ALWAYS_TRUE);
@@ -390,11 +412,12 @@ public final class RxView {
    * key events. Only one observable can be used for a view at a time.
    *
    * @param handled Predicate invoked each occurrence to determine the return value of the
-   * underlying {@link View.OnKeyListener}.
+   *                underlying {@link View.OnKeyListener}.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<KeyEvent> keys(@NonNull View view,
-      @NonNull Predicate<? super KeyEvent> handled) {
+                                          @NonNull Predicate<? super KeyEvent> handled) {
     checkNotNull(view, "view == null");
     checkNotNull(handled, "handled == null");
     return new ViewKeyObservable(view, handled);
@@ -406,11 +429,13 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> activated(@NonNull final View view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setActivated(value);
       }
     };
@@ -422,11 +447,13 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> clickable(@NonNull final View view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setClickable(value);
       }
     };
@@ -438,11 +465,13 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> enabled(@NonNull final View view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setEnabled(value);
       }
     };
@@ -454,11 +483,13 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> pressed(@NonNull final View view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setPressed(value);
       }
     };
@@ -470,11 +501,13 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> selected(@NonNull final View view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setSelected(value);
       }
     };
@@ -487,7 +520,8 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> visibility(@NonNull View view) {
     checkNotNull(view, "view == null");
     return visibility(view, View.GONE);
@@ -500,18 +534,20 @@ public final class RxView {
    * to free this reference.
    *
    * @param visibilityWhenFalse Visibility to set on a {@code false} value ({@code View.INVISIBLE}
-   * or {@code View.GONE}).
+   *                            or {@code View.GONE}).
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> visibility(@NonNull final View view,
-      final int visibilityWhenFalse) {
+                                                     final int visibilityWhenFalse) {
     checkNotNull(view, "view == null");
     checkArgument(visibilityWhenFalse != View.VISIBLE,
-        "Setting visibility to VISIBLE when false would have no effect.");
+            "Setting visibility to VISIBLE when false would have no effect.");
     checkArgument(visibilityWhenFalse == View.INVISIBLE || visibilityWhenFalse == View.GONE,
-        "Must set visibility to INVISIBLE or GONE when false.");
+            "Must set visibility to INVISIBLE or GONE when false.");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
+      @Override
+      public void accept(Boolean value) {
         view.setVisibility(value ? View.VISIBLE : visibilityWhenFalse);
       }
     };

@@ -3,15 +3,18 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.AbsListView;
+
 import com.jakewharton.rxbinding2.view.ViewEvent;
 
 public final class AbsListViewScrollEvent extends ViewEvent<AbsListView> {
 
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static AbsListViewScrollEvent create(AbsListView listView, int scrollState,
-      int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                                              int firstVisibleItem, int visibleItemCount,
+                                              int totalItemCount) {
     return new AbsListViewScrollEvent(listView, scrollState, firstVisibleItem, visibleItemCount,
-        totalItemCount);
+            totalItemCount);
   }
 
   private final int scrollState;
@@ -20,7 +23,7 @@ public final class AbsListViewScrollEvent extends ViewEvent<AbsListView> {
   private final int totalItemCount;
 
   private AbsListViewScrollEvent(@NonNull AbsListView view, int scrollState, int firstVisibleItem,
-      int visibleItemCount, int totalItemCount) {
+                                 int visibleItemCount, int totalItemCount) {
     super(view);
     this.scrollState = scrollState;
     this.firstVisibleItem = firstVisibleItem;
@@ -44,7 +47,8 @@ public final class AbsListViewScrollEvent extends ViewEvent<AbsListView> {
     return totalItemCount;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
@@ -56,7 +60,8 @@ public final class AbsListViewScrollEvent extends ViewEvent<AbsListView> {
     return totalItemCount == that.totalItemCount;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = scrollState;
     result = 31 * result + firstVisibleItem;
     result = 31 * result + visibleItemCount;
@@ -64,16 +69,17 @@ public final class AbsListViewScrollEvent extends ViewEvent<AbsListView> {
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "AbsListViewScrollEvent{"
-        + "scrollState="
-        + scrollState
-        + ", firstVisibleItem="
-        + firstVisibleItem
-        + ", visibleItemCount="
-        + visibleItemCount
-        + ", totalItemCount="
-        + totalItemCount
-        + '}';
+            + "scrollState="
+            + scrollState
+            + ", firstVisibleItem="
+            + firstVisibleItem
+            + ", visibleItemCount="
+            + visibleItemCount
+            + ", totalItemCount="
+            + totalItemCount
+            + '}';
   }
 }

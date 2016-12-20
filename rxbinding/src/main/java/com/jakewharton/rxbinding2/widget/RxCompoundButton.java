@@ -4,7 +4,6 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.CompoundButton;
 
-
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -26,7 +25,8 @@ public final class RxCompoundButton {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Boolean> checkedChanges(@NonNull CompoundButton view) {
     checkNotNull(view, "view == null");
     return new CompoundButtonCheckedChangeObservable(view);
@@ -38,10 +38,11 @@ public final class RxCompoundButton {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> checked(@NonNull final CompoundButton view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>(){
+    return new Consumer<Boolean>() {
       @Override
       public void accept(Boolean value) throws Exception {
         view.setChecked(value);
@@ -55,11 +56,13 @@ public final class RxCompoundButton {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Object> toggle(@NonNull final CompoundButton view) {
     checkNotNull(view, "view == null");
     return new Consumer<Object>() {
-      @Override public void accept(Object value) {
+      @Override
+      public void accept(Object value) {
         view.toggle();
       }
     };

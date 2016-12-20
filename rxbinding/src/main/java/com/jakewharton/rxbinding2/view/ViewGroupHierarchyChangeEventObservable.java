@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.view;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.OnHierarchyChangeListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -10,7 +11,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class ViewGroupHierarchyChangeEventObservable
-    extends Observable<ViewGroupHierarchyChangeEvent> {
+        extends Observable<ViewGroupHierarchyChangeEvent> {
   private final ViewGroup viewGroup;
 
   ViewGroupHierarchyChangeEventObservable(ViewGroup viewGroup) {
@@ -34,19 +35,22 @@ final class ViewGroupHierarchyChangeEventObservable
       this.observer = observer;
     }
 
-    @Override public void onChildViewAdded(View parent, View child) {
+    @Override
+    public void onChildViewAdded(View parent, View child) {
       if (!isDisposed()) {
         observer.onNext(ViewGroupHierarchyChildViewAddEvent.create(viewGroup, child));
       }
     }
 
-    @Override public void onChildViewRemoved(View parent, View child) {
+    @Override
+    public void onChildViewRemoved(View parent, View child) {
       if (!isDisposed()) {
         observer.onNext(ViewGroupHierarchyChildViewRemoveEvent.create(viewGroup, child));
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       viewGroup.setOnHierarchyChangeListener(null);
     }
   }

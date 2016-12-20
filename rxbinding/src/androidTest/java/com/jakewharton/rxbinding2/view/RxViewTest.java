@@ -11,11 +11,14 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.internal.Functions;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import io.reactivex.functions.Consumer;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
@@ -33,12 +36,15 @@ import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
+  @Rule
+  public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
   private final View view = new View(context);
 
-  @Test @UiThreadTest public void clicks() {
+  @Test
+  @UiThreadTest
+  public void clicks() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.clicks(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -55,7 +61,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void drags() {
+  @Test
+  @UiThreadTest
+  public void drags() {
     //RecordingObserver<ViewClickEvent> o = new RecordingObserver<>();
     //RxView.clickEvents(view).subscribe(o);
     //o.assertNoMoreEvents(); // No initial value.
@@ -77,7 +85,9 @@ public final class RxViewTest {
 
   @TargetApi(JELLY_BEAN)
   @SdkSuppress(minSdkVersion = JELLY_BEAN)
-  @Test @UiThreadTest public void drawEvents() {
+  @Test
+  @UiThreadTest
+  public void drawEvents() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.draws(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -91,7 +101,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void focusChanges() {
+  @Test
+  @UiThreadTest
+  public void focusChanges() {
     // We need a parent which can take focus from our view when it attempts to clear.
     LinearLayout parent = new LinearLayout(context);
     parent.setFocusable(true);
@@ -115,7 +127,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void globalLayouts() {
+  @Test
+  @UiThreadTest
+  public void globalLayouts() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.globalLayouts(view).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -129,7 +143,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void hovers() {
+  @Test
+  @UiThreadTest
+  public void hovers() {
     RecordingObserver<MotionEvent> o = new RecordingObserver<>();
     RxView.hovers(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -148,7 +164,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void layoutChanges() {
+  @Test
+  @UiThreadTest
+  public void layoutChanges() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.layoutChanges(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -164,7 +182,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void layoutChangeEvents() {
+  @Test
+  @UiThreadTest
+  public void layoutChangeEvents() {
     RecordingObserver<ViewLayoutChangeEvent> o = new RecordingObserver<>();
     RxView.layoutChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -183,10 +203,13 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void longClicks() {
+  @Test
+  @UiThreadTest
+  public void longClicks() {
     // We need a parent because long presses delegate to the parent.
     LinearLayout parent = new LinearLayout(context) {
-      @Override public boolean showContextMenuForChild(View originalView) {
+      @Override
+      public boolean showContextMenuForChild(View originalView) {
         return true;
       }
     };
@@ -208,7 +231,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void preDrawEvents() {
+  @Test
+  @UiThreadTest
+  public void preDrawEvents() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.preDraws(view, Functions.CALLABLE_ALWAYS_TRUE).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
@@ -224,7 +249,9 @@ public final class RxViewTest {
 
   @TargetApi(M)
   @SdkSuppress(minSdkVersion = M)
-  @Test @UiThreadTest public void scrollChangeEvents() {
+  @Test
+  @UiThreadTest
+  public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
     RxView.scrollChangeEvents(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -250,7 +277,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void touches() {
+  @Test
+  @UiThreadTest
+  public void touches() {
     RecordingObserver<MotionEvent> o = new RecordingObserver<>();
     RxView.touches(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -269,7 +298,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void keys() {
+  @Test
+  @UiThreadTest
+  public void keys() {
     RecordingObserver<KeyEvent> o = new RecordingObserver<>();
     RxView.keys(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -288,7 +319,9 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void activated() throws Exception {
+  @Test
+  @UiThreadTest
+  public void activated() throws Exception {
     view.setActivated(true);
     Consumer<? super Boolean> action = RxView.activated(view);
     action.accept(false);
@@ -297,7 +330,9 @@ public final class RxViewTest {
     assertThat(view.isActivated()).isTrue();
   }
 
-  @Test @UiThreadTest public void clickable() throws Exception {
+  @Test
+  @UiThreadTest
+  public void clickable() throws Exception {
     view.setClickable(true);
     Consumer<? super Boolean> action = RxView.clickable(view);
     action.accept(false);
@@ -306,7 +341,9 @@ public final class RxViewTest {
     assertThat(view.isClickable()).isTrue();
   }
 
-  @Test @UiThreadTest public void enabled() throws Exception {
+  @Test
+  @UiThreadTest
+  public void enabled() throws Exception {
     view.setEnabled(true);
     Consumer<? super Boolean> action = RxView.enabled(view);
     action.accept(false);
@@ -315,7 +352,9 @@ public final class RxViewTest {
     assertThat(view.isEnabled()).isTrue();
   }
 
-  @Test @UiThreadTest public void pressed() throws Exception {
+  @Test
+  @UiThreadTest
+  public void pressed() throws Exception {
     view.setPressed(true);
     Consumer<? super Boolean> action = RxView.pressed(view);
     action.accept(false);
@@ -324,7 +363,9 @@ public final class RxViewTest {
     assertThat(view.isPressed()).isTrue();
   }
 
-  @Test @UiThreadTest public void selected() throws Exception {
+  @Test
+  @UiThreadTest
+  public void selected() throws Exception {
     view.setSelected(true);
     Consumer<? super Boolean> action = RxView.selected(view);
     action.accept(false);
@@ -333,7 +374,9 @@ public final class RxViewTest {
     assertThat(view.isSelected()).isTrue();
   }
 
-  @Test @UiThreadTest public void visibility() throws Exception {
+  @Test
+  @UiThreadTest
+  public void visibility() throws Exception {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view);
     action.accept(false);
@@ -342,7 +385,9 @@ public final class RxViewTest {
     assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
   }
 
-  @Test @UiThreadTest public void visibilityCustomFalse() throws Exception {
+  @Test
+  @UiThreadTest
+  public void visibilityCustomFalse() throws Exception {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view, View.INVISIBLE);
     action.accept(false);
@@ -351,7 +396,10 @@ public final class RxViewTest {
     assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
   }
 
-  @SuppressWarnings("ResourceType") @Test @UiThreadTest public void setVisibilityCustomFalseToVisibleThrows() {
+  @SuppressWarnings("ResourceType")
+  @Test
+  @UiThreadTest
+  public void setVisibilityCustomFalseToVisibleThrows() {
     try {
       RxView.visibility(view, View.VISIBLE);
       fail();

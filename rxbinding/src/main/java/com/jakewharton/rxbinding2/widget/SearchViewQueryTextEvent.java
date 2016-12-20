@@ -3,12 +3,14 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SearchView;
+
 import com.jakewharton.rxbinding2.view.ViewEvent;
 
 public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
-  @CheckResult @NonNull
-  public static SearchViewQueryTextEvent create(@NonNull SearchView view,
-      @NonNull CharSequence queryText, boolean submitted) {
+  @CheckResult
+  @NonNull
+  public static SearchViewQueryTextEvent create(
+          @NonNull SearchView view, @NonNull CharSequence queryText, boolean submitted) {
     return new SearchViewQueryTextEvent(view, queryText, submitted);
   }
 
@@ -16,7 +18,7 @@ public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
   private final boolean submitted;
 
   private SearchViewQueryTextEvent(@NonNull SearchView view, @NonNull CharSequence queryText,
-      boolean submitted) {
+                                   boolean submitted) {
     super(view);
     this.queryText = queryText;
     this.submitted = submitted;
@@ -31,16 +33,18 @@ public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
     return submitted;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof SearchViewQueryTextEvent)) return false;
     SearchViewQueryTextEvent other = (SearchViewQueryTextEvent) o;
     return other.view() == view()
-        && other.queryText.equals(queryText)
-        && other.submitted == submitted;
+            && other.queryText.equals(queryText)
+            && other.submitted == submitted;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + queryText.hashCode();
@@ -48,13 +52,14 @@ public final class SearchViewQueryTextEvent extends ViewEvent<SearchView> {
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "SearchViewQueryTextEvent{view="
-        + view()
-        + ", queryText="
-        + queryText
-        + ", submitted="
-        + submitted
-        + '}';
+            + view()
+            + ", queryText="
+            + queryText
+            + ", submitted="
+            + submitted
+            + '}';
   }
 }

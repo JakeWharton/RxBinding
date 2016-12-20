@@ -9,7 +9,8 @@ public final class RxPopupMenuTestActivity extends Activity {
 
   PopupMenu popupMenu;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     View anchor = new View(this);

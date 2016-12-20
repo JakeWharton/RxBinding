@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.CheckedTextView;
+
 import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
@@ -18,11 +19,13 @@ public final class RxCheckedTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Boolean> check(@NonNull final CheckedTextView view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
-      @Override public void accept(Boolean check) {
+      @Override
+      public void accept(Boolean check) {
         view.setChecked(check);
       }
     };

@@ -6,6 +6,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TextView;
+
 import com.jakewharton.rxbinding.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 
@@ -19,12 +20,15 @@ import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxTextViewTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
+  @Rule
+  public final UiThreadTestRule uiThread = new UiThreadTestRule();
 
   private final Context context = InstrumentationRegistry.getContext();
   private final TextView view = new TextView(context);
 
-  @Test @UiThreadTest public void editorActions() {
+  @Test
+  @UiThreadTest
+  public void editorActions() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxTextView.editorActions(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -41,7 +45,9 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void editorActionEvents() {
+  @Test
+  @UiThreadTest
+  public void editorActionEvents() {
     RecordingObserver<TextViewEditorActionEvent> o = new RecordingObserver<>();
     RxTextView.editorActionEvents(view).subscribe(o);
     o.assertNoMoreEvents();
@@ -64,7 +70,9 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void textChanges() {
+  @Test
+  @UiThreadTest
+  public void textChanges() {
     view.setText("Initial");
 
     RecordingObserver<CharSequence> o = new RecordingObserver<>();
@@ -85,7 +93,9 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void textChangeEvents() {
+  @Test
+  @UiThreadTest
+  public void textChangeEvents() {
     view.setText("Initial");
 
     RecordingObserver<TextViewTextChangeEvent> o = new RecordingObserver<>();
@@ -119,7 +129,9 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void beforeTextChangeEvents() {
+  @Test
+  @UiThreadTest
+  public void beforeTextChangeEvents() {
     view.setText("Initial");
 
     RecordingObserver<TextViewBeforeTextChangeEvent> o = new RecordingObserver<>();
@@ -153,7 +165,9 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void afterTextChangeEvents() {
+  @Test
+  @UiThreadTest
+  public void afterTextChangeEvents() {
     view.setText("Initial");
 
     RecordingObserver<TextViewAfterTextChangeEvent> o = new RecordingObserver<>();
@@ -178,37 +192,51 @@ public final class RxTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void text() throws Exception {
+  @Test
+  @UiThreadTest
+  public void text() throws Exception {
     RxTextView.text(view).accept("Hey");
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
 
-  @Test @UiThreadTest public void textRes() throws Exception {
+  @Test
+  @UiThreadTest
+  public void textRes() throws Exception {
     RxTextView.textRes(view).accept(R.string.hey);
     assertThat(view.getText().toString()).isEqualTo("Hey");
   }
 
-  @Test @UiThreadTest public void error() throws Exception {
+  @Test
+  @UiThreadTest
+  public void error() throws Exception {
     RxTextView.error(view).accept("Ouch");
     assertThat(view.getError().toString()).isEqualTo("Ouch");
   }
 
-  @Test @UiThreadTest public void errorRes() throws Exception {
+  @Test
+  @UiThreadTest
+  public void errorRes() throws Exception {
     RxTextView.errorRes(view).accept(R.string.ouch);
     assertThat(view.getError().toString()).isEqualTo("Ouch");
   }
 
-  @Test @UiThreadTest public void hint() throws Exception {
+  @Test
+  @UiThreadTest
+  public void hint() throws Exception {
     RxTextView.hint(view).accept("Your name here");
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
 
-  @Test @UiThreadTest public void hintRes() throws Exception {
+  @Test
+  @UiThreadTest
+  public void hintRes() throws Exception {
     RxTextView.hintRes(view).accept(R.string.hint);
     assertThat(view.getHint().toString()).isEqualTo("Your name here");
   }
 
-  @Test @UiThreadTest public void color() throws Exception {
+  @Test
+  @UiThreadTest
+  public void color() throws Exception {
     RxTextView.color(view).accept(0x3F51B5);
     assertThat(view.getCurrentTextColor()).isEqualTo(0x3F51B5);
   }

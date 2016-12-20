@@ -27,12 +27,16 @@ final class TextViewEditorActionObservable extends Observable<Integer> {
     view.setOnEditorActionListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements TextView.OnEditorActionListener {
+  static final class Listener extends MainThreadDisposable
+          implements TextView.OnEditorActionListener {
+
     private final TextView view;
     private final Observer<? super Integer> observer;
     private final Predicate<? super Integer> handled;
 
-    Listener(TextView view, Observer<? super Integer> observer, Predicate<? super Integer> handled) {
+    Listener(TextView view,
+             Observer<? super Integer> observer,
+             Predicate<? super Integer> handled) {
       this.view = view;
       this.observer = observer;
       this.handled = handled;

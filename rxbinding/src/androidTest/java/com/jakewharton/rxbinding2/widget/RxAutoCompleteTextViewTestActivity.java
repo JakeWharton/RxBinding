@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+
 import com.jakewharton.rxbinding.test.R;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -13,7 +14,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public final class RxAutoCompleteTextViewTestActivity extends Activity {
   AutoCompleteTextView autoCompleteTextView;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     LinearLayout layout = new LinearLayout(this);

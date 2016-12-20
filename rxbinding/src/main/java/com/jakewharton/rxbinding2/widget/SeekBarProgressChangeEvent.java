@@ -5,9 +5,10 @@ import android.support.annotation.NonNull;
 import android.widget.SeekBar;
 
 public final class SeekBarProgressChangeEvent extends SeekBarChangeEvent {
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static SeekBarProgressChangeEvent create(@NonNull SeekBar view, int progress,
-      boolean fromUser) {
+                                                  boolean fromUser) {
     return new SeekBarProgressChangeEvent(view, progress, fromUser);
   }
 
@@ -28,16 +29,18 @@ public final class SeekBarProgressChangeEvent extends SeekBarChangeEvent {
     return fromUser;
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof SeekBarProgressChangeEvent)) return false;
     SeekBarProgressChangeEvent other = (SeekBarProgressChangeEvent) o;
     return other.view() == view()
-        && other.progress == progress
-        && other.fromUser == fromUser;
+            && other.progress == progress
+            && other.fromUser == fromUser;
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + progress;
@@ -45,13 +48,14 @@ public final class SeekBarProgressChangeEvent extends SeekBarChangeEvent {
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "SeekBarProgressChangeEvent{view="
-        + view()
-        + ", progress="
-        + progress
-        + ", fromUser="
-        + fromUser
-        + '}';
+            + view()
+            + ", progress="
+            + progress
+            + ", fromUser="
+            + fromUser
+            + '}';
   }
 }

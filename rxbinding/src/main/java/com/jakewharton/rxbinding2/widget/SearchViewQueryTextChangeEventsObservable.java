@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.SearchView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -14,7 +15,8 @@ final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchV
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super SearchViewQueryTextEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super SearchViewQueryTextEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     view.setOnQueryTextListener(listener);
@@ -22,7 +24,9 @@ final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchV
     observer.onNext(SearchViewQueryTextEvent.create(view, view.getQuery(), false));
   }
 
-  static final class Listener extends MainThreadDisposable implements SearchView.OnQueryTextListener {
+  static final class Listener extends MainThreadDisposable
+          implements SearchView.OnQueryTextListener {
+
     private final SearchView view;
     private final Observer<? super SearchViewQueryTextEvent> observer;
 
@@ -31,7 +35,8 @@ final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchV
       this.observer = observer;
     }
 
-    @Override public boolean onQueryTextChange(String s) {
+    @Override
+    public boolean onQueryTextChange(String s) {
       if (!isDisposed()) {
         observer.onNext(SearchViewQueryTextEvent.create(view, s, false));
         return true;
@@ -39,7 +44,8 @@ final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchV
       return false;
     }
 
-    @Override public boolean onQueryTextSubmit(String query) {
+    @Override
+    public boolean onQueryTextSubmit(String query) {
       if (!isDisposed()) {
         observer.onNext(SearchViewQueryTextEvent.create(view, query, true));
         return true;
@@ -47,7 +53,8 @@ final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchV
       return false;
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnQueryTextListener(null);
     }
   }

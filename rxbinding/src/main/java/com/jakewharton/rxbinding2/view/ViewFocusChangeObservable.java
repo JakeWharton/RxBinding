@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -15,7 +16,8 @@ final class ViewFocusChangeObservable extends Observable<Boolean> {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Boolean> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super Boolean> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -32,13 +34,15 @@ final class ViewFocusChangeObservable extends Observable<Boolean> {
       this.observer = observer;
     }
 
-    @Override public void onFocusChange(View v, boolean hasFocus) {
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
       if (!isDisposed()) {
         observer.onNext(hasFocus);
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.setOnFocusChangeListener(null);
     }
   }

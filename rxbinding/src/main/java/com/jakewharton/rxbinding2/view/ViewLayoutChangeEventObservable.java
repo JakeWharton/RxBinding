@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -15,7 +16,8 @@ final class ViewLayoutChangeEventObservable extends Observable<ViewLayoutChangeE
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super ViewLayoutChangeEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super ViewLayoutChangeEvent> observer) {
     verifyMainThread();
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
@@ -33,15 +35,16 @@ final class ViewLayoutChangeEventObservable extends Observable<ViewLayoutChangeE
 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
-        int oldTop, int oldRight, int oldBottom) {
+                               int oldTop, int oldRight, int oldBottom) {
       if (!isDisposed()) {
         observer.onNext(
-            ViewLayoutChangeEvent.create(v, left, top, right, bottom, oldLeft, oldTop, oldRight,
-                oldBottom));
+                ViewLayoutChangeEvent.create(v, left, top, right, bottom, oldLeft, oldTop, oldRight,
+                        oldBottom));
       }
     }
 
-    @Override protected void onDispose() {
+    @Override
+    protected void onDispose() {
       view.removeOnLayoutChangeListener(this);
     }
   }

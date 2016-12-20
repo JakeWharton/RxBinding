@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.MenuItem;
 import android.widget.Toolbar;
+
 import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -23,7 +25,8 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<MenuItem> itemClicks(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
     return new ToolbarItemClickObservable(view);
@@ -39,7 +42,8 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable uses {@link Toolbar#setNavigationOnClickListener}
    * to observe clicks. Only one observable can be used for a view at a time.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Observable<Object> navigationClicks(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
     return new ToolbarNavigationClickObservable(view);
@@ -51,11 +55,14 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull @GenericTypeNullable
+  @CheckResult
+  @NonNull
+  @GenericTypeNullable
   public static Consumer<? super CharSequence> title(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence title) {
+      @Override
+      public void accept(CharSequence title) {
         view.setTitle(title);
       }
     };
@@ -67,11 +74,13 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> titleRes(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer titleRes) {
+      @Override
+      public void accept(Integer titleRes) {
         view.setTitle(titleRes);
       }
     };
@@ -83,11 +92,14 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull @GenericTypeNullable
+  @CheckResult
+  @NonNull
+  @GenericTypeNullable
   public static Consumer<? super CharSequence> subtitle(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence subtitle) {
+      @Override
+      public void accept(CharSequence subtitle) {
         view.setSubtitle(subtitle);
       }
     };
@@ -99,11 +111,13 @@ public final class RxToolbar {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static Consumer<? super Integer> subtitleRes(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer subtitleRes) {
+      @Override
+      public void accept(Integer subtitleRes) {
         view.setSubtitle(subtitleRes);
       }
     };

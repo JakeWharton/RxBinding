@@ -13,9 +13,10 @@ import android.view.ViewGroup;
  * instances have the potential to leak the associated {@link Context}.
  */
 public final class ViewGroupHierarchyChildViewRemoveEvent extends ViewGroupHierarchyChangeEvent {
-  @CheckResult @NonNull
+  @CheckResult
+  @NonNull
   public static ViewGroupHierarchyChildViewRemoveEvent create(@NonNull ViewGroup viewGroup,
-      View child) {
+                                                              View child) {
     return new ViewGroupHierarchyChildViewRemoveEvent(viewGroup, child);
   }
 
@@ -23,26 +24,29 @@ public final class ViewGroupHierarchyChildViewRemoveEvent extends ViewGroupHiera
     super(viewGroup, child);
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof ViewGroupHierarchyChildViewRemoveEvent)) return false;
     ViewGroupHierarchyChildViewRemoveEvent other = (ViewGroupHierarchyChildViewRemoveEvent) o;
     return other.view() == view()
-        && other.child() == child();
+            && other.child() == child();
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     int result = 17;
     result = result * 37 + view().hashCode();
     result = result * 37 + child().hashCode();
     return result;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "ViewGroupHierarchyChildViewRemoveEvent{view="
-        + view()
-        + ", child="
-        + child()
-        + '}';
+            + view()
+            + ", child="
+            + child()
+            + '}';
   }
 }
