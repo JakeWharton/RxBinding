@@ -308,6 +308,14 @@ inline fun View.clickable(): Action1<in Boolean> = RxView.clickable(this)
 inline fun View.enabled(): Action1<in Boolean> = RxView.enabled(this)
 
 /**
+ * An action which sets to negate the enabled property of `view`.
+ *
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+public inline fun View.disabled(): Action1<in Boolean> = RxView.disabled(this)
+
+/**
  * An action which sets the pressed property of `view`.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe

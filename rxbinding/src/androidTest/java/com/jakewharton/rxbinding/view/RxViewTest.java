@@ -316,6 +316,15 @@ public final class RxViewTest {
     assertThat(view.isEnabled()).isTrue();
   }
 
+  @Test @UiThreadTest public void disabled() {
+    view.setEnabled(true);
+    Action1<? super Boolean> action = RxView.disabled(view);
+    action.call(false);
+    assertThat(view.isEnabled()).isTrue();
+    action.call(true);
+    assertThat(view.isEnabled()).isFalse();
+  }
+
   @Test @UiThreadTest public void pressed() {
     view.setPressed(true);
     Action1<? super Boolean> action = RxView.pressed(view);

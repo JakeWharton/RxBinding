@@ -444,6 +444,22 @@ public final class RxView {
   }
 
   /**
+   * An action which sets to negate the enabled property of {@code view}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
+   * to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Action1<? super Boolean> disabled(@NonNull final View view) {
+    checkNotNull(view, "view == null");
+    return new Action1<Boolean>() {
+      @Override public void call(Boolean value) {
+        view.setEnabled(!value);
+      }
+    };
+  }
+
+  /**
    * An action which sets the pressed property of {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
