@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.widget.ProgressBar;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 public final class RxProgressBar {
   /**
