@@ -17,7 +17,6 @@ dependencies {
   androidTestCompile rootProject.ext.supportTestEspresso
   androidTestCompile rootProject.ext.supportTestEspressoContrib
   androidTestCompile rootProject.ext.rxAndroid
-  androidTestCompile rootProject.ext.truth
 }
 
 android {
@@ -48,11 +47,6 @@ android {
     debug {
       testCoverageEnabled true
     }
-  }
-
-  packagingOptions {
-    exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
-    exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
   }
 }
 

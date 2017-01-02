@@ -41,7 +41,7 @@ open class KotlinGenTask : SourceTask() {
         "android.support.annotation.CheckResult",
         "android.support.annotation.NonNull",
         "android.support.annotation.RequiresApi",
-        "com.jakewharton.rxbinding.internal.GenericTypeNullable"
+        "com.jakewharton.rxbinding2.internal.GenericTypeNullable"
     )
 
     private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))

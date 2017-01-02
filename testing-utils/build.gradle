@@ -9,7 +9,6 @@ apply plugin: 'com.android.library'
 dependencies {
   compile rootProject.ext.supportTestRunner
   compile rootProject.ext.rxAndroid
-  compile rootProject.ext.truth
   compile rootProject.ext.supportTestEspresso
 }
 
@@ -34,10 +33,5 @@ android {
     textReport true
     textOutput 'stdout'
     disable 'InvalidPackage'
-  }
-
-  packagingOptions {
-    exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
-    exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
   }
 }
