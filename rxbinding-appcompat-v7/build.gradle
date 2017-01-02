@@ -15,7 +15,6 @@ dependencies {
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules
   androidTestCompile rootProject.ext.supportTestEspresso
-  androidTestCompile rootProject.ext.supportTestEspressoContrib
   androidTestCompile rootProject.ext.rxAndroid
   androidTestCompile rootProject.ext.truth
 }
