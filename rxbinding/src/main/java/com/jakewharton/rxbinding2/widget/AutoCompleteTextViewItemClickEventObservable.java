@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -9,7 +10,8 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
-final class AutoCompleteTextViewItemClickEventObservable extends Observable<AdapterViewItemClickEvent> {
+final class AutoCompleteTextViewItemClickEventObservable
+    extends Observable<AdapterViewItemClickEvent> {
   private final AutoCompleteTextView view;
 
   AutoCompleteTextViewItemClickEventObservable(AutoCompleteTextView view) {
@@ -23,7 +25,7 @@ final class AutoCompleteTextViewItemClickEventObservable extends Observable<Adap
     view.setOnItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemClickListener {
+  static final class Listener extends MainThreadDisposable implements OnItemClickListener {
     private final AutoCompleteTextView view;
     private final Observer<? super AdapterViewItemClickEvent> observer;
 

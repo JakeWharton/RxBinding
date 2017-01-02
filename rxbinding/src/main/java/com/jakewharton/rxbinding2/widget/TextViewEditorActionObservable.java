@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import android.widget.TextView.OnEditorActionListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -27,12 +28,13 @@ final class TextViewEditorActionObservable extends Observable<Integer> {
     view.setOnEditorActionListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements TextView.OnEditorActionListener {
+  static final class Listener extends MainThreadDisposable implements OnEditorActionListener {
     private final TextView view;
     private final Observer<? super Integer> observer;
     private final Predicate<? super Integer> handled;
 
-    Listener(TextView view, Observer<? super Integer> observer, Predicate<? super Integer> handled) {
+    Listener(TextView view, Observer<? super Integer> observer,
+        Predicate<? super Integer> handled) {
       this.view = view;
       this.observer = observer;
       this.handled = handled;

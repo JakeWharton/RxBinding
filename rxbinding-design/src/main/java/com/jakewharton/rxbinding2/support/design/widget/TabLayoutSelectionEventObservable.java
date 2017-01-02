@@ -2,11 +2,11 @@ package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
+import com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.*;
 import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {

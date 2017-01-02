@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -35,7 +36,7 @@ final class AdapterViewSelectionObservable extends Observable<AdapterViewSelecti
     }
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemSelectedListener {
+  static final class Listener extends MainThreadDisposable implements OnItemSelectedListener {
     private final AdapterView<?> view;
     private final Observer<? super AdapterViewSelectionEvent> observer;
 

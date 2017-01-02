@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -22,7 +23,7 @@ final class SearchViewQueryTextChangesObservable extends Observable<CharSequence
     observer.onNext(view.getQuery());
   }
 
-  static final class Listener extends MainThreadDisposable implements SearchView.OnQueryTextListener {
+  static final class Listener extends MainThreadDisposable implements OnQueryTextListener {
     private final SearchView view;
     private final Observer<? super CharSequence> observer;
 

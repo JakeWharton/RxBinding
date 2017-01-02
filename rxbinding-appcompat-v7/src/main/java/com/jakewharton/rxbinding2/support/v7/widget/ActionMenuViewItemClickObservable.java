@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener;
 import android.view.MenuItem;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -22,7 +23,7 @@ final class ActionMenuViewItemClickObservable extends Observable<MenuItem> {
     view.setOnMenuItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements ActionMenuView.OnMenuItemClickListener {
+  static final class Listener extends MainThreadDisposable implements OnMenuItemClickListener {
     private final ActionMenuView actionMenuView;
     private final Observer<? super MenuItem> observer;
 

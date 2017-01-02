@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -22,7 +23,7 @@ final class RatingBarRatingChangeEventObservable extends Observable<RatingBarCha
     observer.onNext(RatingBarChangeEvent.create(view, view.getRating(), false));
   }
 
-  static final class Listener extends MainThreadDisposable implements RatingBar.OnRatingBarChangeListener {
+  static final class Listener extends MainThreadDisposable implements OnRatingBarChangeListener {
     private final RatingBar view;
     private final Observer<? super RatingBarChangeEvent> observer;
 

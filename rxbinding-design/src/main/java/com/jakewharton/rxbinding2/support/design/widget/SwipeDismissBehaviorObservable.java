@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.design.widget.CoordinatorLayout.LayoutParams;
 import android.support.design.widget.SwipeDismissBehavior;
+import android.support.design.widget.SwipeDismissBehavior.OnDismissListener;
 import android.view.View;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -31,7 +32,7 @@ final class SwipeDismissBehaviorObservable extends Observable<View> {
     behavior.setListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements SwipeDismissBehavior.OnDismissListener {
+  static final class Listener extends MainThreadDisposable implements OnDismissListener {
     private final SwipeDismissBehavior swipeDismissBehavior;
     private final Observer<? super View> observer;
 

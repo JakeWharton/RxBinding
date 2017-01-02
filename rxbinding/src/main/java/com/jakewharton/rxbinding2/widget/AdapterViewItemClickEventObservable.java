@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -22,7 +23,7 @@ final class AdapterViewItemClickEventObservable extends Observable<AdapterViewIt
     view.setOnItemClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemClickListener {
+  static final class Listener extends MainThreadDisposable implements OnItemClickListener {
     private final AdapterView<?> view;
     private final Observer<? super AdapterViewItemClickEvent> observer;
 

@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import java.util.concurrent.Callable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -25,7 +26,7 @@ final class AdapterViewItemLongClickObservable extends Observable<Integer> {
     view.setOnItemLongClickListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements AdapterView.OnItemLongClickListener {
+  static final class Listener extends MainThreadDisposable implements OnItemLongClickListener {
     private final AdapterView<?> view;
     private final Observer<? super Integer> observer;
     private final Callable<Boolean> handled;
@@ -37,7 +38,8 @@ final class AdapterViewItemLongClickObservable extends Observable<Integer> {
       this.handled = handled;
     }
 
-    @Override public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
       if (!isDisposed()) {
         try {
           if (handled.call()) {

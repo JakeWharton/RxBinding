@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -22,7 +23,7 @@ final class SeekBarChangeEventObservable extends Observable<SeekBarChangeEvent> 
     observer.onNext(SeekBarProgressChangeEvent.create(view, view.getProgress(), false));
   }
 
-  static final class Listener extends MainThreadDisposable implements SeekBar.OnSeekBarChangeListener {
+  static final class Listener extends MainThreadDisposable implements OnSeekBarChangeListener {
     private final SeekBar view;
     private final Observer<? super SeekBarChangeEvent> observer;
 

@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.*;
+import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
 
 final class ViewPagerPageSelectedObservable extends Observable<Integer> {
   private final ViewPager view;

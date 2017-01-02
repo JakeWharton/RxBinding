@@ -2,6 +2,7 @@ package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import io.reactivex.Observable;
@@ -34,7 +35,8 @@ final class NavigationViewItemSelectionsObservable extends Observable<MenuItem> 
     }
   }
 
-  static final class Listener extends MainThreadDisposable implements NavigationView.OnNavigationItemSelectedListener {
+  static final class Listener extends MainThreadDisposable
+      implements OnNavigationItemSelectedListener {
     private final NavigationView navigationView;
     private final Observer<? super MenuItem> observer;
 

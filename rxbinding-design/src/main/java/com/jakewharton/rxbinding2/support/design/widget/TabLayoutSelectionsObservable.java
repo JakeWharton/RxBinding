@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -26,7 +27,7 @@ final class TabLayoutSelectionsObservable extends Observable<Tab> {
     }
   }
 
-  static final class Listener extends MainThreadDisposable implements TabLayout.OnTabSelectedListener {
+  static final class Listener extends MainThreadDisposable implements OnTabSelectedListener {
     private final TabLayout tabLayout;
     private final Observer<? super Tab> observer;
 
