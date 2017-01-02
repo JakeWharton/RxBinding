@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class RxTextInputLayoutTest {
@@ -30,32 +30,32 @@ public class RxTextInputLayoutTest {
 
   @Test @UiThreadTest public void counterEnabled() throws Exception {
     RxTextInputLayout.counterEnabled(view).accept(true);
-    assertThat(view.isCounterEnabled()).isEqualTo(true);
+    assertEquals(true, view.isCounterEnabled());
   }
 
   @Test @UiThreadTest public void counterMaxLength() throws Exception {
     RxTextInputLayout.counterMaxLength(view).accept(100);
-    assertThat(view.getCounterMaxLength()).isEqualTo(100);
+    assertEquals(100, view.getCounterMaxLength());
   }
 
   @Test @UiThreadTest public void error() throws Exception {
     RxTextInputLayout.error(view).accept("Your error here");
-    assertThat(view.getError().toString()).isEqualTo("Your error here");
+    assertEquals("Your error here", view.getError().toString());
   }
 
   @Test @UiThreadTest public void errorRes() throws Exception {
     final String error = context.getString(R.string.error);
     RxTextInputLayout.errorRes(view).accept(R.string.error);
-    assertThat(view.getError().toString()).isEqualTo(error);
+    assertEquals(error, view.getError().toString());
   }
 
   @Test @UiThreadTest public void hint() throws Exception {
     RxTextInputLayout.hint(view).accept("Your name here");
-    assertThat(view.getHint().toString()).isEqualTo("Your name here");
+    assertEquals("Your name here", view.getHint().toString());
   }
 
   @Test @UiThreadTest public void hintRes() throws Exception {
     RxTextInputLayout.hintRes(view).accept(R.string.hint);
-    assertThat(view.getHint().toString()).isEqualTo("Your name here");
+    assertEquals("Your name here", view.getHint().toString());
   }
 }

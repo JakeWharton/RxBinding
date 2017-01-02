@@ -7,13 +7,13 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.functions.Consumer;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxTextSwitcherTest {
@@ -32,20 +32,20 @@ public final class RxTextSwitcherTest {
   @Test @UiThreadTest public void text() throws Exception {
     Consumer<? super CharSequence> action = RxTextSwitcher.text(view);
     action.accept("Hey");
-    assertThat(textView2.getText().toString()).isEqualTo("Hey");
+    assertEquals("Hey", textView2.getText().toString());
     action.accept("Hello");
-    assertThat(textView1.getText().toString()).isEqualTo("Hello");
+    assertEquals("Hello", textView1.getText().toString());
     action.accept("Hi");
-    assertThat(textView2.getText().toString()).isEqualTo("Hi");
+    assertEquals("Hi", textView2.getText().toString());
   }
 
   @Test @UiThreadTest public void currentText() throws Exception {
     Consumer<? super CharSequence> action = RxTextSwitcher.currentText(view);
     action.accept("Hey");
-    assertThat(textView1.getText().toString()).isEqualTo("Hey");
+    assertEquals("Hey", textView1.getText().toString());
     action.accept("Hello");
-    assertThat(textView1.getText().toString()).isEqualTo("Hello");
+    assertEquals("Hello", textView1.getText().toString());
     action.accept("Hi");
-    assertThat(textView1.getText().toString()).isEqualTo("Hi");
+    assertEquals("Hi", textView1.getText().toString());
   }
 }

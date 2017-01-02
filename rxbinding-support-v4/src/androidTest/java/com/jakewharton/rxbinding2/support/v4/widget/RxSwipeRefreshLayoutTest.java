@@ -20,7 +20,8 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class) public final class RxSwipeRefreshLayoutTest {
   @Rule public final ActivityTestRule<RxSwipeRefreshLayoutTestActivity> activityRule =
@@ -50,13 +51,13 @@ import static com.google.common.truth.Truth.assertThat;
 
   @Test @UiThreadTest public void refreshing() throws Exception {
     Consumer<? super Boolean> action = RxSwipeRefreshLayout.refreshing(view);
-    assertThat(view.isRefreshing()).isFalse();
+    assertFalse(view.isRefreshing());
 
     action.accept(true);
-    assertThat(view.isRefreshing()).isTrue();
+    assertTrue(view.isRefreshing());
 
     action.accept(false);
-    assertThat(view.isRefreshing()).isFalse();
+    assertFalse(view.isRefreshing());
   }
 
   private static ViewAction swipeDown() {

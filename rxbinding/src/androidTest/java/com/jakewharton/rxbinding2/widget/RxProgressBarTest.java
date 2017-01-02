@@ -6,12 +6,14 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ProgressBar;
+import io.reactivex.functions.Consumer;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.functions.Consumer;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxProgressBarTest {
@@ -22,61 +24,61 @@ public final class RxProgressBarTest {
 
   @Test @UiThreadTest public void incrementProgressBy() throws Exception {
     Consumer<? super Integer> action = RxProgressBar.incrementProgressBy(view);
-    assertThat(view.getProgress()).isEqualTo(0);
+    assertEquals(0, view.getProgress());
     action.accept(10);
-    assertThat(view.getProgress()).isEqualTo(10);
+    assertEquals(10, view.getProgress());
     action.accept(20);
-    assertThat(view.getProgress()).isEqualTo(30);
+    assertEquals(30, view.getProgress());
     action.accept(30);
-    assertThat(view.getProgress()).isEqualTo(60);
+    assertEquals(60, view.getProgress());
     action.accept(40);
-    assertThat(view.getProgress()).isEqualTo(100);
+    assertEquals(100, view.getProgress());
   }
 
   @Test @UiThreadTest public void incrementSecondaryProgressBy() throws Exception {
     Consumer<? super Integer> action = RxProgressBar.incrementSecondaryProgressBy(view);
-    assertThat(view.getSecondaryProgress()).isEqualTo(0);
+    assertEquals(0, view.getSecondaryProgress());
     action.accept(10);
-    assertThat(view.getSecondaryProgress()).isEqualTo(10);
+    assertEquals(10, view.getSecondaryProgress());
     action.accept(20);
-    assertThat(view.getSecondaryProgress()).isEqualTo(30);
+    assertEquals(30, view.getSecondaryProgress());
     action.accept(30);
-    assertThat(view.getSecondaryProgress()).isEqualTo(60);
+    assertEquals(60, view.getSecondaryProgress());
     action.accept(40);
-    assertThat(view.getSecondaryProgress()).isEqualTo(100);
+    assertEquals(100, view.getSecondaryProgress());
   }
 
   @Test @UiThreadTest public void indeterminate() throws Exception {
     Consumer<? super Boolean> action = RxProgressBar.indeterminate(view);
     action.accept(true);
-    assertThat(view.isIndeterminate()).isTrue();
+    assertTrue(view.isIndeterminate());
     action.accept(false);
-    assertThat(view.isIndeterminate()).isFalse();
+    assertFalse(view.isIndeterminate());
   }
 
   @Test @UiThreadTest public void max() throws Exception {
     Consumer<? super Integer> action = RxProgressBar.max(view);
     action.accept(100);
-    assertThat(view.getMax()).isEqualTo(100);
+    assertEquals(100, view.getMax());
     action.accept(1000);
-    assertThat(view.getMax()).isEqualTo(1000);
+    assertEquals(1000, view.getMax());
   }
 
   @Test @UiThreadTest public void progress() throws Exception {
     Consumer<? super Integer> action = RxProgressBar.progress(view);
-    assertThat(view.getProgress()).isEqualTo(0);
+    assertEquals(0, view.getProgress());
     action.accept(50);
-    assertThat(view.getProgress()).isEqualTo(50);
+    assertEquals(50, view.getProgress());
     action.accept(100);
-    assertThat(view.getProgress()).isEqualTo(100);
+    assertEquals(100, view.getProgress());
   }
 
   @Test @UiThreadTest public void secondaryProgress() throws Exception {
     Consumer<? super Integer> action = RxProgressBar.secondaryProgress(view);
-    assertThat(view.getSecondaryProgress()).isEqualTo(0);
+    assertEquals(0, view.getSecondaryProgress());
     action.accept(50);
-    assertThat(view.getSecondaryProgress()).isEqualTo(50);
+    assertEquals(50, view.getSecondaryProgress());
     action.accept(100);
-    assertThat(view.getSecondaryProgress()).isEqualTo(100);
+    assertEquals(100, view.getSecondaryProgress());
   }
 }

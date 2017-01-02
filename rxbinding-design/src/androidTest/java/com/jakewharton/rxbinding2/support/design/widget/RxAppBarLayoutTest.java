@@ -18,8 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class RxAppBarLayoutTest {
@@ -45,7 +45,7 @@ public class RxAppBarLayoutTest {
     AppBarLayout.Behavior behavior = new AppBarLayout.Behavior();
     params.setBehavior(behavior);
     behavior.onLayoutChild(parent, view, View.LAYOUT_DIRECTION_LTR);
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     o.dispose();
 

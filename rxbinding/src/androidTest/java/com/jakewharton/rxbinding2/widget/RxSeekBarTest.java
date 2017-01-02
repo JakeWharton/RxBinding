@@ -5,21 +5,18 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.SeekBar;
-
 import com.jakewharton.rxbinding2.RecordingObserver;
-
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
-import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSeekBarTest {
@@ -39,7 +36,7 @@ public final class RxSeekBarTest {
     RxSeekBar.changes(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
@@ -47,11 +44,11 @@ public final class RxSeekBarTest {
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(100);
+    assertEquals(100, o.takeNext().intValue());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 0, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -59,7 +56,7 @@ public final class RxSeekBarTest {
       }
     });
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(85);
+    assertEquals(85, o.takeNext().intValue());
 
     o.dispose();
 
@@ -81,7 +78,7 @@ public final class RxSeekBarTest {
     RxSeekBar.systemChanges(seekBar) //
             .subscribeOn(AndroidSchedulers.mainThread()) //
             .subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
@@ -93,7 +90,7 @@ public final class RxSeekBarTest {
       }
     });
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(85);
+    assertEquals(85, o.takeNext().intValue());
 
     o.dispose();
 
@@ -115,7 +112,7 @@ public final class RxSeekBarTest {
     RxSeekBar.userChanges(seekBar) //
             .subscribeOn(AndroidSchedulers.mainThread()) //
             .subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
@@ -123,11 +120,11 @@ public final class RxSeekBarTest {
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(100);
+    assertEquals(100, o.takeNext().intValue());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 0, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -157,19 +154,19 @@ public final class RxSeekBarTest {
     RxSeekBar.changeEvents(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
+    assertEquals(SeekBarProgressChangeEvent.create(seekBar, 0, false), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(SeekBarStartChangeEvent.create(seekBar));
+    assertEquals(SeekBarStartChangeEvent.create(seekBar), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 100, true));
+    assertEquals(SeekBarProgressChangeEvent.create(seekBar, 100, true), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_UP, 100, 50));
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(SeekBarStopChangeEvent.create(seekBar));
+    assertEquals(SeekBarStopChangeEvent.create(seekBar), o.takeNext());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -177,7 +174,7 @@ public final class RxSeekBarTest {
       }
     });
     instrumentation.waitForIdleSync();
-    assertThat(o.takeNext()).isEqualTo(SeekBarProgressChangeEvent.create(seekBar, 0, false));
+    assertEquals(SeekBarProgressChangeEvent.create(seekBar, 0, false), o.takeNext());
 
     o.dispose();
 

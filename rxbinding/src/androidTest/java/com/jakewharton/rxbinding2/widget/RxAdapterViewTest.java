@@ -8,14 +8,16 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.UnsafeRunnable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxAdapterViewTest {
@@ -39,21 +41,21 @@ public final class RxAdapterViewTest {
     RxAdapterView.itemSelections(spinner)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         spinner.setSelection(2);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(2);
+    assertEquals(2, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         spinner.setSelection(0);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     o.dispose();
 
@@ -71,10 +73,10 @@ public final class RxAdapterViewTest {
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     AdapterViewItemSelectionEvent event1 = (AdapterViewItemSelectionEvent) o.takeNext();
-    assertThat(event1.view()).isSameAs(spinner);
-    assertThat(event1.selectedView()).isNotNull();
-    assertThat(event1.position()).isEqualTo(0);
-    assertThat(event1.id()).isEqualTo(0);
+    assertSame(spinner, event1.view());
+    assertNotNull(event1.selectedView());
+    assertEquals(0, event1.position());
+    assertEquals(0, event1.id());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -82,10 +84,10 @@ public final class RxAdapterViewTest {
       }
     });
     AdapterViewItemSelectionEvent event2 = (AdapterViewItemSelectionEvent) o.takeNext();
-    assertThat(event2.view()).isSameAs(spinner);
-    assertThat(event2.selectedView()).isNotNull();
-    assertThat(event2.position()).isEqualTo(2);
-    assertThat(event2.id()).isEqualTo(2);
+    assertSame(spinner, event2.view());
+    assertNotNull(event2.selectedView());
+    assertEquals(2, event2.position());
+    assertEquals(2, event2.id());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -93,7 +95,7 @@ public final class RxAdapterViewTest {
         activity.adapter.notifyDataSetChanged();
       }
     });
-    assertThat(o.takeNext()).isEqualTo(AdapterViewNothingSelectionEvent.create(spinner));
+    assertEquals(AdapterViewNothingSelectionEvent.create(spinner), o.takeNext());
 
     o.dispose();
 
@@ -116,7 +118,7 @@ public final class RxAdapterViewTest {
     });
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
-        assertThat(spinner.getSelectedItemPosition()).isEqualTo(2);
+        assertEquals(2, spinner.getSelectedItemPosition());
       }
     });
 
@@ -127,7 +129,7 @@ public final class RxAdapterViewTest {
     });
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
-        assertThat(spinner.getSelectedItemPosition()).isEqualTo(1);
+        assertEquals(1, spinner.getSelectedItemPosition());
       }
     });
   }
@@ -144,14 +146,14 @@ public final class RxAdapterViewTest {
         listView.performItemClick(listView.getChildAt(2), 2, 2);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(2);
+    assertEquals(2, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         listView.performItemClick(listView.getChildAt(0), 0, 0);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     o.dispose();
 
@@ -176,10 +178,10 @@ public final class RxAdapterViewTest {
       }
     });
     AdapterViewItemClickEvent event = o.takeNext();
-    assertThat(event.view()).isEqualTo(listView);
-    assertThat(event.clickedView()).isNotNull();
-    assertThat(event.position()).isEqualTo(2);
-    assertThat(event.id()).isEqualTo(2);
+    assertEquals(listView, event.view());
+    assertNotNull(event.clickedView());
+    assertEquals(2, event.position());
+    assertEquals(2, event.id());
 
     o.dispose();
 

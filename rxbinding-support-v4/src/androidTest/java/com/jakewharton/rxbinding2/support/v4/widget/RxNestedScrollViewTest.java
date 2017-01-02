@@ -11,7 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxNestedScrollViewTest {
@@ -32,11 +33,11 @@ public final class RxNestedScrollViewTest {
 
     view.scrollTo(1000, 0);
     ViewScrollChangeEvent event = o.takeNext();
-    assertThat(event.view()).isSameAs(view);
-    assertThat(event.scrollX()).isEqualTo(1000);
-    assertThat(event.scrollY()).isEqualTo(0);
-    assertThat(event.oldScrollX()).isEqualTo(0);
-    assertThat(event.oldScrollY()).isEqualTo(0);
+    assertSame(view, event.view());
+    assertEquals(1000, event.scrollX());
+    assertEquals(0, event.scrollY());
+    assertEquals(0, event.oldScrollX());
+    assertEquals(0, event.oldScrollY());
 
     o.dispose();
     view.scrollTo(2000, 0);

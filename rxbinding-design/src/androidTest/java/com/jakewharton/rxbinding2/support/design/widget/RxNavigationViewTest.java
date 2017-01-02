@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertSame;
 
 @RunWith(AndroidJUnit4.class) public final class RxNavigationViewTest {
   @Rule public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
@@ -38,10 +38,10 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
 
     menu.performIdentifierAction(2, 0);
-    assertThat(o.takeNext()).isSameAs(item2);
+    assertSame(item2, o.takeNext());
 
     menu.performIdentifierAction(1, 0);
-    assertThat(o.takeNext()).isSameAs(item1);
+    assertSame(item1, o.takeNext());
 
     o.dispose();
 
@@ -54,6 +54,6 @@ import static com.google.common.truth.Truth.assertThat;
 
     RecordingObserver<MenuItem> o = new RecordingObserver<>();
     RxNavigationView.itemSelections(view).subscribe(o);
-    assertThat(o.takeNext()).isSameAs(item2);
+    assertSame(item2, o.takeNext());
   }
 }

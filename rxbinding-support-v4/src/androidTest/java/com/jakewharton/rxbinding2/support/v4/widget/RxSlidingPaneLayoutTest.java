@@ -24,7 +24,8 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class) public class RxSlidingPaneLayoutTest {
   @Rule public final ActivityTestRule<RxSlidingPaneLayoutTestActivity> activityRule =
@@ -53,21 +54,21 @@ import static com.google.common.truth.Truth.assertThat;
     RxSlidingPaneLayout.panelOpens(view)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         view.openPane();
       }
     });
-    assertThat(o.takeNext()).isTrue();
+    assertTrue(o.takeNext());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         view.closePane();
       }
     });
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     o.dispose();
 
@@ -92,7 +93,7 @@ import static com.google.common.truth.Truth.assertThat;
       }
     });
     instrumentation.waitForIdleSync();
-    assertThat(o1.takeNext()).isGreaterThan(0f);
+    assertTrue(o1.takeNext() > 0f);
 
     o1.dispose();
     o1.assertNoMoreEvents();
@@ -109,7 +110,7 @@ import static com.google.common.truth.Truth.assertThat;
       }
     });
     instrumentation.waitForIdleSync();
-    assertThat(o2.takeNext()).isLessThan(1.0f);
+    assertTrue(o2.takeNext() < 1f);
 
     o2.dispose();
     o2.assertNoMoreEvents();

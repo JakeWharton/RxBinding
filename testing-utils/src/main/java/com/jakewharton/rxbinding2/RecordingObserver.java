@@ -1,13 +1,13 @@
 package com.jakewharton.rxbinding2;
 
 import android.util.Log;
+import io.reactivex.observers.DisposableObserver;
 import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import io.reactivex.observers.DisposableObserver;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public final class RecordingObserver<T> extends DisposableObserver<T> {
   private static final String TAG = "RecordingObserver";
@@ -40,7 +40,7 @@ public final class RecordingObserver<T> extends DisposableObserver<T> {
       throw new NoSuchElementException(
           "No event found while waiting for " + wanted.getSimpleName());
     }
-    assertThat(event).isInstanceOf(wanted);
+    assertTrue(wanted.isInstance(event));
     return wanted.cast(event);
   }
 

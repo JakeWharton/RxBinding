@@ -15,10 +15,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.RESELECTED;
 import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.SELECTED;
 import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.UNSELECTED;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
@@ -39,18 +40,18 @@ public final class RxTabLayoutTest {
   @Test @UiThreadTest public void selectionEvents() {
     RecordingObserver<TabLayoutSelectionEvent> o = new RecordingObserver<>();
     RxTabLayout.selectionEvents(view).subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, SELECTED, tab1));
+    assertEquals(TabLayoutSelectionEvent.create(view, SELECTED, tab1), o.takeNext());
 
     tab2.select();
-    assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, UNSELECTED, tab1));
-    assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, SELECTED, tab2));
+    assertEquals(TabLayoutSelectionEvent.create(view, UNSELECTED, tab1), o.takeNext());
+    assertEquals(TabLayoutSelectionEvent.create(view, SELECTED, tab2), o.takeNext());
 
     tab2.select(); // Reselection
-    assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, RESELECTED, tab2));
+    assertEquals(TabLayoutSelectionEvent.create(view, RESELECTED, tab2), o.takeNext());
 
     tab1.select();
-    assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, UNSELECTED, tab2));
-    assertThat(o.takeNext()).isEqualTo(TabLayoutSelectionEvent.create(view, SELECTED, tab1));
+    assertEquals(TabLayoutSelectionEvent.create(view, UNSELECTED, tab2), o.takeNext());
+    assertEquals(TabLayoutSelectionEvent.create(view, SELECTED, tab1), o.takeNext());
 
     o.dispose();
 
@@ -69,16 +70,16 @@ public final class RxTabLayoutTest {
   @Test @UiThreadTest public void selections() {
     RecordingObserver<TabLayout.Tab> o = new RecordingObserver<>();
     RxTabLayout.selections(view).subscribe(o);
-    assertThat(o.takeNext()).isSameAs(tab1);
+    assertSame(tab1, o.takeNext());
 
     tab2.select();
-    assertThat(o.takeNext()).isSameAs(tab2);
+    assertSame(tab2, o.takeNext());
 
     tab2.select(); // Reselection
     o.assertNoMoreEvents();
 
     tab1.select();
-    assertThat(o.takeNext()).isSameAs(tab1);
+    assertSame(tab1, o.takeNext());
 
     o.dispose();
 
@@ -96,11 +97,11 @@ public final class RxTabLayoutTest {
 
   @Test @UiThreadTest public void select() throws Exception {
     Consumer<? super Integer> action = RxTabLayout.select(view);
-    assertThat(view.getSelectedTabPosition()).isEqualTo(0);
+    assertEquals(0, view.getSelectedTabPosition());
     action.accept(1);
-    assertThat(view.getSelectedTabPosition()).isEqualTo(1);
+    assertEquals(1, view.getSelectedTabPosition());
     action.accept(0);
-    assertThat(view.getSelectedTabPosition()).isEqualTo(0);
+    assertEquals(0, view.getSelectedTabPosition());
   }
 
   @Test @UiThreadTest public void selectInvalidValueThrows() throws Exception {
@@ -109,13 +110,13 @@ public final class RxTabLayoutTest {
       action.accept(2);
       fail();
     } catch (IllegalArgumentException e) {
-      assertThat(e).hasMessage("No tab for index 2");
+      assertEquals("No tab for index 2", e.getMessage());
     }
     try {
       action.accept(-1);
       fail();
     } catch (IllegalArgumentException e) {
-      assertThat(e).hasMessage("No tab for index -1");
+      assertEquals("No tab for index -1", e.getMessage());
     }
   }
 }

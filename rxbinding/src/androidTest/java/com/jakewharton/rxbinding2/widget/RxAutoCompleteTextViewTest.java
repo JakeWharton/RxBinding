@@ -12,13 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import com.jakewharton.rxbinding.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.util.Arrays;
-import java.util.List;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -27,10 +27,11 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.google.common.truth.Truth.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.startsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxAutoCompleteTextViewTest {
@@ -71,10 +72,10 @@ public final class RxAutoCompleteTextViewTest {
         .perform(click());
 
     AdapterViewItemClickEvent event = o.takeNext();
-    assertThat(event.view()).isNotNull();
-    assertThat(event.clickedView()).isNotNull();
-    assertThat(event.position()).isEqualTo(1); // Second item in two-item filtered list.
-    assertThat(event.id()).isEqualTo(1); // Second item in two-item filtered list.
+    assertNotNull(event.view());
+    assertNotNull(event.clickedView());
+    assertEquals(1, event.position()); // Second item in two-item filtered list.
+    assertEquals(1, event.id()); // Second item in two-item filtered list.
 
     o.dispose();
 
@@ -90,11 +91,11 @@ public final class RxAutoCompleteTextViewTest {
   @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
   @Test @UiThreadTest public void completionHint() throws Exception {
     RxAutoCompleteTextView.completionHint(autoCompleteTextView).accept("Test hint");
-    assertThat(autoCompleteTextView.getCompletionHint()).isEqualTo("Test hint");
+    assertEquals("Test hint", autoCompleteTextView.getCompletionHint());
   }
 
   @Test @UiThreadTest public void threshold() throws Exception {
     RxAutoCompleteTextView.threshold(autoCompleteTextView).accept(10);
-    assertThat(autoCompleteTextView.getThreshold()).isEqualTo(10);
+    assertEquals(10, autoCompleteTextView.getThreshold());
   }
 }

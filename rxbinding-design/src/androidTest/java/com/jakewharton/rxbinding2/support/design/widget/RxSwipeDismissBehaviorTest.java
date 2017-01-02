@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSwipeDismissBehaviorTest {
@@ -44,7 +44,7 @@ public final class RxSwipeDismissBehaviorTest {
     o.assertNoMoreEvents(); // No initial value.
 
     onView(withId(1)).perform(swipeRight());
-    assertThat(o.takeNext()).isEqualTo(view);
+    assertEquals(view, o.takeNext());
 
     o.dispose();
 

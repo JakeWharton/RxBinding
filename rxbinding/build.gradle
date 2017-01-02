@@ -15,7 +15,6 @@ dependencies {
   androidTestCompile project(':testing-utils')
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules
-  androidTestCompile rootProject.ext.truth
 }
 
 android {
@@ -46,11 +45,6 @@ android {
     debug {
       testCoverageEnabled true
     }
-  }
-
-  packagingOptions {
-    exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
-    exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
   }
 }
 

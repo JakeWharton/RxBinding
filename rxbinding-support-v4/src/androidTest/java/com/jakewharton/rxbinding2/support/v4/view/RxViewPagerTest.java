@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewPagerTest {
@@ -42,9 +42,9 @@ public final class RxViewPagerTest {
     o.assertNoMoreEvents(); // No initial value.
 
     onView(withId(1)).perform(swipeLeft());
-    assertThat(o.takeNext()).isEqualTo(ViewPager.SCROLL_STATE_DRAGGING);
-    assertThat(o.takeNext()).isEqualTo(ViewPager.SCROLL_STATE_SETTLING);
-    assertThat(o.takeNext()).isEqualTo(ViewPager.SCROLL_STATE_IDLE);
+    assertEquals(ViewPager.SCROLL_STATE_DRAGGING, o.takeNext().intValue());
+    assertEquals(ViewPager.SCROLL_STATE_SETTLING, o.takeNext().intValue());
+    assertEquals(ViewPager.SCROLL_STATE_IDLE, o.takeNext().intValue());
     o.assertNoMoreEvents();
 
     o.dispose();
@@ -57,12 +57,12 @@ public final class RxViewPagerTest {
     view.setCurrentItem(0);
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxViewPager.pageSelections(view).subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(0);
+    assertEquals(0, o.takeNext().intValue());
 
     view.setCurrentItem(3);
-    assertThat(o.takeNext()).isEqualTo(3);
+    assertEquals(3, o.takeNext().intValue());
     view.setCurrentItem(5);
-    assertThat(o.takeNext()).isEqualTo(5);
+    assertEquals(5, o.takeNext().intValue());
 
     o.dispose();
 
@@ -73,9 +73,9 @@ public final class RxViewPagerTest {
   @Test @UiThreadTest public void currentItem() throws Exception {
     Consumer<? super Integer> action = RxViewPager.currentItem(view);
     action.accept(3);
-    assertThat(view.getCurrentItem()).isEqualTo(3);
+    assertEquals(3, view.getCurrentItem());
     action.accept(5);
-    assertThat(view.getCurrentItem()).isEqualTo(5);
+    assertEquals(5, view.getCurrentItem());
   }
 
   private static ViewAction swipeLeft() {

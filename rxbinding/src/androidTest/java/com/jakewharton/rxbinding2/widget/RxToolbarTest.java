@@ -9,19 +9,19 @@ import android.view.MenuItem;
 import android.widget.Toolbar;
 import com.jakewharton.rxbinding.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
-
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding2.widget.RxToolbarTestActivity.NAVIGATION_CONTENT_DESCRIPTION;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 @TargetApi(LOLLIPOP)
 @SdkSuppress(minSdkVersion = LOLLIPOP)
@@ -46,10 +46,10 @@ public final class RxToolbarTest {
     o.assertNoMoreEvents();
 
     menu.performIdentifierAction(2, 0);
-    assertThat(o.takeNext()).isSameAs(item2);
+    assertSame(item2, o.takeNext());
 
     menu.performIdentifierAction(1, 0);
-    assertThat(o.takeNext()).isSameAs(item1);
+    assertSame(item1, o.takeNext());
 
     o.dispose();
 
@@ -65,10 +65,10 @@ public final class RxToolbarTest {
     o.assertNoMoreEvents(); // No initial value.
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 
@@ -78,21 +78,21 @@ public final class RxToolbarTest {
 
   @Test @UiThreadTest public void title() throws Exception {
     RxToolbar.title(view).accept("Hey");
-    assertThat(view.getTitle().toString()).isEqualTo("Hey");
+    assertEquals("Hey", view.getTitle().toString());
   }
 
   @Test @UiThreadTest public void titleRes() throws Exception {
     RxToolbar.titleRes(view).accept(R.string.hey);
-    assertThat(view.getTitle().toString()).isEqualTo("Hey");
+    assertEquals("Hey", view.getTitle().toString());
   }
 
   @Test @UiThreadTest public void subtitle() throws Exception {
     RxToolbar.subtitle(view).accept("Hey");
-    assertThat(view.getSubtitle().toString()).isEqualTo("Hey");
+    assertEquals("Hey", view.getSubtitle().toString());
   }
 
   @Test @UiThreadTest public void subtitleRes() throws Exception {
     RxToolbar.subtitleRes(view).accept(R.string.hey);
-    assertThat(view.getSubtitle().toString()).isEqualTo("Hey");
+    assertEquals("Hey", view.getSubtitle().toString());
   }
 }

@@ -9,14 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 @RunWith(AndroidJUnit4.class) public final class RxPopupMenuTest {
   @Rule public final ActivityTestRule<RxPopupMenuTestActivity> activityRule =
@@ -40,10 +40,10 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents();
 
     menu.performIdentifierAction(2, 0);
-    assertThat(o.takeNext()).isSameAs(item2);
+    assertSame(item2, o.takeNext());
 
     menu.performIdentifierAction(1, 0);
-    assertThat(o.takeNext()).isSameAs(item1);
+    assertSame(item1, o.takeNext());
 
     o.dispose();
 
@@ -68,7 +68,7 @@ import static com.google.common.truth.Truth.assertThat;
         view.dismiss();
       }
     });
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
     instrumentation.runOnMainSync(new Runnable() {

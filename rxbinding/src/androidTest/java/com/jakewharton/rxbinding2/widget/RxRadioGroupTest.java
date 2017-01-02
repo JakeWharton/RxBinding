@@ -8,13 +8,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.functions.Consumer;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @SuppressWarnings("ResourceType") // Don't need real IDs for test case.
@@ -36,16 +36,16 @@ public final class RxRadioGroupTest {
   @Test @UiThreadTest public void checkedChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxRadioGroup.checkedChanges(view).subscribe(o);
-    assertThat(o.takeNext()).isEqualTo(-1);
+    assertEquals(-1, o.takeNext().intValue());
 
     view.check(1);
-    assertThat(o.takeNext()).isEqualTo(1);
+    assertEquals(1, o.takeNext().intValue());
 
     view.clearCheck();
-    assertThat(o.takeNext()).isEqualTo(-1);
+    assertEquals(-1, o.takeNext().intValue());
 
     view.check(2);
-    assertThat(o.takeNext()).isEqualTo(2);
+    assertEquals(2, o.takeNext().intValue());
 
     o.dispose();
 
@@ -55,12 +55,12 @@ public final class RxRadioGroupTest {
 
   @Test @UiThreadTest public void checked() throws Exception {
     Consumer<? super Integer> action = RxRadioGroup.checked(view);
-    assertThat(view.getCheckedRadioButtonId()).isEqualTo(-1);
+    assertEquals(-1, view.getCheckedRadioButtonId());
     action.accept(1);
-    assertThat(view.getCheckedRadioButtonId()).isEqualTo(1);
+    assertEquals(1, view.getCheckedRadioButtonId());
     action.accept(-1);
-    assertThat(view.getCheckedRadioButtonId()).isEqualTo(-1);
+    assertEquals(-1, view.getCheckedRadioButtonId());
     action.accept(2);
-    assertThat(view.getCheckedRadioButtonId()).isEqualTo(2);
+    assertEquals(2, view.getCheckedRadioButtonId());
   }
 }

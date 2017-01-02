@@ -17,7 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class) public final class RxBottomNavigationViewTest {
   @Rule public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
@@ -40,13 +40,13 @@ import static com.google.common.truth.Truth.assertThat;
     RxBottomNavigationView.itemSelections(view).subscribe(o);
 
     // initial value
-    assertThat(o.takeNext().getItemId()).isEqualTo(R.id.menu_item_one);
+    assertEquals(R.id.menu_item_one, o.takeNext().getItemId());
 
     menu.performIdentifierAction(R.id.menu_item_two, 0);
-    assertThat(o.takeNext().getItemId()).isEqualTo(R.id.menu_item_two);
+    assertEquals(R.id.menu_item_two, o.takeNext().getItemId());
 
     menu.performIdentifierAction(R.id.menu_item_one, 0);
-    assertThat(o.takeNext().getItemId()).isEqualTo(R.id.menu_item_one);
+    assertEquals(R.id.menu_item_one, o.takeNext().getItemId());
 
     o.dispose();
 

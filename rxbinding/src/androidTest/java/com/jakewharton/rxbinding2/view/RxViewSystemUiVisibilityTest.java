@@ -7,13 +7,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewSystemUiVisibilityTest {
@@ -41,14 +41,14 @@ public final class RxViewSystemUiVisibilityTest {
         root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    assertEquals(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(View.SYSTEM_UI_FLAG_VISIBLE);
+    assertEquals(View.SYSTEM_UI_FLAG_VISIBLE, o.takeNext().intValue());
 
     o.dispose();
 

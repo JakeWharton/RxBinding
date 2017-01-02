@@ -21,7 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxMenuItemCompatTest {
@@ -36,10 +36,10 @@ public final class RxMenuItemCompatTest {
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND));
+    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND), o.takeNext());
 
     menuItem.collapseActionView();
-    assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE));
+    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE), o.takeNext());
 
     o.dispose();
 
@@ -60,7 +60,7 @@ public final class RxMenuItemCompatTest {
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertThat(menuItem.isActionViewExpanded()).isEqualTo(false); // Should be prevented by handler
+    assertEquals(false, menuItem.isActionViewExpanded()); // Should be prevented by handler
     o.assertNoMoreEvents();
 
     o.dispose();

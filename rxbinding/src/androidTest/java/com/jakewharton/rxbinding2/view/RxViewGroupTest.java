@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewGroupTest {
@@ -28,11 +28,10 @@ public final class RxViewGroupTest {
     o.assertNoMoreEvents(); // No initial value.
 
     parent.addView(child);
-    assertThat(o.takeNext()).isEqualTo(ViewGroupHierarchyChildViewAddEvent.create(parent, child));
+    assertEquals(ViewGroupHierarchyChildViewAddEvent.create(parent, child), o.takeNext());
 
     parent.removeView(child);
-    assertThat(o.takeNext()).isEqualTo(
-        ViewGroupHierarchyChildViewRemoveEvent.create(parent, child));
+    assertEquals(ViewGroupHierarchyChildViewRemoveEvent.create(parent, child), o.takeNext());
 
     o.dispose();
 

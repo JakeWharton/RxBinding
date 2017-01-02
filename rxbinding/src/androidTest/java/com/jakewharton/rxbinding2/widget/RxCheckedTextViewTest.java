@@ -10,7 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class RxCheckedTextViewTest {
@@ -22,6 +22,6 @@ public class RxCheckedTextViewTest {
   @Test @UiThreadTest public void check() throws Exception {
     view.setChecked(false);
     RxCheckedTextView.check(view).accept(true);
-    assertThat(view.isChecked()).isEqualTo(true);
+    assertEquals(true, view.isChecked());
   }
 }

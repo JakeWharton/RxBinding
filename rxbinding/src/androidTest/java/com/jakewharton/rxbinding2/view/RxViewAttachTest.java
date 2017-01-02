@@ -6,19 +6,17 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.jakewharton.rxbinding2.RecordingObserver;
-
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
-import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.ATTACH;
 import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.DETACH;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewAttachTest {
@@ -47,7 +45,7 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
@@ -78,13 +76,13 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    assertThat(o.takeNext().kind()).isEqualTo(ATTACH);
+    assertEquals(ATTACH, o.takeNext().kind());
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
       }
     });
-    assertThat(o.takeNext().kind()).isEqualTo(DETACH);
+    assertEquals(DETACH, o.takeNext().kind());
 
     o.dispose();
 
@@ -115,7 +113,7 @@ public final class RxViewAttachTest {
         parent.removeView(child);
       }
     });
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 

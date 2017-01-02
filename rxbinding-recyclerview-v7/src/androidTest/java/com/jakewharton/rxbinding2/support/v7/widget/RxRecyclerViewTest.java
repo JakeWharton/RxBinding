@@ -22,7 +22,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxRecyclerViewTest {
@@ -63,7 +64,7 @@ public final class RxRecyclerViewTest {
         view.setAdapter(adapter);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(RecyclerViewChildAttachEvent.create(view, child));
+    assertEquals(RecyclerViewChildAttachEvent.create(view, child), o.takeNext());
 
     o.dispose();
 
@@ -96,7 +97,7 @@ public final class RxRecyclerViewTest {
         view.setAdapter(null);
       }
     });
-    assertThat(o.takeNext()).isEqualTo(RecyclerViewChildDetachEvent.create(view, child));
+    assertEquals(RecyclerViewChildDetachEvent.create(view, child), o.takeNext());
 
     o.dispose();
 
@@ -128,8 +129,8 @@ public final class RxRecyclerViewTest {
       }
     });
     RecyclerViewScrollEvent event1 = o.takeNext();
-    assertThat(event1).isNotNull();
-    assertThat(event1.dy()).isEqualTo(50);
+    assertNotNull(event1);
+    assertEquals(50, event1.dy());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -144,8 +145,8 @@ public final class RxRecyclerViewTest {
       }
     });
     RecyclerViewScrollEvent event2 = o.takeNext();
-    assertThat(event2).isNotNull();
-    assertThat(event2.dy()).isEqualTo(-50);
+    assertNotNull(event2);
+    assertEquals(-50, event2.dy());
 
     // Back at position 0. Trying to scroll earlier shouldn't fire any events
     instrumentation.runOnMainSync(new Runnable() {
@@ -186,8 +187,8 @@ public final class RxRecyclerViewTest {
       }
     });
     RecyclerViewScrollEvent event3 = o.takeNext();
-    assertThat(event3).isNotNull();
-    assertThat(event3.dx()).isEqualTo(50);
+    assertNotNull(event3);
+    assertEquals(50, event3.dx());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -202,8 +203,8 @@ public final class RxRecyclerViewTest {
       }
     });
     RecyclerViewScrollEvent event4 = o.takeNext();
-    assertThat(event4).isNotNull();
-    assertThat(event4.dx()).isEqualTo(-50);
+    assertNotNull(event4);
+    assertEquals(-50, event4.dx());
 
     // Back at position 0. Trying to scroll earlier shouldn't fire any events
     instrumentation.runOnMainSync(new Runnable() {

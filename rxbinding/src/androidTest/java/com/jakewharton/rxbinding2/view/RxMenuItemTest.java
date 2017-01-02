@@ -14,18 +14,19 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-
 import com.jakewharton.rxbinding.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
-
+import io.reactivex.functions.Predicate;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.reactivex.functions.Predicate;
-
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class) public final class RxMenuItemTest {
   @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
@@ -39,10 +40,10 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     menuItem.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 
@@ -79,10 +80,10 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND));
+    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND), o.takeNext());
 
     menuItem.collapseActionView();
-    assertThat(o.takeNext()).isEqualTo(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE));
+    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE), o.takeNext());
 
     o.dispose();
 
@@ -103,7 +104,7 @@ import static com.google.common.truth.Truth.assertThat;
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertThat(menuItem.isActionViewExpanded()).isEqualTo(false); // Should be prevented by handler
+    assertFalse(menuItem.isActionViewExpanded()); // Should be prevented by handler
     o.assertNoMoreEvents();
 
     o.dispose();
@@ -115,45 +116,47 @@ import static com.google.common.truth.Truth.assertThat;
   @Test public void checked() throws Exception {
     menuItem.setCheckable(true);
     RxMenuItem.checked(menuItem).accept(true);
-    assertThat(menuItem.isChecked()).isEqualTo(true);
+    assertTrue(menuItem.isChecked());
     RxMenuItem.checked(menuItem).accept(false);
-    assertThat(menuItem.isChecked()).isEqualTo(false);
+    assertFalse(menuItem.isChecked());
   }
 
   @Test public void enabled() throws Exception {
     RxMenuItem.enabled(menuItem).accept(true);
-    assertThat(menuItem.isEnabled()).isEqualTo(true);
+    assertTrue(menuItem.isEnabled());
     RxMenuItem.enabled(menuItem).accept(false);
-    assertThat(menuItem.isEnabled()).isEqualTo(false);
+    assertFalse(menuItem.isEnabled());
   }
 
   @Test public void icon() throws Exception {
     Drawable drawable = context.getResources().getDrawable(R.drawable.icon);
     RxMenuItem.icon(menuItem).accept(drawable);
-    assertThat(menuItem.getIcon()).isEqualTo(drawable);
+    assertSame(drawable, menuItem.getIcon());
   }
 
   @Test public void iconRes() throws Exception {
     ColorDrawable drawable = (ColorDrawable) context.getResources().getDrawable(R.drawable.icon);
     RxMenuItem.iconRes(menuItem).accept(R.drawable.icon);
-    assertThat(((ColorDrawable) menuItem.getIcon()).getColor()).isEqualTo(drawable.getColor());
+    ColorDrawable icon = (ColorDrawable) menuItem.getIcon();
+    assertEquals(drawable.getColor(), icon.getColor());
   }
 
   @Test public void title() throws Exception {
     RxMenuItem.title(menuItem).accept("Hey");
-    assertThat(menuItem.getTitle()).isEqualTo("Hey");
+    assertEquals("Hey", menuItem.getTitle());
   }
 
   @Test public void titleRes() throws Exception {
     RxMenuItem.titleRes(menuItem).accept(R.string.hey);
-    assertThat(menuItem.getTitle()).isEqualTo(context.getText(R.string.hey));
+    CharSequence expected = context.getText(R.string.hey);
+    assertEquals(expected, menuItem.getTitle());
   }
 
   @Test public void visible() throws Exception {
     RxMenuItem.visible(menuItem).accept(true);
-    assertThat(menuItem.isVisible()).isEqualTo(true);
+    assertTrue(menuItem.isVisible());
     RxMenuItem.visible(menuItem).accept(false);
-    assertThat(menuItem.isVisible()).isEqualTo(false);
+    assertFalse(menuItem.isVisible());
   }
 
   // There is no accessible default implementation of MenuItem, so we have to create one

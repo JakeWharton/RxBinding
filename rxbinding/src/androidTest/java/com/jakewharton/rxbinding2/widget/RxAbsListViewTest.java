@@ -6,13 +6,13 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ListView;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxAbsListViewTest {
@@ -35,9 +35,9 @@ public final class RxAbsListViewTest {
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     AbsListViewScrollEvent event = o.takeNext();
-    assertThat(event.totalItemCount()).isEqualTo(100);
-    assertThat(event.firstVisibleItem()).isEqualTo(0);
-    assertThat(event.scrollState()).isEqualTo(0);
+    assertEquals(100, event.totalItemCount());
+    assertEquals(0, event.firstVisibleItem());
+    assertEquals(0, event.scrollState());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
@@ -45,8 +45,8 @@ public final class RxAbsListViewTest {
       }
     });
     AbsListViewScrollEvent event1 = o.takeNext();
-    assertThat(event1.view()).isEqualTo(listView);
-    assertThat(event1.totalItemCount()).isEqualTo(100);
+    assertEquals(listView, event1.view());
+    assertEquals(100, event1.totalItemCount());
 
     o.dispose();
 

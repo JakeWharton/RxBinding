@@ -13,10 +13,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.internal.Functions;
+import io.reactivex.functions.Consumer;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.reactivex.functions.Consumer;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
@@ -26,9 +26,14 @@ import static android.view.MotionEvent.ACTION_HOVER_EXIT;
 import static android.view.MotionEvent.ACTION_HOVER_MOVE;
 import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
-import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding.MotionEventUtil.hoverMotionEventAtPosition;
 import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
@@ -44,10 +49,10 @@ public final class RxViewTest {
     o.assertNoMoreEvents(); // No initial value.
 
     view.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     view.performClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 
@@ -62,11 +67,11 @@ public final class RxViewTest {
     //
     //clock.advance(1, SECONDS);
     //view.performClick();
-    //assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view, 1000));
+    //assertEquals(ViewClickEvent.create(view, 1000), o.takeNext());
     //
     //clock.advance(1, SECONDS);
     //view.performClick();
-    //assertThat(o.takeNext()).isEqualTo(ViewClickEvent.create(view, 2000));
+    //assertEquals(ViewClickEvent.create(view, 2000), o.takeNext());
     //
     //o.dispose();
     //
@@ -83,7 +88,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnDraw();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 
@@ -101,13 +106,13 @@ public final class RxViewTest {
 
     RecordingObserver<Boolean> o = new RecordingObserver<>();
     RxView.focusChanges(view).subscribe(o);
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     view.requestFocus();
-    assertThat(o.takeNext()).isTrue();
+    assertTrue(o.takeNext());
 
     view.clearFocus();
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     o.dispose();
 
@@ -121,7 +126,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnGlobalLayout();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
     view.getViewTreeObserver().dispatchOnGlobalLayout();
@@ -136,11 +141,11 @@ public final class RxViewTest {
 
     view.dispatchGenericMotionEvent(hoverMotionEventAtPosition(view, ACTION_HOVER_ENTER, 0, 50));
     MotionEvent event1 = o.takeNext();
-    assertThat(event1.getAction()).isEqualTo(ACTION_HOVER_ENTER);
+    assertEquals(ACTION_HOVER_ENTER, event1.getAction());
 
     view.dispatchGenericMotionEvent(hoverMotionEventAtPosition(view, ACTION_HOVER_MOVE, 1, 50));
     MotionEvent event2 = o.takeNext();
-    assertThat(event2.getAction()).isEqualTo(ACTION_HOVER_MOVE);
+    assertEquals(ACTION_HOVER_MOVE, event2.getAction());
 
     o.dispose();
 
@@ -154,7 +159,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
 
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
@@ -171,9 +176,9 @@ public final class RxViewTest {
 
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
     ViewLayoutChangeEvent event1 = o.takeNext();
-    assertThat(event1.view()).isSameAs(view);
-    assertThat(event1.left()).isNotSameAs(event1.oldLeft());
-    assertThat(event1.right()).isSameAs(event1.oldRight());
+    assertSame(view, event1.view());
+    assertNotSame(event1.oldLeft(), event1.left());
+    assertSame(event1.oldRight(), event1.right());
 
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
@@ -197,10 +202,10 @@ public final class RxViewTest {
     o.assertNoMoreEvents(); // No initial value.
 
     view.performLongClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     view.performLongClick();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 
@@ -214,7 +219,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnPreDraw();
-    assertThat(o.takeNext()).isNotNull();
+    assertNotNull(o.takeNext());
 
     o.dispose();
 
@@ -231,19 +236,19 @@ public final class RxViewTest {
 
     view.scrollTo(1, 1);
     ViewScrollChangeEvent event0 = o.takeNext();
-    assertThat(event0.view()).isSameAs(view);
-    assertThat(event0.scrollX()).isEqualTo(1);
-    assertThat(event0.scrollY()).isEqualTo(1);
-    assertThat(event0.oldScrollX()).isEqualTo(0);
-    assertThat(event0.oldScrollY()).isEqualTo(0);
+    assertSame(view, event0.view());
+    assertEquals(1, event0.scrollX());
+    assertEquals(1, event0.scrollY());
+    assertEquals(0, event0.oldScrollX());
+    assertEquals(0, event0.oldScrollY());
 
     view.scrollTo(2, 2);
     ViewScrollChangeEvent event1 = o.takeNext();
-    assertThat(event1.view()).isSameAs(view);
-    assertThat(event1.scrollX()).isEqualTo(2);
-    assertThat(event1.scrollY()).isEqualTo(2);
-    assertThat(event1.oldScrollX()).isEqualTo(1);
-    assertThat(event1.oldScrollY()).isEqualTo(1);
+    assertSame(view, event1.view());
+    assertEquals(2, event1.scrollX());
+    assertEquals(2, event1.scrollY());
+    assertEquals(1, event1.oldScrollX());
+    assertEquals(1, event1.oldScrollY());
 
     o.dispose();
     view.scrollTo(3, 3);
@@ -257,11 +262,11 @@ public final class RxViewTest {
 
     view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
     MotionEvent event1 = o.takeNext();
-    assertThat(event1.getAction()).isEqualTo(ACTION_DOWN);
+    assertEquals(ACTION_DOWN, event1.getAction());
 
     view.dispatchTouchEvent(motionEventAtPosition(view, ACTION_MOVE, 1, 50));
     MotionEvent event2 = o.takeNext();
-    assertThat(event2.getAction()).isEqualTo(ACTION_MOVE);
+    assertEquals(ACTION_MOVE, event2.getAction());
 
     o.dispose();
 
@@ -276,11 +281,11 @@ public final class RxViewTest {
 
     view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_R));
     KeyEvent event1 = o.takeNext();
-    assertThat(event1.getAction()).isEqualTo(KeyEvent.ACTION_DOWN);
+    assertEquals(KeyEvent.ACTION_DOWN, event1.getAction());
 
     view.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_H));
     KeyEvent event2 = o.takeNext();
-    assertThat(event2.getKeyCode()).isEqualTo(KeyEvent.KEYCODE_H);
+    assertEquals(KeyEvent.KEYCODE_H, event2.getKeyCode());
 
     o.dispose();
 
@@ -292,63 +297,63 @@ public final class RxViewTest {
     view.setActivated(true);
     Consumer<? super Boolean> action = RxView.activated(view);
     action.accept(false);
-    assertThat(view.isActivated()).isFalse();
+    assertFalse(view.isActivated());
     action.accept(true);
-    assertThat(view.isActivated()).isTrue();
+    assertTrue(view.isActivated());
   }
 
   @Test @UiThreadTest public void clickable() throws Exception {
     view.setClickable(true);
     Consumer<? super Boolean> action = RxView.clickable(view);
     action.accept(false);
-    assertThat(view.isClickable()).isFalse();
+    assertFalse(view.isClickable());
     action.accept(true);
-    assertThat(view.isClickable()).isTrue();
+    assertTrue(view.isClickable());
   }
 
   @Test @UiThreadTest public void enabled() throws Exception {
     view.setEnabled(true);
     Consumer<? super Boolean> action = RxView.enabled(view);
     action.accept(false);
-    assertThat(view.isEnabled()).isFalse();
+    assertFalse(view.isEnabled());
     action.accept(true);
-    assertThat(view.isEnabled()).isTrue();
+    assertTrue(view.isEnabled());
   }
 
   @Test @UiThreadTest public void pressed() throws Exception {
     view.setPressed(true);
     Consumer<? super Boolean> action = RxView.pressed(view);
     action.accept(false);
-    assertThat(view.isPressed()).isFalse();
+    assertFalse(view.isPressed());
     action.accept(true);
-    assertThat(view.isPressed()).isTrue();
+    assertTrue(view.isPressed());
   }
 
   @Test @UiThreadTest public void selected() throws Exception {
     view.setSelected(true);
     Consumer<? super Boolean> action = RxView.selected(view);
     action.accept(false);
-    assertThat(view.isSelected()).isFalse();
+    assertFalse(view.isSelected());
     action.accept(true);
-    assertThat(view.isSelected()).isTrue();
+    assertTrue(view.isSelected());
   }
 
   @Test @UiThreadTest public void visibility() throws Exception {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view);
     action.accept(false);
-    assertThat(view.getVisibility()).isEqualTo(View.GONE);
+    assertEquals(View.GONE, view.getVisibility());
     action.accept(true);
-    assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
+    assertEquals(View.VISIBLE, view.getVisibility());
   }
 
   @Test @UiThreadTest public void visibilityCustomFalse() throws Exception {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view, View.INVISIBLE);
     action.accept(false);
-    assertThat(view.getVisibility()).isEqualTo(View.INVISIBLE);
+    assertEquals(View.INVISIBLE, view.getVisibility());
     action.accept(true);
-    assertThat(view.getVisibility()).isEqualTo(View.VISIBLE);
+    assertEquals(View.VISIBLE, view.getVisibility());
   }
 
   @SuppressWarnings("ResourceType") @Test @UiThreadTest public void setVisibilityCustomFalseToVisibleThrows() {
@@ -356,7 +361,7 @@ public final class RxViewTest {
       RxView.visibility(view, View.VISIBLE);
       fail();
     } catch (IllegalArgumentException e) {
-      assertThat(e).hasMessage("Setting visibility to VISIBLE when false would have no effect.");
+      assertEquals("Setting visibility to VISIBLE when false would have no effect.", e.getMessage());
     }
   }
 }

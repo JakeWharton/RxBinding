@@ -23,7 +23,8 @@ import static android.support.test.espresso.contrib.DrawerMatchers.isClosed;
 import static android.support.test.espresso.contrib.DrawerMatchers.isOpen;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.view.Gravity.RIGHT;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxDrawerLayoutTest {
@@ -52,21 +53,21 @@ public final class RxDrawerLayoutTest {
     RxDrawerLayout.drawerOpen(view, RIGHT) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         view.openDrawer(RIGHT);
       }
     });
-    assertThat(o.takeNext()).isTrue();
+    assertTrue(o.takeNext());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         view.closeDrawer(RIGHT);
       }
     });
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     o.dispose();
 

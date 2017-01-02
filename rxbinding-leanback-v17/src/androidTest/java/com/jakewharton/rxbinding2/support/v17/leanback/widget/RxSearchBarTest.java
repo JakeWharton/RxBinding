@@ -1,22 +1,20 @@
 package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
-import com.jakewharton.rxbinding2.RecordingObserver;
-
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v17.leanback.widget.SearchBar;
 import android.support.v17.leanback.widget.SearchEditText;
 import android.view.KeyEvent;
+import com.jakewharton.rxbinding2.RecordingObserver;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import static com.google.common.truth.Truth.assertThat;
 import static com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.CHANGED;
 import static com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.KEYBOARD_DISMISSED;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxSearchBarTest {
@@ -38,9 +36,9 @@ public final class RxSearchBarTest {
     o.assertNoMoreEvents();
 
     searchBar.setSearchQuery("H");
-    assertThat(o.takeNext()).isEqualTo("H");
+    assertEquals("H", o.takeNext());
     searchBar.setSearchQuery("He");
-    assertThat(o.takeNext()).isEqualTo("He");
+    assertEquals("He", o.takeNext());
 
     o.dispose();
 
@@ -50,10 +48,10 @@ public final class RxSearchBarTest {
 
   @Test @UiThreadTest public void searchQuery() throws Exception {
     RxSearchBar.searchQuery(searchBar).accept("Hey");
-    assertThat(searchEditText.getText().toString()).isEqualTo("Hey");
+    assertEquals("Hey", searchEditText.getText().toString());
 
     RxSearchBar.searchQuery(searchBar).accept("Bye");
-    assertThat(searchEditText.getText().toString()).isEqualTo("Bye");
+    assertEquals("Bye", searchEditText.getText().toString());
   }
 
   @Test @UiThreadTest public void searchQueryChangeEvents() {
@@ -63,8 +61,8 @@ public final class RxSearchBarTest {
 
     searchBar.setSearchQuery("q");
     SearchBarSearchQueryEvent event = o.takeNext();
-    assertThat(event.searchQuery()).isEqualTo("q");
-    assertThat(event.kind()).isEqualTo(CHANGED);
+    assertEquals("q", event.searchQuery());
+    assertEquals(CHANGED, event.kind());
     o.assertNoMoreEvents();
 
     o.dispose();
@@ -84,12 +82,12 @@ public final class RxSearchBarTest {
 
     // Text change event:
     SearchBarSearchQueryEvent event = o.takeNext();
-    assertThat(event.searchQuery()).isEqualTo("q");
-    assertThat(event.kind()).isEqualTo(CHANGED);
+    assertEquals("q", event.searchQuery());
+    assertEquals(CHANGED, event.kind());
     // Keyboard dismiss event:
     SearchBarSearchQueryEvent event1 = o.takeNext();
-    assertThat(event1.searchQuery()).isEqualTo("q");
-    assertThat(event1.kind()).isEqualTo(KEYBOARD_DISMISSED);
+    assertEquals("q", event1.searchQuery());
+    assertEquals(KEYBOARD_DISMISSED, event1.kind());
 
     o.dispose();
     searchEditText.onKeyPreIme(KeyEvent.KEYCODE_BACK, keyEvent);

@@ -7,16 +7,14 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
-
 import com.jakewharton.rxbinding2.RecordingObserver;
-
+import io.reactivex.functions.Consumer;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.reactivex.functions.Consumer;
-
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxCompoundButtonTest {
@@ -30,12 +28,12 @@ public final class RxCompoundButtonTest {
 
     RecordingObserver<Boolean> o = new RecordingObserver<>();
     RxCompoundButton.checkedChanges(view).subscribe(o);
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     view.setChecked(true);
-    assertThat(o.takeNext()).isTrue();
+    assertTrue(o.takeNext());
     view.setChecked(false);
-    assertThat(o.takeNext()).isFalse();
+    assertFalse(o.takeNext());
 
     o.dispose();
 
@@ -48,10 +46,10 @@ public final class RxCompoundButtonTest {
     Consumer<? super Boolean> toggle = RxCompoundButton.checked(view);
 
     toggle.accept(true);
-    assertThat(view.isChecked()).isTrue();
+    assertTrue(view.isChecked());
 
     toggle.accept(false);
-    assertThat(view.isChecked()).isFalse();
+    assertFalse(view.isChecked());
   }
 
   @Test @UiThreadTest public void toggle() throws Exception {
@@ -59,9 +57,9 @@ public final class RxCompoundButtonTest {
     Consumer<? super Object> toggle = RxCompoundButton.toggle(view);
 
     toggle.accept(null);
-    assertThat(view.isChecked()).isTrue();
+    assertTrue(view.isChecked());
 
     toggle.accept("OMG TOGGLES");
-    assertThat(view.isChecked()).isFalse();
+    assertFalse(view.isChecked());
   }
 }

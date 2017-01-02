@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.design.widget.Snackbar.Callback.DISMISS_EVENT_MANUAL;
 import static android.support.design.widget.Snackbar.LENGTH_SHORT;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class) public final class RxSnackbarTest {
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -40,7 +40,7 @@ import static com.google.common.truth.Truth.assertThat;
         view.dismiss();
       }
     });
-    assertThat(o.takeNext()).isEqualTo(DISMISS_EVENT_MANUAL);
+    assertEquals(DISMISS_EVENT_MANUAL, o.takeNext().intValue());
 
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
