@@ -48,7 +48,7 @@ open class KotlinGenTask : SourceTask() {
 
     fun resolveKotlinTypeByName(input: String): String {
       return when (input) {
-        "Object" -> "Any"
+        "Object" -> "Unit"
         "Void" -> "Unit"
         "Integer" -> "Int"
         "int", "char", "boolean", "long", "float", "short", "byte" -> input.capitalize()

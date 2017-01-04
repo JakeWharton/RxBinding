@@ -31,4 +31,4 @@ inline fun CompoundButton.checked(): Consumer<in Boolean> = RxCompoundButton.che
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun CompoundButton.toggle(): Consumer<in Any> = RxCompoundButton.toggle(this)
+inline fun CompoundButton.toggle(): Consumer<in Unit> = RxCompoundButton.toggle(this)

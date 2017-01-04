@@ -10,7 +10,7 @@ import io.reactivex.functions.Consumer
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun SwipeRefreshLayout.refreshes(): Observable<Any> = RxSwipeRefreshLayout.refreshes(this)
+inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayout.refreshes(this).map { Unit }
 
 /**
  * An action which sets whether the layout is showing the refreshing indicator.
