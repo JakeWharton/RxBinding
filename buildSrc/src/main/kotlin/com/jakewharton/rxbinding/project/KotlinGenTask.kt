@@ -85,11 +85,7 @@ open class KotlinGenTask : SourceTask() {
 
     private fun resolveKotlinWildcardType(inputType: WildcardType,
         methodAnnotations: List<AnnotationExpr>?): String {
-      var nullable = ""
-      methodAnnotations
-          ?.filter { it == GenericTypeNullableAnnotation }
-          ?.forEach { nullable = "?" }
-
+      val nullable = resolveNullableKotlinWildcardSuffix(methodAnnotations)
       return if (inputType.`super` != null) {
         "in ${resolveKotlinType(inputType.`super`)}$nullable"
       } else if (inputType.extends != null) {
@@ -97,6 +93,10 @@ open class KotlinGenTask : SourceTask() {
       } else {
         throw IllegalStateException("Wildcard with no super or extends")
       }
+    }
+
+    private fun resolveNullableKotlinWildcardSuffix(annotations: List<AnnotationExpr>?): String {
+      return annotations?.firstOrNull { it == GenericTypeNullableAnnotation }?.let { "?" } ?: ""
     }
   }
 
