@@ -23,7 +23,7 @@ inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(thi
  * *Warning:* The created observable uses [Toolbar.setNavigationOnClickListener]
  * to observe clicks. Only one observable can be used for a view at a time.
  */
-inline fun Toolbar.navigationClicks(): Observable<Any> = RxToolbar.navigationClicks(this)
+inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map { Unit }
 
 /**
  * An action which sets the title property of `view` with character sequences.

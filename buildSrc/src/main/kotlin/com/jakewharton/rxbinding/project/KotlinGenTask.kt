@@ -72,8 +72,17 @@ open class KotlinGenTask : SourceTask() {
     private fun resolveKotlinClassOrInterfaceType(
         inputType: ClassOrInterfaceType,
         methodAnnotations: List<AnnotationExpr>?): String {
-      return resolveKotlinTypeByName(inputType.name) +
-          resolveTypeArguments(inputType, methodAnnotations)
+      return if (isObservableObject(inputType)) {
+        "Observable<Unit>"
+      } else {
+        resolveKotlinTypeByName(inputType.name) +
+            resolveTypeArguments(inputType, methodAnnotations)
+      }
+    }
+
+    private fun isObservableObject(inputType: ClassOrInterfaceType): Boolean {
+      return inputType.name == "Observable" &&
+          inputType.typeArgs?.first() == ReferenceType(ClassOrInterfaceType("Object"))
     }
 
     private fun resolveTypeArguments(inputType: ClassOrInterfaceType,

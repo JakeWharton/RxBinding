@@ -9,4 +9,4 @@ import io.reactivex.Observable
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun SearchEditText.keyboardDismisses(): Observable<Any> = RxSearchEditText.keyboardDismisses(this)
+inline fun SearchEditText.keyboardDismisses(): Observable<Unit> = RxSearchEditText.keyboardDismisses(this).map { Unit }
