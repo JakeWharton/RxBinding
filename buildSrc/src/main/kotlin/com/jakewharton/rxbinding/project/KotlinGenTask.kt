@@ -46,7 +46,19 @@ open class KotlinGenTask : SourceTask() {
 
     private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))
 
-    fun resolveKotlinTypeByName(input: String): String {
+    /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
+    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
+      return when (inputType) {
+        is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
+        is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
+        is VoidType -> resolveKotlinTypeByName(inputType.toString())
+        is ClassOrInterfaceType -> resolveKotlinClassOrInterfaceType(inputType, methodAnnotations)
+        is WildcardType -> resolveKotlinWildcardType(inputType, methodAnnotations)
+        else -> throw NotImplementedException()
+      }
+    }
+
+    private fun resolveKotlinTypeByName(input: String): String {
       return when (input) {
         "Object" -> "Any"
         "Void" -> "Unit"
@@ -57,37 +69,32 @@ open class KotlinGenTask : SourceTask() {
       }
     }
 
-    /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
-    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
-      return when (inputType) {
-        is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
-        is ClassOrInterfaceType -> {
-          val baseType = resolveKotlinTypeByName(inputType.name)
-          if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
-            baseType
-          } else {
-            "$baseType<${inputType.typeArgs.map { type: Type ->
-              resolveKotlinType(type, methodAnnotations)
-            }.joinToString()}>"
-          }
-        }
-        is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
-        is VoidType -> resolveKotlinTypeByName(inputType.toString())
-        is WildcardType -> {
-          var nullable = ""
-          methodAnnotations
-              ?.filter { it == GenericTypeNullableAnnotation }
-              ?.forEach { nullable = "?" }
+    private fun resolveKotlinClassOrInterfaceType(
+        inputType: ClassOrInterfaceType,
+        methodAnnotations: List<AnnotationExpr>?): String {
+      val baseType = resolveKotlinTypeByName(inputType.name)
+      return if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
+        baseType
+      } else {
+        "$baseType<${inputType.typeArgs.map { type: Type ->
+          resolveKotlinType(type, methodAnnotations)
+        }.joinToString()}>"
+      }
+    }
 
-          return if (inputType.`super` != null) {
-            "in ${resolveKotlinType(inputType.`super`)}$nullable"
-          } else if (inputType.extends != null) {
-            "out ${resolveKotlinType(inputType.extends)}$nullable"
-          } else {
-            throw IllegalStateException("Wildcard with no super or extends")
-          }
-        }
-        else -> throw NotImplementedException()
+    private fun resolveKotlinWildcardType(inputType: WildcardType,
+        methodAnnotations: List<AnnotationExpr>?): String {
+      var nullable = ""
+      methodAnnotations
+          ?.filter { it == GenericTypeNullableAnnotation }
+          ?.forEach { nullable = "?" }
+
+      return if (inputType.`super` != null) {
+        "in ${resolveKotlinType(inputType.`super`)}$nullable"
+      } else if (inputType.extends != null) {
+        "out ${resolveKotlinType(inputType.extends)}$nullable"
+      } else {
+        throw IllegalStateException("Wildcard with no super or extends")
       }
     }
   }
