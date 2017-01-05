@@ -72,14 +72,15 @@ open class KotlinGenTask : SourceTask() {
     private fun resolveKotlinClassOrInterfaceType(
         inputType: ClassOrInterfaceType,
         methodAnnotations: List<AnnotationExpr>?): String {
-      val baseType = resolveKotlinTypeByName(inputType.name)
-      return if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
-        baseType
-      } else {
-        "$baseType<${inputType.typeArgs.map { type: Type ->
+      return resolveKotlinTypeByName(inputType.name) +
+          resolveTypeArguments(inputType, methodAnnotations)
+    }
+
+    private fun resolveTypeArguments(inputType: ClassOrInterfaceType,
+        methodAnnotations: List<AnnotationExpr>?): String {
+      return inputType.typeArgs?.map { type: Type ->
           resolveKotlinType(type, methodAnnotations)
-        }.joinToString()}>"
-      }
+        }?.joinToString(prefix = "<", postfix = ">") ?: ""
     }
 
     private fun resolveKotlinWildcardType(inputType: WildcardType,
