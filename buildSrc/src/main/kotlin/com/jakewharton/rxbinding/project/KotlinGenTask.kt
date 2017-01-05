@@ -59,32 +59,35 @@ open class KotlinGenTask : SourceTask() {
 
     /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
     fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
-      if (inputType is ReferenceType) {
-        return resolveKotlinType(inputType.type, methodAnnotations)
-      }
-      else if (inputType is ClassOrInterfaceType) {
-        val baseType = resolveKotlinTypeByName(inputType.name)
-        if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
-          return baseType
+      return when (inputType) {
+        is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
+        is ClassOrInterfaceType -> {
+          val baseType = resolveKotlinTypeByName(inputType.name)
+          if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
+            baseType
+          } else {
+            "$baseType<${inputType.typeArgs.map { type: Type ->
+              resolveKotlinType(type, methodAnnotations)
+            }.joinToString()}>"
+          }
         }
-        return "$baseType<${inputType.typeArgs.map { type: Type -> resolveKotlinType(type, methodAnnotations) }.joinToString()}>"
-      } else if (inputType is PrimitiveType || inputType is VoidType) {
-        return resolveKotlinTypeByName(inputType.toString())
-      } else if (inputType is WildcardType) {
-        var nullable = ""
-        methodAnnotations
-            ?.filter { it == GenericTypeNullableAnnotation }
-            ?.forEach { nullable = "?" }
+        is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
+        is VoidType -> resolveKotlinTypeByName(inputType.toString())
+        is WildcardType -> {
+          var nullable = ""
+          methodAnnotations
+              ?.filter { it == GenericTypeNullableAnnotation }
+              ?.forEach { nullable = "?" }
 
-        if (inputType.`super` != null) {
-          return "in ${resolveKotlinType(inputType.`super`)}$nullable"
-        } else if (inputType.extends != null) {
-          return "out ${resolveKotlinType(inputType.extends)}$nullable"
-        } else {
-          throw IllegalStateException("Wildcard with no super or extends")
+          return if (inputType.`super` != null) {
+            "in ${resolveKotlinType(inputType.`super`)}$nullable"
+          } else if (inputType.extends != null) {
+            "out ${resolveKotlinType(inputType.extends)}$nullable"
+          } else {
+            throw IllegalStateException("Wildcard with no super or extends")
+          }
         }
-      } else {
-        throw NotImplementedException()
+        else -> throw NotImplementedException()
       }
     }
   }
