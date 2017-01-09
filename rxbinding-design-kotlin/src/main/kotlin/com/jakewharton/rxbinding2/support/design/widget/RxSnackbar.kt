@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.support.design.widget
 
 import android.support.design.widget.Snackbar
+import android.view.View
 import io.reactivex.Observable
 
 /**
@@ -10,3 +11,19 @@ import io.reactivex.Observable
  * to free this reference.
  */
 inline fun Snackbar.dismisses(): Observable<Int> = RxSnackbar.dismisses(this)
+
+/**
+ * Create an observable which emits the action clicked events from `view`.
+ *
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+inline fun Snackbar.actionClicked(resId: Int): Observable<View> = RxSnackbar.actionClicked(this, resId)
+
+/**
+ * Create an observable which emits the action clicked events from `view`.
+ *
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+inline fun Snackbar.actionClicked(text: CharSequence): Observable<View> = RxSnackbar.actionClicked(this, text)
