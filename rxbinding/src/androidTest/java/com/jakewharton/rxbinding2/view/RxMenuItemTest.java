@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import com.jakewharton.rxbinding.test.R;
+import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
 import io.reactivex.functions.Predicate;
