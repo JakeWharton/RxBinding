@@ -7,7 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
-import com.jakewharton.rxbinding.test.R;
+import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
