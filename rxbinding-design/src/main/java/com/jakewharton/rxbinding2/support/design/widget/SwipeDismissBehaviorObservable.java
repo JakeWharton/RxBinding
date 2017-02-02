@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class SwipeDismissBehaviorObservable extends Observable<View> {
   private final View view;
@@ -18,7 +18,9 @@ final class SwipeDismissBehaviorObservable extends Observable<View> {
   }
 
   @Override protected void subscribeActual(Observer<? super View> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     if (!(view.getLayoutParams() instanceof LayoutParams)) {
       throw new IllegalArgumentException("The view is not in a Coordinator Layout.");
     }

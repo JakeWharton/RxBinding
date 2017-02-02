@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class NestedScrollViewScrollChangeEventObservable extends Observable<ViewScrollChangeEvent> {
   private final NestedScrollView view;
@@ -17,7 +17,9 @@ final class NestedScrollViewScrollChangeEventObservable extends Observable<ViewS
   }
 
   @Override protected void subscribeActual(Observer<? super ViewScrollChangeEvent> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnScrollChangeListener(listener);

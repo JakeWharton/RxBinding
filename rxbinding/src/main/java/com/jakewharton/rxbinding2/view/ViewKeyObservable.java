@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class ViewKeyObservable extends Observable<KeyEvent> {
   private final View view;
@@ -20,7 +20,9 @@ final class ViewKeyObservable extends Observable<KeyEvent> {
   }
 
   @Override protected void subscribeActual(Observer<? super KeyEvent> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, handled, observer);
     observer.onSubscribe(listener);
     view.setOnKeyListener(listener);

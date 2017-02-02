@@ -5,7 +5,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class SearchViewQueryTextChangesObservable extends Observable<CharSequence> {
   private final SearchView view;
@@ -15,7 +15,9 @@ final class SearchViewQueryTextChangesObservable extends Observable<CharSequence
   }
 
   @Override protected void subscribeActual(Observer<? super CharSequence> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnQueryTextListener(listener);

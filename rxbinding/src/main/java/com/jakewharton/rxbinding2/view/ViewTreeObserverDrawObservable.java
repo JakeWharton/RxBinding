@@ -9,7 +9,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 @RequiresApi(JELLY_BEAN)
 final class ViewTreeObserverDrawObservable extends Observable<Object> {
@@ -20,10 +20,13 @@ final class ViewTreeObserverDrawObservable extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(Observer<? super Object> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.getViewTreeObserver().addOnDrawListener(listener);
+    view.getViewTreeObserver()
+        .addOnDrawListener(listener);
   }
 
   static final class Listener extends MainThreadDisposable implements OnDrawListener {

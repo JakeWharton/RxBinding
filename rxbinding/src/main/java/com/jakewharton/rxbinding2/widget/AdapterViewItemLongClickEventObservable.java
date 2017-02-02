@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class AdapterViewItemLongClickEventObservable
     extends Observable<AdapterViewItemLongClickEvent> {
@@ -23,7 +23,9 @@ final class AdapterViewItemLongClickEventObservable
 
   @Override
   protected void subscribeActual(Observer<? super AdapterViewItemLongClickEvent> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer, handled);
     observer.onSubscribe(listener);
     view.setOnItemLongClickListener(listener);

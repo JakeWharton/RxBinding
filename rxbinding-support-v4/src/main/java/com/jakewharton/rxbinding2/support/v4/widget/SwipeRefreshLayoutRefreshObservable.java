@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class SwipeRefreshLayoutRefreshObservable extends Observable<Object> {
   private final SwipeRefreshLayout view;
@@ -17,7 +17,9 @@ final class SwipeRefreshLayoutRefreshObservable extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(Observer<? super Object> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnRefreshListener(listener);

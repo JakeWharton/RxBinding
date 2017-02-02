@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class ViewGroupHierarchyChangeEventObservable
     extends Observable<ViewGroupHierarchyChangeEvent> {
@@ -19,7 +19,9 @@ final class ViewGroupHierarchyChangeEventObservable
 
   @Override
   protected void subscribeActual(Observer<? super ViewGroupHierarchyChangeEvent> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(viewGroup, observer);
     observer.onSubscribe(listener);
     viewGroup.setOnHierarchyChangeListener(listener);

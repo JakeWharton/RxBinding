@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class ViewAttachesObservable extends Observable<Object> {
   private final boolean callOnAttach;
@@ -19,7 +19,9 @@ final class ViewAttachesObservable extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(final Observer<? super Object> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, callOnAttach, observer);
     observer.onSubscribe(listener);
     view.addOnAttachStateChangeListener(listener);

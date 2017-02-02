@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import java.util.concurrent.Callable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class ViewTreeObserverPreDrawObservable extends Observable<Object> {
   private final View view;
@@ -20,10 +20,13 @@ final class ViewTreeObserverPreDrawObservable extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(Observer<? super Object> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, proceedDrawingPass, observer);
     observer.onSubscribe(listener);
-    view.getViewTreeObserver().addOnPreDrawListener(listener);
+    view.getViewTreeObserver()
+        .addOnPreDrawListener(listener);
   }
 
   static final class Listener extends MainThreadDisposable implements OnPreDrawListener {

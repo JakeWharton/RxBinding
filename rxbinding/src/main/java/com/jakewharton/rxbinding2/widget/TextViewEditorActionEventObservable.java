@@ -2,14 +2,13 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.view.KeyEvent;
 import android.widget.TextView;
-
 import android.widget.TextView.OnEditorActionListener;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
 
 final class TextViewEditorActionEventObservable extends Observable<TextViewEditorActionEvent> {
   private final TextView view;
@@ -23,7 +22,9 @@ final class TextViewEditorActionEventObservable extends Observable<TextViewEdito
 
   @Override
   protected void subscribeActual(Observer<? super TextViewEditorActionEvent> observer) {
-    verifyMainThread();
+    if (isNotOnMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer, handled);
     observer.onSubscribe(listener);
     view.setOnEditorActionListener(listener);
