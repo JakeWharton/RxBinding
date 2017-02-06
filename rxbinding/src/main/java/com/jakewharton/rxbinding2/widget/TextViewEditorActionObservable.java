@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class TextViewEditorActionObservable extends Observable<Integer> {
   private final TextView view;
@@ -21,7 +21,7 @@ final class TextViewEditorActionObservable extends Observable<Integer> {
 
   @Override
   protected void subscribeActual(Observer<? super Integer> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer, handled);

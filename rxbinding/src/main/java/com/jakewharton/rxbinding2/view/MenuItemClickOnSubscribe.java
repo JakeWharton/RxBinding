@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class MenuItemClickOnSubscribe extends Observable<Object> {
   private final MenuItem menuItem;
@@ -20,7 +20,7 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(Observer<? super Object> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(menuItem, handled, observer);

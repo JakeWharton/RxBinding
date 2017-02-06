@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class SwipeDismissBehaviorObservable extends Observable<View> {
   private final View view;
@@ -18,7 +18,7 @@ final class SwipeDismissBehaviorObservable extends Observable<View> {
   }
 
   @Override protected void subscribeActual(Observer<? super View> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     if (!(view.getLayoutParams() instanceof LayoutParams)) {

@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.SELECTED;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {
@@ -18,7 +18,7 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
   }
 
   @Override protected void subscribeActual(Observer<? super TabLayoutSelectionEvent> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);

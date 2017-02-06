@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class AdapterDataChangeObservable<T extends Adapter> extends Observable<T> {
   private final T adapter;
@@ -16,7 +16,7 @@ final class AdapterDataChangeObservable<T extends Adapter> extends Observable<T>
   }
 
   @Override protected void subscribeActual(Observer<? super T> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     ObserverDisposable<T> disposableDataSetObserver = new ObserverDisposable<>(adapter, observer);

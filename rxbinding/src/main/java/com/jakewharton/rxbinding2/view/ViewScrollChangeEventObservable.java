@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static android.os.Build.VERSION_CODES.M;
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 @RequiresApi(M)
 final class ViewScrollChangeEventObservable extends Observable<ViewScrollChangeEvent> {
@@ -19,7 +19,7 @@ final class ViewScrollChangeEventObservable extends Observable<ViewScrollChangeE
   }
 
   @Override protected void subscribeActual(Observer<? super ViewScrollChangeEvent> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);

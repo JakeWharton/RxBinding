@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import java.util.concurrent.Callable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class ViewLongClickObservable extends Observable<Object> {
   private final View view;
@@ -20,7 +20,7 @@ final class ViewLongClickObservable extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(Observer<? super Object> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, handled, observer);

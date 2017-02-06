@@ -30,13 +30,13 @@ public final class Preconditions {
     return value;
   }
 
-  public static boolean isNotOnMainThread(Observer<?> observer) {
+  public static boolean checkMainThread(Observer<?> observer) {
     if (Looper.myLooper() != Looper.getMainLooper()) {
       observer.onError(new IllegalStateException(
           "Expected to be called on the main thread but was " + Thread.currentThread().getName()));
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   private Preconditions() {

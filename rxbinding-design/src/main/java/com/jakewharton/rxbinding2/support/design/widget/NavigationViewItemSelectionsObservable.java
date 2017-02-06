@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class NavigationViewItemSelectionsObservable extends Observable<MenuItem> {
   private final NavigationView view;
@@ -19,7 +19,7 @@ final class NavigationViewItemSelectionsObservable extends Observable<MenuItem> 
   }
 
   @Override protected void subscribeActual(Observer<? super MenuItem> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);

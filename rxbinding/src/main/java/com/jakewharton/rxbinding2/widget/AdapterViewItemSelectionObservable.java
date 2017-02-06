@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static android.widget.AdapterView.INVALID_POSITION;
-import static com.jakewharton.rxbinding2.internal.Preconditions.isNotOnMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class AdapterViewItemSelectionObservable extends Observable<Integer> {
   private final AdapterView<?> view;
@@ -18,7 +18,7 @@ final class AdapterViewItemSelectionObservable extends Observable<Integer> {
   }
 
   @Override protected void subscribeActual(Observer<? super Integer> observer) {
-    if (isNotOnMainThread(observer)) {
+    if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);
