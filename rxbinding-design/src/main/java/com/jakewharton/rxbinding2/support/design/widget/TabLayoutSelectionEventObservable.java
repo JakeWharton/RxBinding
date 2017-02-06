@@ -8,7 +8,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
-import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.SELECTED;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {
   private final TabLayout view;
@@ -27,7 +26,7 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
 
     int index = view.getSelectedTabPosition();
     if (index != -1) {
-      observer.onNext(TabLayoutSelectionEvent.create(view, SELECTED, view.getTabAt(index)));
+      observer.onNext(TabLayoutSelectionEvent.create(view, Kind.SELECTED, view.getTabAt(index)));
     }
   }
 
