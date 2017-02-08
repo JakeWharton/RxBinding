@@ -1,29 +1,31 @@
 package com.jakewharton.rxbinding2.support.v7.widget;
 
 import android.support.v7.widget.SearchView;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class SearchViewQueryTextChangeEventsObservable extends Observable<SearchViewQueryTextEvent> {
+final class SearchViewQueryTextChangeEventsObservable
+    extends InitialValueObservable<SearchViewQueryTextEvent> {
   private final SearchView view;
 
   SearchViewQueryTextChangeEventsObservable(SearchView view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super SearchViewQueryTextEvent> observer) {
+  @Override protected void subscribeListener(Observer<? super SearchViewQueryTextEvent> observer) {
     if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnQueryTextListener(listener);
+  }
 
-    // Emit initial value.
-    observer.onNext(SearchViewQueryTextEvent.create(view, view.getQuery(), false));
+  @Override protected SearchViewQueryTextEvent getInitialValue() {
+    return SearchViewQueryTextEvent.create(view, view.getQuery(), false);
   }
 
   final class Listener extends MainThreadDisposable implements SearchView.OnQueryTextListener {

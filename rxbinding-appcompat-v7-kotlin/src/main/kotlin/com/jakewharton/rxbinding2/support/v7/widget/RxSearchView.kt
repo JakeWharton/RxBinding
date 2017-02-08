@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.support.v7.widget
 
 import android.support.v7.widget.SearchView
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 
@@ -13,7 +14,7 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
+inline fun SearchView.queryTextChangeEvents(): InitialValueObservable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
 
 /**
  * Create an observable of character sequences for query text changes on `view`.
@@ -23,7 +24,7 @@ inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEve
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchView.queryTextChanges(this)
+inline fun SearchView.queryTextChanges(): InitialValueObservable<CharSequence> = RxSearchView.queryTextChanges(this)
 
 /**
  * An action which sets the query property of `view` with character sequences.

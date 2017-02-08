@@ -2,27 +2,25 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
-
-final class ViewFocusChangeObservable extends Observable<Boolean> {
+final class ViewFocusChangeObservable extends InitialValueObservable<Boolean> {
   private final View view;
 
   ViewFocusChangeObservable(View view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Boolean> observer) {
-    if (!checkMainThread(observer)) {
-      return;
-    }
+  @Override protected void subscribeListener(Observer<? super Boolean> observer) {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnFocusChangeListener(listener);
-    observer.onNext(view.hasFocus());
+  }
+
+  @Override protected Boolean getInitialValue() {
+    return view.hasFocus();
   }
 
   static final class Listener extends MainThreadDisposable implements OnFocusChangeListener {

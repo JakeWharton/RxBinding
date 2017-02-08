@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.SearchView;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -23,7 +24,7 @@ public final class RxSearchView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<SearchViewQueryTextEvent> queryTextChangeEvents(
+  public static InitialValueObservable<SearchViewQueryTextEvent> queryTextChangeEvents(
       @NonNull SearchView view) {
     checkNotNull(view, "view == null");
     return new SearchViewQueryTextChangeEventsObservable(view);
@@ -38,7 +39,7 @@ public final class RxSearchView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<CharSequence> queryTextChanges(@NonNull SearchView view) {
+  public static InitialValueObservable<CharSequence> queryTextChanges(@NonNull SearchView view) {
     checkNotNull(view, "view == null");
     return new SearchViewQueryTextChangesObservable(view);
   }

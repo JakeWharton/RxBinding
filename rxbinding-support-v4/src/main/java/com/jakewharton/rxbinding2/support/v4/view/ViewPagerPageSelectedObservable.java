@@ -2,27 +2,25 @@ package com.jakewharton.rxbinding2.support.v4.view;
 
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
-
-final class ViewPagerPageSelectedObservable extends Observable<Integer> {
+final class ViewPagerPageSelectedObservable extends InitialValueObservable<Integer> {
   private final ViewPager view;
 
   ViewPagerPageSelectedObservable(ViewPager view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Integer> observer) {
-    if (!checkMainThread(observer)) {
-      return;
-    }
+  @Override protected void subscribeListener(Observer<? super Integer> observer) {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addOnPageChangeListener(listener);
-    observer.onNext(view.getCurrentItem());
+  }
+
+  @Override protected Integer getInitialValue() {
+    return view.getCurrentItem();
   }
 
   static final class Listener extends MainThreadDisposable implements OnPageChangeListener {

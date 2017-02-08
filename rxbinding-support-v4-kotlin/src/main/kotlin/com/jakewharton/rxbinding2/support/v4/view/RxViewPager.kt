@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.support.v4.view
 
 import android.support.v4.view.ViewPager
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 
@@ -21,7 +22,7 @@ inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pag
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun ViewPager.pageSelections(): Observable<Int> = RxViewPager.pageSelections(this)
+inline fun ViewPager.pageSelections(): InitialValueObservable<Int> = RxViewPager.pageSelections(this)
 
 /**
  * An action which sets the current item of `view`.

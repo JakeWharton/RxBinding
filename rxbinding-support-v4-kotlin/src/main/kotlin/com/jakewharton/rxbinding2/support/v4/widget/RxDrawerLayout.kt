@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.support.v4.widget
 
 import android.support.v4.widget.DrawerLayout
-import io.reactivex.Observable
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
 
 /**
@@ -12,7 +12,7 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun DrawerLayout.drawerOpen(gravity: Int): Observable<Boolean> = RxDrawerLayout.drawerOpen(this, gravity)
+inline fun DrawerLayout.drawerOpen(gravity: Int): InitialValueObservable<Boolean> = RxDrawerLayout.drawerOpen(this, gravity)
 
 /**
  * An action which sets whether the drawer with `gravity` of `view` is open.

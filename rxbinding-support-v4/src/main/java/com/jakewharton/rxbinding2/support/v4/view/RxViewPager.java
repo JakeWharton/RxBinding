@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.support.v4.view;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -30,7 +31,8 @@ public final class RxViewPager {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull public static Observable<Integer> pageSelections(@NonNull ViewPager view) {
+  @CheckResult @NonNull
+  public static InitialValueObservable<Integer> pageSelections(@NonNull ViewPager view) {
     checkNotNull(view, "view == null");
     return new ViewPagerPageSelectedObservable(view);
   }

@@ -3,27 +3,25 @@ package com.jakewharton.rxbinding2.support.v4.widget;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.view.View;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
-
-final class SlidingPaneLayoutPaneOpenedObservable extends Observable<Boolean> {
+final class SlidingPaneLayoutPaneOpenedObservable extends InitialValueObservable<Boolean> {
   private final SlidingPaneLayout view;
 
   SlidingPaneLayoutPaneOpenedObservable(SlidingPaneLayout view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Boolean> observer) {
-    if (!checkMainThread(observer)) {
-      return;
-    }
+  @Override protected void subscribeListener(Observer<? super Boolean> observer) {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setPanelSlideListener(listener);
-    observer.onNext(view.isOpen());
+  }
+
+  @Override protected Boolean getInitialValue() {
+    return view.isOpen();
   }
 
   static final class Listener extends MainThreadDisposable implements PanelSlideListener {
