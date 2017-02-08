@@ -13,6 +13,9 @@
  */
 package com.jakewharton.rxbinding2.internal;
 
+import android.os.Looper;
+import io.reactivex.Observer;
+
 public final class Preconditions {
   public static void checkArgument(boolean assertion, String message) {
     if (!assertion) {
@@ -25,6 +28,15 @@ public final class Preconditions {
       throw new NullPointerException(message);
     }
     return value;
+  }
+
+  public static boolean checkMainThread(Observer<?> observer) {
+    if (Looper.myLooper() != Looper.getMainLooper()) {
+      observer.onError(new IllegalStateException(
+          "Expected to be called on the main thread but was " + Thread.currentThread().getName()));
+      return false;
+    }
+    return true;
   }
 
   private Preconditions() {

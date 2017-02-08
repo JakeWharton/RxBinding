@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class RatingBarRatingChangeObservable extends Observable<Float> {
   private final RatingBar view;
@@ -16,7 +16,9 @@ final class RatingBarRatingChangeObservable extends Observable<Float> {
   }
 
   @Override protected void subscribeActual(Observer<? super Float> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     view.setOnRatingBarChangeListener(listener);
     observer.onSubscribe(listener);

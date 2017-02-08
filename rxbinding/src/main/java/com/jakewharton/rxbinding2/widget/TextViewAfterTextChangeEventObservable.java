@@ -3,12 +3,11 @@ package com.jakewharton.rxbinding2.widget;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.TextView;
-
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class TextViewAfterTextChangeEventObservable
     extends Observable<TextViewAfterTextChangeEvent> {
@@ -20,7 +19,9 @@ final class TextViewAfterTextChangeEventObservable
 
   @Override
   protected void subscribeActual(Observer<? super TextViewAfterTextChangeEvent> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addTextChangedListener(listener);

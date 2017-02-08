@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {
   private final TabLayout view;
@@ -17,7 +17,9 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
   }
 
   @Override protected void subscribeActual(Observer<? super TabLayoutSelectionEvent> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addOnTabSelectedListener(listener);

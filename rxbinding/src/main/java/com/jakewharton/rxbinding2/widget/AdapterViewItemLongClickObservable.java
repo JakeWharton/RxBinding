@@ -3,12 +3,12 @@ package com.jakewharton.rxbinding2.widget;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import java.util.concurrent.Callable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
+import java.util.concurrent.Callable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class AdapterViewItemLongClickObservable extends Observable<Integer> {
   private final AdapterView<?> view;
@@ -20,7 +20,9 @@ final class AdapterViewItemLongClickObservable extends Observable<Integer> {
   }
 
   @Override protected void subscribeActual(Observer<? super Integer> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer, handled);
     observer.onSubscribe(listener);
     view.setOnItemLongClickListener(listener);

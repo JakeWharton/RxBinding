@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class ViewTreeObserverGlobalLayoutObservable extends Observable<Object> {
   private final View view;
@@ -17,10 +17,13 @@ final class ViewTreeObserverGlobalLayoutObservable extends Observable<Object> {
   }
 
   @Override protected void subscribeActual(Observer<? super Object> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+    view.getViewTreeObserver()
+        .addOnGlobalLayoutListener(listener);
   }
 
   static final class Listener extends MainThreadDisposable implements OnGlobalLayoutListener {
