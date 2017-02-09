@@ -17,9 +17,12 @@ public final class ViewScrollChangeEvent extends ViewEvent<View> {
     return new ViewScrollChangeEvent(view, scrollX, scrollY, oldScrollX, oldScrollY);
   }
 
-  private final int scrollX, scrollY, oldScrollX, oldScrollY;
+  private final int scrollX;
+  private final int scrollY;
+  private final int oldScrollX;
+  private final int oldScrollY;
 
-  protected ViewScrollChangeEvent(@NonNull View view, int scrollX, int scrollY, int oldScrollX,
+  private ViewScrollChangeEvent(@NonNull View view, int scrollX, int scrollY, int oldScrollX,
       int oldScrollY) {
     super(view);
     this.scrollX = scrollX;

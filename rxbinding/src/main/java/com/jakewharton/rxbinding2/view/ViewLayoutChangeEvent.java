@@ -19,7 +19,14 @@ public final class ViewLayoutChangeEvent extends ViewEvent<View> {
         oldLeft, oldTop, oldRight, oldBottom);
   }
 
-  private final int left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom;
+  private final int left;
+  private final int top;
+  private final int right;
+  private final int bottom;
+  private final int oldLeft;
+  private final int oldTop;
+  private final int oldRight;
+  private final int oldBottom;
 
   private ViewLayoutChangeEvent(@NonNull View view, int left, int top, int right, int bottom,
       int oldLeft, int oldTop, int oldRight, int oldBottom) {
