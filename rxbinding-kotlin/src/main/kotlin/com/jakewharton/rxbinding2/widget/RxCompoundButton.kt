@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.CompoundButton
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 
@@ -15,7 +16,7 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun CompoundButton.checkedChanges(): Observable<Boolean> = RxCompoundButton.checkedChanges(this)
+inline fun CompoundButton.checkedChanges(): InitialValueObservable<Boolean> = RxCompoundButton.checkedChanges(this)
 
 /**
  * An action which sets the checked property of `view`.

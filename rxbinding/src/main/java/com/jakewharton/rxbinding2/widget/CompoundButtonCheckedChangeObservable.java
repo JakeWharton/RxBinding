@@ -2,29 +2,30 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class CompoundButtonCheckedChangeObservable extends Observable<Boolean> {
-
+final class CompoundButtonCheckedChangeObservable extends InitialValueObservable<Boolean> {
   private final CompoundButton view;
 
   CompoundButtonCheckedChangeObservable(CompoundButton view) {
     this.view = view;
   }
 
-  @Override
-  protected void subscribeActual(Observer<? super Boolean> observer) {
+  @Override protected void subscribeListener(Observer<? super Boolean> observer) {
     if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setOnCheckedChangeListener(listener);
-    observer.onNext(view.isChecked());
+  }
+
+  @Override protected Boolean getInitialValue() {
+    return view.isChecked();
   }
 
   static final class Listener extends MainThreadDisposable implements OnCheckedChangeListener {

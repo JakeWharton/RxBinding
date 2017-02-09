@@ -5,6 +5,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
@@ -95,7 +96,7 @@ inline fun View.draws(): Observable<Any> = RxView.draws(this)
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges(this)
+inline fun View.focusChanges(): InitialValueObservable<Boolean> = RxView.focusChanges(this)
 
 /**
  * Create an observable which emits on `view` globalLayout events. The emitted value is

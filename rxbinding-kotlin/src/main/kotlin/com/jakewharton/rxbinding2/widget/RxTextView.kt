@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.TextView
+import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.internal.Functions
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
@@ -70,7 +71,7 @@ inline fun TextView.editorActionEvents(handled: Predicate<in TextViewEditorActio
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.textChanges(this)
+inline fun TextView.textChanges(): InitialValueObservable<CharSequence> = RxTextView.textChanges(this)
 
 /**
  * Create an observable of text change events for `view`.
@@ -86,7 +87,7 @@ inline fun TextView.textChanges(): Observable<CharSequence> = RxTextView.textCha
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
+inline fun TextView.textChangeEvents(): InitialValueObservable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
 
 /**
  * Create an observable of before text change events for `view`.
@@ -96,7 +97,7 @@ inline fun TextView.textChangeEvents(): Observable<TextViewTextChangeEvent> = Rx
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun TextView.beforeTextChangeEvents(): Observable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
+inline fun TextView.beforeTextChangeEvents(): InitialValueObservable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
 
 /**
  * Create an observable of after text change events for `view`.
@@ -106,7 +107,7 @@ inline fun TextView.beforeTextChangeEvents(): Observable<TextViewBeforeTextChang
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun TextView.afterTextChangeEvents(): Observable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
+inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
 
 /**
  * An action which sets the text property of `view` with character sequences.

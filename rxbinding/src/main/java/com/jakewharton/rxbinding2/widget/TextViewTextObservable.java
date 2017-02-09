@@ -3,13 +3,11 @@ package com.jakewharton.rxbinding2.widget;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.TextView;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
-
-final class TextViewTextObservable extends Observable<CharSequence> {
+final class TextViewTextObservable extends InitialValueObservable<CharSequence> {
   private final TextView view;
 
   TextViewTextObservable(TextView view) {
@@ -17,14 +15,14 @@ final class TextViewTextObservable extends Observable<CharSequence> {
   }
 
   @Override
-  protected void subscribeActual(Observer<? super CharSequence> observer) {
-    if (!checkMainThread(observer)) {
-      return;
-    }
+  protected void subscribeListener(Observer<? super CharSequence> observer) {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addTextChangedListener(listener);
-    observer.onNext(view.getText());
+  }
+
+  @Override protected CharSequence getInitialValue() {
+    return view.getText();
   }
 
   final static class Listener extends MainThreadDisposable implements TextWatcher {

@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
@@ -143,7 +144,7 @@ public final class RxView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<Boolean> focusChanges(@NonNull View view) {
+  public static InitialValueObservable<Boolean> focusChanges(@NonNull View view) {
     checkNotNull(view, "view == null");
     return new ViewFocusChangeObservable(view);
   }

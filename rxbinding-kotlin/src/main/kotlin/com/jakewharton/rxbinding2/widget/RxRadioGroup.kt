@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.RadioGroup
-import io.reactivex.Observable
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
 
 /**
@@ -12,7 +12,7 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun RadioGroup.checkedChanges(): Observable<Int> = RxRadioGroup.checkedChanges(this)
+inline fun RadioGroup.checkedChanges(): InitialValueObservable<Int> = RxRadioGroup.checkedChanges(this)
 
 /**
  * An action which sets the checked child of `view` with ID. Passing {@code -1} will clear

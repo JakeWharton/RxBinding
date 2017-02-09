@@ -4,6 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.CompoundButton;
 
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -26,7 +27,7 @@ public final class RxCompoundButton {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<Boolean> checkedChanges(@NonNull CompoundButton view) {
+  public static InitialValueObservable<Boolean> checkedChanges(@NonNull CompoundButton view) {
     checkNotNull(view, "view == null");
     return new CompoundButtonCheckedChangeObservable(view);
   }

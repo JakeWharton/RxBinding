@@ -4,6 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.internal.Functions;
 
 import io.reactivex.Observable;
@@ -102,7 +103,7 @@ public final class RxTextView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<CharSequence> textChanges(@NonNull TextView view) {
+  public static InitialValueObservable<CharSequence> textChanges(@NonNull TextView view) {
     checkNotNull(view, "view == null");
     return new TextViewTextObservable(view);
   }
@@ -122,7 +123,8 @@ public final class RxTextView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<TextViewTextChangeEvent> textChangeEvents(@NonNull TextView view) {
+  public static InitialValueObservable<TextViewTextChangeEvent> textChangeEvents(
+      @NonNull TextView view) {
     checkNotNull(view, "view == null");
     return new TextViewTextChangeEventObservable(view);
   }
@@ -136,7 +138,7 @@ public final class RxTextView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<TextViewBeforeTextChangeEvent> beforeTextChangeEvents(
+  public static InitialValueObservable<TextViewBeforeTextChangeEvent> beforeTextChangeEvents(
       @NonNull TextView view) {
     checkNotNull(view, "view == null");
     return new TextViewBeforeTextChangeEventObservable(view);
@@ -151,7 +153,7 @@ public final class RxTextView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<TextViewAfterTextChangeEvent> afterTextChangeEvents(
+  public static InitialValueObservable<TextViewAfterTextChangeEvent> afterTextChangeEvents(
       @NonNull TextView view) {
     checkNotNull(view, "view == null");
     return new TextViewAfterTextChangeEventObservable(view);

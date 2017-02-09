@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding2.support.v4.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SlidingPaneLayout;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
@@ -24,7 +25,7 @@ public final class RxSlidingPaneLayout {
    * <p>
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
-  @CheckResult @NonNull public static Observable<Boolean> panelOpens(
+  @CheckResult @NonNull public static InitialValueObservable<Boolean> panelOpens(
       @NonNull SlidingPaneLayout view) {
     checkNotNull(view, "view == null");
     return new SlidingPaneLayoutPaneOpenedObservable(view);

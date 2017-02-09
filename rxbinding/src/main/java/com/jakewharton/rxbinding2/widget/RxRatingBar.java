@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.RatingBar;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
@@ -18,7 +18,7 @@ public final class RxRatingBar {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<Float> ratingChanges(@NonNull RatingBar view) {
+  public static InitialValueObservable<Float> ratingChanges(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
     return new RatingBarRatingChangeObservable(view);
   }
@@ -32,7 +32,8 @@ public final class RxRatingBar {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static Observable<RatingBarChangeEvent> ratingChangeEvents(@NonNull RatingBar view) {
+  public static InitialValueObservable<RatingBarChangeEvent> ratingChangeEvents(
+      @NonNull RatingBar view) {
     checkNotNull(view, "view == null");
     return new RatingBarRatingChangeEventObservable(view);
   }
