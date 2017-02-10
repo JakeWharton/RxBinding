@@ -14,20 +14,17 @@
 package com.jakewharton.rxbinding2.internal;
 
 import android.os.Looper;
+import android.support.annotation.RestrictTo;
 import io.reactivex.Observer;
 
-public final class Preconditions {
-  public static void checkArgument(boolean assertion, String message) {
-    if (!assertion) {
-      throw new IllegalArgumentException(message);
-    }
-  }
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-  public static <T> T checkNotNull(T value, String message) {
+@RestrictTo(LIBRARY_GROUP)
+public final class Preconditions {
+  public static void checkNotNull(Object value, String message) {
     if (value == null) {
       throw new NullPointerException(message);
     }
-    return value;
   }
 
   public static boolean checkMainThread(Observer<?> observer) {
