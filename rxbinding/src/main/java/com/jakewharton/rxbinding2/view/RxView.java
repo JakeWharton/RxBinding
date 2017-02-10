@@ -17,7 +17,6 @@ import java.util.concurrent.Callable;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkArgument;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 import static com.jakewharton.rxbinding2.internal.Functions.CALLABLE_ALWAYS_TRUE;
 import static com.jakewharton.rxbinding2.internal.Functions.PREDICATE_ALWAYS_TRUE;
@@ -507,10 +506,13 @@ public final class RxView {
   public static Consumer<? super Boolean> visibility(@NonNull final View view,
       final int visibilityWhenFalse) {
     checkNotNull(view, "view == null");
-    checkArgument(visibilityWhenFalse != View.VISIBLE,
-        "Setting visibility to VISIBLE when false would have no effect.");
-    checkArgument(visibilityWhenFalse == View.INVISIBLE || visibilityWhenFalse == View.GONE,
-        "Must set visibility to INVISIBLE or GONE when false.");
+    if (visibilityWhenFalse == View.VISIBLE) {
+      throw new IllegalArgumentException(
+          "Setting visibility to VISIBLE when false would have no effect.");
+    }
+    if (visibilityWhenFalse != View.INVISIBLE && visibilityWhenFalse != View.GONE) {
+      throw new IllegalArgumentException("Must set visibility to INVISIBLE or GONE when false.");
+    }
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setVisibility(value ? View.VISIBLE : visibilityWhenFalse);

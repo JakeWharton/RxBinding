@@ -1,8 +1,12 @@
 package com.jakewharton.rxbinding2.internal;
 
-import java.util.concurrent.Callable;
+import android.support.annotation.RestrictTo;
 import io.reactivex.functions.Predicate;
+import java.util.concurrent.Callable;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
+@RestrictTo(LIBRARY_GROUP)
 public final class Functions {
   private static final Always ALWAYS_TRUE = new Always(true);
   public static final Callable<Boolean> CALLABLE_ALWAYS_TRUE = ALWAYS_TRUE;

@@ -15,7 +15,8 @@ public abstract class ViewEvent<T extends View> {
   private final T view;
 
   protected ViewEvent(@NonNull T view) {
-    this.view = checkNotNull(view, "view == null");
+    checkNotNull(view, "view == null");
+    this.view = view;
   }
 
   /** The view from which this event occurred. */
