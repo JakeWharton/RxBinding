@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
-import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -42,13 +41,11 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
     }
 
     @Override public boolean onMenuItemActionExpand(MenuItem item) {
-      MenuItemActionViewEvent event = MenuItemActionViewEvent.create(menuItem, Kind.EXPAND);
-      return onEvent(event);
+      return onEvent(MenuItemActionViewExpandEvent.create(item));
     }
 
     @Override public boolean onMenuItemActionCollapse(MenuItem item) {
-      MenuItemActionViewEvent event = MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE);
-      return onEvent(event);
+      return onEvent(MenuItemActionViewCollapseEvent.create(item));
     }
 
     private boolean onEvent(MenuItemActionViewEvent event) {

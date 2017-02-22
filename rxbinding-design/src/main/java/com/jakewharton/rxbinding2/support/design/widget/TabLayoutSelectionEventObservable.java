@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
-import com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -26,7 +25,7 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
 
     int index = view.getSelectedTabPosition();
     if (index != -1) {
-      observer.onNext(TabLayoutSelectionEvent.create(view, Kind.SELECTED, view.getTabAt(index)));
+      observer.onNext(TabLayoutSelectionSelectedEvent.create(view, view.getTabAt(index)));
     }
   }
 
@@ -41,19 +40,19 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
 
     @Override public void onTabSelected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionEvent.create(view, Kind.SELECTED, tab));
+        observer.onNext(TabLayoutSelectionSelectedEvent.create(view, tab));
       }
     }
 
     @Override public void onTabUnselected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionEvent.create(view, Kind.UNSELECTED, tab));
+        observer.onNext(TabLayoutSelectionUnselectedEvent.create(view, tab));
       }
     }
 
     @Override public void onTabReselected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionEvent.create(view, Kind.RESELECTED, tab));
+        observer.onNext(TabLayoutSelectionReselectedEvent.create(view, tab));
       }
     }
 

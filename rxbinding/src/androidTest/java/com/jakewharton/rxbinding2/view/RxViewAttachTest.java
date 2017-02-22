@@ -13,8 +13,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.ATTACH;
-import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.DETACH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -76,13 +74,13 @@ public final class RxViewAttachTest {
         parent.addView(child);
       }
     });
-    assertEquals(ATTACH, o.takeNext().kind());
+    assertEquals(ViewAttachAttachedEvent.create(child), o.takeNext());
     instrumentation.runOnMainSync(new Runnable() {
       @Override public void run() {
         parent.removeView(child);
       }
     });
-    assertEquals(DETACH, o.takeNext().kind());
+    assertEquals(ViewAttachDetachedEvent.create(child), o.takeNext());
 
     o.dispose();
 

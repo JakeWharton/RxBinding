@@ -14,8 +14,9 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewCollapseEvent;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
-import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewExpandEvent;
 import io.reactivex.functions.Predicate;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,10 +37,10 @@ public final class RxMenuItemCompatTest {
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND), o.takeNext());
+    assertEquals(MenuItemActionViewExpandEvent.create(menuItem), o.takeNext());
 
     menuItem.collapseActionView();
-    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE), o.takeNext());
+    assertEquals(MenuItemActionViewCollapseEvent.create(menuItem), o.takeNext());
 
     o.dispose();
 

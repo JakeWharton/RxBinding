@@ -7,8 +7,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
-import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.ATTACH;
-import static com.jakewharton.rxbinding2.view.ViewAttachEvent.Kind.DETACH;
 
 final class ViewAttachEventObservable extends Observable<ViewAttachEvent> {
   private final View view;
@@ -37,13 +35,13 @@ final class ViewAttachEventObservable extends Observable<ViewAttachEvent> {
 
     @Override public void onViewAttachedToWindow(View v) {
       if (!isDisposed()) {
-        observer.onNext(ViewAttachEvent.create(view, ATTACH));
+        observer.onNext(ViewAttachAttachedEvent.create(view));
       }
     }
 
     @Override public void onViewDetachedFromWindow(View v) {
       if (!isDisposed()) {
-        observer.onNext(ViewAttachEvent.create(view, DETACH));
+        observer.onNext(ViewAttachDetachedEvent.create(view));
       }
     }
 

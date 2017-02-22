@@ -12,8 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.CHANGED;
-import static com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind.KEYBOARD_DISMISSED;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
@@ -60,9 +58,7 @@ public final class RxSearchBarTest {
     o.assertNoMoreEvents();
 
     searchBar.setSearchQuery("q");
-    SearchBarSearchQueryEvent event = o.takeNext();
-    assertEquals("q", event.searchQuery());
-    assertEquals(CHANGED, event.kind());
+    assertEquals(SearchBarSearchQueryChangedEvent.create(searchBar, "q"), o.takeNext());
     o.assertNoMoreEvents();
 
     o.dispose();
@@ -80,14 +76,8 @@ public final class RxSearchBarTest {
     searchBar.setSearchQuery("q");
     searchEditText.onKeyPreIme(KeyEvent.KEYCODE_BACK, keyEvent);
 
-    // Text change event:
-    SearchBarSearchQueryEvent event = o.takeNext();
-    assertEquals("q", event.searchQuery());
-    assertEquals(CHANGED, event.kind());
-    // Keyboard dismiss event:
-    SearchBarSearchQueryEvent event1 = o.takeNext();
-    assertEquals("q", event1.searchQuery());
-    assertEquals(KEYBOARD_DISMISSED, event1.kind());
+    assertEquals(SearchBarSearchQueryChangedEvent.create(searchBar, "q"), o.takeNext());
+    assertEquals(SearchBarSearchQueryKeyboardDismissedEvent.create(searchBar, "q"), o.takeNext());
 
     o.dispose();
     searchEditText.onKeyPreIme(KeyEvent.KEYCODE_BACK, keyEvent);
