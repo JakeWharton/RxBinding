@@ -4,17 +4,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class ViewGroupHierarchyChangeEvent extends ViewEvent<ViewGroup> {
-  private final View child;
-
-  ViewGroupHierarchyChangeEvent(@NonNull ViewGroup view, View child) {
-    super(view);
-    this.child = child;
+public abstract class ViewGroupHierarchyChangeEvent {
+  ViewGroupHierarchyChangeEvent() {
   }
+
+  /** The view from which this event occurred. */
+  @NonNull public abstract ViewGroup view();
 
   /** The child from which this event occurred. */
-  @NonNull
-  public final View child() {
-    return child;
-  }
+  @NonNull public abstract View child();
 }

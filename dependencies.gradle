@@ -17,6 +17,9 @@ ext {
   supportDesign = "com.android.support:design:$supportVersion"
   supportLeanback = "com.android.support:leanback-v17:$supportVersion"
 
+  autoValue = 'com.google.auto.value:auto-value:1.3'
+  autoValueAnnotations = 'com.jakewharton.auto.value:auto-value-annotations:1.3'
+
   supportTestRunner = 'com.android.support.test:runner:0.5'
   supportTestRules = 'com.android.support.test:rules:0.5'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2.1'

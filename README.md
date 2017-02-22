@@ -78,8 +78,7 @@ concatenation of the view simple name, the verb (with optional adverb prefix), a
 classes are in the public API.
 
 Events for listeners with multiple methods should share an abstract base class. The naming follows
-the same rules as a normal event class but without the qualifying prefix. An inner `enum` named
-"Kind" and associated getter named "kind" should be present on the class. The constructor should
+the same rules as a normal event class but without the qualifying prefix. The constructor should
 be package-private to prevent subclasses other than those defined for the listener methods. This
 class should be in the public API.
 

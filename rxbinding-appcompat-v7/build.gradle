@@ -11,6 +11,9 @@ dependencies {
   compile project(':rxbinding')
   compile rootProject.ext.supportAppCompat
 
+  provided rootProject.ext.autoValueAnnotations
+  annotationProcessor rootProject.ext.autoValue
+
   androidTestCompile project(':testing-utils')
   androidTestCompile rootProject.ext.supportTestRunner
   androidTestCompile rootProject.ext.supportTestRules

@@ -16,7 +16,6 @@ import android.view.SubMenu;
 import android.view.View;
 import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
-import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
 import io.reactivex.functions.Predicate;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,10 +79,10 @@ import static org.junit.Assert.assertTrue;
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.EXPAND), o.takeNext());
+    assertEquals(MenuItemActionViewExpandEvent.create(menuItem), o.takeNext());
 
     menuItem.collapseActionView();
-    assertEquals(MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE), o.takeNext());
+    assertEquals(MenuItemActionViewCollapseEvent.create(menuItem), o.takeNext());
 
     o.dispose();
 
