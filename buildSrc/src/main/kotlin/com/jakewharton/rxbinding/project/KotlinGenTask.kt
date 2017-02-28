@@ -46,7 +46,19 @@ open class KotlinGenTask : SourceTask() {
 
     private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))
 
-    fun resolveKotlinTypeByName(input: String): String {
+    /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
+    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
+      return when (inputType) {
+        is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
+        is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
+        is VoidType -> resolveKotlinTypeByName(inputType.toString())
+        is ClassOrInterfaceType -> resolveKotlinClassOrInterfaceType(inputType, methodAnnotations)
+        is WildcardType -> resolveKotlinWildcardType(inputType, methodAnnotations)
+        else -> throw NotImplementedException()
+      }
+    }
+
+    private fun resolveKotlinTypeByName(input: String): String {
       return when (input) {
         "Object" -> "Any"
         "Void" -> "Unit"
@@ -57,35 +69,43 @@ open class KotlinGenTask : SourceTask() {
       }
     }
 
-    /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
-    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
-      if (inputType is ReferenceType) {
-        return resolveKotlinType(inputType.type, methodAnnotations)
-      }
-      else if (inputType is ClassOrInterfaceType) {
-        val baseType = resolveKotlinTypeByName(inputType.name)
-        if (inputType.typeArgs == null || inputType.typeArgs.isEmpty()) {
-          return baseType
-        }
-        return "$baseType<${inputType.typeArgs.map { type: Type -> resolveKotlinType(type, methodAnnotations) }.joinToString()}>"
-      } else if (inputType is PrimitiveType || inputType is VoidType) {
-        return resolveKotlinTypeByName(inputType.toString())
-      } else if (inputType is WildcardType) {
-        var nullable = ""
-        methodAnnotations
-            ?.filter { it == GenericTypeNullableAnnotation }
-            ?.forEach { nullable = "?" }
-
-        if (inputType.`super` != null) {
-          return "in ${resolveKotlinType(inputType.`super`)}$nullable"
-        } else if (inputType.extends != null) {
-          return "out ${resolveKotlinType(inputType.extends)}$nullable"
-        } else {
-          throw IllegalStateException("Wildcard with no super or extends")
-        }
+    private fun resolveKotlinClassOrInterfaceType(
+        inputType: ClassOrInterfaceType,
+        methodAnnotations: List<AnnotationExpr>?): String {
+      return if (isObservableObject(inputType)) {
+        "Observable<Unit>"
       } else {
-        throw NotImplementedException()
+        resolveKotlinTypeByName(inputType.name) +
+            resolveTypeArguments(inputType, methodAnnotations)
       }
+    }
+
+    private fun isObservableObject(inputType: ClassOrInterfaceType): Boolean {
+      return inputType.name == "Observable" &&
+          inputType.typeArgs?.first() == ReferenceType(ClassOrInterfaceType("Object"))
+    }
+
+    private fun resolveTypeArguments(inputType: ClassOrInterfaceType,
+        methodAnnotations: List<AnnotationExpr>?): String {
+      return inputType.typeArgs?.map { type: Type ->
+          resolveKotlinType(type, methodAnnotations)
+        }?.joinToString(prefix = "<", postfix = ">") ?: ""
+    }
+
+    private fun resolveKotlinWildcardType(inputType: WildcardType,
+        methodAnnotations: List<AnnotationExpr>?): String {
+      val nullable = resolveNullableKotlinWildcardSuffix(methodAnnotations)
+      return if (inputType.`super` != null) {
+        "in ${resolveKotlinType(inputType.`super`)}$nullable"
+      } else if (inputType.extends != null) {
+        "out ${resolveKotlinType(inputType.extends)}$nullable"
+      } else {
+        throw IllegalStateException("Wildcard with no super or extends")
+      }
+    }
+
+    private fun resolveNullableKotlinWildcardSuffix(annotations: List<AnnotationExpr>?): String {
+      return annotations?.firstOrNull { it == GenericTypeNullableAnnotation }?.let { "?" } ?: ""
     }
   }
 
