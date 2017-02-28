@@ -5,11 +5,11 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
-import com.jakewharton.rxbinding.internal.Functions
 import rx.Observable
 import rx.functions.Action1
 import rx.functions.Func0
 import rx.functions.Func1
+import com.jakewharton.rxbinding.internal.VoidToUnit
 
 /**
  * Create an observable which emits on `view` attach events. The emitted value is
@@ -18,7 +18,7 @@ import rx.functions.Func1
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map { Unit }
+inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map(VoidToUnit)
 
 /**
  * Create an observable of attach and detach events on `view`.
@@ -35,7 +35,7 @@ inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.attachEvent
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map { Unit }
+inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map(VoidToUnit)
 
 /**
  * Create an observable which emits on `view` click events. The emitted value is
@@ -47,7 +47,7 @@ inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map { Unit 
  * *Warning:* The created observable uses [View.setOnClickListener] to observe
  * clicks. Only one observable can be used for a view at a time.
  */
-inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map { Unit }
+inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map(VoidToUnit)
 
 /**
  * Create an observable of [DragEvent] for drags on `view`.
@@ -83,7 +83,7 @@ inline fun View.drags(handled: Func1<in DragEvent, Boolean>): Observable<DragEve
  * *Warning:* The created observable uses [ViewTreeObserver.addOnDrawListener] to
  * observe draws. Multiple observables can be used for a view at a time.
  */
-inline fun View.draws(): Observable<Unit> = RxView.draws(this).map { Unit }
+inline fun View.draws(): Observable<Unit> = RxView.draws(this).map(VoidToUnit)
 
 /**
  * Create an observable of booleans representing the focus of `view`.
@@ -109,7 +109,7 @@ inline fun View.focusChanges(): Observable<Boolean> = RxView.focusChanges(this)
  * ViewTreeObserver#addOnGlobalLayoutListener} to observe global layouts. Multiple observables
  * can be used for a view at a time.
  */
-inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map { Unit }
+inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map(VoidToUnit)
 
 /**
  * Create an observable of hover events for `view`.
@@ -155,7 +155,7 @@ inline fun View.hovers(handled: Func1<in MotionEvent, Boolean>): Observable<Moti
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).map { Unit }
+inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).map(VoidToUnit)
 
 /**
  * Create an observable of layout-change events for `view`.
@@ -175,7 +175,7 @@ inline fun View.layoutChangeEvents(): Observable<ViewLayoutChangeEvent> = RxView
  * *Warning:* The created observable uses [View.setOnLongClickListener] to observe
  * long clicks. Only one observable can be used for a view at a time.
  */
-inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map { Unit }
+inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map(VoidToUnit)
 
 /**
  * Create an observable which emits on `view` long-click events. The emitted value is
@@ -190,7 +190,7 @@ inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map { U
  * @param handled Function invoked each occurrence to determine the return value of the
  * underlying [View.OnLongClickListener].
  */
-inline fun View.longClicks(handled: Func0<Boolean>): Observable<Unit> = RxView.longClicks(this, handled).map { Unit }
+inline fun View.longClicks(handled: Func0<Boolean>): Observable<Unit> = RxView.longClicks(this, handled).map(VoidToUnit)
 
 /**
  * Create an observable for pre-draws on `view`.
@@ -201,7 +201,7 @@ inline fun View.longClicks(handled: Func0<Boolean>): Observable<Unit> = RxView.l
  * *Warning:* The created observable uses [ViewTreeObserver.addOnPreDrawListener] to
  * observe pre-draws. Multiple observables can be used for a view at a time.
  */
-inline fun View.preDraws(proceedDrawingPass: Func0<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map { Unit }
+inline fun View.preDraws(proceedDrawingPass: Func0<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map(VoidToUnit)
 
 /**
  * Create an observable of scroll-change events for `view`.

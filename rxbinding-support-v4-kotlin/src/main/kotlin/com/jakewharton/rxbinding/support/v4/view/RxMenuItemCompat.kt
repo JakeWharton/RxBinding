@@ -1,7 +1,6 @@
 package com.jakewharton.rxbinding.support.v4.view
 
 import android.view.MenuItem
-import com.jakewharton.rxbinding.internal.Functions
 import com.jakewharton.rxbinding.view.MenuItemActionViewEvent
 import rx.Observable
 import rx.functions.Func1

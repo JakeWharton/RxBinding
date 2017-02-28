@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.widget
 
 import android.widget.Adapter
 import android.widget.AdapterView
-import com.jakewharton.rxbinding.internal.Functions
 import rx.Observable
 import rx.functions.Action1
 import rx.functions.Func0

@@ -41,6 +41,7 @@ open class KotlinGenTask : SourceTask() {
         "android.support.annotation.CheckResult",
         "android.support.annotation.NonNull",
         "android.support.annotation.RequiresApi",
+        "com.jakewharton.rxbinding.internal.Functions",
         "com.jakewharton.rxbinding.internal.GenericTypeNullable"
     )
 
@@ -94,7 +95,10 @@ open class KotlinGenTask : SourceTask() {
   fun generate(inputs: IncrementalTaskInputs) {
     // Clear things out first to make sure no stragglers are left
     val outputDir = File("${project.projectDir}-kotlin${SLASH}src${SLASH}main${SLASH}kotlin")
-    outputDir.deleteDir()
+    outputDir.walkTopDown()
+        .filter { it.isFile }
+        .filterNot { it.absolutePath.contains("internal") }
+        .forEach { it.delete() }
 
     // Let's get going
     getSource().forEach { generateKotlin(it) }
@@ -175,6 +179,9 @@ open class KotlinGenTask : SourceTask() {
             writer.append("import $im\n")
           }
         }
+        methods.firstOrNull { it.emitsUnit() }?.let {
+          writer.append("import com.jakewharton.rxbinding.internal.VoidToUnit\n")
+        }
 
         methods.forEach { m ->
           writer.append("\n${m.generate(bindingClass)}\n")
@@ -194,6 +201,7 @@ open class KotlinGenTask : SourceTask() {
     private val parameters = n.parameters.subList(1, n.parameters.size)
     private val returnType = n.type
     private val typeParameters = typeParams(n.typeParameters)
+    private val kotlinType = resolveKotlinType(returnType, annotations)
 
     /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
     private fun cleanUpDoc(doc: String): String {
@@ -285,7 +293,6 @@ open class KotlinGenTask : SourceTask() {
       builder.append(if (typeParameters != null) typeParameters + " " else "")
 
       // return type
-      val kotlinType = resolveKotlinType(returnType, annotations)
       builder.append("$extendedClass.$name($fParams): $kotlinType")
 
       builder.append(" = ")
@@ -294,45 +301,13 @@ open class KotlinGenTask : SourceTask() {
       builder.append("$bindingClass.$name(${if (jParams.isNotEmpty()) "this, $jParams" else "this"})")
 
       // Void --> Unit mapping
-      if (kotlinType.equals("Observable<Unit>")) {
-        builder.append(".map { Unit }")
+      if (emitsUnit()) {
+        builder.append(".map(VoidToUnit)")
       }
 
       return builder.toString()
     }
-  }
 
-  /**
-   * Copied over from the Groovy implementation
-   */
-  fun File.deleteDir(): Boolean {
-    if (!exists()) {
-      return true
-    } else if (!isDirectory) {
-      return false
-    } else {
-      val files = listFiles()
-      if (files == null) {
-        return false
-      } else {
-        var result = true
-
-        for (file in files) {
-          if (file.isDirectory) {
-            if (!file.deleteDir()) {
-              result = false
-            }
-          } else if (!file.delete()) {
-            result = false
-          }
-        }
-
-        if (!delete()) {
-          result = false
-        }
-
-        return result
-      }
-    }
+    fun emitsUnit() = kotlinType == "Observable<Unit>"
   }
 }

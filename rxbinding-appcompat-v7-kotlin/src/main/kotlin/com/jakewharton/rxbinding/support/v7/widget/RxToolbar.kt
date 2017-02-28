@@ -4,6 +4,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import rx.Observable
 import rx.functions.Action1
+import com.jakewharton.rxbinding.internal.VoidToUnit
 
 /**
  * Create an observable which emits the clicked item in `view`'s menu.
@@ -23,7 +24,7 @@ inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(thi
  * *Warning:* The created observable uses [Toolbar.setNavigationOnClickListener]
  * to observe clicks. Only one observable can be used for a view at a time.
  */
-inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map { Unit }
+inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(VoidToUnit)
 
 /**
  * An action which sets the title property of `view` with character sequences.

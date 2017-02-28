@@ -10,6 +10,7 @@ apply plugin: 'kotlin-android'
 
 dependencies {
   compile project(':rxbinding-appcompat-v7')
+  compile project(':rxbinding-kotlin')
   compile rootProject.ext.kotlinStdlib
 }
 
