@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding2.widget
 
 import android.widget.TextView
 import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.internal.Functions
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate

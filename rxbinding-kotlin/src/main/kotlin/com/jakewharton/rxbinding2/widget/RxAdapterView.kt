@@ -3,7 +3,6 @@ package com.jakewharton.rxbinding2.widget
 import android.widget.Adapter
 import android.widget.AdapterView
 import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.internal.Functions
 import java.util.concurrent.Callable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
