@@ -10,32 +10,32 @@ Download
 
 Platform bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
 ```
 
 'support-v4' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
+compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.1'
 ```
 
 'appcompat-v7' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
+compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.1'
 ```
 
 'design' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.0'
+compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.1'
 ```
 
 'recyclerview-v7' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
+compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.1'
 ```
 
 'leanback-v17' library bindings:
 ```groovy
-compile 'com.jakewharton.rxbinding:rxbinding-leanback-v17:1.0.0'
+compile 'com.jakewharton.rxbinding:rxbinding-leanback-v17:1.0.1'
 ```
 
 Kotlin extension methods for all of the above libraries are available by appending `-kotlin` to the
