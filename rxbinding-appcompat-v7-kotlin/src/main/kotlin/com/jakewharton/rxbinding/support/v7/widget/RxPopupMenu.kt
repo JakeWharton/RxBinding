@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding.support.v7.widget
 import android.support.v7.widget.PopupMenu
 import android.view.MenuItem
 import rx.Observable
+import com.jakewharton.rxbinding.internal.VoidToUnit
 
 /**
  * Create an observable which emits the clicked item in `view`'s menu.
@@ -25,4 +26,4 @@ inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks
  * *Warning:* The created observable uses [PopupMenu.setOnDismissListener] to
  * observe dismiss change. Only one observable can be used for a view at a time.
  */
-inline fun PopupMenu.dismisses(): Observable<Unit> = RxPopupMenu.dismisses(this).map { Unit }
+inline fun PopupMenu.dismisses(): Observable<Unit> = RxPopupMenu.dismisses(this).map(VoidToUnit)
