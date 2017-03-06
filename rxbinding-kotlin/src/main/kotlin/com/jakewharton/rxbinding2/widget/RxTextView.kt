@@ -104,7 +104,8 @@ inline fun TextView.beforeTextChangeEvents(): InitialValueObservable<TextViewBef
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
- * *Note:* A value will be emitted immediately on subscribe.
+ * *Note:* A value will be emitted immediately on subscribe using
+ * {@link TextView#getEditableText()}.
  */
 inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
 

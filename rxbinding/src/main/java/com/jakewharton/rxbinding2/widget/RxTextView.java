@@ -150,7 +150,8 @@ public final class RxTextView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    * <p>
-   * <em>Note:</em> A value will be emitted immediately on subscribe.
+   * <em>Note:</em> A value will be emitted immediately on subscribe using
+   * {@link TextView#getEditableText()}.
    */
   @CheckResult @NonNull
   public static InitialValueObservable<TextViewAfterTextChangeEvent> afterTextChangeEvents(
