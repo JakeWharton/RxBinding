@@ -42,6 +42,8 @@ subprojects {
       }
     }
   }
+
+  test.testLogging.events 'passed', 'skipped', 'failed'
 }
 
 apply from: rootProject.file('dependencies.gradle')
