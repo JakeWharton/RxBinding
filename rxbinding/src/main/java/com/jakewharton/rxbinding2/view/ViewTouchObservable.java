@@ -43,10 +43,8 @@ final class ViewTouchObservable extends Observable<MotionEvent> {
     @Override public boolean onTouch(View v, MotionEvent event) {
       if (!isDisposed()) {
         try {
-          if (handled.test(event)) {
-            observer.onNext(event);
-            return true;
-          }
+          observer.onNext(event);
+          return handled.test(event);
         } catch (Exception e) {
           observer.onError(e);
           dispose();
