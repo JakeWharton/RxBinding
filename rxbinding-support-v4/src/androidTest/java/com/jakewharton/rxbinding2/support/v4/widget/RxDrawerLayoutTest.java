@@ -33,7 +33,7 @@ public final class RxDrawerLayoutTest {
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private DrawerLayout view;
+  DrawerLayout view;
   private ViewDirtyIdlingResource viewDirtyIdler;
 
   @Before public void setUp() {

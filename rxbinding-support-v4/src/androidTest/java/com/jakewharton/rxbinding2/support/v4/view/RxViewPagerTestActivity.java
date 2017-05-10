@@ -23,6 +23,8 @@ public final class RxViewPagerTestActivity extends Activity {
   }
 
   private static class Adapter extends PagerAdapter {
+    Adapter() {
+    }
 
     @Override public int getCount() {
       return 20;
