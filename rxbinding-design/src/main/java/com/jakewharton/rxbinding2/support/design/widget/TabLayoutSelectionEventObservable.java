@@ -9,7 +9,7 @@ import io.reactivex.android.MainThreadDisposable;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {
-  private final TabLayout view;
+  final TabLayout view;
 
   TabLayoutSelectionEventObservable(TabLayout view) {
     this.view = view;

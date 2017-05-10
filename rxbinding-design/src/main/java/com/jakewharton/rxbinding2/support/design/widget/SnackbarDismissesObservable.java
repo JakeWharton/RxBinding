@@ -26,7 +26,7 @@ final class SnackbarDismissesObservable extends Observable<Integer> {
 
   final class Listener extends MainThreadDisposable {
     private final Snackbar snackbar;
-    private final Callback callback;
+    final Callback callback;
 
     Listener(Snackbar snackbar, final Observer<? super Integer> observer) {
       this.snackbar = snackbar;
