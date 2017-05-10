@@ -21,7 +21,7 @@ final class SnackbarDismissesObservable extends Observable<Integer> {
     }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.setCallback(listener.callback);
+    view.addCallback(listener.callback);
   }
 
   final class Listener extends MainThreadDisposable {
@@ -40,7 +40,7 @@ final class SnackbarDismissesObservable extends Observable<Integer> {
     }
 
     @Override protected void onDispose() {
-      snackbar.setCallback(null);
+      snackbar.removeCallback(callback);
     }
   }
 }
