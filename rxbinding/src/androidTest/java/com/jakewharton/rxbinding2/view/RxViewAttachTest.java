@@ -22,8 +22,8 @@ public final class RxViewAttachTest {
       new ActivityTestRule<>(RxViewAttachTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-  private FrameLayout parent;
-  private View child;
+  FrameLayout parent;
+  View child;
 
   @Before public void setUp() {
     RxViewAttachTestActivity activity = activityRule.getActivity();

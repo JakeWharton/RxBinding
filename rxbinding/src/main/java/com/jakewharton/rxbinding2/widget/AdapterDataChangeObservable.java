@@ -30,7 +30,7 @@ final class AdapterDataChangeObservable<T extends Adapter> extends InitialValueO
 
   static final class ObserverDisposable<T extends Adapter> extends MainThreadDisposable {
     private final T adapter;
-    private final DataSetObserver dataSetObserver;
+    final DataSetObserver dataSetObserver;
 
     ObserverDisposable(final T adapter, final Observer<? super T> observer) {
       this.adapter = adapter;

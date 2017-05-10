@@ -25,7 +25,7 @@ public final class RxSeekBarTest {
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private SeekBar seekBar;
+  SeekBar seekBar;
 
   @Before public void setUp() {
     seekBar = activityRule.getActivity().seekBar;

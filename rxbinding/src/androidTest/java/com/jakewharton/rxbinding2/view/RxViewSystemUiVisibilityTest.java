@@ -21,7 +21,7 @@ public final class RxViewSystemUiVisibilityTest {
       new ActivityTestRule<>(RxViewSystemUiVisibilityTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-  private FrameLayout root;
+  FrameLayout root;
 
   @Before public void setUp() {
     RxViewSystemUiVisibilityTestActivity activity = activityRule.getActivity();

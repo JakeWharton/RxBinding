@@ -29,7 +29,7 @@ public final class RxAbsListViewTestActivity extends Activity {
   }
 
   private static List<String> createValues(int count) {
-    final List<String> values = new ArrayList<String>(count);
+    final List<String> values = new ArrayList<>(count);
     for (int i = 0; i < count; i++) {
       values.add(String.valueOf(i));
     }
