@@ -36,6 +36,9 @@ public final class RxRecyclerViewAdapterTest {
   }
 
   private static final class TestRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
+    TestRecyclerAdapter() {
+    }
+
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
       return null;
     }

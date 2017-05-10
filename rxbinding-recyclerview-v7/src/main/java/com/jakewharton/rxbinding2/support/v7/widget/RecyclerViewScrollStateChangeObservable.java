@@ -25,7 +25,7 @@ final class RecyclerViewScrollStateChangeObservable extends Observable<Integer> 
 
   final class Listener extends MainThreadDisposable {
     private final RecyclerView recyclerView;
-    private final RecyclerView.OnScrollListener scrollListener;
+    final RecyclerView.OnScrollListener scrollListener;
 
     Listener(RecyclerView recyclerView, final Observer<? super Integer> observer) {
       this.recyclerView = recyclerView;

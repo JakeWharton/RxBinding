@@ -32,7 +32,7 @@ final class RecyclerAdapterDataChangeObservable<T extends Adapter<? extends View
 
   final class Listener extends MainThreadDisposable {
     private final T recyclerAdapter;
-    private final AdapterDataObserver dataObserver;
+    final AdapterDataObserver dataObserver;
 
     Listener(final T recyclerAdapter, final Observer<? super T> observer) {
       this.recyclerAdapter = recyclerAdapter;
