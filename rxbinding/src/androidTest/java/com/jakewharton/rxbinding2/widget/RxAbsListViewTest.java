@@ -22,7 +22,7 @@ public final class RxAbsListViewTest {
   private Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private RxAbsListViewTestActivity activity;
-  private ListView listView;
+  ListView listView;
 
   @Before public void setUp() {
     activity = activityRule.getActivity();

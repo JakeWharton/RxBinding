@@ -36,6 +36,9 @@ public final class RxAdapterTest {
   }
 
   private static final class TestAdapter extends BaseAdapter {
+    TestAdapter() {
+    }
+
     @Override public int getCount() {
       return 0;
     }

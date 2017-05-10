@@ -41,7 +41,7 @@ public final class RxAutoCompleteTextViewTest {
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private RxAutoCompleteTextViewTestActivity activity;
-  private AutoCompleteTextView autoCompleteTextView;
+  AutoCompleteTextView autoCompleteTextView;
 
   @Before public void setUp() {
     activity = activityRule.getActivity();

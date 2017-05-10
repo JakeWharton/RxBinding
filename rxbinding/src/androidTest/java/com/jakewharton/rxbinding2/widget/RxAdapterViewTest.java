@@ -26,9 +26,9 @@ public final class RxAdapterViewTest {
 
   private Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private RxAdapterViewTestActivity activity;
-  private Spinner spinner;
-  private ListView listView;
+  RxAdapterViewTestActivity activity;
+  Spinner spinner;
+  ListView listView;
 
   @Before public void setUp() {
     activity = activityRule.getActivity();
