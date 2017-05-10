@@ -9,7 +9,7 @@ import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class SearchViewQueryTextChangeEventsObservable
     extends InitialValueObservable<SearchViewQueryTextEvent> {
-  private final SearchView view;
+  final SearchView view;
 
   SearchViewQueryTextChangeEventsObservable(SearchView view) {
     this.view = view;
