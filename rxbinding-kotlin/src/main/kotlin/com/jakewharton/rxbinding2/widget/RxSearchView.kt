@@ -32,6 +32,6 @@ inline fun SearchView.queryTextChanges(): InitialValueObservable<CharSequence> =
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
- * @param submit weather to submit query right after updating query text
+ * @param submit whether to submit query right after updating query text
  */
 inline fun SearchView.query(submit: Boolean): Consumer<in CharSequence> = RxSearchView.query(this, submit)
