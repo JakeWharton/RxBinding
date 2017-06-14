@@ -1,13 +1,13 @@
 package com.jakewharton.rxbinding2.support.v7.widget;
 
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
+
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.AdapterDataObserver;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
-
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class RecyclerAdapterDataChangeObservable<T extends Adapter<? extends ViewHolder>>
     extends InitialValueObservable<T> {
@@ -37,7 +37,31 @@ final class RecyclerAdapterDataChangeObservable<T extends Adapter<? extends View
     Listener(final T recyclerAdapter, final Observer<? super T> observer) {
       this.recyclerAdapter = recyclerAdapter;
       this.dataObserver = new AdapterDataObserver() {
+        @Override public void onItemRangeChanged(int positionStart, int itemCount) {
+          notifyObserver();
+        }
+
+        @Override public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+          notifyObserver();
+        }
+
+        @Override public void onItemRangeInserted(int positionStart, int itemCount) {
+          notifyObserver();
+        }
+
+        @Override public void onItemRangeRemoved(int positionStart, int itemCount) {
+          notifyObserver();
+        }
+
+        @Override public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+          notifyObserver();
+        }
+
         @Override public void onChanged() {
+          notifyObserver();
+        }
+
+        private void notifyObserver(){
           if (!isDisposed()) {
             observer.onNext(recyclerAdapter);
           }
