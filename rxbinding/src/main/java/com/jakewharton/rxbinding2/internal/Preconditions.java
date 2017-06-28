@@ -16,6 +16,7 @@ package com.jakewharton.rxbinding2.internal;
 import android.os.Looper;
 import android.support.annotation.RestrictTo;
 import io.reactivex.Observer;
+import io.reactivex.disposables.Disposables;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
@@ -29,6 +30,7 @@ public final class Preconditions {
 
   public static boolean checkMainThread(Observer<?> observer) {
     if (Looper.myLooper() != Looper.getMainLooper()) {
+      observer.onSubscribe(Disposables.empty());
       observer.onError(new IllegalStateException(
           "Expected to be called on the main thread but was " + Thread.currentThread().getName()));
       return false;
