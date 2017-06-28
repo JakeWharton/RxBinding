@@ -17,7 +17,7 @@ public final class RxRecyclerViewAdapter {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static <T extends Adapter<? extends ViewHolder>> InitialValueObservable<T> dataChanges(
+  public static <T extends Adapter<? extends ViewHolder>> InitialValueObservable<RecyclerAdapterDataEvent<T>> dataChanges(
       @NonNull T adapter) {
     checkNotNull(adapter, "adapter == null");
     return new RecyclerAdapterDataChangeObservable<>(adapter);
