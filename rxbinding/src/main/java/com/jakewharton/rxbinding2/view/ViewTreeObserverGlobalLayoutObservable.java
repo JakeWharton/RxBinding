@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding2.view;
 
+import android.os.Build;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import com.jakewharton.rxbinding2.internal.Notification;
@@ -42,8 +43,11 @@ final class ViewTreeObserverGlobalLayoutObservable extends Observable<Object> {
     }
 
     @Override protected void onDispose() {
-      //noinspection deprecation Change when minSdkVersion = 16
-      view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+      if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+      } else {
+        view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+      }
     }
   }
 }
