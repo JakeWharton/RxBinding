@@ -32,7 +32,7 @@ final class SearchViewQueryTextChangesObservable extends InitialValueObservable<
     private final SearchView view;
     private final Observer<? super CharSequence> observer;
 
-    public Listener(SearchView view, Observer<? super CharSequence> observer) {
+    Listener(SearchView view, Observer<? super CharSequence> observer) {
       this.view = view;
       this.observer = observer;
     }
