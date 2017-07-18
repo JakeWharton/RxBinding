@@ -2,17 +2,18 @@ language: android
 
 android:
   components:
+    # Update tools and then platform-tools explicitly so lint gets an updated database. Can be removed once 3.0 is out.
     - tools
     - platform-tools
-    - build-tools-25.0.1
-    - android-25
-    - extra-android-m2repository
     - sys-img-armeabi-v7a-android-18
 
 jdk:
   - oraclejdk8
 
 before_script:
+  # Install SDK license so Android Gradle plugin can install deps.
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
   # Kotlin binding staleness check.
   - ./gradlew generateKotlin
   - if [ ! -z "$(git status --porcelain)" ]; then echo "Bindings changed. Did you run 'generateKotlin'?"; exit 1; fi
