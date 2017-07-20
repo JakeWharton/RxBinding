@@ -1,17 +1,19 @@
 RxBinding
 =========
 
-RxJava binding APIs for Android UI widgets from the platform and support libraries.
+One aim of `RxJava` is to replace nested callbacks with declarative transformations. RxBinding assists in this effort by providing `RxJava` binding APIs for Android UI widgets from both the platform and support libraries. This will allow you to translate Android User Interface (UI) events into streams.
 
 
-
-Download
+Setup
 --------
 
 Platform bindings:
 ```groovy
 compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 ```
+
+
+Depending on the support libraries that you are using, you will need to include one or more of the following dependencies:
 
 'support-v4' library bindings:
 ```groovy
@@ -46,7 +48,7 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 
 
 
-Development
+How to Use
 -----------
 
 The bindings for Android's platform types are in `rxbinding/`.
@@ -115,6 +117,63 @@ the bindings automatically from the methods in each respective binding modules. 
 be checked in when changed.
 
 
+
+Example
+-----------
+
+When you typically handle text change events from an `EditText` field you will need to supply a `TextWatcher` in order to listen to those events.
+
+```java
+EditText editText = (EditText) findViewById(R.id.editText);
+editText.addTextChangedListener(new TextWatcher() {
+   @Override
+   public void beforeTextChanged(CharSequence text, int i, int i1, int i2) {
+   
+   }
+   
+   @Override
+   public void onTextChanged(CharSequence text, int i, int i1, int i2) {
+      // your work here
+   }
+   
+   @Override
+   public void afterTextChanged(Editable s) {
+   
+   }
+});
+```
+
+To do the same thing using `RxBinding` with `Observable` support, you would instead do the following:
+
+```java
+EditText editText = (EditText) findViewById(R.id.editText);
+RxTextView.textChanges(editText)
+          .subscribe(new Consumer<CharSequence>()
+          {
+              @Override
+              public void accept (CharSequence text) throws Exception
+              {
+                  // your work here
+              }
+          });
+```
+
+This is powerful as you can now take advantage of additional `RxJava` operators to meet the needs of your application. For instance, you can use `skip()` to suppress a certain number of emmissions. Or use the `debounce()` operator to filter out items emitted by the source `Observable` that are rapidly followed by another emitted item.
+
+```java
+EditText editText = (EditText) findViewById(R.id.editText);
+RxTextView.textChanges(editText)
+          .skip(1)
+          .debounce(400, TimeUnit.MILLISECONDS)
+          .subscribe(new Consumer<CharSequence>()
+          {
+              @Override
+              public void accept (CharSequence text) throws Exception
+              {
+                  // your work here
+              }
+          });
+```
 
 License
 -------
