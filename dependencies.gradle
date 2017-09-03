@@ -6,8 +6,8 @@ ext {
 
   ci = 'true'.equals(System.getenv('CI'))
 
-  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.4'
-  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.0.4'
+  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-3'
+  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.1.4-3'
   kotlinPoet = 'com.squareup:kotlinpoet:0.4.0'
 
   supportVersion = '25.1.1'
