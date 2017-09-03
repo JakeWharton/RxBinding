@@ -1,10 +1,17 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.view.MenuItem
 import android.widget.Toolbar
+import com.jakewharton.rxbinding2.internal.VoidToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import kotlin.Int
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable which emits the clicked item in `view`'s menu.

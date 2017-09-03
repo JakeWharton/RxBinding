@@ -1,8 +1,12 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.design.widget
 
-import android.support.design.widget.SwipeDismissBehavior
 import android.view.View
 import io.reactivex.Observable
+import kotlin.Suppress
 
 /**
  * Create an observable which emits the dismiss events from `view` on

@@ -1,16 +1,22 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.view
 
 import android.view.DragEvent
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewTreeObserver
 import com.jakewharton.rxbinding2.InitialValueObservable
+import com.jakewharton.rxbinding2.internal.VoidToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
 import java.util.concurrent.Callable
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import kotlin.Int
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable which emits on `view` attach events. The emitted value is

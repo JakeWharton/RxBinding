@@ -1,12 +1,18 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.Adapter
 import android.widget.AdapterView
 import com.jakewharton.rxbinding2.InitialValueObservable
-import java.util.concurrent.Callable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
+import java.util.concurrent.Callable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of the selected position of `view`. If nothing is selected,

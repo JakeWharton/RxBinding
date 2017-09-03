@@ -1,3 +1,7 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.TextView
@@ -5,6 +9,8 @@ import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of editor actions on `view`.

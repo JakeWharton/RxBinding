@@ -6,8 +6,9 @@ ext {
 
   ci = 'true'.equals(System.getenv('CI'))
 
-  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.4'
-  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.0.4'
+  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-3'
+  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.1.4-3'
+  kotlinPoet = 'com.squareup:kotlinpoet:0.4.0'
 
   supportVersion = '25.1.1'
   supportAnnotations = "com.android.support:support-annotations:$supportVersion"
@@ -28,7 +29,7 @@ ext {
   rxAndroid = 'io.reactivex.rxjava2:rxandroid:2.0.0'
   junit = 'junit:junit:4.12'
 
-  javaParser = 'com.github.javaparser:javaparser-core:2.1.0'
+  javaParser = 'com.github.javaparser:javaparser-core:2.5.1'
 }
 
 subprojects { project ->

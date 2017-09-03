@@ -1,9 +1,14 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.CompoundButton
 import com.jakewharton.rxbinding2.InitialValueObservable
-import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Any
+import kotlin.Suppress
 
 /**
  * Create an observable of booleans representing the checked state of `view`.

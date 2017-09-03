@@ -1,8 +1,12 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.Adapter
 import com.jakewharton.rxbinding2.InitialValueObservable
-import io.reactivex.Observable
+import kotlin.Suppress
 
 /**
  * Create an observable of data change events for `adapter`.

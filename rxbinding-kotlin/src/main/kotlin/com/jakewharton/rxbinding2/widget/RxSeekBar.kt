@@ -1,7 +1,13 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.SeekBar
 import com.jakewharton.rxbinding2.InitialValueObservable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of progress value changes on `view`.

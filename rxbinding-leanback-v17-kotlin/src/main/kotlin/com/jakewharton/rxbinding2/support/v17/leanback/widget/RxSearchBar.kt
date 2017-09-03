@@ -1,8 +1,13 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.v17.leanback.widget
 
 import android.support.v17.leanback.widget.SearchBar
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * Create an observable of {@linkplain SearchBarSearchQueryEvent search query events} on {@code
@@ -10,7 +15,6 @@ import io.reactivex.functions.Consumer
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- *
  */
 inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryEvent> = RxSearchBar.searchQueryChangeEvents(this)
 
@@ -19,7 +23,6 @@ inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryE
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- *
  */
 inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.searchQueryChanges(this)
 
