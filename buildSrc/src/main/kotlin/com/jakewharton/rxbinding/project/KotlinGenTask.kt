@@ -21,6 +21,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.KModifier.INLINE
+import com.squareup.kotlinpoet.KotlinFile
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.TypeName
@@ -45,19 +46,6 @@ open class KotlinGenTask : SourceTask() {
     private val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
 
     private val SLASH = File.separator
-
-    /**
-     * These are imports of classes that Kotlin advises against using and are replaced in
-     * {@link #resolveKotlinTypeByName}
-     */
-    private val IGNORED_IMPORTS = listOf(
-        "java.util.List",
-        "android.support.annotation.CheckResult",
-        "android.support.annotation.NonNull",
-        "android.support.annotation.RequiresApi",
-        "com.jakewharton.rxbinding2.internal.Functions",
-        "com.jakewharton.rxbinding2.internal.GenericTypeNullable"
-    )
 
     private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(
         NameExpr("GenericTypeNullable"))
@@ -220,22 +208,18 @@ open class KotlinGenTask : SourceTask() {
           .let { File(it) }
           .also { Files.createDirectories(it.toPath()) }
 
-      File(finalDir, fileName).bufferedWriter().use { writer ->
-        writer.append("package $packageName\n\n")
-
-        imports.forEach { im ->
-          if (!IGNORED_IMPORTS.contains(im)) {
-            writer.append("import $im\n")
+      KotlinFile.builder(packageName, fileName)
+          .apply {
+            methods.firstOrNull { it.emitsUnit() }?.let {
+              addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
+            }
+            methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
+                .forEach { addFun(it) }
           }
-        }
-        methods.firstOrNull { it.emitsUnit() }?.let {
-          writer.append("import com.jakewharton.rxbinding2.internal.VoidToUnit\n")
-        }
+          .skipJavaLangImports(true)
+          .build()
+          .writeTo(finalDir)
 
-        methods.forEach { m ->
-          writer.append("\n${m.generate(bindingClass)}\n")
-        }
-      }
     }
   }
 
