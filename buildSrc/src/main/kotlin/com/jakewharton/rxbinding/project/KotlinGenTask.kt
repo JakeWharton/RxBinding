@@ -297,7 +297,7 @@ open class KotlinGenTask : SourceTask() {
      *
      * @param bindingClass name of the RxBinding class this is tied to
      */
-    fun generate(bindingClass: String): String {
+    fun generate(bindingClass: TypeName): FunSpec {
       ///////////////
       // STRUCTURE //
       ///////////////
@@ -306,33 +306,27 @@ open class KotlinGenTask : SourceTask() {
       // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
 
       val parameterSpecs = kParams()
-
-      val builder = StringBuilder();
-
-      // doc
-      builder.append("${comment ?: ""}\n")
-
-      // signature boilerplate
-      builder.append("inline fun ")
-
-      // type params
-      builder.append(if (typeParameters != null) typeParameters + " " else "")
-
-      // return type
-      builder.append("$extendedClass.$name($fParams): $kotlinType")
-
-      builder.append(" = ")
-
-      // target method call
-      builder.append(
-          "$bindingClass.$name(${if (jParams.isNotEmpty()) "this, $jParams" else "this"})")
-
-      // Object --> Unit mapping
-      if (emitsUnit()) {
-        builder.append(".map(VoidToUnit)")
-      }
-
-      return builder.toString()
+      return FunSpec.builder(name)
+          .receiver(ClassName.bestGuess(extendedClass))
+          .addKdoc(comment ?: "")
+          .addModifiers(INLINE)
+          .apply {
+            typeParameters?.let { addTypeVariables(typeParameters) }
+          }
+          .returns(kotlinType)
+          .addParameters(parameterSpecs)
+          .addCode("return \$T.$name(${if (parameterSpecs.isNotEmpty()) {
+            "this, ${parameterSpecs.map { it.name }}"
+          } else {
+            "this"
+          }})", bindingClass)
+          .apply {
+            // Object --> Unit mapping
+            if (emitsUnit()) {
+              addCode(".map(VoidToUnit)")
+            }
+          }
+          .build()
     }
 
     fun emitsUnit() = kotlinType == UNIT_OBSERVABLE
