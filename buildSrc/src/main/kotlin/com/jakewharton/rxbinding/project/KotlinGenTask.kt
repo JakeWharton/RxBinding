@@ -212,15 +212,13 @@ open class KotlinGenTask : SourceTask() {
 
     /** Generates the code and writes it to the desired directory */
     fun generate(directory: File) {
-      var directoryPath = directory.absolutePath
-      var finalDir: File? = null
-      if (!packageName.isEmpty()) {
-        packageName.split('.').forEach {
-          directoryPath += File.separator + it
-        }
-        finalDir = File(directoryPath)
-        Files.createDirectories(finalDir.toPath())
-      }
+      // Fold along the package to generate a representation of the directory path
+      val finalDir = packageName.split('.')
+          .fold(directory.absolutePath) { path, packageName ->
+            path + File.separator + packageName
+          }
+          .let { File(it) }
+          .also { Files.createDirectories(it.toPath()) }
 
       File(finalDir, fileName).bufferedWriter().use { writer ->
         writer.append("package $packageName\n\n")
