@@ -36,6 +36,8 @@ import java.io.File
 import java.nio.file.Files
 import kotlin.properties.Delegates
 
+private val UNIT_OBSERVABLE = ParameterizedTypeName.get(ClassName("io.reactivex", "Observable"), UNIT)
+
 open class KotlinGenTask : SourceTask() {
 
   companion object {
@@ -89,7 +91,7 @@ open class KotlinGenTask : SourceTask() {
         inputType: ClassOrInterfaceType,
         methodAnnotations: List<AnnotationExpr>?): TypeName {
       return if (isObservableObject(inputType)) {
-        ParameterizedTypeName.get(ClassName("io.reactivex", "Observable"), UNIT)
+        UNIT_OBSERVABLE
       } else {
         ParameterizedTypeName.get(resolveKotlinTypeByName(inputType.name),
             *resolveTypeArguments(inputType, methodAnnotations).toTypedArray())
@@ -351,6 +353,7 @@ open class KotlinGenTask : SourceTask() {
       return builder.toString()
     }
 
-    fun emitsUnit() = kotlinType == "Observable<Unit>"
+    fun emitsUnit() = kotlinType == UNIT_OBSERVABLE
+
   }
 }
