@@ -159,7 +159,7 @@ open class KotlinGenTask : SourceTask() {
     val cu = JavaParser.parse(file)
 
     val kClass = KFile()
-    kClass.fileName = file.name.replace(".java", ".kt")
+    kClass.fileName = file.name.replace(".java", "")
 
     // Visit the appropriate nodes and extract information
     cu.accept(object : VoidVisitorAdapter<KFile>() {
