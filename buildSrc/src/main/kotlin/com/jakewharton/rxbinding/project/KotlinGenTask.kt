@@ -56,10 +56,12 @@ open class KotlinGenTask : SourceTask() {
         "com.jakewharton.rxbinding2.internal.GenericTypeNullable"
     )
 
-    private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))
+    private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(
+        NameExpr("GenericTypeNullable"))
 
     /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
-    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): TypeName {
+    fun resolveKotlinType(inputType: Type,
+        methodAnnotations: List<AnnotationExpr>? = null): TypeName {
       return when (inputType) {
         is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
         is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
@@ -74,7 +76,9 @@ open class KotlinGenTask : SourceTask() {
       return when (input) {
         "Object" -> ANY
         "Integer" -> INT
-        "int", "char", "boolean", "long", "float", "short", "byte" -> ClassName("kotlin", input.capitalize())
+        "int", "char", "boolean", "long", "float", "short", "byte" -> {
+          ClassName("kotlin", input.capitalize())
+        }
         "List" -> MutableList::class.asClassName()
         else -> ClassName.bestGuess(input)
       }
@@ -99,15 +103,16 @@ open class KotlinGenTask : SourceTask() {
     private fun resolveTypeArguments(inputType: ClassOrInterfaceType,
         methodAnnotations: List<AnnotationExpr>?): List<TypeName> {
       return inputType.typeArgs?.map { type: Type ->
-          resolveKotlinType(type, methodAnnotations)
-        } ?: emptyList()
+        resolveKotlinType(type, methodAnnotations)
+      } ?: emptyList()
     }
 
     private fun resolveKotlinWildcardType(inputType: WildcardType,
         methodAnnotations: List<AnnotationExpr>?): WildcardTypeName {
       val isNullable = isWildcardNullable(methodAnnotations)
       return when {
-        inputType.`super` != null -> WildcardTypeName.supertypeOf(resolveKotlinType(inputType.`super`))
+        inputType.`super` != null -> WildcardTypeName.supertypeOf(
+            resolveKotlinType(inputType.`super`))
             .let {
               if (isNullable) {
                 it.asNullable()
@@ -115,7 +120,8 @@ open class KotlinGenTask : SourceTask() {
                 it
               }
             }
-        inputType.extends != null -> WildcardTypeName.subtypeOf(resolveKotlinType(inputType.extends))
+        inputType.extends != null -> WildcardTypeName.subtypeOf(
+            resolveKotlinType(inputType.extends))
             .let {
               if (isNullable) {
                 it.asNullable()
@@ -263,17 +269,20 @@ open class KotlinGenTask : SourceTask() {
             "[${foo.component1()}]"
           }
           // {@link Foo#bar} -> [Foo.bar]
-          .replace("\\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+          .replace(
+              "\\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
             val (foo, bar) = result.destructured
             "[$foo.$bar]"
           }
           // {@linkplain Foo baz} -> [baz][Foo]
-          .replace("\\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+          .replace(
+              "\\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
             val (foo, baz) = result.destructured
             "[$baz][$foo]"
           }
           //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
-          .replace("\\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+          .replace(
+              "\\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
             val (foo, bar, baz) = result.destructured
             "[$baz][$foo.$bar]"
           }
@@ -334,7 +343,8 @@ open class KotlinGenTask : SourceTask() {
       builder.append(" = ")
 
       // target method call
-      builder.append("$bindingClass.$name(${if (jParams.isNotEmpty()) "this, $jParams" else "this"})")
+      builder.append(
+          "$bindingClass.$name(${if (jParams.isNotEmpty()) "this, $jParams" else "this"})")
 
       // Object --> Unit mapping
       if (emitsUnit()) {
