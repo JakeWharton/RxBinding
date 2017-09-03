@@ -37,7 +37,8 @@ import java.io.File
 import java.nio.file.Files
 import kotlin.properties.Delegates
 
-private val UNIT_OBSERVABLE = ParameterizedTypeName.get(ClassName("io.reactivex", "Observable"), UNIT)
+private val UNIT_OBSERVABLE = ParameterizedTypeName.get(
+    ClassName("io.reactivex", "Observable"), UNIT)
 
 open class KotlinGenTask : SourceTask() {
 
@@ -131,7 +132,7 @@ open class KotlinGenTask : SourceTask() {
 
   @TaskAction
   @Suppress("unused")
-  fun generate(inputs: IncrementalTaskInputs) {
+  fun generate(@Suppress("UNUSED_PARAMETER") inputs: IncrementalTaskInputs) {
     // Clear things out first to make sure no stragglers are left
     val outputDir = File("${project.projectDir}-kotlin${SLASH}src${SLASH}main${SLASH}kotlin")
     outputDir.walkTopDown()
@@ -143,7 +144,7 @@ open class KotlinGenTask : SourceTask() {
     getSource().forEach { generateKotlin(it) }
   }
 
-  fun generateKotlin(file: File) {
+  private fun generateKotlin(file: File) {
     val outputPath = file.parent.replace("java", "kotlin")
         .replace("${SLASH}src", "-kotlin${SLASH}src")
         .substringBefore("com${SLASH}jakewharton")
@@ -191,10 +192,10 @@ open class KotlinGenTask : SourceTask() {
    * Represents a kotlin file that corresponds to a Java file/class in an RxBinding module
    */
   class KFile {
-    var fileName: String by Delegates.notNull<String>()
-    var packageName: String by Delegates.notNull<String>()
-    var bindingClass: String by Delegates.notNull<String>()
-    var extendedClass: String by Delegates.notNull<String>()
+    var fileName: String by Delegates.notNull()
+    var packageName: String by Delegates.notNull()
+    var bindingClass: String by Delegates.notNull()
+    var extendedClass: String by Delegates.notNull()
     val methods = mutableListOf<KMethod>()
     val imports = mutableListOf<String>()
 
@@ -244,30 +245,30 @@ open class KotlinGenTask : SourceTask() {
           // JavaParser adds a couple spaces to the beginning of these for some reason
           .replace("   *", " *")
           // {@code view} -> `view`
-          .replace("\\{@code ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+          .replace("\\{@code ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
             val codeName = result.destructured
             "`${codeName.component1()}`"
           }
           // {@link Foo} -> [Foo]
-          .replace("\\{@link ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+          .replace("\\{@link ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
             val foo = result.destructured
             "[${foo.component1()}]"
           }
           // {@link Foo#bar} -> [Foo.bar]
           .replace(
-              "\\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+              "\\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
             val (foo, bar) = result.destructured
             "[$foo.$bar]"
           }
           // {@linkplain Foo baz} -> [baz][Foo]
           .replace(
-              "\\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+              "\\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
             val (foo, baz) = result.destructured
             "[$baz][$foo]"
           }
           //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
           .replace(
-              "\\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)\\}".toRegex()) { result: MatchResult ->
+              "\\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
             val (foo, bar, baz) = result.destructured
             "[$baz][$foo.$bar]"
           }
