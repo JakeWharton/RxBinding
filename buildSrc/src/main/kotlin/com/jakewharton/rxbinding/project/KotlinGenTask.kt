@@ -226,8 +226,8 @@ open class KotlinGenTask : SourceTask() {
   class KMethod(n: MethodDeclaration) {
     private val name = n.name
     private val annotations: List<AnnotationExpr> = n.annotations
-    private val comment = n.comment?.toString()?.let { cleanUpDoc(it) }
     private val extendedClass = n.parameters[0].type.toString()
+    private val comment = n.comment?.content?.let { cleanUpDoc(it) }
     private val parameters = n.parameters.subList(1, n.parameters.size)
     private val returnType = n.type
     private val typeParameters = typeParams(n.typeParameters)
@@ -235,11 +235,12 @@ open class KotlinGenTask : SourceTask() {
 
     /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
     private fun cleanUpDoc(doc: String): String {
-      return doc.replace("<em>", "*")
+      return doc
+          .replace("   * ", "")
+          .replace("   *", "")
+          .replace("<em>", "*")
           .replace("</em>", "*")
           .replace("<p>", "")
-          // JavaParser adds a couple spaces to the beginning of these for some reason
-          .replace("   *", " *")
           // {@code view} -> `view`
           .replace("\\{@code ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
             val codeName = result.destructured
@@ -268,9 +269,8 @@ open class KotlinGenTask : SourceTask() {
             val (foo, bar, baz) = result.destructured
             "[$baz][$foo.$bar]"
           }
-          // Remove any trailing whitespace
-          .replace("(?m)\\s+$".toRegex(), "")
           .trim()
+          .plus("\n")
     }
 
     /** Generates method level type parameters */
