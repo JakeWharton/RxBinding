@@ -82,8 +82,13 @@ open class KotlinGenTask : SourceTask() {
       return if (isObservableObject(inputType)) {
         UNIT_OBSERVABLE
       } else {
-        ParameterizedTypeName.get(resolveKotlinTypeByName(inputType.name),
-            *resolveTypeArguments(inputType, methodAnnotations).toTypedArray())
+        val typeArgs = resolveTypeArguments(inputType, methodAnnotations)
+        val rawType = resolveKotlinTypeByName(inputType.name)
+        if (typeArgs.isEmpty()) {
+          rawType
+        } else {
+          ParameterizedTypeName.get(rawType, *typeArgs.toTypedArray())
+        }
       }
     }
 
