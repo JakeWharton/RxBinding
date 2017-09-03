@@ -226,8 +226,8 @@ open class KotlinGenTask : SourceTask() {
   class KMethod(n: MethodDeclaration) {
     private val name = n.name
     private val annotations: List<AnnotationExpr> = n.annotations
-    private val extendedClass = n.parameters[0].type.toString()
     private val comment = n.comment?.content?.let { cleanUpDoc(it) }
+    private val extendedClass = resolveKotlinType(n.parameters[0].type)
     private val parameters = n.parameters.subList(1, n.parameters.size)
     private val returnType = n.type
     private val typeParameters = typeParams(n.typeParameters)
@@ -304,7 +304,7 @@ open class KotlinGenTask : SourceTask() {
 
       val parameterSpecs = kParams()
       return FunSpec.builder(name)
-          .receiver(ClassName.bestGuess(extendedClass))
+          .receiver(extendedClass)
           .addKdoc(comment ?: "")
           .addModifiers(INLINE)
           .apply {
