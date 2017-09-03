@@ -21,6 +21,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.KModifier.INLINE
+import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeVariableName
@@ -300,13 +301,10 @@ open class KotlinGenTask : SourceTask() {
 
     /**
      * Generates parameters in a kotlin-style format
-     *
-     * @param specifyType boolean indicating whether or not to specify the type (i.e. we don't
-     *        need the type when we're passing params into the underlying Java implementation)
      */
-    private fun kParams(specifyType: Boolean): String {
-      return parameters.joinToString(",") { p ->
-        "${p.id.name}${if (specifyType) ": " + resolveKotlinType(p.type) else ""}"
+    private fun kParams(): List<ParameterSpec> {
+      return parameters.map { p ->
+        ParameterSpec.builder(p.id.name, resolveKotlinType(p.type)).build()
       }
     }
 
@@ -323,8 +321,7 @@ open class KotlinGenTask : SourceTask() {
       // public inline fun DrawerLayout.drawerOpen(): Observable<Boolean> = RxDrawerLayout.drawerOpen(this)
       // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
 
-      val fParams = kParams(true)
-      val jParams = kParams(false)
+      val parameterSpecs = kParams()
 
       val builder = StringBuilder();
 
