@@ -23,6 +23,7 @@ import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.KModifier.INLINE
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeVariableName
 import com.squareup.kotlinpoet.UNIT
 import com.squareup.kotlinpoet.WildcardTypeName
 import com.squareup.kotlinpoet.asClassName
@@ -282,16 +283,10 @@ open class KotlinGenTask : SourceTask() {
     }
 
     /** Generates method level type parameters */
-    private fun typeParams(params: List<TypeParameter>?): String? {
-      if (params == null || params.isEmpty()) {
-        return null
+    private fun typeParams(params: List<TypeParameter>?): List<TypeVariableName>? {
+      return params?.map { p ->
+        TypeVariableName(p.name, resolveKotlinType(p.typeBound[0]))
       }
-
-      val builder = StringBuilder()
-      builder.append("<")
-      params.forEach { p -> builder.append("${p.name} : ${resolveKotlinType(p.typeBound[0])}") }
-      builder.append(">")
-      return builder.toString()
     }
 
     /**
