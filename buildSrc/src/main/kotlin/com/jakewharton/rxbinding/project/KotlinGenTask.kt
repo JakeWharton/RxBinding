@@ -34,7 +34,6 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 import java.io.File
-import java.nio.file.Files
 import kotlin.properties.Delegates
 
 private val UNIT_OBSERVABLE = ParameterizedTypeName.get(
@@ -206,14 +205,6 @@ open class KotlinGenTask : SourceTask() {
 
     /** Generates the code and writes it to the desired directory */
     fun generate(directory: File) {
-      // Fold along the package to generate a representation of the directory path
-      val finalDir = packageName.split('.')
-          .fold(directory.absolutePath) { path, packageName ->
-            path + File.separator + packageName
-          }
-          .let { File(it) }
-          .also { Files.createDirectories(it.toPath()) }
-
       KotlinFile.builder(packageName, fileName)
           .apply {
             methods.firstOrNull { it.emitsUnit() }?.let {
@@ -224,7 +215,7 @@ open class KotlinGenTask : SourceTask() {
           }
           .skipJavaLangImports(true)
           .build()
-          .writeTo(finalDir)
+          .writeTo(directory)
 
     }
   }
