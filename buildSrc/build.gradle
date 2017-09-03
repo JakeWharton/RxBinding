@@ -20,5 +20,6 @@ dependencies {
   compile gradleApi()
   compile rootProject.ext.androidPlugin
   compile rootProject.ext.javaParser
+  compile rootProject.ext.kotlinPoet
   compile rootProject.ext.kotlinStdlib
 }

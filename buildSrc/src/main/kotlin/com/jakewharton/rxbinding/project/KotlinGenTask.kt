@@ -16,6 +16,16 @@ import com.github.javaparser.ast.type.Type
 import com.github.javaparser.ast.type.VoidType
 import com.github.javaparser.ast.type.WildcardType
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
+import com.squareup.kotlinpoet.ANY
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.KModifier.INLINE
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.UNIT
+import com.squareup.kotlinpoet.WildcardTypeName
+import com.squareup.kotlinpoet.asClassName
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
@@ -48,7 +58,7 @@ open class KotlinGenTask : SourceTask() {
     private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(NameExpr("GenericTypeNullable"))
 
     /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
-    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): String {
+    fun resolveKotlinType(inputType: Type, methodAnnotations: List<AnnotationExpr>? = null): TypeName {
       return when (inputType) {
         is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
         is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
@@ -59,24 +69,24 @@ open class KotlinGenTask : SourceTask() {
       }
     }
 
-    private fun resolveKotlinTypeByName(input: String): String {
+    private fun resolveKotlinTypeByName(input: String): ClassName {
       return when (input) {
-        "Object" -> "Any"
-        "Integer" -> "Int"
-        "int", "char", "boolean", "long", "float", "short", "byte" -> input.capitalize()
-        "List" -> "MutableList"
-        else -> input
+        "Object" -> ANY
+        "Integer" -> INT
+        "int", "char", "boolean", "long", "float", "short", "byte" -> ClassName("kotlin", input.capitalize())
+        "List" -> MutableList::class.asClassName()
+        else -> ClassName.bestGuess(input)
       }
     }
 
     private fun resolveKotlinClassOrInterfaceType(
         inputType: ClassOrInterfaceType,
-        methodAnnotations: List<AnnotationExpr>?): String {
+        methodAnnotations: List<AnnotationExpr>?): TypeName {
       return if (isObservableObject(inputType)) {
-        "Observable<Unit>"
+        ParameterizedTypeName.get(ClassName("io.reactivex", "Observable"), UNIT)
       } else {
-        resolveKotlinTypeByName(inputType.name) +
-            resolveTypeArguments(inputType, methodAnnotations)
+        ParameterizedTypeName.get(resolveKotlinTypeByName(inputType.name),
+            *resolveTypeArguments(inputType, methodAnnotations).toTypedArray())
       }
     }
 
@@ -86,26 +96,38 @@ open class KotlinGenTask : SourceTask() {
     }
 
     private fun resolveTypeArguments(inputType: ClassOrInterfaceType,
-        methodAnnotations: List<AnnotationExpr>?): String {
+        methodAnnotations: List<AnnotationExpr>?): List<TypeName> {
       return inputType.typeArgs?.map { type: Type ->
           resolveKotlinType(type, methodAnnotations)
-        }?.joinToString(prefix = "<", postfix = ">") ?: ""
+        } ?: emptyList()
     }
 
     private fun resolveKotlinWildcardType(inputType: WildcardType,
-        methodAnnotations: List<AnnotationExpr>?): String {
-      val nullable = resolveNullableKotlinWildcardSuffix(methodAnnotations)
-      return if (inputType.`super` != null) {
-        "in ${resolveKotlinType(inputType.`super`)}$nullable"
-      } else if (inputType.extends != null) {
-        "out ${resolveKotlinType(inputType.extends)}$nullable"
-      } else {
-        throw IllegalStateException("Wildcard with no super or extends")
+        methodAnnotations: List<AnnotationExpr>?): WildcardTypeName {
+      val isNullable = isWildcardNullable(methodAnnotations)
+      return when {
+        inputType.`super` != null -> WildcardTypeName.supertypeOf(resolveKotlinType(inputType.`super`))
+            .let {
+              if (isNullable) {
+                it.asNullable()
+              } else {
+                it
+              }
+            }
+        inputType.extends != null -> WildcardTypeName.subtypeOf(resolveKotlinType(inputType.extends))
+            .let {
+              if (isNullable) {
+                it.asNullable()
+              } else {
+                it
+              }
+            }
+        else -> throw IllegalStateException("Wildcard with no super or extends")
       }
     }
 
-    private fun resolveNullableKotlinWildcardSuffix(annotations: List<AnnotationExpr>?): String {
-      return annotations?.firstOrNull { it == GenericTypeNullableAnnotation }?.let { "?" } ?: ""
+    private fun isWildcardNullable(annotations: List<AnnotationExpr>?): Boolean {
+      return annotations?.firstOrNull { it == GenericTypeNullableAnnotation }?.let { true } == true
     }
   }
 
@@ -279,9 +301,9 @@ open class KotlinGenTask : SourceTask() {
      *        need the type when we're passing params into the underlying Java implementation)
      */
     private fun kParams(specifyType: Boolean): String {
-      val builder = StringBuilder()
-      parameters.forEach { p -> builder.append("${p.id.name}${if (specifyType) ": " + resolveKotlinType(p.type) else ""}") }
-      return builder.toString()
+      return parameters.joinToString(",") { p ->
+        "${p.id.name}${if (specifyType) ": " + resolveKotlinType(p.type) else ""}"
+      }
     }
 
     /**
