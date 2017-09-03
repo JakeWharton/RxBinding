@@ -313,7 +313,7 @@ open class KotlinGenTask : SourceTask() {
           .returns(kotlinType)
           .addParameters(parameterSpecs)
           .addCode("return %T.$name(${if (parameterSpecs.isNotEmpty()) {
-            "this, ${parameterSpecs.map { it.name }}"
+            "this, ${parameterSpecs.joinToString { it.name }}"
           } else {
             "this"
           }})", bindingClass)
