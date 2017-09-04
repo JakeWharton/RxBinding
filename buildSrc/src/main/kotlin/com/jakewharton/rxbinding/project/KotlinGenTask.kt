@@ -52,18 +52,22 @@ open class KotlinGenTask : SourceTask() {
 
     /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
     fun resolveKotlinType(inputType: Type,
-        methodAnnotations: List<AnnotationExpr>? = null): TypeName {
+        methodAnnotations: List<AnnotationExpr>? = null,
+        associatedImports: Map<String, ClassName>? = null): TypeName {
       return when (inputType) {
-        is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations)
-        is PrimitiveType -> resolveKotlinTypeByName(inputType.toString())
-        is VoidType -> resolveKotlinTypeByName(inputType.toString())
-        is ClassOrInterfaceType -> resolveKotlinClassOrInterfaceType(inputType, methodAnnotations)
-        is WildcardType -> resolveKotlinWildcardType(inputType, methodAnnotations)
+        is ReferenceType -> resolveKotlinType(inputType.type, methodAnnotations, associatedImports)
+        is PrimitiveType -> resolveKotlinTypeByName(inputType.toString(), associatedImports)
+        is VoidType -> resolveKotlinTypeByName(inputType.toString(), associatedImports)
+        is ClassOrInterfaceType -> resolveKotlinClassOrInterfaceType(inputType, methodAnnotations,
+            associatedImports)
+        is WildcardType -> resolveKotlinWildcardType(inputType, methodAnnotations,
+            associatedImports)
         else -> throw NotImplementedException()
       }
     }
 
-    private fun resolveKotlinTypeByName(input: String): ClassName {
+    private fun resolveKotlinTypeByName(input: String,
+        associatedImports: Map<String, ClassName>? = null): ClassName {
       return when (input) {
         "Object" -> ANY
         "Integer" -> INT
@@ -71,18 +75,19 @@ open class KotlinGenTask : SourceTask() {
           ClassName("kotlin", input.capitalize())
         }
         "List" -> MutableList::class.asClassName()
-        else -> ClassName.bestGuess(input)
+        else -> associatedImports?.let { it[input] } ?: ClassName.bestGuess(input)
       }
     }
 
     private fun resolveKotlinClassOrInterfaceType(
         inputType: ClassOrInterfaceType,
-        methodAnnotations: List<AnnotationExpr>?): TypeName {
+        methodAnnotations: List<AnnotationExpr>?,
+        associatedImports: Map<String, ClassName>? = null): TypeName {
       return if (isObservableObject(inputType)) {
         UNIT_OBSERVABLE
       } else {
-        val typeArgs = resolveTypeArguments(inputType, methodAnnotations)
-        val rawType = resolveKotlinTypeByName(inputType.name)
+        val typeArgs = resolveTypeArguments(inputType, methodAnnotations, associatedImports)
+        val rawType = resolveKotlinTypeByName(inputType.name, associatedImports)
         if (typeArgs.isEmpty()) {
           rawType
         } else {
@@ -97,18 +102,20 @@ open class KotlinGenTask : SourceTask() {
     }
 
     private fun resolveTypeArguments(inputType: ClassOrInterfaceType,
-        methodAnnotations: List<AnnotationExpr>?): List<TypeName> {
+        methodAnnotations: List<AnnotationExpr>?,
+        associatedImports: Map<String, ClassName>? = null): List<TypeName> {
       return inputType.typeArgs?.map { type: Type ->
-        resolveKotlinType(type, methodAnnotations)
+        resolveKotlinType(type, methodAnnotations, associatedImports)
       } ?: emptyList()
     }
 
     private fun resolveKotlinWildcardType(inputType: WildcardType,
-        methodAnnotations: List<AnnotationExpr>?): WildcardTypeName {
+        methodAnnotations: List<AnnotationExpr>?,
+        associatedImports: Map<String, ClassName>? = null): WildcardTypeName {
       val isNullable = isWildcardNullable(methodAnnotations)
       return when {
         inputType.`super` != null -> WildcardTypeName.supertypeOf(
-            resolveKotlinType(inputType.`super`))
+            resolveKotlinType(inputType.`super`, associatedImports = associatedImports))
             .let {
               if (isNullable) {
                 it.asNullable()
@@ -117,7 +124,7 @@ open class KotlinGenTask : SourceTask() {
               }
             }
         inputType.extends != null -> WildcardTypeName.subtypeOf(
-            resolveKotlinType(inputType.extends))
+            resolveKotlinType(inputType.extends, associatedImports = associatedImports))
             .let {
               if (isNullable) {
                 it.asNullable()
@@ -159,6 +166,27 @@ open class KotlinGenTask : SourceTask() {
 
     val kClass = KFile()
     kClass.fileName = file.name.replace(".java", "")
+    val imports = mutableListOf<String>()
+
+    // Visit the imports first so we can create an associate of them for lookups later.
+    cu.accept(object : VoidVisitorAdapter<MutableList<String>>() {
+
+      override fun visit(n: ImportDeclaration, importsList: MutableList<String>) {
+        if (!n.isStatic) {
+          importsList.add(n.name.toString())
+        }
+        super.visit(n, importsList)
+      }
+
+    }, imports)
+
+    // Create an association of imports simple name -> ClassName
+    // This is necessary because JavaParser doesn't yield the fully qualified classname of types, so
+    // this is a bit of a trick to just reuse the imports from the target class as a reference for
+    // what they're referring to.
+    val associatedImports = imports.associateBy({ it.substringAfterLast(".") }) {
+      ClassName.bestGuess(it)
+    }
 
     // Visit the appropriate nodes and extract information
     cu.accept(object : VoidVisitorAdapter<KFile>() {
@@ -175,16 +203,9 @@ open class KotlinGenTask : SourceTask() {
       }
 
       override fun visit(n: MethodDeclaration, arg: KFile) {
-        arg.methods.add(KMethod(n))
+        arg.methods.add(KMethod(n, associatedImports))
         // Explicitly avoid going deeper, we only care about top level methods. Otherwise
         // we'd hit anonymous inner classes and whatnot
-      }
-
-      override fun visit(n: ImportDeclaration, arg: KFile) {
-        if (!n.isStatic) {
-          arg.imports.add(n.name.toString())
-        }
-        super.visit(n, arg)
       }
 
     }, kClass)
@@ -201,7 +222,6 @@ open class KotlinGenTask : SourceTask() {
     var bindingClass: String by Delegates.notNull()
     var extendedClass: String by Delegates.notNull()
     val methods = mutableListOf<KMethod>()
-    val imports = mutableListOf<String>()
 
     /** Generates the code and writes it to the desired directory */
     fun generate(directory: File) {
@@ -222,16 +242,22 @@ open class KotlinGenTask : SourceTask() {
 
   /**
    * Represents a method implementation that needs to be wired up in Kotlin
+   *
+   * @param associatedImports a mapping of associated imports by simple name -> [ClassName]. This is
+   * necessary because JavaParser doesn't yield the fully qualified class name to look up, but we
+   * can snag the imports from the target class ourselves and refer to them as needed.
    */
-  class KMethod(n: MethodDeclaration) {
+  class KMethod(n: MethodDeclaration,
+      private val associatedImports: Map<String, ClassName>) {
     private val name = n.name
     private val annotations: List<AnnotationExpr> = n.annotations
     private val comment = n.comment?.content?.let { cleanUpDoc(it) }
-    private val extendedClass = resolveKotlinType(n.parameters[0].type)
+    private val extendedClass = resolveKotlinType(n.parameters[0].type,
+        associatedImports = associatedImports)
     private val parameters = n.parameters.subList(1, n.parameters.size)
     private val returnType = n.type
     private val typeParameters = typeParams(n.typeParameters)
-    private val kotlinType = resolveKotlinType(returnType, annotations)
+    private val kotlinType = resolveKotlinType(returnType, annotations, associatedImports)
 
     /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
     private fun cleanUpDoc(doc: String): String {
@@ -276,7 +302,8 @@ open class KotlinGenTask : SourceTask() {
     /** Generates method level type parameters */
     private fun typeParams(params: List<TypeParameter>?): List<TypeVariableName>? {
       return params?.map { p ->
-        TypeVariableName(p.name, resolveKotlinType(p.typeBound[0]))
+        TypeVariableName(p.name,
+            resolveKotlinType(p.typeBound[0], associatedImports = associatedImports))
       }
     }
 
@@ -285,7 +312,9 @@ open class KotlinGenTask : SourceTask() {
      */
     private fun kParams(): List<ParameterSpec> {
       return parameters.map { p ->
-        ParameterSpec.builder(p.id.name, resolveKotlinType(p.type)).build()
+        ParameterSpec.builder(p.id.name,
+            resolveKotlinType(p.type, associatedImports = associatedImports))
+            .build()
       }
     }
 
