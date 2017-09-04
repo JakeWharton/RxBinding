@@ -19,6 +19,7 @@ import kotlin.Suppress
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun RadioGroup.checkedChanges(): InitialValueObservable<Int> = RxRadioGroup.checkedChanges(this)
+
 /**
  * An action which sets the checked child of `view` with ID. Passing {@code -1} will clear
  * any checked view.

@@ -22,6 +22,7 @@ import kotlin.Suppress
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SlidingPaneLayout.panelOpens(): InitialValueObservable<Boolean> = RxSlidingPaneLayout.panelOpens(this)
+
 /**
  * Create an observable of the slide offset of the pane of `view`
  *
@@ -32,6 +33,7 @@ inline fun SlidingPaneLayout.panelOpens(): InitialValueObservable<Boolean> = RxS
  * to observe dismiss change. Only one observable can be used for a view at a time.
  */
 inline fun SlidingPaneLayout.panelSlides(): Observable<Float> = RxSlidingPaneLayout.panelSlides(this)
+
 /**
  * An action which sets whether the pane of `view` is open.
  *

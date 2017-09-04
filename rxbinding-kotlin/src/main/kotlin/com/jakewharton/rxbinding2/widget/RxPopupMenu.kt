@@ -21,6 +21,7 @@ import kotlin.Unit
  * to observe dismiss change. Only one observable can be used for a view at a time.
  */
 inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks(this)
+
 /**
  * Create an observable which emits on `view` dismiss events. The emitted value is
  * unspecified and should only be used as notification.

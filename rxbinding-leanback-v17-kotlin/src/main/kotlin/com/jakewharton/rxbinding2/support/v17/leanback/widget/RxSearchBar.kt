@@ -17,6 +17,7 @@ import kotlin.Suppress
  * to free this reference.
  */
 inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryEvent> = RxSearchBar.searchQueryChangeEvents(this)
+
 /**
  * Create an observable of String values for search query changes on `view`.
  *
@@ -24,6 +25,7 @@ inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryE
  * to free this reference.
  */
 inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.searchQueryChanges(this)
+
 /**
  * An action which sets the searchQuery property of `view` with String values.
  *

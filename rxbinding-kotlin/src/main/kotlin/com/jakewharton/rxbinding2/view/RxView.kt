@@ -14,9 +14,6 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
 import java.util.concurrent.Callable
-import kotlin.Int
-import kotlin.Suppress
-import kotlin.Unit
 
 /**
  * Create an observable which emits on `view` attach events. The emitted value is
@@ -26,6 +23,7 @@ import kotlin.Unit
  * to free this reference.
  */
 inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map(VoidToUnit)
+
 /**
  * Create an observable of attach and detach events on `view`.
  *
@@ -33,6 +31,7 @@ inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map(VoidToU
  * to free this reference.
  */
 inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.attachEvents(this)
+
 /**
  * Create an observable which emits on `view` detach events. The emitted value is
  * unspecified and should only be used as notification.
@@ -41,6 +40,7 @@ inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.attachEvent
  * to free this reference.
  */
 inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map(VoidToUnit)
+
 /**
  * Create an observable which emits on `view` click events. The emitted value is
  * unspecified and should only be used as notification.
@@ -52,6 +52,7 @@ inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map(VoidToU
  * clicks. Only one observable can be used for a view at a time.
  */
 inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map(VoidToUnit)
+
 /**
  * Create an observable of [DragEvent] for drags on `view`.
  *
@@ -62,6 +63,7 @@ inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map(VoidToUnit)
  * drags. Only one observable can be used for a view at a time.
  */
 inline fun View.drags(): Observable<DragEvent> = RxView.drags(this)
+
 /**
  * Create an observable of [DragEvent] for `view`.
  *
@@ -75,6 +77,7 @@ inline fun View.drags(): Observable<DragEvent> = RxView.drags(this)
  * underlying [View.OnDragListener].
  */
 inline fun View.drags(handled: Predicate<in DragEvent>): Observable<DragEvent> = RxView.drags(this, handled)
+
 /**
  * Create an observable for draws on `view`.
  *
@@ -85,6 +88,7 @@ inline fun View.drags(handled: Predicate<in DragEvent>): Observable<DragEvent> =
  * observe draws. Multiple observables can be used for a view at a time.
  */
 inline fun View.draws(): Observable<Unit> = RxView.draws(this).map(VoidToUnit)
+
 /**
  * Create an observable of booleans representing the focus of `view`.
  *
@@ -97,6 +101,7 @@ inline fun View.draws(): Observable<Unit> = RxView.draws(this).map(VoidToUnit)
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun View.focusChanges(): InitialValueObservable<Boolean> = RxView.focusChanges(this)
+
 /**
  * Create an observable which emits on `view` globalLayout events. The emitted value is
  * unspecified and should only be used as notification.
@@ -109,6 +114,7 @@ inline fun View.focusChanges(): InitialValueObservable<Boolean> = RxView.focusCh
  * can be used for a view at a time.
  */
 inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map(VoidToUnit)
+
 /**
  * Create an observable of hover events for `view`.
  *
@@ -125,6 +131,7 @@ inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).m
  * touches. Only one observable can be used for a view at a time.
  */
 inline fun View.hovers(): Observable<MotionEvent> = RxView.hovers(this)
+
 /**
  * Create an observable of hover events for `view`.
  *
@@ -144,6 +151,7 @@ inline fun View.hovers(): Observable<MotionEvent> = RxView.hovers(this)
  * underlying [View.OnHoverListener].
  */
 inline fun View.hovers(handled: Predicate<in MotionEvent>): Observable<MotionEvent> = RxView.hovers(this, handled)
+
 /**
  * Create an observable which emits on `view` layout changes. The emitted value is
  * unspecified and should only be used as notification.
@@ -152,6 +160,7 @@ inline fun View.hovers(handled: Predicate<in MotionEvent>): Observable<MotionEve
  * to free this reference.
  */
 inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).map(VoidToUnit)
+
 /**
  * Create an observable of layout-change events for `view`.
  *
@@ -159,6 +168,7 @@ inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).m
  * to free this reference.
  */
 inline fun View.layoutChangeEvents(): Observable<ViewLayoutChangeEvent> = RxView.layoutChangeEvents(this)
+
 /**
  * Create an observable which emits on `view` long-click events. The emitted value is
  * unspecified and should only be used as notification.
@@ -170,6 +180,7 @@ inline fun View.layoutChangeEvents(): Observable<ViewLayoutChangeEvent> = RxView
  * long clicks. Only one observable can be used for a view at a time.
  */
 inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map(VoidToUnit)
+
 /**
  * Create an observable which emits on `view` long-click events. The emitted value is
  * unspecified and should only be used as notification.
@@ -184,6 +195,7 @@ inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map(Voi
  * underlying [View.OnLongClickListener].
  */
 inline fun View.longClicks(handled: Callable<Boolean>): Observable<Unit> = RxView.longClicks(this, handled).map(VoidToUnit)
+
 /**
  * Create an observable for pre-draws on `view`.
  *
@@ -194,6 +206,7 @@ inline fun View.longClicks(handled: Callable<Boolean>): Observable<Unit> = RxVie
  * observe pre-draws. Multiple observables can be used for a view at a time.
  */
 inline fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map(VoidToUnit)
+
 /**
  * Create an observable of scroll-change events for `view`.
  *
@@ -201,6 +214,7 @@ inline fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit
  * to free this reference.
  */
 inline fun View.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxView.scrollChangeEvents(this)
+
 /**
  * Create an observable of integers representing a new system UI visibility for `view`.
  *
@@ -212,6 +226,7 @@ inline fun View.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxView
  * Only one observable can be used for a view at a time.
  */
 inline fun View.systemUiVisibilityChanges(): Observable<Int> = RxView.systemUiVisibilityChanges(this)
+
 /**
  * Create an observable of touch events for `view`.
  *
@@ -228,6 +243,7 @@ inline fun View.systemUiVisibilityChanges(): Observable<Int> = RxView.systemUiVi
  * touches. Only one observable can be used for a view at a time.
  */
 inline fun View.touches(): Observable<MotionEvent> = RxView.touches(this)
+
 /**
  * Create an observable of touch events for `view`.
  *
@@ -247,6 +263,7 @@ inline fun View.touches(): Observable<MotionEvent> = RxView.touches(this)
  * underlying [View.OnTouchListener].
  */
 inline fun View.touches(handled: Predicate<in MotionEvent>): Observable<MotionEvent> = RxView.touches(this, handled)
+
 /**
  * Create an observable of key events for `view`.
  *
@@ -256,6 +273,7 @@ inline fun View.touches(handled: Predicate<in MotionEvent>): Observable<MotionEv
  * key events. Only one observable can be used for a view at a time.
  */
 inline fun View.keys(): Observable<KeyEvent> = RxView.keys(this)
+
 /**
  * Create an observable of key events for `view`.
  *
@@ -268,6 +286,7 @@ inline fun View.keys(): Observable<KeyEvent> = RxView.keys(this)
  * underlying [View.OnKeyListener].
  */
 inline fun View.keys(handled: Predicate<in KeyEvent>): Observable<KeyEvent> = RxView.keys(this, handled)
+
 /**
  * An action which sets the activated property of `view`.
  *
@@ -275,6 +294,7 @@ inline fun View.keys(handled: Predicate<in KeyEvent>): Observable<KeyEvent> = Rx
  * to free this reference.
  */
 inline fun View.activated(): Consumer<in Boolean> = RxView.activated(this)
+
 /**
  * An action which sets the clickable property of `view`.
  *
@@ -282,6 +302,7 @@ inline fun View.activated(): Consumer<in Boolean> = RxView.activated(this)
  * to free this reference.
  */
 inline fun View.clickable(): Consumer<in Boolean> = RxView.clickable(this)
+
 /**
  * An action which sets the enabled property of `view`.
  *
@@ -289,6 +310,7 @@ inline fun View.clickable(): Consumer<in Boolean> = RxView.clickable(this)
  * to free this reference.
  */
 inline fun View.enabled(): Consumer<in Boolean> = RxView.enabled(this)
+
 /**
  * An action which sets the pressed property of `view`.
  *
@@ -296,6 +318,7 @@ inline fun View.enabled(): Consumer<in Boolean> = RxView.enabled(this)
  * to free this reference.
  */
 inline fun View.pressed(): Consumer<in Boolean> = RxView.pressed(this)
+
 /**
  * An action which sets the selected property of `view`.
  *
@@ -303,6 +326,7 @@ inline fun View.pressed(): Consumer<in Boolean> = RxView.pressed(this)
  * to free this reference.
  */
 inline fun View.selected(): Consumer<in Boolean> = RxView.selected(this)
+
 /**
  * An action which sets the visibility property of `view`. `false` values use
  * `View.GONE`.
@@ -311,6 +335,7 @@ inline fun View.selected(): Consumer<in Boolean> = RxView.selected(this)
  * to free this reference.
  */
 inline fun View.visibility(): Consumer<in Boolean> = RxView.visibility(this)
+
 /**
  * An action which sets the visibility property of `view`.
  *

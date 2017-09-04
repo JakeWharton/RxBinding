@@ -24,6 +24,7 @@ import kotlin.Suppress
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun <T : Adapter> AdapterView<T>.itemSelections(): InitialValueObservable<Int> = RxAdapterView.itemSelections(this)
+
 /**
  * Create an observable of selection events for `view`.
  *
@@ -33,6 +34,7 @@ inline fun <T : Adapter> AdapterView<T>.itemSelections(): InitialValueObservable
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun <T : Adapter> AdapterView<T>.selectionEvents(): InitialValueObservable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
+
 /**
  * Create an observable of the position of item clicks for `view`.
  *
@@ -40,6 +42,7 @@ inline fun <T : Adapter> AdapterView<T>.selectionEvents(): InitialValueObservabl
  * to free this reference.
  */
 inline fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapterView.itemClicks(this)
+
 /**
  * Create an observable of the item click events for `view`.
  *
@@ -47,6 +50,7 @@ inline fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapte
  * to free this reference.
  */
 inline fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterViewItemClickEvent> = RxAdapterView.itemClickEvents(this)
+
 /**
  * Create an observable of the position of item long-clicks for `view`.
  *
@@ -54,6 +58,7 @@ inline fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterVie
  * to free this reference.
  */
 inline fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAdapterView.itemLongClicks(this)
+
 /**
  * Create an observable of the position of item long-clicks for `view`.
  *
@@ -64,6 +69,7 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAd
  * underlying [AdapterView.OnItemLongClickListener].
  */
 inline fun <T : Adapter> AdapterView<T>.itemLongClicks(handled: Callable<Boolean>): Observable<Int> = RxAdapterView.itemLongClicks(this, handled)
+
 /**
  * Create an observable of the item long-click events for `view`.
  *
@@ -71,6 +77,7 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClicks(handled: Callable<Boolean
  * to free this reference.
  */
 inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<AdapterViewItemLongClickEvent> = RxAdapterView.itemLongClickEvents(this)
+
 /**
  * Create an observable of the item long-click events for `view`.
  *
@@ -81,6 +88,7 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<Adapte
  * underlying [AdapterView.OnItemLongClickListener].
  */
 inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(handled: Predicate<in AdapterViewItemLongClickEvent>): Observable<AdapterViewItemLongClickEvent> = RxAdapterView.itemLongClickEvents(this, handled)
+
 /**
  * An action which sets the selected position of `view`.
  *

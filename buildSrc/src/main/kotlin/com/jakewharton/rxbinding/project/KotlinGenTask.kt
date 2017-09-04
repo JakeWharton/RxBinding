@@ -359,6 +359,7 @@ open class KotlinGenTask : SourceTask() {
               addCode(".map(VoidToUnit)")
             }
           }
+          .addCode("\n")
           .build()
     }
 

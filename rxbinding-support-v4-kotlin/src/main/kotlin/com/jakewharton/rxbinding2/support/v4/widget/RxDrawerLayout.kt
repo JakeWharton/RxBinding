@@ -19,6 +19,7 @@ import kotlin.Suppress
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun DrawerLayout.drawerOpen(gravity: Int): InitialValueObservable<Boolean> = RxDrawerLayout.drawerOpen(this, gravity)
+
 /**
  * An action which sets whether the drawer with `gravity` of `view` is open.
  *

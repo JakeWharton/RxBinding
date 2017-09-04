@@ -20,6 +20,7 @@ import kotlin.Suppress
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SearchView.queryTextChangeEvents(): InitialValueObservable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
+
 /**
  * Create an observable of character sequences for query text changes on `view`.
  *
@@ -29,6 +30,7 @@ inline fun SearchView.queryTextChangeEvents(): InitialValueObservable<SearchView
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SearchView.queryTextChanges(): InitialValueObservable<CharSequence> = RxSearchView.queryTextChanges(this)
+
 /**
  * An action which sets the query property of `view` with character sequences.
  *

@@ -16,6 +16,7 @@ import kotlin.Suppress
  * Unsubscribe to free this reference.
  */
 inline fun RecyclerView.childAttachStateChangeEvents(): Observable<RecyclerViewChildAttachStateChangeEvent> = RxRecyclerView.childAttachStateChangeEvents(this)
+
 /**
  * Create an observable of scroll events on `recyclerView`.
  *
@@ -23,6 +24,7 @@ inline fun RecyclerView.childAttachStateChangeEvents(): Observable<RecyclerViewC
  * Unsubscribe to free this reference.
  */
 inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = RxRecyclerView.scrollEvents(this)
+
 /**
  * Create an observable of scroll state changes on `recyclerView`.
  *

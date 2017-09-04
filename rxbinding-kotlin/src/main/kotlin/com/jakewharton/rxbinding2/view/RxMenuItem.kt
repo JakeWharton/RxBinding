@@ -25,6 +25,7 @@ import kotlin.Unit
  * observe clicks. Only one observable can be used for a menu item at a time.
  */
 inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(VoidToUnit)
+
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
  * unspecified and should only be used as notification.
@@ -39,6 +40,7 @@ inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(Voi
  * underlying [MenuItem.OnMenuItemClickListener].
  */
 inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = RxMenuItem.clicks(this, handled).map(VoidToUnit)
+
 /**
  * Create an observable of action view events for `menuItem`.
  *
@@ -49,6 +51,7 @@ inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = 
  * observe action view events. Only one observable can be used for a menu item at a time.
  */
 inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this)
+
 /**
  * Create an observable of action view events for `menuItem`.
  *
@@ -62,6 +65,7 @@ inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = Rx
  * underlying [MenuItem.OnActionExpandListener].
  */
 inline fun MenuItem.actionViewEvents(handled: Predicate<in MenuItemActionViewEvent>): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this, handled)
+
 /**
  * An action which sets the checked property of `menuItem`.
  *
@@ -69,6 +73,7 @@ inline fun MenuItem.actionViewEvents(handled: Predicate<in MenuItemActionViewEve
  * Unsubscribe to free this reference.
  */
 inline fun MenuItem.checked(): Consumer<in Boolean> = RxMenuItem.checked(this)
+
 /**
  * An action which sets the enabled property of `menuItem`.
  *
@@ -76,6 +81,7 @@ inline fun MenuItem.checked(): Consumer<in Boolean> = RxMenuItem.checked(this)
  * Unsubscribe to free this reference.
  */
 inline fun MenuItem.enabled(): Consumer<in Boolean> = RxMenuItem.enabled(this)
+
 /**
  * An action which sets the icon property of `menuItem`.
  *
@@ -83,6 +89,7 @@ inline fun MenuItem.enabled(): Consumer<in Boolean> = RxMenuItem.enabled(this)
  * Unsubscribe to free this reference.
  */
 inline fun MenuItem.icon(): Consumer<in Drawable> = RxMenuItem.icon(this)
+
 /**
  * An action which sets the icon property of `menuItem`.
  *
@@ -90,6 +97,7 @@ inline fun MenuItem.icon(): Consumer<in Drawable> = RxMenuItem.icon(this)
  * Unsubscribe to free this reference.
  */
 inline fun MenuItem.iconRes(): Consumer<in Int> = RxMenuItem.iconRes(this)
+
 /**
  * An action which sets the title property of `menuItem`.
  *
@@ -97,6 +105,7 @@ inline fun MenuItem.iconRes(): Consumer<in Int> = RxMenuItem.iconRes(this)
  * Unsubscribe to free this reference.
  */
 inline fun MenuItem.title(): Consumer<in CharSequence> = RxMenuItem.title(this)
+
 /**
  * An action which sets the title property of `menuItem`.
  *
@@ -104,6 +113,7 @@ inline fun MenuItem.title(): Consumer<in CharSequence> = RxMenuItem.title(this)
  * Unsubscribe to free this reference.
  */
 inline fun MenuItem.titleRes(): Consumer<in Int> = RxMenuItem.titleRes(this)
+
 /**
  * An action which sets the visibility property of `menuItem`.
  *

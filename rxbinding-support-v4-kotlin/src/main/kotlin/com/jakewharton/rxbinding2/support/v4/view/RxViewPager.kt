@@ -18,6 +18,7 @@ import kotlin.Suppress
  * to free this reference.
  */
 inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pageScrollStateChanges(this)
+
 /**
  * Create an observable of page selected events on `view`.
  *
@@ -27,6 +28,7 @@ inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pag
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun ViewPager.pageSelections(): InitialValueObservable<Int> = RxViewPager.pageSelections(this)
+
 /**
  * An action which sets the current item of `view`.
  *

@@ -20,6 +20,7 @@ import kotlin.Unit
  * to free this reference.
  */
 inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(this)
+
 /**
  * Create an observable which emits on `view` navigation click events. The emitted value is
  * unspecified and should only be used as notification.
@@ -31,6 +32,7 @@ inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(thi
  * to observe clicks. Only one observable can be used for a view at a time.
  */
 inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(VoidToUnit)
+
 /**
  * An action which sets the title property of `view` with character sequences.
  *
@@ -38,6 +40,7 @@ inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationCl
  * to free this reference.
  */
 inline fun Toolbar.title(): Consumer<in CharSequence?> = RxToolbar.title(this)
+
 /**
  * An action which sets the title property of `view` string resource IDs.
  *
@@ -45,6 +48,7 @@ inline fun Toolbar.title(): Consumer<in CharSequence?> = RxToolbar.title(this)
  * to free this reference.
  */
 inline fun Toolbar.titleRes(): Consumer<in Int> = RxToolbar.titleRes(this)
+
 /**
  * An action which sets the subtitle property of `view` with character sequences.
  *
@@ -52,6 +56,7 @@ inline fun Toolbar.titleRes(): Consumer<in Int> = RxToolbar.titleRes(this)
  * to free this reference.
  */
 inline fun Toolbar.subtitle(): Consumer<in CharSequence?> = RxToolbar.subtitle(this)
+
 /**
  * An action which sets the subtitle property of `view` string resource IDs.
  *

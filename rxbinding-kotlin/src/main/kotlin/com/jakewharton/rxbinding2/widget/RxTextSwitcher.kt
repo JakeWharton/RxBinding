@@ -15,6 +15,7 @@ import kotlin.Suppress
  * to free this reference.
  */
 inline fun TextSwitcher.text(): Consumer<in CharSequence> = RxTextSwitcher.text(this)
+
 /**
  * An action which sets the current text property of `view`.
  *
