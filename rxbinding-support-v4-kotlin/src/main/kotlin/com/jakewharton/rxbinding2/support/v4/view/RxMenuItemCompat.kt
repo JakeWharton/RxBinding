@@ -1,9 +1,14 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.v4.view
 
 import android.view.MenuItem
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent
 import io.reactivex.Observable
 import io.reactivex.functions.Predicate
+import kotlin.Suppress
 
 /**
  * Create an observable of action view events for `menuItem`.
@@ -15,7 +20,6 @@ import io.reactivex.functions.Predicate
  * observe action view events. Only one observable can be used for a menu item at a time.
  */
 inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = RxMenuItemCompat.actionViewEvents(this)
-
 /**
  * Create an observable of action view events for `menuItem`.
  *

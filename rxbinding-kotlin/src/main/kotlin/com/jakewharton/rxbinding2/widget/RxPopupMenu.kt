@@ -1,9 +1,15 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.view.MenuItem
 import android.widget.PopupMenu
-import io.reactivex.Observable
 import com.jakewharton.rxbinding2.internal.VoidToUnit
+import io.reactivex.Observable
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable which emits the clicked item in `view`'s menu.
@@ -15,7 +21,6 @@ import com.jakewharton.rxbinding2.internal.VoidToUnit
  * to observe dismiss change. Only one observable can be used for a view at a time.
  */
 inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks(this)
-
 /**
  * Create an observable which emits on `view` dismiss events. The emitted value is
  * unspecified and should only be used as notification.

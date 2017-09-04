@@ -1,9 +1,14 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.v4.widget
 
 import android.support.v4.widget.SlidingPaneLayout
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * Create an observable of the open state of the pane of `view`
@@ -17,7 +22,6 @@ import io.reactivex.functions.Consumer
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SlidingPaneLayout.panelOpens(): InitialValueObservable<Boolean> = RxSlidingPaneLayout.panelOpens(this)
-
 /**
  * Create an observable of the slide offset of the pane of `view`
  *
@@ -28,7 +32,6 @@ inline fun SlidingPaneLayout.panelOpens(): InitialValueObservable<Boolean> = RxS
  * to observe dismiss change. Only one observable can be used for a view at a time.
  */
 inline fun SlidingPaneLayout.panelSlides(): Observable<Float> = RxSlidingPaneLayout.panelSlides(this)
-
 /**
  * An action which sets whether the pane of `view` is open.
  *

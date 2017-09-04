@@ -1,3 +1,7 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.TextView
@@ -5,6 +9,8 @@ import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of editor actions on `view`.
@@ -16,7 +22,6 @@ import io.reactivex.functions.Predicate
  * observe actions. Only one observable can be used for a view at a time.
  */
 inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorActions(this)
-
 /**
  * Create an observable of editor actions on `view`.
  *
@@ -30,7 +35,6 @@ inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorActions(
  * underlying [TextView.OnEditorActionListener].
  */
 inline fun TextView.editorActions(handled: Predicate<in Int>): Observable<Int> = RxTextView.editorActions(this, handled)
-
 /**
  * Create an observable of editor action events on `view`.
  *
@@ -41,7 +45,6 @@ inline fun TextView.editorActions(handled: Predicate<in Int>): Observable<Int> =
  * observe actions. Only one observable can be used for a view at a time.
  */
 inline fun TextView.editorActionEvents(): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this)
-
 /**
  * Create an observable of editor action events on `view`.
  *
@@ -55,7 +58,6 @@ inline fun TextView.editorActionEvents(): Observable<TextViewEditorActionEvent> 
  * underlying [TextView.OnEditorActionListener].
  */
 inline fun TextView.editorActionEvents(handled: Predicate<in TextViewEditorActionEvent>): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this, handled)
-
 /**
  * Create an observable of character sequences for text changes on `view`.
  *
@@ -71,7 +73,6 @@ inline fun TextView.editorActionEvents(handled: Predicate<in TextViewEditorActio
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun TextView.textChanges(): InitialValueObservable<CharSequence> = RxTextView.textChanges(this)
-
 /**
  * Create an observable of text change events for `view`.
  *
@@ -87,7 +88,6 @@ inline fun TextView.textChanges(): InitialValueObservable<CharSequence> = RxText
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun TextView.textChangeEvents(): InitialValueObservable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
-
 /**
  * Create an observable of before text change events for `view`.
  *
@@ -97,7 +97,6 @@ inline fun TextView.textChangeEvents(): InitialValueObservable<TextViewTextChang
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun TextView.beforeTextChangeEvents(): InitialValueObservable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
-
 /**
  * Create an observable of after text change events for `view`.
  *
@@ -108,7 +107,6 @@ inline fun TextView.beforeTextChangeEvents(): InitialValueObservable<TextViewBef
  * {@link TextView#getEditableText()}.
  */
 inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
-
 /**
  * An action which sets the text property of `view` with character sequences.
  *
@@ -116,7 +114,6 @@ inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfte
  * to free this reference.
  */
 inline fun TextView.text(): Consumer<in CharSequence> = RxTextView.text(this)
-
 /**
  * An action which sets the text property of `view` string resource IDs.
  *
@@ -124,7 +121,6 @@ inline fun TextView.text(): Consumer<in CharSequence> = RxTextView.text(this)
  * to free this reference.
  */
 inline fun TextView.textRes(): Consumer<in Int> = RxTextView.textRes(this)
-
 /**
  * An action which sets the error property of `view` with character sequences.
  *
@@ -132,7 +128,6 @@ inline fun TextView.textRes(): Consumer<in Int> = RxTextView.textRes(this)
  * to free this reference.
  */
 inline fun TextView.error(): Consumer<in CharSequence> = RxTextView.error(this)
-
 /**
  * An action which sets the error property of `view` string resource IDs.
  *
@@ -140,7 +135,6 @@ inline fun TextView.error(): Consumer<in CharSequence> = RxTextView.error(this)
  * to free this reference.
  */
 inline fun TextView.errorRes(): Consumer<in Int> = RxTextView.errorRes(this)
-
 /**
  * An action which sets the hint property of `view` with character sequences.
  *
@@ -148,7 +142,6 @@ inline fun TextView.errorRes(): Consumer<in Int> = RxTextView.errorRes(this)
  * to free this reference.
  */
 inline fun TextView.hint(): Consumer<in CharSequence> = RxTextView.hint(this)
-
 /**
  * An action which sets the hint property of `view` string resource IDs.
  *
@@ -156,7 +149,6 @@ inline fun TextView.hint(): Consumer<in CharSequence> = RxTextView.hint(this)
  * to free this reference.
  */
 inline fun TextView.hintRes(): Consumer<in Int> = RxTextView.hintRes(this)
-
 /**
  * An action which sets the color property of `view` with color integer.
  *

@@ -1,7 +1,13 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.design.widget
 
 import android.support.design.widget.TextInputLayout
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * An action which sets the counterEnabled property of `view` with a boolean value.
@@ -10,7 +16,6 @@ import io.reactivex.functions.Consumer
  * to free this reference.
  */
 inline fun TextInputLayout.counterEnabled(): Consumer<in Boolean> = RxTextInputLayout.counterEnabled(this)
-
 /**
  * An action which sets the counterMaxLength property of `view` with an integer value.
  *
@@ -18,7 +23,6 @@ inline fun TextInputLayout.counterEnabled(): Consumer<in Boolean> = RxTextInputL
  * to free this reference.
  */
 inline fun TextInputLayout.counterMaxLength(): Consumer<in Int> = RxTextInputLayout.counterMaxLength(this)
-
 /**
  * An action which sets the error text of `view` with a character sequence.
  *
@@ -26,7 +30,6 @@ inline fun TextInputLayout.counterMaxLength(): Consumer<in Int> = RxTextInputLay
  * to free this reference.
  */
 inline fun TextInputLayout.error(): Consumer<in CharSequence?> = RxTextInputLayout.error(this)
-
 /**
  * An action which sets the error text of `view` with a string resource.
  *
@@ -34,7 +37,6 @@ inline fun TextInputLayout.error(): Consumer<in CharSequence?> = RxTextInputLayo
  * to free this reference.
  */
 inline fun TextInputLayout.errorRes(): Consumer<in Int?> = RxTextInputLayout.errorRes(this)
-
 /**
  * An action which sets the hint property of `view` with character sequences.
  *
@@ -42,7 +44,6 @@ inline fun TextInputLayout.errorRes(): Consumer<in Int?> = RxTextInputLayout.err
  * to free this reference.
  */
 inline fun TextInputLayout.hint(): Consumer<in CharSequence> = RxTextInputLayout.hint(this)
-
 /**
  * An action which sets the hint property of `view` string resource IDs.
  *

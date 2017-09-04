@@ -1,8 +1,12 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.TextSwitcher
-import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * An action which sets the text property of `view`.
@@ -11,7 +15,6 @@ import io.reactivex.functions.Consumer
  * to free this reference.
  */
 inline fun TextSwitcher.text(): Consumer<in CharSequence> = RxTextSwitcher.text(this)
-
 /**
  * An action which sets the current text property of `view`.
  *

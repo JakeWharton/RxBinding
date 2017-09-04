@@ -1,7 +1,12 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.AbsListView
 import io.reactivex.Observable
+import kotlin.Suppress
 
 /**
  * Create an observable of scroll events on `absListView`.

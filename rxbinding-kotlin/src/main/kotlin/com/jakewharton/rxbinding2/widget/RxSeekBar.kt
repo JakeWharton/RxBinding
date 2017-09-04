@@ -1,7 +1,13 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.SeekBar
 import com.jakewharton.rxbinding2.InitialValueObservable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of progress value changes on `view`.
@@ -12,7 +18,6 @@ import com.jakewharton.rxbinding2.InitialValueObservable
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.changes(): InitialValueObservable<Int> = RxSeekBar.changes(this)
-
 /**
  * Create an observable of progress value changes on `view` that were made only from the
  * user.
@@ -23,7 +28,6 @@ inline fun SeekBar.changes(): InitialValueObservable<Int> = RxSeekBar.changes(th
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.userChanges(): InitialValueObservable<Int> = RxSeekBar.userChanges(this)
-
 /**
  * Create an observable of progress value changes on `view` that were made only from the
  * system.
@@ -34,7 +38,6 @@ inline fun SeekBar.userChanges(): InitialValueObservable<Int> = RxSeekBar.userCh
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.systemChanges(): InitialValueObservable<Int> = RxSeekBar.systemChanges(this)
-
 /**
  * Create an observable of progress change events for `view`.
  *
