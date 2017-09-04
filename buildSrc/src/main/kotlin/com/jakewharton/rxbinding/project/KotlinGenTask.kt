@@ -17,6 +17,8 @@ import com.github.javaparser.ast.type.VoidType
 import com.github.javaparser.ast.type.WildcardType
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.squareup.kotlinpoet.ANY
+import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.AnnotationSpec.UseSiteTarget.FILE
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.INT
@@ -233,6 +235,11 @@ open class KotlinGenTask : SourceTask() {
             methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
                 .forEach { addFun(it) }
           }
+          // @file:Suppress("NOTHING_TO_INLINE")
+          .addFileAnnotation(AnnotationSpec.builder(Suppress::class)
+              .useSiteTarget(FILE)
+              .addMember("names", "%S", "NOTHING_TO_INLINE")
+              .build())
           .skipJavaLangImports(true)
           .build()
           .writeTo(directory)
