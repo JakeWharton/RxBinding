@@ -308,7 +308,7 @@ open class KotlinGenTask : SourceTask() {
           .addKdoc(comment ?: "")
           .addModifiers(INLINE)
           .apply {
-            typeParameters?.let { addTypeVariables(typeParameters) }
+            typeParameters?.let { addTypeVariables(it) }
           }
           .returns(kotlinType)
           .addParameters(parameterSpecs)
