@@ -115,27 +115,17 @@ open class KotlinGenTask : SourceTask() {
         methodAnnotations: List<AnnotationExpr>?,
         associatedImports: Map<String, ClassName>? = null): WildcardTypeName {
       val isNullable = isWildcardNullable(methodAnnotations)
-      return when {
-        inputType.`super` != null -> WildcardTypeName.supertypeOf(
-            resolveKotlinType(inputType.`super`, associatedImports = associatedImports))
-            .let {
-              if (isNullable) {
-                it.asNullable()
-              } else {
-                it
-              }
-            }
-        inputType.extends != null -> WildcardTypeName.subtypeOf(
-            resolveKotlinType(inputType.extends, associatedImports = associatedImports))
-            .let {
-              if (isNullable) {
-                it.asNullable()
-              } else {
-                it
-              }
-            }
-        else -> throw IllegalStateException("Wildcard with no super or extends")
+      inputType.`super`?.let { name ->
+        val type = WildcardTypeName.supertypeOf(
+            resolveKotlinType(name, associatedImports = associatedImports))
+        return if (isNullable) type.asNullable() else type
       }
+      inputType.extends?.let { name ->
+        val type = WildcardTypeName.subtypeOf(
+            resolveKotlinType(name, associatedImports = associatedImports))
+        return if (isNullable) type.asNullable() else type
+      }
+      throw IllegalStateException("Wildcard with no super or extends")
     }
 
     private fun isWildcardNullable(annotations: List<AnnotationExpr>?): Boolean {
