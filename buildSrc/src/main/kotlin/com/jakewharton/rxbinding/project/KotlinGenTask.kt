@@ -157,7 +157,7 @@ open class KotlinGenTask : SourceTask() {
     val cu = JavaParser.parse(file)
 
     val kClass = KFile()
-    kClass.fileName = file.name.replace(".java", "")
+    kClass.fileName = file.name.removeSuffix(".java")
     val imports = mutableListOf<String>()
 
     // Visit the imports first so we can create an associate of them for lookups later.
