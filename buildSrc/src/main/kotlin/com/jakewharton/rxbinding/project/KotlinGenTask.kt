@@ -219,7 +219,7 @@ open class KotlinGenTask : SourceTask() {
     fun generate(directory: File) {
       KotlinFile.builder(packageName, fileName)
           .apply {
-            methods.firstOrNull { it.emitsUnit() }?.let {
+            if (methods.any { it.emitsUnit() }) {
               addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
             }
             methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
