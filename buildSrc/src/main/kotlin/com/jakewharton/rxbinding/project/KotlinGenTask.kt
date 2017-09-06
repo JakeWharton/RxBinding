@@ -129,7 +129,7 @@ open class KotlinGenTask : SourceTask() {
     }
 
     private fun isWildcardNullable(annotations: List<AnnotationExpr>?): Boolean {
-      return annotations?.firstOrNull { it == GenericTypeNullableAnnotation }?.let { true } == true
+      return annotations?.any { it == GenericTypeNullableAnnotation } ?: false
     }
   }
 
