@@ -230,7 +230,6 @@ open class KotlinGenTask : SourceTask() {
               .useSiteTarget(FILE)
               .addMember("names", "%S", "NOTHING_TO_INLINE")
               .build())
-          .skipJavaLangImports(true)
           .build()
           .writeTo(directory)
 
