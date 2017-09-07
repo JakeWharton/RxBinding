@@ -14,6 +14,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
 import java.util.concurrent.Callable
+import kotlin.Int
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable which emits on `view` attach events. The emitted value is
