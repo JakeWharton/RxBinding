@@ -1,7 +1,12 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.view
 
 import android.view.ViewGroup
 import io.reactivex.Observable
+import kotlin.Suppress
 
 /**
  * Create an observable of hierarchy change events for `viewGroup`.

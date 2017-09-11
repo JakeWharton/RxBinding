@@ -5,7 +5,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class RecyclerViewScrollStateChangeObservable extends Observable<Integer> {
   private final RecyclerView view;
@@ -15,7 +15,9 @@ final class RecyclerViewScrollStateChangeObservable extends Observable<Integer> 
   }
 
   @Override protected void subscribeActual(Observer<? super Integer> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addOnScrollListener(listener.scrollListener);
@@ -23,7 +25,7 @@ final class RecyclerViewScrollStateChangeObservable extends Observable<Integer> 
 
   final class Listener extends MainThreadDisposable {
     private final RecyclerView recyclerView;
-    private final RecyclerView.OnScrollListener scrollListener;
+    final RecyclerView.OnScrollListener scrollListener;
 
     Listener(RecyclerView recyclerView, final Observer<? super Integer> observer) {
       this.recyclerView = recyclerView;

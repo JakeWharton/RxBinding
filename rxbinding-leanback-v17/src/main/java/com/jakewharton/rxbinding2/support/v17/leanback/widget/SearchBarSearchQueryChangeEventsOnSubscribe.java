@@ -1,12 +1,11 @@
 package com.jakewharton.rxbinding2.support.v17.leanback.widget;
 
 import android.support.v17.leanback.widget.SearchBar;
-import com.jakewharton.rxbinding2.support.v17.leanback.widget.SearchBarSearchQueryEvent.Kind;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class SearchBarSearchQueryChangeEventsOnSubscribe
     extends Observable<SearchBarSearchQueryEvent> {
@@ -18,7 +17,9 @@ final class SearchBarSearchQueryChangeEventsOnSubscribe
 
   @Override
   protected void subscribeActual(final Observer<? super SearchBarSearchQueryEvent> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.setSearchBarListener(listener);
@@ -35,19 +36,19 @@ final class SearchBarSearchQueryChangeEventsOnSubscribe
 
     @Override public void onSearchQueryChange(String query) {
       if (!isDisposed()) {
-        observer.onNext(SearchBarSearchQueryEvent.create(view, query, Kind.CHANGED));
+        observer.onNext(SearchBarSearchQueryChangedEvent.create(view, query));
       }
     }
 
     @Override public void onSearchQuerySubmit(String query) {
       if (!isDisposed()) {
-        observer.onNext(SearchBarSearchQueryEvent.create(view, query, Kind.SUBMITTED));
+        observer.onNext(SearchBarSearchQuerySubmittedEvent.create(view, query));
       }
     }
 
     @Override public void onKeyboardDismiss(String query) {
       if (!isDisposed()) {
-        observer.onNext(SearchBarSearchQueryEvent.create(view, query, Kind.KEYBOARD_DISMISSED));
+        observer.onNext(SearchBarSearchQueryKeyboardDismissedEvent.create(view, query));
       }
     }
 

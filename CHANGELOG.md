@@ -1,6 +1,28 @@
 Change Log
 ==========
 
+Version 2.0.0 *(2017-03-06)*
+----------------------------
+
+This version only supports RxJava 2.
+
+ * New: Maven coordinates are now `com.jakewharton.rxbinding2:rxbinding` (et al). Package name is now
+   `com.jakewharton.rxbinding2.*`.
+ * New: Bindings which emit an initial value now return an `InitialValueObservable<T>` which offers a
+   type-safe way to skip that value via `skipInitialValue()`.
+ * Event objects which previously contained an enum now use an abstract event type and subclasses for
+   easier filtering using the `ofType(Class)` operator.
+ * Bindings which previously emitted null using the `Void` type now use `Object` and omit an opaque
+   item instance for which no guarantees are provided. You can neither rely on the emitted instance
+   being the same, equal, nor different for subsequent events.
+
+
+Version 1.0.1 *(2017-02-28)*
+----------------------------
+
+ * Fix: Reduce method count cost for Kotlin modules.
+
+
 Version 1.0.0 *(2016-12-01)*
 ----------------------------
 

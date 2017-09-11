@@ -8,7 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class ViewTouchObservable extends Observable<MotionEvent> {
   private final View view;
@@ -20,7 +20,9 @@ final class ViewTouchObservable extends Observable<MotionEvent> {
   }
 
   @Override protected void subscribeActual(Observer<? super MotionEvent> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, handled, observer);
     observer.onSubscribe(listener);
     view.setOnTouchListener(listener);

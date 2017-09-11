@@ -2,29 +2,30 @@ package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
-import com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelectionEvent> {
-  private final TabLayout view;
+  final TabLayout view;
 
   TabLayoutSelectionEventObservable(TabLayout view) {
     this.view = view;
   }
 
   @Override protected void subscribeActual(Observer<? super TabLayoutSelectionEvent> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addOnTabSelectedListener(listener);
 
     int index = view.getSelectedTabPosition();
     if (index != -1) {
-      observer.onNext(TabLayoutSelectionEvent.create(view, Kind.SELECTED, view.getTabAt(index)));
+      observer.onNext(TabLayoutSelectionSelectedEvent.create(view, view.getTabAt(index)));
     }
   }
 
@@ -39,19 +40,19 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
 
     @Override public void onTabSelected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionEvent.create(view, Kind.SELECTED, tab));
+        observer.onNext(TabLayoutSelectionSelectedEvent.create(view, tab));
       }
     }
 
     @Override public void onTabUnselected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionEvent.create(view, Kind.UNSELECTED, tab));
+        observer.onNext(TabLayoutSelectionUnselectedEvent.create(view, tab));
       }
     }
 
     @Override public void onTabReselected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionEvent.create(view, Kind.RESELECTED, tab));
+        observer.onNext(TabLayoutSelectionReselectedEvent.create(view, tab));
       }
     }
 

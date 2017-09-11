@@ -1,7 +1,12 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.CheckedTextView
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * A consumer which sets the checked property of `view` with a boolean value.

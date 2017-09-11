@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
-import com.jakewharton.rxbinding.support.v4.test.R;
+import com.jakewharton.rxbinding2.support.v4.test.R;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public final class RxSwipeRefreshLayoutTestActivity extends Activity {
   SwipeRefreshLayout swipeRefreshLayout;
 
-  private final Handler handler = new Handler(Looper.getMainLooper());
-  private final Runnable stopRefreshing = new Runnable() {
+  final Handler handler = new Handler(Looper.getMainLooper());
+  final Runnable stopRefreshing = new Runnable() {
     @Override public void run() {
       swipeRefreshLayout.setRefreshing(false);
     }

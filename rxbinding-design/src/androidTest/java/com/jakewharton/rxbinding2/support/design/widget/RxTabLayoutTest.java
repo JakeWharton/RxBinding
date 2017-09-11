@@ -15,9 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.RESELECTED;
-import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.SELECTED;
-import static com.jakewharton.rxbinding2.support.design.widget.TabLayoutSelectionEvent.Kind.UNSELECTED;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
@@ -40,18 +37,18 @@ public final class RxTabLayoutTest {
   @Test @UiThreadTest public void selectionEvents() {
     RecordingObserver<TabLayoutSelectionEvent> o = new RecordingObserver<>();
     RxTabLayout.selectionEvents(view).subscribe(o);
-    assertEquals(TabLayoutSelectionEvent.create(view, SELECTED, tab1), o.takeNext());
+    assertEquals(TabLayoutSelectionSelectedEvent.create(view, tab1), o.takeNext());
 
     tab2.select();
-    assertEquals(TabLayoutSelectionEvent.create(view, UNSELECTED, tab1), o.takeNext());
-    assertEquals(TabLayoutSelectionEvent.create(view, SELECTED, tab2), o.takeNext());
+    assertEquals(TabLayoutSelectionUnselectedEvent.create(view, tab1), o.takeNext());
+    assertEquals(TabLayoutSelectionSelectedEvent.create(view, tab2), o.takeNext());
 
     tab2.select(); // Reselection
-    assertEquals(TabLayoutSelectionEvent.create(view, RESELECTED, tab2), o.takeNext());
+    assertEquals(TabLayoutSelectionReselectedEvent.create(view, tab2), o.takeNext());
 
     tab1.select();
-    assertEquals(TabLayoutSelectionEvent.create(view, UNSELECTED, tab2), o.takeNext());
-    assertEquals(TabLayoutSelectionEvent.create(view, SELECTED, tab1), o.takeNext());
+    assertEquals(TabLayoutSelectionUnselectedEvent.create(view, tab2), o.takeNext());
+    assertEquals(TabLayoutSelectionSelectedEvent.create(view, tab1), o.takeNext());
 
     o.dispose();
 

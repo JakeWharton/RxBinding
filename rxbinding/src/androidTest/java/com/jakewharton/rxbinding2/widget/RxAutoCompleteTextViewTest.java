@@ -10,7 +10,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import com.jakewharton.rxbinding.test.R;
+import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public final class RxAutoCompleteTextViewTest {
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
   private RxAutoCompleteTextViewTestActivity activity;
-  private AutoCompleteTextView autoCompleteTextView;
+  AutoCompleteTextView autoCompleteTextView;
 
   @Before public void setUp() {
     activity = activityRule.getActivity();

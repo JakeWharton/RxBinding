@@ -3,15 +3,12 @@ package com.jakewharton.rxbinding2.widget;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.TextView;
-
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
-
 final class TextViewAfterTextChangeEventObservable
-    extends Observable<TextViewAfterTextChangeEvent> {
+    extends InitialValueObservable<TextViewAfterTextChangeEvent> {
   private final TextView view;
 
   TextViewAfterTextChangeEventObservable(TextView view) {
@@ -19,12 +16,14 @@ final class TextViewAfterTextChangeEventObservable
   }
 
   @Override
-  protected void subscribeActual(Observer<? super TextViewAfterTextChangeEvent> observer) {
-    verifyMainThread();
+  protected void subscribeListener(Observer<? super TextViewAfterTextChangeEvent> observer) {
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     view.addTextChangedListener(listener);
-    observer.onNext(TextViewAfterTextChangeEvent.create(view, view.getEditableText()));
+  }
+
+  @Override protected TextViewAfterTextChangeEvent getInitialValue() {
+    return TextViewAfterTextChangeEvent.create(view, view.getEditableText());
   }
 
   static final class Listener extends MainThreadDisposable implements TextWatcher {

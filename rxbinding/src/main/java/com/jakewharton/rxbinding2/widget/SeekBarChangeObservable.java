@@ -3,13 +3,13 @@ package com.jakewharton.rxbinding2.widget;
 import android.support.annotation.Nullable;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class SeekBarChangeObservable extends Observable<Integer> {
+final class SeekBarChangeObservable extends InitialValueObservable<Integer> {
   private final SeekBar view;
   @Nullable private final Boolean shouldBeFromUser;
 
@@ -18,12 +18,17 @@ final class SeekBarChangeObservable extends Observable<Integer> {
     this.shouldBeFromUser = shouldBeFromUser;
   }
 
-  @Override protected void subscribeActual(Observer<? super Integer> observer) {
-    verifyMainThread();
+  @Override protected void subscribeListener(Observer<? super Integer> observer) {
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, shouldBeFromUser, observer);
     view.setOnSeekBarChangeListener(listener);
     observer.onSubscribe(listener);
-    observer.onNext(view.getProgress());
+  }
+
+  @Override protected Integer getInitialValue() {
+    return view.getProgress();
   }
 
   static final class Listener extends MainThreadDisposable implements OnSeekBarChangeListener {

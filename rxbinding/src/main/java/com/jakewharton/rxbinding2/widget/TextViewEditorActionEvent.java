@@ -6,57 +6,21 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding2.view.ViewEvent;
+import com.google.auto.value.AutoValue;
 
-public final class TextViewEditorActionEvent extends ViewEvent<TextView> {
+@AutoValue
+public abstract class TextViewEditorActionEvent {
   @CheckResult @NonNull
   public static TextViewEditorActionEvent create(@NonNull TextView view, int actionId,
       @Nullable KeyEvent keyEvent) {
-    return new TextViewEditorActionEvent(view, actionId, keyEvent);
+    return new AutoValue_TextViewEditorActionEvent(view, actionId, keyEvent);
   }
 
-  private final int actionId;
-  @Nullable private final KeyEvent keyEvent;
-
-  private TextViewEditorActionEvent(@NonNull TextView view, int actionId,
-      @Nullable KeyEvent keyEvent) {
-    super(view);
-    this.actionId = actionId;
-    this.keyEvent = keyEvent;
+  TextViewEditorActionEvent() {
   }
 
-  public int actionId() {
-    return actionId;
-  }
-
-  @Nullable public KeyEvent keyEvent() {
-    return keyEvent;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (o == this) return true;
-    if (!(o instanceof TextViewEditorActionEvent)) return false;
-    TextViewEditorActionEvent other = (TextViewEditorActionEvent) o;
-    return other.view() == view()
-        && other.actionId == actionId
-        && (other.keyEvent != null ? other.keyEvent.equals(keyEvent) : keyEvent == null);
-  }
-
-  @Override public int hashCode() {
-    int result = 17;
-    result = result * 37 + view().hashCode();
-    result = result * 37 + actionId;
-    result = result * 37 + (keyEvent != null ? keyEvent.hashCode() : 0);
-    return result;
-  }
-
-  @Override public String toString() {
-    return "TextViewEditorActionEvent{view="
-        + view()
-        + ", actionId="
-        + actionId
-        + ", keyEvent="
-        + keyEvent
-        + '}';
-  }
+  /** The view from which this event occurred. */
+  @NonNull public abstract TextView view();
+  public abstract int actionId();
+  @Nullable public abstract KeyEvent keyEvent();
 }

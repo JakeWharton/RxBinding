@@ -2,25 +2,30 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class SeekBarChangeEventObservable extends Observable<SeekBarChangeEvent> {
+final class SeekBarChangeEventObservable extends InitialValueObservable<SeekBarChangeEvent> {
   private final SeekBar view;
 
   SeekBarChangeEventObservable(SeekBar view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super SeekBarChangeEvent> observer) {
-    verifyMainThread();
+  @Override protected void subscribeListener(Observer<? super SeekBarChangeEvent> observer) {
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     view.setOnSeekBarChangeListener(listener);
     observer.onSubscribe(listener);
-    observer.onNext(SeekBarProgressChangeEvent.create(view, view.getProgress(), false));
+  }
+
+  @Override protected SeekBarChangeEvent getInitialValue() {
+    return SeekBarProgressChangeEvent.create(view, view.getProgress(), false);
   }
 
   static final class Listener extends MainThreadDisposable implements OnSeekBarChangeListener {

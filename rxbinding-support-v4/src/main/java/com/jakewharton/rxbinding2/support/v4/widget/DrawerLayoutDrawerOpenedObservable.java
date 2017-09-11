@@ -3,13 +3,13 @@ package com.jakewharton.rxbinding2.support.v4.widget;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.view.View;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class DrawerLayoutDrawerOpenedObservable extends Observable<Boolean> {
+final class DrawerLayoutDrawerOpenedObservable extends InitialValueObservable<Boolean> {
   private final DrawerLayout view;
   private final int gravity;
 
@@ -18,12 +18,17 @@ final class DrawerLayoutDrawerOpenedObservable extends Observable<Boolean> {
     this.gravity = gravity;
   }
 
-  @Override protected void subscribeActual(Observer<? super Boolean> observer) {
-    verifyMainThread();
+  @Override protected void subscribeListener(Observer<? super Boolean> observer) {
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, gravity, observer);
     observer.onSubscribe(listener);
     view.addDrawerListener(listener);
-    observer.onNext(view.isDrawerOpen(gravity));
+  }
+
+  @Override protected Boolean getInitialValue() {
+    return view.isDrawerOpen(gravity);
   }
 
   static final class Listener extends MainThreadDisposable implements DrawerListener {

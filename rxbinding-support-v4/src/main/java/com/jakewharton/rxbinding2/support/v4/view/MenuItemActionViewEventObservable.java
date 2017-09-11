@@ -2,15 +2,16 @@ package com.jakewharton.rxbinding2.support.v4.view;
 
 import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
 import android.view.MenuItem;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewCollapseEvent;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
-import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent.Kind;
+import com.jakewharton.rxbinding2.view.MenuItemActionViewExpandEvent;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
 
 import static android.support.v4.view.MenuItemCompat.setOnActionExpandListener;
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class MenuItemActionViewEventObservable extends Observable<MenuItemActionViewEvent> {
   private final MenuItem menuItem;
@@ -23,7 +24,9 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
   }
 
   @Override protected void subscribeActual(Observer<? super MenuItemActionViewEvent> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(menuItem, handled, observer);
     observer.onSubscribe(listener);
     setOnActionExpandListener(menuItem, listener);
@@ -42,13 +45,11 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
     }
 
     @Override public boolean onMenuItemActionExpand(MenuItem item) {
-      MenuItemActionViewEvent event = MenuItemActionViewEvent.create(menuItem, Kind.EXPAND);
-      return onEvent(event);
+      return onEvent(MenuItemActionViewExpandEvent.create(item));
     }
 
     @Override public boolean onMenuItemActionCollapse(MenuItem item) {
-      MenuItemActionViewEvent event = MenuItemActionViewEvent.create(menuItem, Kind.COLLAPSE);
-      return onEvent(event);
+      return onEvent(MenuItemActionViewCollapseEvent.create(item));
     }
 
     private boolean onEvent(MenuItemActionViewEvent event) {

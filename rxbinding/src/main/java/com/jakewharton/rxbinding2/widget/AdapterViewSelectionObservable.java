@@ -3,29 +3,31 @@ package com.jakewharton.rxbinding2.widget;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 import static android.widget.AdapterView.INVALID_POSITION;
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class AdapterViewSelectionObservable extends Observable<AdapterViewSelectionEvent> {
+final class AdapterViewSelectionObservable
+    extends InitialValueObservable<AdapterViewSelectionEvent> {
   private final AdapterView<?> view;
 
   AdapterViewSelectionObservable(AdapterView<?> view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super AdapterViewSelectionEvent> observer) {
-    verifyMainThread();
+  @Override protected void subscribeListener(Observer<? super AdapterViewSelectionEvent> observer) {
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     view.setOnItemSelectedListener(listener);
     observer.onSubscribe(listener);
-    observer.onNext(createInitialEvent());
   }
 
-  private AdapterViewSelectionEvent createInitialEvent() {
+  @Override protected AdapterViewSelectionEvent getInitialValue() {
     int selectedPosition = view.getSelectedItemPosition();
     if (selectedPosition == INVALID_POSITION) {
       return AdapterViewNothingSelectionEvent.create(view);

@@ -1,8 +1,14 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.v7.widget
 
 import android.support.v7.widget.SearchView
-import io.reactivex.Observable
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Boolean
+import kotlin.Suppress
 
 /**
  * Create an observable of {@linkplain SearchViewQueryTextEvent query text events} on {@code
@@ -13,7 +19,7 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
+inline fun SearchView.queryTextChangeEvents(): InitialValueObservable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
 
 /**
  * Create an observable of character sequences for query text changes on `view`.
@@ -23,7 +29,7 @@ inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEve
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchView.queryTextChanges(this)
+inline fun SearchView.queryTextChanges(): InitialValueObservable<CharSequence> = RxSearchView.queryTextChanges(this)
 
 /**
  * An action which sets the query property of `view` with character sequences.
@@ -31,6 +37,6 @@ inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchVie
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  *
- * @param submit weather to submit query right after updating query text
+ * @param submit whether to submit query right after updating query text
  */
 inline fun SearchView.query(submit: Boolean): Consumer<in CharSequence> = RxSearchView.query(this, submit)

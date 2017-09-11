@@ -2,25 +2,30 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
-import io.reactivex.Observable;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-final class RatingBarRatingChangeObservable extends Observable<Float> {
+final class RatingBarRatingChangeObservable extends InitialValueObservable<Float> {
   private final RatingBar view;
 
   RatingBarRatingChangeObservable(RatingBar view) {
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super Float> observer) {
-    verifyMainThread();
+  @Override protected void subscribeListener(Observer<? super Float> observer) {
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     view.setOnRatingBarChangeListener(listener);
     observer.onSubscribe(listener);
-    observer.onNext(view.getRating());
+  }
+
+  @Override protected Float getInitialValue() {
+    return view.getRating();
   }
 
   static final class Listener extends MainThreadDisposable implements OnRatingBarChangeListener {

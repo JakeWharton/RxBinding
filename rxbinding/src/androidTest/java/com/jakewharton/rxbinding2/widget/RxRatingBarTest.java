@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private RatingBar view;
+  RatingBar view;
 
   @Before public void setUp() {
     view = activityRule.getActivity().ratingBar;

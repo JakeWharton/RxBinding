@@ -24,7 +24,7 @@ import static org.junit.Assert.assertSame;
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private PopupMenu view;
+  PopupMenu view;
 
   @Before public void setUp() {
     view = activityRule.getActivity().popupMenu;

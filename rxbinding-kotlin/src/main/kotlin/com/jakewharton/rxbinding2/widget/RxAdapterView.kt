@@ -1,12 +1,18 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.widget
 
 import android.widget.Adapter
 import android.widget.AdapterView
-import com.jakewharton.rxbinding2.internal.Functions
-import java.util.concurrent.Callable
+import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
+import java.util.concurrent.Callable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of the selected position of `view`. If nothing is selected,
@@ -17,7 +23,7 @@ import io.reactivex.functions.Predicate
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun <T : Adapter> AdapterView<T>.itemSelections(): Observable<Int> = RxAdapterView.itemSelections(this)
+inline fun <T : Adapter> AdapterView<T>.itemSelections(): InitialValueObservable<Int> = RxAdapterView.itemSelections(this)
 
 /**
  * Create an observable of selection events for `view`.
@@ -27,7 +33,7 @@ inline fun <T : Adapter> AdapterView<T>.itemSelections(): Observable<Int> = RxAd
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-inline fun <T : Adapter> AdapterView<T>.selectionEvents(): Observable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
+inline fun <T : Adapter> AdapterView<T>.selectionEvents(): InitialValueObservable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
 
 /**
  * Create an observable of the position of item clicks for `view`.

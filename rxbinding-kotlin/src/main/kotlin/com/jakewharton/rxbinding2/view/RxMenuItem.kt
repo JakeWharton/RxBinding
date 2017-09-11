@@ -1,11 +1,18 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.view
 
 import android.graphics.drawable.Drawable
 import android.view.MenuItem
-import com.jakewharton.rxbinding2.internal.Functions
+import com.jakewharton.rxbinding2.internal.VoidToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
+import kotlin.Int
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
@@ -17,7 +24,7 @@ import io.reactivex.functions.Predicate
  * *Warning:* The created observable uses [MenuItem.setOnMenuItemClickListener] to
  * observe clicks. Only one observable can be used for a menu item at a time.
  */
-inline fun MenuItem.clicks(): Observable<Any> = RxMenuItem.clicks(this)
+inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(VoidToUnit)
 
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
@@ -32,7 +39,7 @@ inline fun MenuItem.clicks(): Observable<Any> = RxMenuItem.clicks(this)
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [MenuItem.OnMenuItemClickListener].
  */
-inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Any> = RxMenuItem.clicks(this, handled)
+inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = RxMenuItem.clicks(this, handled).map(VoidToUnit)
 
 /**
  * Create an observable of action view events for `menuItem`.

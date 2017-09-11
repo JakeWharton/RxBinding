@@ -3,8 +3,6 @@ package com.jakewharton.rxbinding2.support.v7.widget;
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding.ViewDirtyIdlingResource;
+import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.After;
 import org.junit.Before;
@@ -32,8 +30,7 @@ public final class RxRecyclerViewTest {
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private RecyclerView view;
-  private ViewInteraction interaction;
+  RecyclerView view;
   private ViewDirtyIdlingResource viewDirtyIdler;
   private View child;
 
@@ -41,7 +38,6 @@ public final class RxRecyclerViewTest {
     RxRecyclerViewTestActivity activity = activityRule.getActivity();
     view = activity.recyclerView;
     child = new View(activityRule.getActivity());
-    interaction = Espresso.onView(ViewMatchers.withId(android.R.id.primary));
     viewDirtyIdler = new ViewDirtyIdlingResource(activity);
     Espresso.registerIdlingResources(viewDirtyIdler);
   }
@@ -227,7 +223,7 @@ public final class RxRecyclerViewTest {
   private class SimpleAdapter extends RecyclerView.Adapter {
     private final View child;
 
-    public SimpleAdapter(View child) {
+    SimpleAdapter(View child) {
       this.child = child;
     }
 
@@ -271,7 +267,7 @@ public final class RxRecyclerViewTest {
 
     TextView textView;
 
-    public ViewHolder(TextView itemView) {
+    ViewHolder(TextView itemView) {
       super(itemView);
       this.textView = itemView;
     }

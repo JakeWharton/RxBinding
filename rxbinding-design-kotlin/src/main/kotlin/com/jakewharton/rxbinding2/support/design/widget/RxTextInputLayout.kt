@@ -1,7 +1,13 @@
+@file:Suppress(
+    names = "NOTHING_TO_INLINE"
+)
+
 package com.jakewharton.rxbinding2.support.design.widget
 
 import android.support.design.widget.TextInputLayout
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * An action which sets the counterEnabled property of `view` with a boolean value.

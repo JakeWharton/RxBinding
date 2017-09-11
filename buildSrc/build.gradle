@@ -3,7 +3,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.2'
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-3'
   }
 }
 
@@ -20,5 +20,6 @@ dependencies {
   compile gradleApi()
   compile rootProject.ext.androidPlugin
   compile rootProject.ext.javaParser
+  compile rootProject.ext.kotlinPoet
   compile rootProject.ext.kotlinStdlib
 }

@@ -33,9 +33,9 @@ import static org.junit.Assert.assertTrue;
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-  private SlidingPaneLayout view;
+  SlidingPaneLayout view;
 
-  private CountingIdlingResource idler;
+  CountingIdlingResource idler;
 
   @Before public void setUp() {
     RxSlidingPaneLayoutTestActivity activity = activityRule.getActivity();

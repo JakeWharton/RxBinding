@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class SnackbarDismissesObservable extends Observable<Integer> {
   private final Snackbar view;
@@ -16,15 +16,17 @@ final class SnackbarDismissesObservable extends Observable<Integer> {
   }
 
   @Override protected void subscribeActual(Observer<? super Integer> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.setCallback(listener.callback);
+    view.addCallback(listener.callback);
   }
 
   final class Listener extends MainThreadDisposable {
     private final Snackbar snackbar;
-    private final Callback callback;
+    final Callback callback;
 
     Listener(Snackbar snackbar, final Observer<? super Integer> observer) {
       this.snackbar = snackbar;
@@ -38,7 +40,7 @@ final class SnackbarDismissesObservable extends Observable<Integer> {
     }
 
     @Override protected void onDispose() {
-      snackbar.setCallback(null);
+      snackbar.removeCallback(callback);
     }
   }
 }

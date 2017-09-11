@@ -4,6 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.internal.Functions;
 import java.util.concurrent.Callable;
 import io.reactivex.Observable;
@@ -27,7 +28,7 @@ public final class RxAdapterView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static <T extends Adapter> Observable<Integer> itemSelections(
+  public static <T extends Adapter> InitialValueObservable<Integer> itemSelections(
       @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new AdapterViewItemSelectionObservable(view);
@@ -42,8 +43,8 @@ public final class RxAdapterView {
    * <em>Note:</em> A value will be emitted immediately on subscribe.
    */
   @CheckResult @NonNull
-  public static <T extends Adapter> Observable<AdapterViewSelectionEvent> selectionEvents(
-      @NonNull AdapterView<T> view) {
+  public static <T extends Adapter> InitialValueObservable<AdapterViewSelectionEvent>
+  selectionEvents(@NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
     return new AdapterViewSelectionObservable(view);
   }
