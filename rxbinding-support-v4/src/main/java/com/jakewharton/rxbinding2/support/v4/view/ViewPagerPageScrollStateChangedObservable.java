@@ -49,9 +49,7 @@ final class ViewPagerPageScrollStateChangedObservable extends Observable<Integer
     }
 
     @Override protected void onDispose() {
-      if (!isDisposed()) {
-        view.removeOnPageChangeListener(this);
-      }
+      view.removeOnPageChangeListener(this);
     }
   }
 }
