@@ -4,22 +4,7 @@ import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.squareup.kotlinpoet.*
 
-/**
- * Represents a method implementation that needs to be wired up in Kotlin
- *
- * @param associatedImports a mapping of associated imports by simple name -> [ClassName]. This is
- * necessary because JavaParser doesn't yield the fully qualified class name to look up, but we
- * can snag the imports from the target class ourselves and refer to them as needed.
- */
-class KMethod(n: MethodDeclaration,
-              private val associatedImports: Map<String, ClassName>) {
-
-  companion object {
-    /** Regex used for finding references in javadoc links */
-    val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
-  }
-
-}
+private val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
 
 /**
  * Generates the kotlin code for this method
@@ -28,35 +13,34 @@ class KMethod(n: MethodDeclaration,
  */
 fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindingClassName: String): FunSpec {
   val m = this
-  return KMethod(this, associatedImports).run {
-    ///////////////
-    // STRUCTURE //
-    ///////////////
-    // Javadoc
-    // public inline fun DrawerLayout.drawerOpen(): Observable<Boolean> = RxDrawerLayout.drawerOpen(this)
-    // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
-    val parameterSpecs = paramsSpec(m, associatedImports)
-    FunSpec.builder(m.name)
-        .receiver(KotlinTypeResolver.resolveKotlinType(m.parameters[0].type, associatedImports = associatedImports))
-        .addKdoc(m.comment?.content?.let { cleanUpDoc(it) } ?: "")
-        .addModifiers(KModifier.INLINE)
-        .addMultipleTypeVariables(m, associatedImports)
-        .returns(KotlinTypeResolver.resolveKotlinType(m.type, m.annotations, associatedImports))
-        .addParameters(parameterSpecs)
-        .addCode("return %T.$name(${if (parameterSpecs.isNotEmpty()) {
-          "this, ${parameterSpecs.joinToString { it.name }}"
-        } else {
-          "this"
-        }})", ClassName.bestGuess(bindingClassName))
-        .apply {
-          // Object --> Unit mapping
-          if (m.emitsUnit()) {
-            addCode(".map(VoidToUnit)")
-          }
+
+  ///////////////
+  // STRUCTURE //
+  ///////////////
+  // Javadoc
+  // public inline fun DrawerLayout.drawerOpen(): Observable<Boolean> = RxDrawerLayout.drawerOpen(this)
+  // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
+  val parameterSpecs = paramsSpec(m, associatedImports)
+  return FunSpec.builder(m.name)
+      .receiver(KotlinTypeResolver.resolveKotlinType(m.parameters[0].type, associatedImports = associatedImports))
+      .addKdoc(m.comment?.content?.let { cleanUpDoc(it) } ?: "")
+      .addModifiers(KModifier.INLINE)
+      .addMultipleTypeVariables(m, associatedImports)
+      .returns(KotlinTypeResolver.resolveKotlinType(m.type, m.annotations, associatedImports))
+      .addParameters(parameterSpecs)
+      .addCode("return %T.$name(${if (parameterSpecs.isNotEmpty()) {
+        "this, ${parameterSpecs.joinToString { it.name }}"
+      } else {
+        "this"
+      }})", ClassName.bestGuess(bindingClassName))
+      .apply {
+        // Object --> Unit mapping
+        if (m.emitsUnit()) {
+          addCode(".map(VoidToUnit)")
         }
-        .addCode("\n")
-        .build()
-  }
+      }
+      .addCode("\n")
+      .build()
 }
 
 
@@ -90,30 +74,30 @@ private fun cleanUpDoc(doc: String): String {
       .replace("</em>", "*")
       .replace("<p>", "")
       // {@code view} -> `view`
-      .replace("\\{@code (${KMethod.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+      .replace("\\{@code ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
         val codeName = result.destructured
         "`${codeName.component1()}`"
       }
       // {@link Foo} -> [Foo]
-      .replace("\\{@link (${KMethod.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+      .replace("\\{@link ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
         val foo = result.destructured
         "[${foo.component1()}]"
       }
       // {@link Foo#bar} -> [Foo.bar]
       .replace(
-          "\\{@link (${KMethod.DOC_LINK_REGEX})#(${KMethod.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+          "\\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
         val (foo, bar) = result.destructured
         "[$foo.$bar]"
       }
       // {@linkplain Foo baz} -> [baz][Foo]
       .replace(
-          "\\{@linkplain (${KMethod.DOC_LINK_REGEX}) (${KMethod.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+          "\\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
         val (foo, baz) = result.destructured
         "[$baz][$foo]"
       }
       //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
       .replace(
-          "\\{@linkplain (${KMethod.DOC_LINK_REGEX})#(${KMethod.DOC_LINK_REGEX}) (${KMethod.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+          "\\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
         val (foo, bar, baz) = result.destructured
         "[$baz][$foo.$bar]"
       }
