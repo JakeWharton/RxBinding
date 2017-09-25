@@ -12,26 +12,41 @@ import com.github.javaparser.ast.type.Type
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KotlinFile
 import java.io.File
 import kotlin.properties.Delegates
 
 fun File.convertToKotlinFile(): KotlinFile {
   val javaFile = JavaParser.parse(this)
-  return KotlinFile.builder(getPackageName(javaFile), name.removeSuffix(".java"))
-      .apply {
-        val associatedImports = getImports(javaFile)
-        val bindingClass: String = getBindingClass(javaFile)
-        val methods = getMethods(javaFile)
-        if (methods.any { it.emitsUnit() }) {
-          addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
-        }
-        methods.map { it.toFunSpec(associatedImports, bindingClass) }
-            .forEach { addFun(it) }
-      }
-      // @file:Suppress("NOTHING_TO_INLINE")
+  val packageName = getPackageName(javaFile)
+  val associatedImports = getImports(javaFile)
+  val bindingClass = getBindingClass(javaFile)
+  val methods = getMethods(javaFile)
+  val funSpecs = methods.map { it.toFunSpec(associatedImports, bindingClass) }
+  return KotlinFile.builder(packageName, name.removeSuffix(".java"))
+      .addVoidToUnitImport(methods)
+      .addFunSpecs(funSpecs)
       .suppressNotingToInline()
       .build()
+}
+
+private fun KotlinFile.Builder.addVoidToUnitImport(methods: List<MethodDeclaration>) = apply {
+  if (methods.any { it.emitsUnit() }) {
+    addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
+  }
+}
+
+private fun KotlinFile.Builder.addFunSpecs(funSpecs: List<FunSpec>) = apply {
+  funSpecs.forEach { addFun(it) }
+}
+
+private fun KotlinFile.Builder.suppressNotingToInline(): KotlinFile.Builder {
+  // @file:Suppress("NOTHING_TO_INLINE")
+  return addFileAnnotation(AnnotationSpec.builder(Suppress::class)
+      .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
+      .addMember("names", "%S", "NOTHING_TO_INLINE")
+      .build())
 }
 
 private fun MethodDeclaration.emitsUnit(): Boolean {
@@ -102,11 +117,4 @@ private fun getPackageName(javaFile: CompilationUnit): String {
     }
   }, Unit)
   return packageName
-}
-
-private fun KotlinFile.Builder.suppressNotingToInline(): KotlinFile.Builder {
-  return addFileAnnotation(AnnotationSpec.builder(Suppress::class)
-      .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
-      .addMember("names", "%S", "NOTHING_TO_INLINE")
-      .build())
 }
