@@ -5,7 +5,6 @@ import com.github.javaparser.ast.body.MethodDeclaration
 import com.jakewharton.rxbinding.project.KotlinTypeResolver
 import com.squareup.kotlinpoet.*
 
-private val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
 
 /**
  * Generates the kotlin code for this method
@@ -64,44 +63,4 @@ private fun FunSpec.Builder.addMultipleTypeVariables(m: MethodDeclaration, assoc
 private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>): TypeVariableName {
   val typeName = KotlinTypeResolver.resolveKotlinType(typeBound[0], associatedImports = associatedImports)
   return TypeVariableName(name, typeName)
-}
-
-/** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
-private fun cleanUpDoc(doc: String): String {
-  return doc
-      .replace("   * ", "")
-      .replace("   *", "")
-      .replace("<em>", "*")
-      .replace("</em>", "*")
-      .replace("<p>", "")
-      // {@code view} -> `view`
-      .replace("\\{@code (${DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
-        val codeName = result.destructured
-        "`${codeName.component1()}`"
-      }
-      // {@link Foo} -> [Foo]
-      .replace("\\{@link (${DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
-        val foo = result.destructured
-        "[${foo.component1()}]"
-      }
-      // {@link Foo#bar} -> [Foo.bar]
-      .replace(
-          "\\{@link (${DOC_LINK_REGEX})#(${DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
-        val (foo, bar) = result.destructured
-        "[$foo.$bar]"
-      }
-      // {@linkplain Foo baz} -> [baz][Foo]
-      .replace(
-          "\\{@linkplain (${DOC_LINK_REGEX}) (${DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
-        val (foo, baz) = result.destructured
-        "[$baz][$foo]"
-      }
-      //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
-      .replace(
-          "\\{@linkplain (${DOC_LINK_REGEX})#(${DOC_LINK_REGEX}) (${DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
-        val (foo, bar, baz) = result.destructured
-        "[$baz][$foo.$bar]"
-      }
-      .trim()
-      .plus("\n")
 }
