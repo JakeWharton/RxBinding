@@ -62,8 +62,7 @@ open class KotlinGenTask : SourceTask() {
           if (methods.any { it.emitsUnit() }) {
             addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
-          methods.map { KMethod(it, associatedImports) }
-              .map { it.generate(ClassName.bestGuess(bindingClass)) }
+          methods.map { it.toFunSpec(associatedImports, bindingClass) }
               .forEach { addFun(it) }
         }
         // @file:Suppress("NOTHING_TO_INLINE")
@@ -139,44 +138,6 @@ open class KotlinGenTask : SourceTask() {
       }
     }, Unit)
     return packageName
-  }
-
-  /**
-   * Generates the kotlin code for this method
-   *
-   * @param bindingClass name of the RxBinding class this is tied to
-   */
-  fun KMethod.generate(bindingClass: TypeName): FunSpec {
-    ///////////////
-    // STRUCTURE //
-    ///////////////
-    // Javadoc
-    // public inline fun DrawerLayout.drawerOpen(): Observable<Boolean> = RxDrawerLayout.drawerOpen(this)
-    // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
-
-    val parameterSpecs = kParams()
-    return FunSpec.builder(name)
-        .receiver(extendedClass)
-        .addKdoc(comment ?: "")
-        .addModifiers(KModifier.INLINE)
-        .apply {
-          typeParameters?.let { addTypeVariables(it) }
-        }
-        .returns(kotlinType)
-        .addParameters(parameterSpecs)
-        .addCode("return %T.$name(${if (parameterSpecs.isNotEmpty()) {
-          "this, ${parameterSpecs.joinToString { it.name }}"
-        } else {
-          "this"
-        }})", bindingClass)
-        .apply {
-          // Object --> Unit mapping
-          if (emitsUnit()) {
-            addCode(".map(VoidToUnit)")
-          }
-        }
-        .addCode("\n")
-        .build()
   }
 }
 
