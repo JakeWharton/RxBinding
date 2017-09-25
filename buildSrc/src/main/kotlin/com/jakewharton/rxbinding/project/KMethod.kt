@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.project
 
 import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.MethodDeclaration
-import com.github.javaparser.ast.expr.AnnotationExpr
 import com.squareup.kotlinpoet.*
 
 /**
@@ -14,19 +13,16 @@ import com.squareup.kotlinpoet.*
  */
 class KMethod(n: MethodDeclaration,
               private val associatedImports: Map<String, ClassName>) {
-  val annotations: List<AnnotationExpr> = n.annotations
   val comment = n.comment?.content?.let { cleanUpDoc(it) }
-  val extendedClass = KotlinTypeResolver.resolveKotlinType(n.parameters[0].type,
-      associatedImports = associatedImports)
+  val extendedClass = KotlinTypeResolver.resolveKotlinType(n.parameters[0].type, associatedImports = associatedImports)
   val parameters = n.parameters.subList(1, n.parameters.size)
-  val returnType = n.type
-  val typeParameters = typeParams(n.typeParameters)
-  val kotlinType = KotlinTypeResolver.resolveKotlinType(returnType, annotations, associatedImports)
+  val kotlinType = KotlinTypeResolver.resolveKotlinType(n.type, n.annotations, associatedImports)
 
   companion object {
     /** Regex used for finding references in javadoc links */
     val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
   }
+
   /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
   private fun cleanUpDoc(doc: String): String {
     return doc
@@ -67,14 +63,6 @@ class KMethod(n: MethodDeclaration,
         .plus("\n")
   }
 
-  /** Generates method level type parameters */
-  private fun typeParams(params: List<TypeParameter>?): List<TypeVariableName>? {
-    return params?.map { p ->
-      TypeVariableName(p.name,
-          KotlinTypeResolver.resolveKotlinType(p.typeBound[0], associatedImports = associatedImports))
-    }
-  }
-
   /**
    * Generates parameters in a kotlin-style format
    */
@@ -108,9 +96,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
         .receiver(extendedClass)
         .addKdoc(comment ?: "")
         .addModifiers(KModifier.INLINE)
-        .apply {
-          typeParameters?.let { addTypeVariables(it) }
-        }
+        .addMultipleTypeVariables(m, associatedImports)
         .returns(kotlinType)
         .addParameters(kParams())
         .addCode("return %T.$name(${if (kParams().isNotEmpty()) {
@@ -127,4 +113,14 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
         .addCode("\n")
         .build()
   }
+}
+
+private fun FunSpec.Builder.addMultipleTypeVariables(m: MethodDeclaration, associatedImports: Map<String, ClassName>) = apply {
+  m.typeParameters.map { it.typeParams(associatedImports) }.let { addTypeVariables(it) }
+}
+
+/** Generates method level type parameters */
+private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>): TypeVariableName {
+  val typeName = KotlinTypeResolver.resolveKotlinType(typeBound[0], associatedImports = associatedImports)
+  return TypeVariableName(name, typeName)
 }
