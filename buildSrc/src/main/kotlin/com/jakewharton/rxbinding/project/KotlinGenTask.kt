@@ -1,21 +1,12 @@
 package com.jakewharton.rxbinding.project
 
-import com.github.javaparser.JavaParser
-import com.github.javaparser.ast.CompilationUnit
-import com.github.javaparser.ast.ImportDeclaration
-import com.github.javaparser.ast.PackageDeclaration
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
-import com.github.javaparser.ast.body.MethodDeclaration
-import com.github.javaparser.ast.type.ClassOrInterfaceType
-import com.github.javaparser.ast.type.ReferenceType
-import com.github.javaparser.ast.type.Type
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter
-import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.UNIT
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
-import kotlin.properties.Delegates
 
 private val SLASH = File.separator
 val UNIT_OBSERVABLE = ParameterizedTypeName.get(
