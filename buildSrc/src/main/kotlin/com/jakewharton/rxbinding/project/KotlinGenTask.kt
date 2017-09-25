@@ -76,8 +76,7 @@ open class KotlinGenTask : SourceTask() {
 
     var packageName: String by Delegates.notNull()
     var bindingClass: String by Delegates.notNull()
-    var extendedClass: String by Delegates.notNull()
-    var methods: ArrayList<KMethod> = arrayListOf()
+    val methods: ArrayList<KMethod> = arrayListOf()
     // Visit the appropriate nodes and extract information
     cu.accept(object : VoidVisitorAdapter<Unit>() {
 
@@ -88,7 +87,6 @@ open class KotlinGenTask : SourceTask() {
 
       override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
         bindingClass = n.name
-        extendedClass = n.name.replace("Rx", "")
         super.visit(n, arg)
       }
 
