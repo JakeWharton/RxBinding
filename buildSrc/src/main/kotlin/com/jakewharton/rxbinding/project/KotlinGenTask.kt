@@ -11,6 +11,7 @@ import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
+import kotlin.properties.Delegates
 
 private val SLASH = File.separator
 val UNIT_OBSERVABLE = ParameterizedTypeName.get(
@@ -48,8 +49,6 @@ open class KotlinGenTask : SourceTask() {
     // Start parsing the java files
     val cu = JavaParser.parse(file)
 
-    val kClass = KFile()
-    kClass.fileName = file.name.removeSuffix(".java")
     val imports = mutableListOf<String>()
 
     // Visit the imports first so we can create an associate of them for lookups later.
@@ -72,43 +71,45 @@ open class KotlinGenTask : SourceTask() {
       ClassName.bestGuess(it)
     }
 
+    var packageName: String by Delegates.notNull()
+    var bindingClass: String by Delegates.notNull()
+    var extendedClass: String by Delegates.notNull()
+    var methods: ArrayList<KMethod> = arrayListOf()
     // Visit the appropriate nodes and extract information
-    cu.accept(object : VoidVisitorAdapter<KFile>() {
+    cu.accept(object : VoidVisitorAdapter<Unit>() {
 
-      override fun visit(n: PackageDeclaration, arg: KFile) {
-        arg.packageName = n.name.toString()
+      override fun visit(n: PackageDeclaration, arg: Unit) {
+        packageName = n.name.toString()
         super.visit(n, arg)
       }
 
-      override fun visit(n: ClassOrInterfaceDeclaration, arg: KFile) {
-        arg.bindingClass = n.name
-        arg.extendedClass = n.name.replace("Rx", "")
+      override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
+        bindingClass = n.name
+        extendedClass = n.name.replace("Rx", "")
         super.visit(n, arg)
       }
 
-      override fun visit(n: MethodDeclaration, arg: KFile) {
-        arg.methods.add(KMethod(n, associatedImports))
+      override fun visit(n: MethodDeclaration, arg: Unit) {
+        methods.add(KMethod(n, associatedImports))
         // Explicitly avoid going deeper, we only care about top level methods. Otherwise
         // we'd hit anonymous inner classes and whatnot
       }
 
-    }, kClass)
-    return kClass.run {
-      KotlinFile.builder(packageName, fileName)
-          .apply {
-            if (methods.any { it.emitsUnit() }) {
-              addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
-            }
-            methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
-                .forEach { addFun(it) }
+    }, Unit)
+    return KotlinFile.builder(packageName, file.name.removeSuffix(".java"))
+        .apply {
+          if (methods.any { it.emitsUnit() }) {
+            addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
-          // @file:Suppress("NOTHING_TO_INLINE")
-          .addFileAnnotation(AnnotationSpec.builder(Suppress::class)
-              .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
-              .addMember("names", "%S", "NOTHING_TO_INLINE")
-              .build())
-          .build()
-    }
+          methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
+              .forEach { addFun(it) }
+        }
+        // @file:Suppress("NOTHING_TO_INLINE")
+        .addFileAnnotation(AnnotationSpec.builder(Suppress::class)
+            .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
+            .addMember("names", "%S", "NOTHING_TO_INLINE")
+            .build())
+        .build()
   }
 
   /**
