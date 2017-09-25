@@ -38,13 +38,13 @@ open class KotlinGenTask : SourceTask() {
         .replace("${SLASH}src", "-kotlin${SLASH}src")
         .substringBefore("com${SLASH}jakewharton")
     val outputDir = File(outputPath)
-    val kClass = parseJaveFileToKotlinClass(file)
+    val kClass = parseJavaFileToKotlinClass(file)
 
 
-    kClass.generate(outputDir)
+    kClass.writeTo(outputDir)
   }
 
-  private fun parseJaveFileToKotlinClass(file: File): KFile {
+  private fun parseJavaFileToKotlinClass(file: File): KotlinFile {
     // Start parsing the java files
     val cu = JavaParser.parse(file)
 
@@ -93,27 +93,22 @@ open class KotlinGenTask : SourceTask() {
       }
 
     }, kClass)
-    return kClass
-  }
-
-  /** Generates the code and writes it to the desired directory */
-  fun KFile.generate(directory: File) {
-    KotlinFile.builder(packageName, fileName)
-        .apply {
-          if (methods.any { it.emitsUnit() }) {
-            addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
+    return kClass.run {
+      KotlinFile.builder(packageName, fileName)
+          .apply {
+            if (methods.any { it.emitsUnit() }) {
+              addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
+            }
+            methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
+                .forEach { addFun(it) }
           }
-          methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
-              .forEach { addFun(it) }
-        }
-        // @file:Suppress("NOTHING_TO_INLINE")
-        .addFileAnnotation(AnnotationSpec.builder(Suppress::class)
-            .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
-            .addMember("names", "%S", "NOTHING_TO_INLINE")
-            .build())
-        .build()
-        .writeTo(directory)
-
+          // @file:Suppress("NOTHING_TO_INLINE")
+          .addFileAnnotation(AnnotationSpec.builder(Suppress::class)
+              .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
+              .addMember("names", "%S", "NOTHING_TO_INLINE")
+              .build())
+          .build()
+    }
   }
 
   /**
