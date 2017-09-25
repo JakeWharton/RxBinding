@@ -22,10 +22,6 @@ val UNIT_OBSERVABLE = ParameterizedTypeName.get(
     ClassName("io.reactivex", "Observable"), UNIT)
 
 open class KotlinGenTask : SourceTask() {
-  companion object {
-    /** Regex used for finding references in javadoc links */
-    val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
-  }
 
   @TaskAction
   @Suppress("unused")

@@ -24,6 +24,10 @@ class KMethod(n: MethodDeclaration,
   val typeParameters = typeParams(n.typeParameters)
   val kotlinType = KotlinTypeResolver.resolveKotlinType(returnType, annotations, associatedImports)
 
+  companion object {
+    /** Regex used for finding references in javadoc links */
+    val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
+  }
   /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
   private fun cleanUpDoc(doc: String): String {
     return doc
@@ -33,30 +37,30 @@ class KMethod(n: MethodDeclaration,
         .replace("</em>", "*")
         .replace("<p>", "")
         // {@code view} -> `view`
-        .replace("\\{@code (${KotlinGenTask.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+        .replace("\\{@code ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
           val codeName = result.destructured
           "`${codeName.component1()}`"
         }
         // {@link Foo} -> [Foo]
-        .replace("\\{@link (${KotlinGenTask.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+        .replace("\\{@link ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
           val foo = result.destructured
           "[${foo.component1()}]"
         }
         // {@link Foo#bar} -> [Foo.bar]
         .replace(
-            "\\{@link (${KotlinGenTask.DOC_LINK_REGEX})#(${KotlinGenTask.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+            "\\{@link ($DOC_LINK_REGEX)#($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
           val (foo, bar) = result.destructured
           "[$foo.$bar]"
         }
         // {@linkplain Foo baz} -> [baz][Foo]
         .replace(
-            "\\{@linkplain (${KotlinGenTask.DOC_LINK_REGEX}) (${KotlinGenTask.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+            "\\{@linkplain ($DOC_LINK_REGEX) ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
           val (foo, baz) = result.destructured
           "[$baz][$foo]"
         }
         //{@linkplain Foo#bar baz} -> [baz][Foo.bar]
         .replace(
-            "\\{@linkplain (${KotlinGenTask.DOC_LINK_REGEX})#(${KotlinGenTask.DOC_LINK_REGEX}) (${KotlinGenTask.DOC_LINK_REGEX})}".toRegex()) { result: MatchResult ->
+            "\\{@linkplain ($DOC_LINK_REGEX)#($DOC_LINK_REGEX) ($DOC_LINK_REGEX)}".toRegex()) { result: MatchResult ->
           val (foo, bar, baz) = result.destructured
           "[$baz][$foo.$bar]"
         }
