@@ -55,17 +55,21 @@ open class KotlinGenTask : SourceTask() {
         .apply {
           val associatedImports = getImports(javaFile)
           val bindingClass: String = getBindingClass(javaFile)
-          val methods = getMethods(javaFile).map { KMethod(it, associatedImports) }
-          if (methods.any { it.emitsUnit() }) {
+          val methods = getMethods(javaFile)
+          if (methods.any { it.emitsUnit(associatedImports) }) {
             addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
-          methods.map { it.generate(ClassName.bestGuess(bindingClass)) }
+          methods.map { KMethod(it, associatedImports) }
+              .map { it.generate(ClassName.bestGuess(bindingClass)) }
               .forEach { addFun(it) }
         }
         // @file:Suppress("NOTHING_TO_INLINE")
         .suppressNotingToInline()
         .build()
   }
+
+  private fun MethodDeclaration.emitsUnit(associatedImports: Map<String, ClassName>) =
+      KMethod(this, associatedImports).emitsUnit()
 
   private fun getMethods(javaFile: CompilationUnit): List<MethodDeclaration> {
     val methods: ArrayList<MethodDeclaration> = arrayListOf()
