@@ -54,24 +54,8 @@ open class KotlinGenTask : SourceTask() {
     return KotlinFile.builder(getPackageName(javaFile), file.name.removeSuffix(".java"))
         .apply {
           val associatedImports = getImports(javaFile)
-
-          var bindingClass: String by Delegates.notNull()
-          val methods: ArrayList<KMethod> = arrayListOf()
-          // Visit the appropriate nodes and extract information
-          javaFile.accept(object : VoidVisitorAdapter<Unit>() {
-
-            override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
-              bindingClass = n.name
-              super.visit(n, arg)
-            }
-
-            override fun visit(n: MethodDeclaration, arg: Unit) {
-              methods.add(KMethod(n, associatedImports))
-              // Explicitly avoid going deeper, we only care about top level methods. Otherwise
-              // we'd hit anonymous inner classes and whatnot
-            }
-
-          }, Unit)
+          val bindingClass: String = getBindingClass(javaFile)
+          val methods = getMethods(javaFile, associatedImports)
           if (methods.any { it.emitsUnit() }) {
             addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
@@ -84,6 +68,33 @@ open class KotlinGenTask : SourceTask() {
             .addMember("names", "%S", "NOTHING_TO_INLINE")
             .build())
         .build()
+  }
+
+  private fun getMethods(javaFile: CompilationUnit, associatedImports: Map<String, ClassName>): List<KMethod> {
+    val methods: ArrayList<KMethod> = arrayListOf()
+    javaFile.accept(object : VoidVisitorAdapter<Unit>() {
+
+      override fun visit(n: MethodDeclaration, arg: Unit) {
+        methods.add(KMethod(n, associatedImports))
+        // Explicitly avoid going deeper, we only care about top level methods. Otherwise
+        // we'd hit anonymous inner classes and whatnot
+      }
+
+    }, Unit)
+    return methods
+  }
+
+  private fun getBindingClass(javaFile: CompilationUnit): String {
+    var bindingClass: String by Delegates.notNull()
+    // Visit the appropriate nodes and extract information
+    javaFile.accept(object : VoidVisitorAdapter<Unit>() {
+
+      override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
+        bindingClass = n.name
+        super.visit(n, arg)
+      }
+    }, Unit)
+    return bindingClass
   }
 
   private fun getImports(javaFile: CompilationUnit): Map<String, ClassName> {
