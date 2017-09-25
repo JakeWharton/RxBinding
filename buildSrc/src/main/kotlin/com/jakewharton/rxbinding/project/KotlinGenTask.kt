@@ -1,6 +1,7 @@
 package com.jakewharton.rxbinding.project
 
 import com.github.javaparser.JavaParser
+import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.ImportDeclaration
 import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
@@ -20,7 +21,7 @@ val UNIT_OBSERVABLE = ParameterizedTypeName.get(
 open class KotlinGenTask : SourceTask() {
   companion object {
     /** Regex used for finding references in javadoc links */
-     val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
+    val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
   }
 
   @TaskAction
@@ -49,13 +50,13 @@ open class KotlinGenTask : SourceTask() {
   }
 
   private fun parseJavaFileToKotlinClass(file: File): KotlinFile {
-    // Start parsing the java files
-    val cu = JavaParser.parse(file)
+    val javaFile = JavaParser.parse(file)
+    val packageName = getPackageName(javaFile)
 
     val imports = mutableListOf<String>()
 
     // Visit the imports first so we can create an associate of them for lookups later.
-    cu.accept(object : VoidVisitorAdapter<MutableList<String>>() {
+    javaFile.accept(object : VoidVisitorAdapter<MutableList<String>>() {
 
       override fun visit(n: ImportDeclaration, importsList: MutableList<String>) {
         if (!n.isStatic) {
@@ -74,16 +75,10 @@ open class KotlinGenTask : SourceTask() {
       ClassName.bestGuess(it)
     }
 
-    var packageName: String by Delegates.notNull()
     var bindingClass: String by Delegates.notNull()
     val methods: ArrayList<KMethod> = arrayListOf()
     // Visit the appropriate nodes and extract information
-    cu.accept(object : VoidVisitorAdapter<Unit>() {
-
-      override fun visit(n: PackageDeclaration, arg: Unit) {
-        packageName = n.name.toString()
-        super.visit(n, arg)
-      }
+    javaFile.accept(object : VoidVisitorAdapter<Unit>() {
 
       override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
         bindingClass = n.name
@@ -111,6 +106,18 @@ open class KotlinGenTask : SourceTask() {
             .addMember("names", "%S", "NOTHING_TO_INLINE")
             .build())
         .build()
+  }
+
+  private fun getPackageName(javaFile: CompilationUnit): String {
+    var packageName by Delegates.notNull<String>()
+    javaFile.accept(object : VoidVisitorAdapter<Unit>() {
+
+      override fun visit(n: PackageDeclaration, arg: Unit) {
+        packageName = n.name.toString()
+        super.visit(n, arg)
+      }
+    }, Unit)
+    return packageName
   }
 
   /**
