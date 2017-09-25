@@ -16,7 +16,6 @@ class KMethod(n: MethodDeclaration,
   val comment = n.comment?.content?.let { cleanUpDoc(it) }
   val extendedClass = KotlinTypeResolver.resolveKotlinType(n.parameters[0].type, associatedImports = associatedImports)
   val parameters = n.parameters.subList(1, n.parameters.size)
-  val kotlinType = KotlinTypeResolver.resolveKotlinType(n.type, n.annotations, associatedImports)
 
   companion object {
     /** Regex used for finding references in javadoc links */
@@ -73,9 +72,6 @@ class KMethod(n: MethodDeclaration,
           .build()
     }
   }
-
-  fun emitsUnit() = kotlinType == UNIT_OBSERVABLE
-
 }
 
 /**
@@ -97,7 +93,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
         .addKdoc(comment ?: "")
         .addModifiers(KModifier.INLINE)
         .addMultipleTypeVariables(m, associatedImports)
-        .returns(kotlinType)
+        .returns(KotlinTypeResolver.resolveKotlinType(m.type, m.annotations, associatedImports))
         .addParameters(kParams())
         .addCode("return %T.$name(${if (kParams().isNotEmpty()) {
           "this, ${kParams().joinToString { it.name }}"
@@ -106,7 +102,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
         }})", ClassName.bestGuess(bindingClassName))
         .apply {
           // Object --> Unit mapping
-          if (emitsUnit()) {
+          if (m.emitsUnit()) {
             addCode(".map(VoidToUnit)")
           }
         }

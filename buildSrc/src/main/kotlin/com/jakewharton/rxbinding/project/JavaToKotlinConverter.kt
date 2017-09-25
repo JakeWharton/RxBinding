@@ -49,7 +49,7 @@ private fun KotlinFile.Builder.suppressNotingToInline(): KotlinFile.Builder {
       .build())
 }
 
-private fun MethodDeclaration.emitsUnit(): Boolean {
+fun MethodDeclaration.emitsUnit(): Boolean {
   val returnType = this.type
   return isObservableUnit(returnType)
 }
