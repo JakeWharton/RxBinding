@@ -63,10 +63,7 @@ open class KotlinGenTask : SourceTask() {
               .forEach { addFun(it) }
         }
         // @file:Suppress("NOTHING_TO_INLINE")
-        .addFileAnnotation(AnnotationSpec.builder(Suppress::class)
-            .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
-            .addMember("names", "%S", "NOTHING_TO_INLINE")
-            .build())
+        .suppressNotingToInline()
         .build()
   }
 
@@ -167,4 +164,11 @@ open class KotlinGenTask : SourceTask() {
         .addCode("\n")
         .build()
   }
+}
+
+private fun KotlinFile.Builder.suppressNotingToInline(): KotlinFile.Builder {
+  return addFileAnnotation(AnnotationSpec.builder(Suppress::class)
+      .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
+      .addMember("names", "%S", "NOTHING_TO_INLINE")
+      .build())
 }
