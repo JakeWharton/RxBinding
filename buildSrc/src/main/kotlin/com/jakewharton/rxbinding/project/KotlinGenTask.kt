@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding.project
 
+import com.jakewharton.rxbinding.project.conversion.convertToKotlinFile
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.UNIT
