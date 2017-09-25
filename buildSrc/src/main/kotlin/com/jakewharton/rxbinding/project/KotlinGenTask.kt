@@ -6,6 +6,9 @@ import com.github.javaparser.ast.ImportDeclaration
 import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
+import com.github.javaparser.ast.type.ClassOrInterfaceType
+import com.github.javaparser.ast.type.ReferenceType
+import com.github.javaparser.ast.type.Type
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.squareup.kotlinpoet.*
 import org.gradle.api.tasks.SourceTask
@@ -56,7 +59,7 @@ open class KotlinGenTask : SourceTask() {
           val associatedImports = getImports(javaFile)
           val bindingClass: String = getBindingClass(javaFile)
           val methods = getMethods(javaFile)
-          if (methods.any { it.emitsUnit(associatedImports) }) {
+          if (methods.any { it.emitsUnit() }) {
             addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
           methods.map { KMethod(it, associatedImports) }
@@ -68,8 +71,17 @@ open class KotlinGenTask : SourceTask() {
         .build()
   }
 
-  private fun MethodDeclaration.emitsUnit(associatedImports: Map<String, ClassName>) =
-      KMethod(this, associatedImports).emitsUnit()
+  private fun MethodDeclaration.emitsUnit(): Boolean {
+    val returnType = this.type
+    return isObservableUnit(returnType)
+  }
+
+  private fun isObservableUnit(returnType: Type?): Boolean {
+    return returnType is ClassOrInterfaceType
+        && returnType.name == "Observable"
+        && returnType.typeArgs?.first() == ReferenceType(ClassOrInterfaceType("Object"))
+        || returnType is ReferenceType && isObservableUnit(returnType.type)
+  }
 
   private fun getMethods(javaFile: CompilationUnit): List<MethodDeclaration> {
     val methods: ArrayList<MethodDeclaration> = arrayListOf()
