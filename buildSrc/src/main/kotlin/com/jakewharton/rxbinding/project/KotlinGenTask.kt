@@ -51,49 +51,27 @@ open class KotlinGenTask : SourceTask() {
 
   private fun parseJavaFileToKotlinClass(file: File): KotlinFile {
     val javaFile = JavaParser.parse(file)
-    val packageName = getPackageName(javaFile)
-
-    val imports = mutableListOf<String>()
-
-    // Visit the imports first so we can create an associate of them for lookups later.
-    javaFile.accept(object : VoidVisitorAdapter<MutableList<String>>() {
-
-      override fun visit(n: ImportDeclaration, importsList: MutableList<String>) {
-        if (!n.isStatic) {
-          importsList.add(n.name.toString())
-        }
-        super.visit(n, importsList)
-      }
-
-    }, imports)
-
-    // Create an association of imports simple name -> ClassName
-    // This is necessary because JavaParser doesn't yield the fully qualified classname of types, so
-    // this is a bit of a trick to just reuse the imports from the target class as a reference for
-    // what they're referring to.
-    val associatedImports = imports.associateBy({ it.substringAfterLast(".") }) {
-      ClassName.bestGuess(it)
-    }
-
-    var bindingClass: String by Delegates.notNull()
-    val methods: ArrayList<KMethod> = arrayListOf()
-    // Visit the appropriate nodes and extract information
-    javaFile.accept(object : VoidVisitorAdapter<Unit>() {
-
-      override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
-        bindingClass = n.name
-        super.visit(n, arg)
-      }
-
-      override fun visit(n: MethodDeclaration, arg: Unit) {
-        methods.add(KMethod(n, associatedImports))
-        // Explicitly avoid going deeper, we only care about top level methods. Otherwise
-        // we'd hit anonymous inner classes and whatnot
-      }
-
-    }, Unit)
-    return KotlinFile.builder(packageName, file.name.removeSuffix(".java"))
+    return KotlinFile.builder(getPackageName(javaFile), file.name.removeSuffix(".java"))
         .apply {
+          val associatedImports = getImports(javaFile)
+
+          var bindingClass: String by Delegates.notNull()
+          val methods: ArrayList<KMethod> = arrayListOf()
+          // Visit the appropriate nodes and extract information
+          javaFile.accept(object : VoidVisitorAdapter<Unit>() {
+
+            override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
+              bindingClass = n.name
+              super.visit(n, arg)
+            }
+
+            override fun visit(n: MethodDeclaration, arg: Unit) {
+              methods.add(KMethod(n, associatedImports))
+              // Explicitly avoid going deeper, we only care about top level methods. Otherwise
+              // we'd hit anonymous inner classes and whatnot
+            }
+
+          }, Unit)
           if (methods.any { it.emitsUnit() }) {
             addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
@@ -106,6 +84,27 @@ open class KotlinGenTask : SourceTask() {
             .addMember("names", "%S", "NOTHING_TO_INLINE")
             .build())
         .build()
+  }
+
+  private fun getImports(javaFile: CompilationUnit): Map<String, ClassName> {
+    val imports = mutableMapOf<String, ClassName>()
+
+    // Visit the imports first so we can create an associate of them for lookups later.
+
+    // Create an association of imports simple name -> ClassName
+    // This is necessary because JavaParser doesn't yield the fully qualified classname of types, so
+    // this is a bit of a trick to just reuse the imports from the target class as a reference for
+    // what they're referring to.
+    javaFile.accept(object : VoidVisitorAdapter<MutableMap<String, ClassName>>() {
+      override fun visit(n: ImportDeclaration, importsList: MutableMap<String, ClassName>) {
+        if (!n.isStatic) {
+          importsList.put(n.name.toString().substringAfterLast("."), ClassName.bestGuess(n.name.toString()))
+        }
+        super.visit(n, importsList)
+      }
+
+    }, imports)
+    return imports
   }
 
   private fun getPackageName(javaFile: CompilationUnit): String {
