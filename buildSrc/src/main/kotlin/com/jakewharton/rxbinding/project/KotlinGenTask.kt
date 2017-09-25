@@ -55,7 +55,7 @@ open class KotlinGenTask : SourceTask() {
         .apply {
           val associatedImports = getImports(javaFile)
           val bindingClass: String = getBindingClass(javaFile)
-          val methods = getMethods(javaFile, associatedImports)
+          val methods = getMethods(javaFile).map { KMethod(it, associatedImports) }
           if (methods.any { it.emitsUnit() }) {
             addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
           }
@@ -67,16 +67,14 @@ open class KotlinGenTask : SourceTask() {
         .build()
   }
 
-  private fun getMethods(javaFile: CompilationUnit, associatedImports: Map<String, ClassName>): List<KMethod> {
-    val methods: ArrayList<KMethod> = arrayListOf()
+  private fun getMethods(javaFile: CompilationUnit): List<MethodDeclaration> {
+    val methods: ArrayList<MethodDeclaration> = arrayListOf()
     javaFile.accept(object : VoidVisitorAdapter<Unit>() {
-
       override fun visit(n: MethodDeclaration, arg: Unit) {
-        methods.add(KMethod(n, associatedImports))
+        methods.add(n)
         // Explicitly avoid going deeper, we only care about top level methods. Otherwise
         // we'd hit anonymous inner classes and whatnot
       }
-
     }, Unit)
     return methods
   }
