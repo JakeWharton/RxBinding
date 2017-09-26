@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding.project.conversion
 
 import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.MethodDeclaration
-import com.jakewharton.rxbinding.project.KotlinTypeResolver
 import com.squareup.kotlinpoet.*
 
 
@@ -22,11 +21,11 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
   // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
   val parameterSpecs = paramsSpec(m, associatedImports)
   return FunSpec.builder(m.name)
-      .receiver(KotlinTypeResolver.resolveKotlinType(m.parameters[0].type, associatedImports = associatedImports))
+      .receiver(m.parameters[0].type.resolveKotlinType(associatedImports = associatedImports))
       .addKdoc(m.cleanedDocumentation)
       .addModifiers(KModifier.INLINE)
       .addMultipleTypeVariables(m, associatedImports)
-      .returns(KotlinTypeResolver.resolveKotlinType(m.type, m.annotations, associatedImports))
+      .returns(m.type.resolveKotlinType(m.annotations, associatedImports))
       .addParameters(parameterSpecs)
       .addCode("return %T.$name(${if (parameterSpecs.isNotEmpty()) {
         "this, ${parameterSpecs.joinToString { it.name }}"
@@ -49,7 +48,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
 private fun paramsSpec(m: MethodDeclaration, associatedImports: Map<String, ClassName>): List<ParameterSpec> {
   return m.parameters.subList(1, m.parameters.size).map { p ->
     ParameterSpec.builder(p.id.name,
-        KotlinTypeResolver.resolveKotlinType(p.type, associatedImports = associatedImports))
+        p.type.resolveKotlinType(associatedImports = associatedImports))
         .build()
   }
 }
@@ -60,6 +59,6 @@ private fun FunSpec.Builder.addMultipleTypeVariables(m: MethodDeclaration, assoc
 
 /** Generates method level type parameters */
 private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>): TypeVariableName {
-  val typeName = KotlinTypeResolver.resolveKotlinType(typeBound[0], associatedImports = associatedImports)
+  val typeName = typeBound[0].resolveKotlinType(associatedImports = associatedImports)
   return TypeVariableName(name, typeName)
 }
