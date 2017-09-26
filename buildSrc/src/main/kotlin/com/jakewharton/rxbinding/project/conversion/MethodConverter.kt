@@ -23,7 +23,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
   val parameterSpecs = paramsSpec(m, associatedImports)
   return FunSpec.builder(m.name)
       .receiver(KotlinTypeResolver.resolveKotlinType(m.parameters[0].type, associatedImports = associatedImports))
-      .addKdoc(m.comment?.content?.let { cleanUpDoc(it) } ?: "")
+      .addKdoc(m.cleanedDocumentation)
       .addModifiers(KModifier.INLINE)
       .addMultipleTypeVariables(m, associatedImports)
       .returns(KotlinTypeResolver.resolveKotlinType(m.type, m.annotations, associatedImports))
@@ -42,7 +42,6 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
       .addCode("\n")
       .build()
 }
-
 
 /**
  * Generates parameters in a kotlin-style format
