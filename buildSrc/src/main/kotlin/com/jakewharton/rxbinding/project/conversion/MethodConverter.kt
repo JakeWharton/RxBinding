@@ -11,21 +11,19 @@ import com.squareup.kotlinpoet.*
  * @param bindingClass name of the RxBinding class this is tied to
  */
 fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindingClassName: String): FunSpec {
-  val m = this
-
   ///////////////
   // STRUCTURE //
   ///////////////
   // Javadoc
   // public inline fun DrawerLayout.drawerOpen(): Observable<Boolean> = RxDrawerLayout.drawerOpen(this)
   // <access specifier> inline fun <extendedClass>.<name>(params): <type> = <bindingClass>.name(this, params)
-  val parameterSpecs = paramsSpec(m, associatedImports)
-  return FunSpec.builder(m.name)
-      .receiver(m.parameters[0].type.resolveKotlinType(associatedImports = associatedImports))
-      .addKdoc(m.cleanedDocumentation)
+  val parameterSpecs = paramsSpec(associatedImports)
+  return FunSpec.builder(name)
+      .addKdoc(cleanedDocumentation)
       .addModifiers(KModifier.INLINE)
-      .addMultipleTypeVariables(m, associatedImports)
-      .returns(m.type.resolveKotlinType(m.annotations, associatedImports))
+      .addTypeVariables(getTypeVariables(associatedImports))
+      .returns(type.resolveKotlinType(annotations, associatedImports))
+      .receiver(parameters[0].type.resolveKotlinType(associatedImports = associatedImports))
       .addParameters(parameterSpecs)
       .addCode("return %T.$name(${if (parameterSpecs.isNotEmpty()) {
         "this, ${parameterSpecs.joinToString { it.name }}"
@@ -34,7 +32,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
       }})", ClassName.bestGuess(bindingClassName))
       .apply {
         // Object --> Unit mapping
-        if (m.emitsUnit()) {
+        if (emitsUnit()) {
           addCode(".map(VoidToUnit)")
         }
       }
@@ -45,17 +43,17 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
 /**
  * Generates parameters in a kotlin-style format
  */
-private fun paramsSpec(m: MethodDeclaration, associatedImports: Map<String, ClassName>): List<ParameterSpec> {
-  return m.parameters.subList(1, m.parameters.size).map { p ->
+private fun MethodDeclaration.paramsSpec(associatedImports: Map<String, ClassName>): List<ParameterSpec> {
+  return parameters.drop(1).map { p ->
     ParameterSpec.builder(p.id.name,
         p.type.resolveKotlinType(associatedImports = associatedImports))
         .build()
   }
 }
 
-private fun FunSpec.Builder.addMultipleTypeVariables(m: MethodDeclaration, associatedImports: Map<String, ClassName>) = apply {
-  m.typeParameters.map { it.typeParams(associatedImports) }.let { addTypeVariables(it) }
-}
+private fun MethodDeclaration.getTypeVariables(associatedImports: Map<String, ClassName>) =
+    typeParameters.map { it.typeParams(associatedImports) }
+
 
 /** Generates method level type parameters */
 private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>): TypeVariableName {
