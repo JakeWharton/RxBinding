@@ -4,10 +4,10 @@
 
 package com.jakewharton.rxbinding2.support.design.widget
 
+import android.support.annotation.CheckResult
 import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
 import io.reactivex.Observable
-import kotlin.Suppress
 
 /**
  * Create an observable which emits the selected item in `view`.
@@ -17,4 +17,5 @@ import kotlin.Suppress
  *
  * *Note:* If an item is already selected, it will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun BottomNavigationView.itemSelections(): Observable<MenuItem> = RxBottomNavigationView.itemSelections(this)

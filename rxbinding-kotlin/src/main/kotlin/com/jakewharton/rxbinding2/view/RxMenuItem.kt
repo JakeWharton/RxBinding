@@ -5,14 +5,12 @@
 package com.jakewharton.rxbinding2.view
 
 import android.graphics.drawable.Drawable
+import android.support.annotation.CheckResult
 import android.view.MenuItem
 import com.jakewharton.rxbinding2.internal.VoidToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
-import kotlin.Int
-import kotlin.Suppress
-import kotlin.Unit
 
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
@@ -24,6 +22,7 @@ import kotlin.Unit
  * *Warning:* The created observable uses [MenuItem.setOnMenuItemClickListener] to
  * observe clicks. Only one observable can be used for a menu item at a time.
  */
+@CheckResult
 inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(VoidToUnit)
 
 /**
@@ -39,6 +38,7 @@ inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(Voi
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [MenuItem.OnMenuItemClickListener].
  */
+@CheckResult
 inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = RxMenuItem.clicks(this, handled).map(VoidToUnit)
 
 /**
@@ -50,6 +50,7 @@ inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = 
  * *Warning:* The created observable uses [MenuItem.setOnActionExpandListener] to
  * observe action view events. Only one observable can be used for a menu item at a time.
  */
+@CheckResult
 inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this)
 
 /**
@@ -64,6 +65,7 @@ inline fun MenuItem.actionViewEvents(): Observable<MenuItemActionViewEvent> = Rx
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [MenuItem.OnActionExpandListener].
  */
+@CheckResult
 inline fun MenuItem.actionViewEvents(handled: Predicate<in MenuItemActionViewEvent>): Observable<MenuItemActionViewEvent> = RxMenuItem.actionViewEvents(this, handled)
 
 /**
@@ -72,6 +74,7 @@ inline fun MenuItem.actionViewEvents(handled: Predicate<in MenuItemActionViewEve
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.checked(): Consumer<in Boolean> = RxMenuItem.checked(this)
 
 /**
@@ -80,6 +83,7 @@ inline fun MenuItem.checked(): Consumer<in Boolean> = RxMenuItem.checked(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.enabled(): Consumer<in Boolean> = RxMenuItem.enabled(this)
 
 /**
@@ -88,6 +92,7 @@ inline fun MenuItem.enabled(): Consumer<in Boolean> = RxMenuItem.enabled(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.icon(): Consumer<in Drawable> = RxMenuItem.icon(this)
 
 /**
@@ -96,6 +101,7 @@ inline fun MenuItem.icon(): Consumer<in Drawable> = RxMenuItem.icon(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.iconRes(): Consumer<in Int> = RxMenuItem.iconRes(this)
 
 /**
@@ -104,6 +110,7 @@ inline fun MenuItem.iconRes(): Consumer<in Int> = RxMenuItem.iconRes(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.title(): Consumer<in CharSequence> = RxMenuItem.title(this)
 
 /**
@@ -112,6 +119,7 @@ inline fun MenuItem.title(): Consumer<in CharSequence> = RxMenuItem.title(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.titleRes(): Consumer<in Int> = RxMenuItem.titleRes(this)
 
 /**
@@ -120,4 +128,5 @@ inline fun MenuItem.titleRes(): Consumer<in Int> = RxMenuItem.titleRes(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun MenuItem.visible(): Consumer<in Boolean> = RxMenuItem.visible(this)

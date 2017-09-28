@@ -4,10 +4,10 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.RatingBar
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
-import kotlin.Suppress
 
 /**
  * Create an observable of the rating changes on `view`.
@@ -17,6 +17,7 @@ import kotlin.Suppress
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun RatingBar.ratingChanges(): InitialValueObservable<Float> = RxRatingBar.ratingChanges(this)
 
 /**
@@ -27,6 +28,7 @@ inline fun RatingBar.ratingChanges(): InitialValueObservable<Float> = RxRatingBa
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun RatingBar.ratingChangeEvents(): InitialValueObservable<RatingBarChangeEvent> = RxRatingBar.ratingChangeEvents(this)
 
 /**
@@ -35,6 +37,7 @@ inline fun RatingBar.ratingChangeEvents(): InitialValueObservable<RatingBarChang
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun RatingBar.rating(): Consumer<in Float> = RxRatingBar.rating(this)
 
 /**
@@ -43,4 +46,5 @@ inline fun RatingBar.rating(): Consumer<in Float> = RxRatingBar.rating(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun RatingBar.isIndicator(): Consumer<in Boolean> = RxRatingBar.isIndicator(this)

@@ -4,10 +4,9 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.SeekBar
 import com.jakewharton.rxbinding2.InitialValueObservable
-import kotlin.Int
-import kotlin.Suppress
 
 /**
  * Create an observable of progress value changes on `view`.
@@ -17,6 +16,7 @@ import kotlin.Suppress
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun SeekBar.changes(): InitialValueObservable<Int> = RxSeekBar.changes(this)
 
 /**
@@ -28,6 +28,7 @@ inline fun SeekBar.changes(): InitialValueObservable<Int> = RxSeekBar.changes(th
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun SeekBar.userChanges(): InitialValueObservable<Int> = RxSeekBar.userChanges(this)
 
 /**
@@ -39,6 +40,7 @@ inline fun SeekBar.userChanges(): InitialValueObservable<Int> = RxSeekBar.userCh
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun SeekBar.systemChanges(): InitialValueObservable<Int> = RxSeekBar.systemChanges(this)
 
 /**
@@ -49,4 +51,5 @@ inline fun SeekBar.systemChanges(): InitialValueObservable<Int> = RxSeekBar.syst
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun SeekBar.changeEvents(): InitialValueObservable<SeekBarChangeEvent> = RxSeekBar.changeEvents(this)

@@ -4,13 +4,12 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.TextView
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
-import kotlin.Int
-import kotlin.Suppress
 
 /**
  * Create an observable of editor actions on `view`.
@@ -21,6 +20,7 @@ import kotlin.Suppress
  * *Warning:* The created observable uses [TextView.OnEditorActionListener] to
  * observe actions. Only one observable can be used for a view at a time.
  */
+@CheckResult
 inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorActions(this)
 
 /**
@@ -35,6 +35,7 @@ inline fun TextView.editorActions(): Observable<Int> = RxTextView.editorActions(
  * @param handled Predicate invoked each occurrence to determine the return value of the
  * underlying [TextView.OnEditorActionListener].
  */
+@CheckResult
 inline fun TextView.editorActions(handled: Predicate<in Int>): Observable<Int> = RxTextView.editorActions(this, handled)
 
 /**
@@ -46,6 +47,7 @@ inline fun TextView.editorActions(handled: Predicate<in Int>): Observable<Int> =
  * *Warning:* The created observable uses [TextView.OnEditorActionListener] to
  * observe actions. Only one observable can be used for a view at a time.
  */
+@CheckResult
 inline fun TextView.editorActionEvents(): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this)
 
 /**
@@ -60,6 +62,7 @@ inline fun TextView.editorActionEvents(): Observable<TextViewEditorActionEvent> 
  * @param handled Predicate invoked each occurrence to determine the return value of the
  * underlying [TextView.OnEditorActionListener].
  */
+@CheckResult
 inline fun TextView.editorActionEvents(handled: Predicate<in TextViewEditorActionEvent>): Observable<TextViewEditorActionEvent> = RxTextView.editorActionEvents(this, handled)
 
 /**
@@ -76,6 +79,7 @@ inline fun TextView.editorActionEvents(handled: Predicate<in TextViewEditorActio
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun TextView.textChanges(): InitialValueObservable<CharSequence> = RxTextView.textChanges(this)
 
 /**
@@ -92,6 +96,7 @@ inline fun TextView.textChanges(): InitialValueObservable<CharSequence> = RxText
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun TextView.textChangeEvents(): InitialValueObservable<TextViewTextChangeEvent> = RxTextView.textChangeEvents(this)
 
 /**
@@ -102,6 +107,7 @@ inline fun TextView.textChangeEvents(): InitialValueObservable<TextViewTextChang
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun TextView.beforeTextChangeEvents(): InitialValueObservable<TextViewBeforeTextChangeEvent> = RxTextView.beforeTextChangeEvents(this)
 
 /**
@@ -113,6 +119,7 @@ inline fun TextView.beforeTextChangeEvents(): InitialValueObservable<TextViewBef
  * *Note:* A value will be emitted immediately on subscribe using
  * {@link TextView#getEditableText()}.
  */
+@CheckResult
 inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfterTextChangeEvent> = RxTextView.afterTextChangeEvents(this)
 
 /**
@@ -121,6 +128,7 @@ inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfte
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.text(): Consumer<in CharSequence> = RxTextView.text(this)
 
 /**
@@ -129,6 +137,7 @@ inline fun TextView.text(): Consumer<in CharSequence> = RxTextView.text(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.textRes(): Consumer<in Int> = RxTextView.textRes(this)
 
 /**
@@ -137,6 +146,7 @@ inline fun TextView.textRes(): Consumer<in Int> = RxTextView.textRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.error(): Consumer<in CharSequence> = RxTextView.error(this)
 
 /**
@@ -145,6 +155,7 @@ inline fun TextView.error(): Consumer<in CharSequence> = RxTextView.error(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.errorRes(): Consumer<in Int> = RxTextView.errorRes(this)
 
 /**
@@ -153,6 +164,7 @@ inline fun TextView.errorRes(): Consumer<in Int> = RxTextView.errorRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.hint(): Consumer<in CharSequence> = RxTextView.hint(this)
 
 /**
@@ -161,6 +173,7 @@ inline fun TextView.hint(): Consumer<in CharSequence> = RxTextView.hint(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.hintRes(): Consumer<in Int> = RxTextView.hintRes(this)
 
 /**
@@ -169,4 +182,5 @@ inline fun TextView.hintRes(): Consumer<in Int> = RxTextView.hintRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TextView.color(): Consumer<in Int> = RxTextView.color(this)

@@ -4,11 +4,10 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.CompoundButton
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
-import kotlin.Any
-import kotlin.Suppress
 
 /**
  * Create an observable of booleans representing the checked state of `view`.
@@ -21,6 +20,7 @@ import kotlin.Suppress
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun CompoundButton.checkedChanges(): InitialValueObservable<Boolean> = RxCompoundButton.checkedChanges(this)
 
 /**
@@ -29,6 +29,7 @@ inline fun CompoundButton.checkedChanges(): InitialValueObservable<Boolean> = Rx
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun CompoundButton.checked(): Consumer<in Boolean> = RxCompoundButton.checked(this)
 
 /**
@@ -37,4 +38,5 @@ inline fun CompoundButton.checked(): Consumer<in Boolean> = RxCompoundButton.che
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun CompoundButton.toggle(): Consumer<in Any> = RxCompoundButton.toggle(this)

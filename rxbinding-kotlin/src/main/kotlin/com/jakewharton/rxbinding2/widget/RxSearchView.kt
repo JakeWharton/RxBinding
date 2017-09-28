@@ -4,11 +4,10 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.SearchView
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
-import kotlin.Boolean
-import kotlin.Suppress
 
 /**
  * Create an observable of {@linkplain SearchViewQueryTextEvent query text events} on {@code
@@ -19,6 +18,7 @@ import kotlin.Suppress
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun SearchView.queryTextChangeEvents(): InitialValueObservable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
 
 /**
@@ -29,6 +29,7 @@ inline fun SearchView.queryTextChangeEvents(): InitialValueObservable<SearchView
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun SearchView.queryTextChanges(): InitialValueObservable<CharSequence> = RxSearchView.queryTextChanges(this)
 
 /**
@@ -39,4 +40,5 @@ inline fun SearchView.queryTextChanges(): InitialValueObservable<CharSequence> =
  *
  * @param submit whether to submit query right after updating query text
  */
+@CheckResult
 inline fun SearchView.query(submit: Boolean): Consumer<in CharSequence> = RxSearchView.query(this, submit)
