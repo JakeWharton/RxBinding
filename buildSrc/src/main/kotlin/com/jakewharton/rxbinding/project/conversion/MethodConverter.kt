@@ -2,6 +2,8 @@ package com.jakewharton.rxbinding.project.conversion
 
 import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.MethodDeclaration
+import com.github.javaparser.ast.expr.AnnotationExpr
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
 import com.squareup.kotlinpoet.*
 
 
@@ -21,6 +23,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
   return FunSpec.builder(name)
       .addKdoc(cleanedDocumentation)
       .addModifiers(KModifier.INLINE)
+      .addAnnotations(getAnnotationSpecs())
       .addTypeVariables(getTypeVariables(associatedImports))
       .returns(type.resolveKotlinType(annotations, associatedImports))
       .receiver(parameters[0].type.resolveKotlinType(associatedImports = associatedImports))
@@ -60,3 +63,27 @@ private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>):
   val typeName = typeBound[0].resolveKotlinType(associatedImports = associatedImports)
   return TypeVariableName(name, typeName)
 }
+
+private fun MethodDeclaration.getAnnotationSpecs(): Iterable<AnnotationSpec> {
+  return annotations
+      .filterNot { it.name.toString() == "NonNull" }
+      .filterNot { it == GenericTypeNullableAnnotation }
+      .map { it.annotationSpec() }
+}
+
+private fun AnnotationExpr.annotationSpec(): AnnotationSpec {
+  return when (this.name.toString()) {
+    "CheckResult" -> checkResultAnnotationSpec()
+    "RequiresApi" -> requiresApiAnnotationSpec()
+    else -> throw UnsupportedOperationException()
+  }
+}
+
+private fun checkResultAnnotationSpec() =
+    AnnotationSpec.builder(ClassName.bestGuess("android.support.annotation.CheckResult")).build()
+
+private fun AnnotationExpr.requiresApiAnnotationSpec() =
+    AnnotationSpec.builder(ClassName.bestGuess("android.support.annotation.RequiresApi"))
+        .addMember("value", "%L", apiVersion()).build()
+
+private fun AnnotationExpr.apiVersion() = "android.os.Build.VERSION_CODES."+(this as SingleMemberAnnotationExpr).memberValue

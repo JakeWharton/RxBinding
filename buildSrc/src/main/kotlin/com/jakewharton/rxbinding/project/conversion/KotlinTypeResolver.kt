@@ -8,7 +8,7 @@ import com.jakewharton.rxbinding.project.UNIT_OBSERVABLE
 import com.squareup.kotlinpoet.*
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
-private val GenericTypeNullableAnnotation = MarkerAnnotationExpr(
+val GenericTypeNullableAnnotation = MarkerAnnotationExpr(
     NameExpr("GenericTypeNullable"))
 
 /** Recursive function for resolving a Type into a Kotlin-friendly String representation */
