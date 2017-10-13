@@ -7,6 +7,7 @@ package com.jakewharton.rxbinding2.widget
 import android.support.annotation.CheckResult
 import android.widget.TextSwitcher
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * An action which sets the text property of `view`.

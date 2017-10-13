@@ -7,6 +7,7 @@ package com.jakewharton.rxbinding2.widget
 import android.support.annotation.CheckResult
 import android.widget.AbsListView
 import io.reactivex.Observable
+import kotlin.Suppress
 
 /**
  * Create an observable of scroll events on `absListView`.

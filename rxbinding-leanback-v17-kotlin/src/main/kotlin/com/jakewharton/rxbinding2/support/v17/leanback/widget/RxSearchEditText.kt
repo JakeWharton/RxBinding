@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.support.v17.leanback.widget.SearchEditText
 import com.jakewharton.rxbinding2.internal.VoidToUnit
 import io.reactivex.Observable
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable which emits the keyboard dismiss events from `view`.

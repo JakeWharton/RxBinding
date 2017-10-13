@@ -7,6 +7,8 @@ package com.jakewharton.rxbinding2.widget
 import android.support.annotation.CheckResult
 import android.widget.ProgressBar
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * An action which increments the progress value of `view`.

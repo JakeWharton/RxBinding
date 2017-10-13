@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.widget.CompoundButton
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Any
+import kotlin.Suppress
 
 /**
  * Create an observable of booleans representing the checked state of `view`.

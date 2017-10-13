@@ -8,6 +8,7 @@ import android.support.annotation.CheckResult
 import android.support.v7.widget.ActionMenuView
 import android.view.MenuItem
 import io.reactivex.Observable
+import kotlin.Suppress
 
 /**
  * Create an observable which emits the clicked menu item in `view`.

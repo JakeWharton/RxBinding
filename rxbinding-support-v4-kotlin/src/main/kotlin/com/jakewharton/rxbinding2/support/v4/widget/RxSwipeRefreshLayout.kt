@@ -9,6 +9,8 @@ import android.support.v4.widget.SwipeRefreshLayout
 import com.jakewharton.rxbinding2.internal.VoidToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * Create an observable of refresh events on `view`.

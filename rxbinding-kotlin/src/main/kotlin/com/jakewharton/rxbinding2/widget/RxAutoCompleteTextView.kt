@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.widget.AutoCompleteTextView
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of item click events on `view`.

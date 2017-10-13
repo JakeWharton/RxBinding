@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of scroll state change events on `view`.

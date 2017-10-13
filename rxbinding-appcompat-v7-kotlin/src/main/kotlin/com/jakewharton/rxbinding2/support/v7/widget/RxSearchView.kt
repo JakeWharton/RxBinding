@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.support.v7.widget.SearchView
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Boolean
+import kotlin.Suppress
 
 /**
  * Create an observable of {@linkplain SearchViewQueryTextEvent query text events} on {@code

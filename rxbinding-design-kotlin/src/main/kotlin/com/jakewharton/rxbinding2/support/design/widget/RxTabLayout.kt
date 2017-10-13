@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.support.design.widget.TabLayout
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable which emits the selected tab in `view`.

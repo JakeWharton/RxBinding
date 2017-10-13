@@ -8,6 +8,7 @@ import android.support.annotation.CheckResult
 import android.support.v17.leanback.widget.SearchBar
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * Create an observable of {@linkplain SearchBarSearchQueryEvent search query events} on {@code

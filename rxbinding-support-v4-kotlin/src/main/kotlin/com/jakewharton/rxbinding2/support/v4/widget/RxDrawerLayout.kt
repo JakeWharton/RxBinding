@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.support.v4.widget.DrawerLayout
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of the open state of the drawer of `view`.

@@ -7,6 +7,8 @@ package com.jakewharton.rxbinding2.support.v7.widget
 import android.support.annotation.CheckResult
 import android.support.v7.widget.RecyclerView
 import io.reactivex.Observable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of child attach state change events on `recyclerView`.

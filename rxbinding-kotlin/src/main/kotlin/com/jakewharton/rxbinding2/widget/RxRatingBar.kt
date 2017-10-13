@@ -8,6 +8,7 @@ import android.support.annotation.CheckResult
 import android.widget.RatingBar
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Suppress
 
 /**
  * Create an observable of the rating changes on `view`.

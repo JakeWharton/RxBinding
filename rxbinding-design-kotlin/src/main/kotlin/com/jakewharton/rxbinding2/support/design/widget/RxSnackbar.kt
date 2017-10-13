@@ -7,6 +7,8 @@ package com.jakewharton.rxbinding2.support.design.widget
 import android.support.annotation.CheckResult
 import android.support.design.widget.Snackbar
 import io.reactivex.Observable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable which emits the dismiss events from `view`.

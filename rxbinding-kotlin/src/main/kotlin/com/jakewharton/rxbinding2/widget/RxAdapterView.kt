@@ -12,6 +12,8 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
 import java.util.concurrent.Callable
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of the selected position of `view`. If nothing is selected,

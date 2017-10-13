@@ -8,6 +8,8 @@ import android.support.annotation.CheckResult
 import android.widget.RadioGroup
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of the checked view ID changes in `view`.

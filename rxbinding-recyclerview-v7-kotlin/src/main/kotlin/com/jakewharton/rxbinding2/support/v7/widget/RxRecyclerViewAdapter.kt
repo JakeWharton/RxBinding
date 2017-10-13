@@ -7,6 +7,7 @@ package com.jakewharton.rxbinding2.support.v7.widget
 import android.support.annotation.CheckResult
 import android.support.v7.widget.RecyclerView
 import com.jakewharton.rxbinding2.InitialValueObservable
+import kotlin.Suppress
 
 /**
  * Create an observable of data change events for `RecyclerView.adapter`.
