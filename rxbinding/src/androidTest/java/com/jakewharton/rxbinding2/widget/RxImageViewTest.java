@@ -28,13 +28,13 @@ public final class RxImageViewTest {
   private final ImageView view = new ImageView(context);
 
   @Test @UiThreadTest public void src() throws Exception {
-    Drawable drawable = context.getDrawable(R.drawable.image);
+    Drawable drawable = context.getResources().getDrawable(R.drawable.image);
     RxImageView.src(view).accept(drawable);
     assertEquals(drawable, view.getDrawable());
   }
 
   @Test @UiThreadTest public void srcRes() throws Exception {
-    Drawable drawable = context.getDrawable(R.drawable.image);
+    Drawable drawable = context.getResources().getDrawable(R.drawable.image);
     RxImageView.srcRes(view).accept(R.drawable.image);
     assertEquals(drawable.getConstantState(), view.getDrawable().getConstantState());
   }

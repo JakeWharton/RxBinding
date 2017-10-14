@@ -16,7 +16,7 @@ public final class RxImageView {
   /**
    * An action which sets the src property of {@code view} with drawable.
    * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unscribe
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
   @CheckResult @NonNull
@@ -30,17 +30,17 @@ public final class RxImageView {
   }
 
   /**
-   * An action which sets the src property of {@code view} src resource IDs.
+   * An action which sets the src property of {@code view} with resource IDs.
    * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unscribe
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> srcRes(@NonNull final ImageView view) {
     checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
-      @Override public void accept(Integer srcRes) throws Exception {
-        view.setImageResource(srcRes);
+      @Override public void accept(Integer resId) throws Exception {
+        view.setImageResource(resId);
       }
     };
   }
@@ -48,7 +48,7 @@ public final class RxImageView {
   /**
    * An action which sets the src property of {@code view} with bitmap.
    * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unscribe
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
   @CheckResult @NonNull
