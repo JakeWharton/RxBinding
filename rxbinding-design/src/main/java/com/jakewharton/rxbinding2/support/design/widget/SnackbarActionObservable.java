@@ -57,7 +57,8 @@ final class SnackbarActionObservable extends Observable<View> {
 
     @Override protected void onDispose() {
       // Provide stub OnClickListener implementation
-      // This is necessary because Snackbar will hide Action text if setAction is called with listener set to null
+      // This is necessary because Snackbar will hide Action text if setAction is called with
+      // listener set to null
       if (text == null) {
         snackbar.setAction(resId, new EmptyActionListener());
       } else {
