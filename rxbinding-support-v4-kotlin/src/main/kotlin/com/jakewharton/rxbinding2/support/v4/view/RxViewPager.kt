@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 /**
  * Create an observable of scroll state change events on `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -21,17 +21,17 @@ inline fun ViewPager.pageScrollStateChanges(): Observable<Int> = RxViewPager.pag
 
 /**
  * Create an observable of page selected events on `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- * 
+ *
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun ViewPager.pageSelections(): InitialValueObservable<Int> = RxViewPager.pageSelections(this)
 
 /**
  * An action which sets the current item of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */

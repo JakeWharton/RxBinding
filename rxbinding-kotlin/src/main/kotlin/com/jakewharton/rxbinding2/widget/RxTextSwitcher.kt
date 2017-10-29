@@ -10,7 +10,7 @@ import kotlin.Suppress
 
 /**
  * An action which sets the text property of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -18,7 +18,7 @@ inline fun TextSwitcher.text(): Consumer<in CharSequence> = RxTextSwitcher.text(
 
 /**
  * An action which sets the current text property of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */

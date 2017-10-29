@@ -11,7 +11,7 @@ import kotlin.Suppress
 
 /**
  * An action which increments the progress value of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -19,7 +19,7 @@ inline fun ProgressBar.incrementProgressBy(): Consumer<in Int> = RxProgressBar.i
 
 /**
  * An action which increments the secondary progress value of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -27,7 +27,7 @@ inline fun ProgressBar.incrementSecondaryProgressBy(): Consumer<in Int> = RxProg
 
 /**
  * An action which sets whether `view` is indeterminate.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -35,7 +35,7 @@ inline fun ProgressBar.indeterminate(): Consumer<in Boolean> = RxProgressBar.ind
 
 /**
  * An action which sets the max value of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -43,7 +43,7 @@ inline fun ProgressBar.max(): Consumer<in Int> = RxProgressBar.max(this)
 
 /**
  * An action which sets the progress value of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -51,7 +51,7 @@ inline fun ProgressBar.progress(): Consumer<in Int> = RxProgressBar.progress(thi
 
 /**
  * An action which sets the secondary progress value of `view`.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
