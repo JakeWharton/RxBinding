@@ -12,23 +12,23 @@ import kotlin.Suppress
 
 /**
  * Create an observable which emits the dismiss events from `view`.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
 inline fun Snackbar.dismisses(): Observable<Int> = RxSnackbar.dismisses(this)
 
 /**
- * Create an observable which emits the action clicked events from `view`.
- *
+ * Create an observable which emits the action click events from `view`.
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
 inline fun Snackbar.actionClicks(resId: Int): Observable<View> = RxSnackbar.actionClicks(this, resId)
 
 /**
- * Create an observable which emits the action clicked events from `view`.
- *
+ * Create an observable which emits the action click events from `view`.
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */

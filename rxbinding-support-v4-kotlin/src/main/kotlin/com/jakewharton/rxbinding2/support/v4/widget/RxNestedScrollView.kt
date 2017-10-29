@@ -11,7 +11,7 @@ import kotlin.Suppress
 
 /**
  * Create an observable of scroll-change events for `view`.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`.
  * Unsubscribe to free this reference.
  */

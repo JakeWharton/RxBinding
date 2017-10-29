@@ -4,7 +4,6 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.view.View;
-
 import io.reactivex.Observable;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;

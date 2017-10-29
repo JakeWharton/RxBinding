@@ -13,7 +13,7 @@ import kotlin.Unit
 
 /**
  * Create an observable of refresh events on `view`.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -21,7 +21,7 @@ inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayo
 
 /**
  * An action which sets whether the layout is showing the refreshing indicator.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */

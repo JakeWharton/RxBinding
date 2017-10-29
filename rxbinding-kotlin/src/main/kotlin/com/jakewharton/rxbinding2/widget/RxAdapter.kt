@@ -10,7 +10,7 @@ import kotlin.Suppress
 
 /**
  * Create an observable of data change events for `adapter`.
- *
+ * 
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun <T : Adapter> T.dataChanges(): InitialValueObservable<T> = RxAdapter.dataChanges(this)

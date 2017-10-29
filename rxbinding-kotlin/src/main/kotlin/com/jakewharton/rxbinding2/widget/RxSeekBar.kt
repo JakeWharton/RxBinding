@@ -11,10 +11,10 @@ import kotlin.Suppress
 
 /**
  * Create an observable of progress value changes on `view`.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- *
+ * 
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.changes(): InitialValueObservable<Int> = RxSeekBar.changes(this)
@@ -22,10 +22,10 @@ inline fun SeekBar.changes(): InitialValueObservable<Int> = RxSeekBar.changes(th
 /**
  * Create an observable of progress value changes on `view` that were made only from the
  * user.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- *
+ * 
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.userChanges(): InitialValueObservable<Int> = RxSeekBar.userChanges(this)
@@ -33,20 +33,20 @@ inline fun SeekBar.userChanges(): InitialValueObservable<Int> = RxSeekBar.userCh
 /**
  * Create an observable of progress value changes on `view` that were made only from the
  * system.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- *
+ * 
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.systemChanges(): InitialValueObservable<Int> = RxSeekBar.systemChanges(this)
 
 /**
  * Create an observable of progress change events for `view`.
- *
+ * 
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- *
+ * 
  * *Note:* A value will be emitted immediately on subscribe.
  */
 inline fun SeekBar.changeEvents(): InitialValueObservable<SeekBarChangeEvent> = RxSeekBar.changeEvents(this)
