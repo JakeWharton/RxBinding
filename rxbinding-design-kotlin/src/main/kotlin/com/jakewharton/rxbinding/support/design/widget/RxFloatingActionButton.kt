@@ -9,7 +9,8 @@ import io.reactivex.functions.Consumer
 import kotlin.Suppress
 
 /**
- * An action which tells the `floatingActionButton`. to show on `true` and hide on `false`
+ * An action which tells the `floatingActionButton`. to show on `true`
+ * and hide on `false`
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.

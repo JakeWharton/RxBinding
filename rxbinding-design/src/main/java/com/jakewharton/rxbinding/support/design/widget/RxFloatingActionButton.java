@@ -10,7 +10,8 @@ import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 public class RxFloatingActionButton {
   /**
-   * An action which tells the {@code floatingActionButton}. to show on {@code true} and hide on {@code false}
+   * An action which tells the {@code floatingActionButton}. to show on {@code true}
+   * and hide on {@code false}
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
@@ -28,5 +29,9 @@ public class RxFloatingActionButton {
         }
       }
     };
+  }
+
+  private RxFloatingActionButton() {
+    throw new AssertionError("No instances.");
   }
 }
