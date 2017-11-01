@@ -9,7 +9,6 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 
 import com.jakewharton.rxbinding2.support.design.R;
-import com.jakewharton.rxbinding2.support.design.widget.RxFloatingActionButton;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +28,7 @@ public class RxFloatingActionButtonTest {
   @UiThreadTest
   public void visibility() throws Exception {
     fab.show();
-    Consumer<? super Boolean> action = RxFloatingActionButton.fabVisibility(fab);
+    Consumer<? super Boolean> action = RxFloatingActionButton.visibility(fab);
     action.accept(false);
     assertEquals(View.GONE, fab.getVisibility());
     action.accept(true);

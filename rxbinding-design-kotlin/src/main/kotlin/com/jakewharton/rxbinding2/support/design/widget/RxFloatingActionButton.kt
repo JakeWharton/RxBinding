@@ -1,9 +1,8 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.design.widget
 
+import android.support.annotation.CheckResult
 import android.support.design.widget.FloatingActionButton
 import io.reactivex.functions.Consumer
 import kotlin.Suppress
@@ -15,4 +14,5 @@ import kotlin.Suppress
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-inline fun FloatingActionButton.fabVisibility(): Consumer<in Boolean> = RxFloatingActionButton.fabVisibility(this)
+@CheckResult
+inline fun FloatingActionButton.visibility(): Consumer<in Boolean> = RxFloatingActionButton.visibility(this)

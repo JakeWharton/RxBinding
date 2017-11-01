@@ -17,7 +17,7 @@ public class RxFloatingActionButton {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> fabVisibility(final @NonNull FloatingActionButton view) {
+  public static Consumer<? super Boolean> visibility(final @NonNull FloatingActionButton view) {
     checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override
