@@ -2,7 +2,7 @@
     names = "NOTHING_TO_INLINE"
 )
 
-package com.jakewharton.rxbinding.support.design.widget
+package com.jakewharton.rxbinding2.support.design.widget
 
 import android.support.design.widget.FloatingActionButton
 import io.reactivex.functions.Consumer

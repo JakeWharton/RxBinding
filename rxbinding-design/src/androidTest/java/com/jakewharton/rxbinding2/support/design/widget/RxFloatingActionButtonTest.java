@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding.support.design.widget;
+package com.jakewharton.rxbinding2.support.design.widget;
 
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +9,7 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 
 import com.jakewharton.rxbinding2.support.design.R;
+import com.jakewharton.rxbinding2.support.design.widget.RxFloatingActionButton;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
