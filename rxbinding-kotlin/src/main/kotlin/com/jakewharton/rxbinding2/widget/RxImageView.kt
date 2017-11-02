@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 /**
  * An action which sets the src property of `view` with drawable.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -21,7 +21,7 @@ inline fun ImageView.src(): Consumer<in Drawable> = RxImageView.src(this)
 
 /**
  * An action which sets the src property of `view` with resource IDs.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
@@ -29,7 +29,7 @@ inline fun ImageView.srcRes(): Consumer<in Int> = RxImageView.srcRes(this)
 
 /**
  * An action which sets the src property of `view` with bitmap.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
