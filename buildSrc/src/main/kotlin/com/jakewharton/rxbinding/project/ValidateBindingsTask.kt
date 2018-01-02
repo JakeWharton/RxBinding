@@ -35,7 +35,6 @@ open class ValidateBindingsTask : SourceTask() {
         verifyMethodAnnotations(n)
         verifyParameters(n)
         verifyReturnType(n)
-        verifyNullChecks(n)
         // Explicitly avoid going deeper, we only care about top level methods. Otherwise
         // we'd hit anonymous inner classes and whatnot
       }
@@ -86,32 +85,6 @@ open class ValidateBindingsTask : SourceTask() {
         throw IllegalStateException("Missing wildcard type parameter declaration on ${method.getEnclosingClass().name}#${method.name}'s Action1 return type")
       }
     }
-  }
-
-  /** Validates that reference type parameters have corresponding checkNotNull calls at the beginning of the body */
-  fun verifyNullChecks(method: MethodDeclaration) {
-
-    val parameters = method.parameters
-    val statements = method.body.stmts
-
-    parameters
-        .filter { it.type is ReferenceType }
-        .map { it.id.name }
-        .zip(statements, { param, stmt -> Pair(param, stmt) })
-        .forEach {
-          val pName = it.first
-          val expected = "checkNotNull($pName, \"$pName == null\");"
-          val found = it.second.toString()
-          if (!expected.equals(found)) {
-            throw IllegalStateException("Missing proper checkNotNull call on parameter "
-                + pName
-                + " in "
-                + prettyMethodSignature(method)
-                + "\nExpected:\t" + expected
-                + "\nFound:\t" + found
-            )
-          }
-        }
   }
 
   /** Generates a nice String representation of the method signature (e.g. RxView#clicks(View)) */
