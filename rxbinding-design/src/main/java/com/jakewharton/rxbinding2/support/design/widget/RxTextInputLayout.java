@@ -6,8 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Consumer actions} for {@link TextInputLayout}.
  */
@@ -21,7 +19,6 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean enable) {
         view.setCounterEnabled(enable);
@@ -37,7 +34,6 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer maxLength) {
         view.setCounterMaxLength(maxLength);
@@ -53,7 +49,6 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super CharSequence> error(@NonNull final TextInputLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
       @Override
       public void accept(CharSequence error) {
@@ -70,7 +65,6 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super Integer> errorRes(@NonNull final TextInputLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override
       public void accept(Integer errorRes) {
@@ -87,7 +81,6 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> hint(@NonNull final TextInputLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
       @Override public void accept(CharSequence hint) {
         view.setHint(hint);
@@ -103,7 +96,6 @@ public final class RxTextInputLayout {
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> hintRes(@NonNull final TextInputLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer hintRes) {
         view.setHint(view.getContext().getResources().getText(hintRes));

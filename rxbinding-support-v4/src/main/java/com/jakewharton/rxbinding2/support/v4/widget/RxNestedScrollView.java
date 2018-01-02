@@ -6,8 +6,6 @@ import android.support.v4.widget.NestedScrollView;
 import com.jakewharton.rxbinding2.view.ViewScrollChangeEvent;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxNestedScrollView {
   /**
    * Create an observable of scroll-change events for {@code view}.
@@ -17,7 +15,6 @@ public final class RxNestedScrollView {
    */
   @CheckResult @NonNull public static Observable<ViewScrollChangeEvent> scrollChangeEvents(
       @NonNull NestedScrollView view) {
-    checkNotNull(view, "view == null");
     return new NestedScrollViewScrollChangeEventObservable(view);
   }
 

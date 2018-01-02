@@ -8,8 +8,6 @@ import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link Toolbar}.
  */
@@ -22,7 +20,6 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull
   public static Observable<MenuItem> itemClicks(@NonNull Toolbar view) {
-    checkNotNull(view, "view == null");
     return new ToolbarItemClickObservable(view);
   }
 
@@ -38,7 +35,6 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull
   public static Observable<Object> navigationClicks(@NonNull Toolbar view) {
-    checkNotNull(view, "view == null");
     return new ToolbarNavigationClickObservable(view);
   }
 
@@ -50,7 +46,6 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super CharSequence> title(@NonNull final Toolbar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
       @Override public void accept(CharSequence title) {
         view.setTitle(title);
@@ -66,7 +61,6 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> titleRes(@NonNull final Toolbar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer titleRes) {
         view.setTitle(titleRes);
@@ -82,7 +76,6 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super CharSequence> subtitle(@NonNull final Toolbar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
       @Override public void accept(CharSequence subtitle) {
         view.setSubtitle(subtitle);
@@ -98,7 +91,6 @@ public final class RxToolbar {
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> subtitleRes(@NonNull final Toolbar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer subtitleRes) {
         view.setSubtitle(subtitleRes);

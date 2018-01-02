@@ -6,8 +6,6 @@ import android.widget.RadioGroup;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxRadioGroup {
   /**
    * Create an observable of the checked view ID changes in {@code view}.
@@ -19,7 +17,6 @@ public final class RxRadioGroup {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Integer> checkedChanges(@NonNull RadioGroup view) {
-    checkNotNull(view, "view == null");
     return new RadioGroupCheckedChangeObservable(view);
   }
 
@@ -32,7 +29,6 @@ public final class RxRadioGroup {
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> checked(@NonNull final RadioGroup view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer value) {
         if (value == -1) {

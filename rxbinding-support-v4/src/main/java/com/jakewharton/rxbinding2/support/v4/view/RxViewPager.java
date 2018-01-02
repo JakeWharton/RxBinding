@@ -7,8 +7,6 @@ import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxViewPager {
   /**
    * Create an observable of scroll state change events on {@code view}.
@@ -19,7 +17,6 @@ public final class RxViewPager {
    */
   @CheckResult @NonNull public static Observable<Integer> pageScrollStateChanges(
       @NonNull ViewPager view) {
-    checkNotNull(view, "view == null");
     return new ViewPagerPageScrollStateChangedObservable(view);
   }
 
@@ -33,7 +30,6 @@ public final class RxViewPager {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Integer> pageSelections(@NonNull ViewPager view) {
-    checkNotNull(view, "view == null");
     return new ViewPagerPageSelectedObservable(view);
   }
 
@@ -45,7 +41,6 @@ public final class RxViewPager {
    */
   @CheckResult @NonNull public static Consumer<? super Integer> currentItem(
       @NonNull final ViewPager view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer value) {
         view.setCurrentItem(value);

@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link AppBarLayout}.
  */
@@ -20,7 +18,6 @@ public final class RxAppBarLayout {
    */
   @CheckResult @NonNull
   public static Observable<Integer> offsetChanges(@NonNull AppBarLayout view) {
-    checkNotNull(view, "view == null");
     return new AppBarLayoutOffsetChangeObservable(view);
   }
 

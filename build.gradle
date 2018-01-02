@@ -1,3 +1,7 @@
+plugins {
+  id 'tech.harmonysoft.oss.traute' version '1.1.8'
+}
+
 subprojects {
   buildscript {
     repositories {
@@ -11,6 +15,11 @@ subprojects {
   }
 
   plugins.apply('checkstyle')
+  apply plugin: 'tech.harmonysoft.oss.traute'
+
+  traute {
+    exceptionTexts = [ 'parameter': '${PARAMETER_NAME} == null' ]
+  }
 
   task('checkstyle', type: Checkstyle) {
     configFile rootProject.file('checkstyle.xml')

@@ -6,8 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for
  * {@link BottomNavigationView}.
@@ -24,7 +22,6 @@ public final class RxBottomNavigationView {
    */
   @CheckResult @NonNull public static Observable<MenuItem> itemSelections(
       @NonNull BottomNavigationView view) {
-    checkNotNull(view, "view == null");
     return new BottomNavigationViewItemSelectionsObservable(view);
   }
 

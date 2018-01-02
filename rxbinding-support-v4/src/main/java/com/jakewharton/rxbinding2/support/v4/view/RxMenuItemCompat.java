@@ -8,8 +8,6 @@ import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
 import io.reactivex.Observable;
 import io.reactivex.functions.Predicate;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables}
  * for {@link android.support.v4.view.MenuItemCompat}.
@@ -27,7 +25,6 @@ public final class RxMenuItemCompat {
    */
   @CheckResult @NonNull public static Observable<MenuItemActionViewEvent> actionViewEvents(
       @NonNull MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new MenuItemActionViewEventObservable(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
@@ -45,8 +42,6 @@ public final class RxMenuItemCompat {
    */
   @CheckResult @NonNull public static Observable<MenuItemActionViewEvent> actionViewEvents(
       @NonNull MenuItem menuItem, @NonNull Predicate<? super MenuItemActionViewEvent> handled) {
-    checkNotNull(menuItem, "menuItem == null");
-    checkNotNull(handled, "handled == null");
     return new MenuItemActionViewEventObservable(menuItem, handled);
   }
 

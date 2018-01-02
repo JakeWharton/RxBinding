@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.widget.AbsListView;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxAbsListView {
   /**
    * Create an observable of scroll events on {@code absListView}.
@@ -20,7 +18,6 @@ public final class RxAbsListView {
    */
   @CheckResult @NonNull
   public static Observable<AbsListViewScrollEvent> scrollEvents(@NonNull AbsListView absListView) {
-    checkNotNull(absListView, "absListView == null");
     return new AbsListViewScrollEventObservable(absListView);
   }
 

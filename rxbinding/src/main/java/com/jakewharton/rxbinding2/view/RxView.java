@@ -17,7 +17,6 @@ import java.util.concurrent.Callable;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.M;
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 import static com.jakewharton.rxbinding2.internal.Functions.CALLABLE_ALWAYS_TRUE;
 import static com.jakewharton.rxbinding2.internal.Functions.PREDICATE_ALWAYS_TRUE;
 
@@ -35,7 +34,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Object> attaches(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewAttachesObservable(view, true);
   }
 
@@ -47,7 +45,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<ViewAttachEvent> attachEvents(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewAttachEventObservable(view);
   }
 
@@ -60,7 +57,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Object> detaches(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewAttachesObservable(view, false);
   }
 
@@ -76,7 +72,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Object> clicks(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewClickObservable(view);
   }
 
@@ -91,7 +86,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<DragEvent> drags(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewDragObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
@@ -110,8 +104,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<DragEvent> drags(@NonNull View view,
       @NonNull Predicate<? super DragEvent> handled) {
-    checkNotNull(view, "view == null");
-    checkNotNull(handled, "handled == null");
     return new ViewDragObservable(view, handled);
   }
 
@@ -127,7 +119,6 @@ public final class RxView {
   @RequiresApi(JELLY_BEAN)
   @CheckResult @NonNull
   public static Observable<Object> draws(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewTreeObserverDrawObservable(view);
   }
 
@@ -144,7 +135,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Boolean> focusChanges(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewFocusChangeObservable(view);
   }
 
@@ -161,7 +151,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Object> globalLayouts(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewTreeObserverGlobalLayoutObservable(view);
   }
 
@@ -182,7 +171,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewHoverObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
@@ -207,8 +195,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<MotionEvent> hovers(@NonNull View view,
       @NonNull Predicate<? super MotionEvent> handled) {
-    checkNotNull(view, "view == null");
-    checkNotNull(handled, "handled == null");
     return new ViewHoverObservable(view, handled);
   }
 
@@ -221,7 +207,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Object> layoutChanges(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewLayoutChangeObservable(view);
   }
 
@@ -233,7 +218,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<ViewLayoutChangeEvent> layoutChangeEvents(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewLayoutChangeEventObservable(view);
   }
 
@@ -249,7 +233,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Object> longClicks(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewLongClickObservable(view, CALLABLE_ALWAYS_TRUE);
   }
 
@@ -269,8 +252,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<Object> longClicks(@NonNull View view,
       @NonNull Callable<Boolean> handled) {
-    checkNotNull(view, "view == null");
-    checkNotNull(handled, "handled == null");
     return new ViewLongClickObservable(view, handled);
   }
 
@@ -286,8 +267,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<Object> preDraws(@NonNull View view,
       @NonNull Callable<Boolean> proceedDrawingPass) {
-    checkNotNull(view, "view == null");
-    checkNotNull(proceedDrawingPass, "proceedDrawingPass == null");
     return new ViewTreeObserverPreDrawObservable(view, proceedDrawingPass);
   }
 
@@ -300,7 +279,6 @@ public final class RxView {
   @RequiresApi(M)
   @CheckResult @NonNull
   public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewScrollChangeEventObservable(view);
   }
 
@@ -316,7 +294,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<Integer> systemUiVisibilityChanges(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewSystemUiVisibilityChangeObservable(view);
   }
 
@@ -337,7 +314,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewTouchObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
@@ -362,8 +338,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<MotionEvent> touches(@NonNull View view,
       @NonNull Predicate<? super MotionEvent> handled) {
-    checkNotNull(view, "view == null");
-    checkNotNull(handled, "handled == null");
     return new ViewTouchObservable(view, handled);
   }
 
@@ -377,7 +351,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Observable<KeyEvent> keys(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new ViewKeyObservable(view, PREDICATE_ALWAYS_TRUE);
   }
 
@@ -395,8 +368,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Observable<KeyEvent> keys(@NonNull View view,
       @NonNull Predicate<? super KeyEvent> handled) {
-    checkNotNull(view, "view == null");
-    checkNotNull(handled, "handled == null");
     return new ViewKeyObservable(view, handled);
   }
 
@@ -408,7 +379,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> activated(@NonNull final View view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setActivated(value);
@@ -424,7 +394,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> clickable(@NonNull final View view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setClickable(value);
@@ -440,7 +409,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> enabled(@NonNull final View view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setEnabled(value);
@@ -456,7 +424,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> pressed(@NonNull final View view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setPressed(value);
@@ -472,7 +439,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> selected(@NonNull final View view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setSelected(value);
@@ -489,7 +455,6 @@ public final class RxView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> visibility(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return visibility(view, View.GONE);
   }
 
@@ -505,7 +470,6 @@ public final class RxView {
   @CheckResult @NonNull
   public static Consumer<? super Boolean> visibility(@NonNull final View view,
       final int visibilityWhenFalse) {
-    checkNotNull(view, "view == null");
     if (visibilityWhenFalse == View.VISIBLE) {
       throw new IllegalArgumentException(
           "Setting visibility to VISIBLE when false would have no effect.");
