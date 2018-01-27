@@ -4,6 +4,7 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.Adapter
 import com.jakewharton.rxbinding2.InitialValueObservable
 import kotlin.Suppress
@@ -13,4 +14,5 @@ import kotlin.Suppress
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun <T : Adapter> T.dataChanges(): InitialValueObservable<T> = RxAdapter.dataChanges(this)

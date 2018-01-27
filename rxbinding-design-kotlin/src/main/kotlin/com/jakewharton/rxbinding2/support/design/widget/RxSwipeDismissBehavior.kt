@@ -4,6 +4,7 @@
 
 package com.jakewharton.rxbinding2.support.design.widget
 
+import android.support.annotation.CheckResult
 import android.view.View
 import io.reactivex.Observable
 import kotlin.Suppress
@@ -15,4 +16,5 @@ import kotlin.Suppress
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun View.dismisses(): Observable<View> = RxSwipeDismissBehavior.dismisses(this)

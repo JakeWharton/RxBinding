@@ -4,6 +4,7 @@
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.Adapter
 import android.widget.AdapterView
 import com.jakewharton.rxbinding2.InitialValueObservable
@@ -23,6 +24,7 @@ import kotlin.Suppress
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemSelections(): InitialValueObservable<Int> = RxAdapterView.itemSelections(this)
 
 /**
@@ -33,6 +35,7 @@ inline fun <T : Adapter> AdapterView<T>.itemSelections(): InitialValueObservable
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.selectionEvents(): InitialValueObservable<AdapterViewSelectionEvent> = RxAdapterView.selectionEvents(this)
 
 /**
@@ -41,6 +44,7 @@ inline fun <T : Adapter> AdapterView<T>.selectionEvents(): InitialValueObservabl
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapterView.itemClicks(this)
 
 /**
@@ -49,6 +53,7 @@ inline fun <T : Adapter> AdapterView<T>.itemClicks(): Observable<Int> = RxAdapte
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterViewItemClickEvent> = RxAdapterView.itemClickEvents(this)
 
 /**
@@ -57,6 +62,7 @@ inline fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterVie
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAdapterView.itemLongClicks(this)
 
 /**
@@ -68,6 +74,7 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClicks(): Observable<Int> = RxAd
  * @param handled Function invoked each occurrence to determine the return value of the
  * underlying [AdapterView.OnItemLongClickListener].
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemLongClicks(handled: Callable<Boolean>): Observable<Int> = RxAdapterView.itemLongClicks(this, handled)
 
 /**
@@ -76,6 +83,7 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClicks(handled: Callable<Boolean
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<AdapterViewItemLongClickEvent> = RxAdapterView.itemLongClickEvents(this)
 
 /**
@@ -87,6 +95,7 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(): Observable<Adapte
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [AdapterView.OnItemLongClickListener].
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(handled: Predicate<in AdapterViewItemLongClickEvent>): Observable<AdapterViewItemLongClickEvent> = RxAdapterView.itemLongClickEvents(this, handled)
 
 /**
@@ -95,4 +104,5 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(handled: Predicate<i
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun <T : Adapter> AdapterView<T>.selection(): Consumer<in Int> = RxAdapterView.selection(this)
