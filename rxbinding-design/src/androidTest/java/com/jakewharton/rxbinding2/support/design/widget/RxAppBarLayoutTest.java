@@ -1,6 +1,5 @@
 package com.jakewharton.rxbinding2.support.design.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -18,7 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
@@ -34,8 +32,7 @@ public class RxAppBarLayoutTest {
     parent.addView(view);
   }
 
-  @TargetApi(JELLY_BEAN_MR1)
-  @SdkSuppress(minSdkVersion = JELLY_BEAN_MR1)
+  @SdkSuppress(minSdkVersion = 17)
   @Test @UiThreadTest public void offsetChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxAppBarLayout.offsetChanges(view).subscribe(o);
