@@ -55,7 +55,7 @@ final class SeekBarChangeObservable extends InitialValueObservable<Integer> {
     }
 
     @Override protected void onDispose() {
-      view.setOnSeekBarChangeListener(this);
+      view.setOnSeekBarChangeListener(null);
     }
   }
 }
