@@ -19,11 +19,19 @@ import kotlin.properties.Delegates
 
 fun File.convertToKotlinFile(): FileSpec {
   val javaFile = JavaParser.parse(this)
-  val packageName = getPackageName(javaFile)
-  val associatedImports = getImports(javaFile)
-  val bindingClass = getBindingClass(javaFile)
-  val methods = getMethods(javaFile)
+
+  val packageName = javaFile.`package`.packageName
+  val associatedImports = javaFile.imports
+      .filterNot { it.isStatic }
+      .map { it.name.toString() }
+      .associate { it.substringAfterLast(".") to ClassName.bestGuess(it) }
+
+  val rxClass = javaFile.types.single()
+  val bindingClass = rxClass.name
+
+  val methods = rxClass.members.filterIsInstance<MethodDeclaration>()
   val funSpecs = methods.map { it.toFunSpec(associatedImports, bindingClass) }
+
   return FileSpec.builder(packageName, name.removeSuffix(".java"))
       .addVoidToUnitImport(methods)
       .addFunSpecs(funSpecs)
@@ -59,62 +67,4 @@ private fun isObservableUnit(returnType: Type?): Boolean {
       && returnType.name == "Observable"
       && returnType.typeArgs?.first() == ReferenceType(ClassOrInterfaceType("Object"))
       || returnType is ReferenceType && isObservableUnit(returnType.type)
-}
-
-private fun getMethods(javaFile: CompilationUnit): List<MethodDeclaration> {
-  val methods: ArrayList<MethodDeclaration> = arrayListOf()
-  javaFile.accept(object : VoidVisitorAdapter<Unit>() {
-    override fun visit(n: MethodDeclaration, arg: Unit) {
-      methods.add(n)
-      // Explicitly avoid going deeper, we only care about top level methods. Otherwise
-      // we'd hit anonymous inner classes and whatnot
-    }
-  }, Unit)
-  return methods
-}
-
-private fun getBindingClass(javaFile: CompilationUnit): String {
-  var bindingClass: String by Delegates.notNull()
-  // Visit the appropriate nodes and extract information
-  javaFile.accept(object : VoidVisitorAdapter<Unit>() {
-
-    override fun visit(n: ClassOrInterfaceDeclaration, arg: Unit) {
-      bindingClass = n.name
-      super.visit(n, arg)
-    }
-  }, Unit)
-  return bindingClass
-}
-
-private fun getImports(javaFile: CompilationUnit): Map<String, ClassName> {
-  val imports = mutableMapOf<String, ClassName>()
-
-  // Visit the imports first so we can create an associate of them for lookups later.
-
-  // Create an association of imports simple name -> ClassName
-  // This is necessary because JavaParser doesn't yield the fully qualified classname of types, so
-  // this is a bit of a trick to just reuse the imports from the target class as a reference for
-  // what they're referring to.
-  javaFile.accept(object : VoidVisitorAdapter<MutableMap<String, ClassName>>() {
-    override fun visit(n: ImportDeclaration, importsList: MutableMap<String, ClassName>) {
-      if (!n.isStatic) {
-        importsList.put(n.name.toString().substringAfterLast("."), ClassName.bestGuess(n.name.toString()))
-      }
-      super.visit(n, importsList)
-    }
-
-  }, imports)
-  return imports
-}
-
-private fun getPackageName(javaFile: CompilationUnit): String {
-  var packageName by Delegates.notNull<String>()
-  javaFile.accept(object : VoidVisitorAdapter<Unit>() {
-
-    override fun visit(n: PackageDeclaration, arg: Unit) {
-      packageName = n.name.toString()
-      super.visit(n, arg)
-    }
-  }, Unit)
-  return packageName
 }
