@@ -16,6 +16,7 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
 import java.util.concurrent.Callable
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
@@ -322,6 +323,9 @@ inline fun View.keys(handled: Predicate<in KeyEvent>): Observable<KeyEvent> = Rx
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setActivated method reference."
+)
 @CheckResult
 inline fun View.activated(): Consumer<in Boolean> = RxView.activated(this)
 
@@ -331,6 +335,9 @@ inline fun View.activated(): Consumer<in Boolean> = RxView.activated(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setClickable method reference."
+)
 @CheckResult
 inline fun View.clickable(): Consumer<in Boolean> = RxView.clickable(this)
 
@@ -340,6 +347,9 @@ inline fun View.clickable(): Consumer<in Boolean> = RxView.clickable(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setEnabled method reference."
+)
 @CheckResult
 inline fun View.enabled(): Consumer<in Boolean> = RxView.enabled(this)
 
@@ -349,6 +359,9 @@ inline fun View.enabled(): Consumer<in Boolean> = RxView.enabled(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setPressed method reference."
+)
 @CheckResult
 inline fun View.pressed(): Consumer<in Boolean> = RxView.pressed(this)
 
@@ -358,6 +371,9 @@ inline fun View.pressed(): Consumer<in Boolean> = RxView.pressed(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setSelected method reference."
+)
 @CheckResult
 inline fun View.selected(): Consumer<in Boolean> = RxView.selected(this)
 

@@ -42,7 +42,10 @@ public final class RxViewPager {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setCurrentItem method reference.
    */
+  @Deprecated
   @CheckResult @NonNull public static Consumer<? super Integer> currentItem(
       @NonNull final ViewPager view) {
     checkNotNull(view, "view == null");

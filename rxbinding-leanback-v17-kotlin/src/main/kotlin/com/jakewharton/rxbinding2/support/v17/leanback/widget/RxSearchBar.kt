@@ -8,6 +8,7 @@ import android.support.annotation.CheckResult
 import android.support.v17.leanback.widget.SearchBar
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Deprecated
 import kotlin.Suppress
 
 /**
@@ -35,5 +36,8 @@ inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.sear
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setSearchQuery method reference."
+)
 @CheckResult
 inline fun SearchBar.searchQuery(): Consumer<in String> = RxSearchBar.searchQuery(this)
