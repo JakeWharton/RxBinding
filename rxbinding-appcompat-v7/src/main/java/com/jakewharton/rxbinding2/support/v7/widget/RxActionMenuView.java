@@ -6,8 +6,6 @@ import android.support.v7.widget.ActionMenuView;
 import android.view.MenuItem;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for
  * {@link android.widget.ActionMenuView}.
@@ -22,7 +20,6 @@ public final class RxActionMenuView {
    */
   @CheckResult @NonNull
   public static Observable<MenuItem> itemClicks(@NonNull ActionMenuView view) {
-    checkNotNull(view, "view == null");
     return new ActionMenuViewItemClickObservable(view);
   }
 

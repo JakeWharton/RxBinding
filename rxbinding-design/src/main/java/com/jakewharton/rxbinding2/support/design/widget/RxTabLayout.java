@@ -7,8 +7,6 @@ import android.support.design.widget.TabLayout.Tab;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link TabLayout}.
@@ -24,7 +22,6 @@ public final class RxTabLayout {
    */
   @CheckResult @NonNull
   public static Observable<Tab> selections(@NonNull TabLayout view) {
-    checkNotNull(view, "view == null");
     return new TabLayoutSelectionsObservable(view);
   }
 
@@ -39,7 +36,6 @@ public final class RxTabLayout {
    */
   @CheckResult @NonNull
   public static Observable<TabLayoutSelectionEvent> selectionEvents(@NonNull TabLayout view) {
-    checkNotNull(view, "view == null");
     return new TabLayoutSelectionEventObservable(view);
   }
 
@@ -51,7 +47,6 @@ public final class RxTabLayout {
    */
   @CheckResult @NonNull
   public static Consumer<? super Integer> select(@NonNull final TabLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer index) {
         if (index < 0 || index >= view.getTabCount()) {

@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v17.leanback.widget.SearchEditText;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for
  * {@link SearchEditText}.
@@ -20,7 +18,6 @@ public final class RxSearchEditText {
    */
   @CheckResult @NonNull
   public static Observable<Object> keyboardDismisses(@NonNull SearchEditText view) {
-    checkNotNull(view, "view == null");
     return new SearchEditTextKeyboardDismissOnSubscribe(view);
   }
 

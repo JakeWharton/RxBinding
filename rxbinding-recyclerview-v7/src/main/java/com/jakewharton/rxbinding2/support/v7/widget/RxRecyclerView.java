@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link RecyclerView}.
  */
@@ -21,7 +19,6 @@ public final class RxRecyclerView {
   @CheckResult @NonNull
   public static Observable<RecyclerViewChildAttachStateChangeEvent> childAttachStateChangeEvents(
       @NonNull RecyclerView view) {
-    checkNotNull(view, "view == null");
     return new RecyclerViewChildAttachStateChangeEventObservable(view);
   }
 
@@ -34,7 +31,6 @@ public final class RxRecyclerView {
   @CheckResult @NonNull
   public static Observable<RecyclerViewScrollEvent> scrollEvents(
       @NonNull RecyclerView view) {
-    checkNotNull(view, "view == null");
     return new RecyclerViewScrollEventObservable(view);
   }
 
@@ -46,7 +42,6 @@ public final class RxRecyclerView {
    */
   @CheckResult @NonNull
   public static Observable<Integer> scrollStateChanges(@NonNull RecyclerView view) {
-    checkNotNull(view, "view == null");
     return new RecyclerViewScrollStateChangeObservable(view);
   }
 

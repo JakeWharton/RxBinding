@@ -6,8 +6,6 @@ import android.support.design.widget.SwipeDismissBehavior;
 import android.view.View;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables}
  * for {@link SwipeDismissBehavior} on (@link View).
@@ -22,7 +20,6 @@ public final class RxSwipeDismissBehavior {
    */
   @CheckResult @NonNull
   public static Observable<View> dismisses(@NonNull View view) {
-    checkNotNull(view, "view == null");
     return new SwipeDismissBehaviorObservable(view);
   }
 

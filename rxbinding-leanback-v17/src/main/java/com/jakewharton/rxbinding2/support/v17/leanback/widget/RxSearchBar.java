@@ -6,8 +6,6 @@ import android.support.v17.leanback.widget.SearchBar;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link SearchBar}.
@@ -25,7 +23,6 @@ public final class RxSearchBar {
   @NonNull
   public static Observable<SearchBarSearchQueryEvent> searchQueryChangeEvents(
           @NonNull SearchBar view) {
-    checkNotNull(view, "view == null");
     return new SearchBarSearchQueryChangeEventsOnSubscribe(view);
   }
 
@@ -38,7 +35,6 @@ public final class RxSearchBar {
    */
   @CheckResult @NonNull
   public static Observable<String> searchQueryChanges(@NonNull SearchBar view) {
-    checkNotNull(view, "view == null");
     return new SearchBarSearchQueryChangesOnSubscribe(view);
   }
 
@@ -53,7 +49,6 @@ public final class RxSearchBar {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super String> searchQuery(@NonNull final SearchBar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<String>() {
       @Override public void accept(String text) throws Exception {
         view.setSearchQuery(text);

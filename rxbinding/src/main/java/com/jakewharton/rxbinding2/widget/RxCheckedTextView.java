@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.widget.CheckedTextView;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Consumer actions} for {@link CheckedTextView}.
  */
@@ -20,7 +18,6 @@ public final class RxCheckedTextView {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> check(@NonNull final CheckedTextView view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean check) {
         view.setChecked(check);

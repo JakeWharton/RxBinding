@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 import io.reactivex.Observable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link ViewGroup}.
  */
@@ -20,7 +18,6 @@ public final class RxViewGroup {
   @CheckResult @NonNull
   public static Observable<ViewGroupHierarchyChangeEvent> changeEvents(
       @NonNull ViewGroup viewGroup) {
-    checkNotNull(viewGroup, "viewGroup == null");
     return new ViewGroupHierarchyChangeEventObservable(viewGroup);
   }
 

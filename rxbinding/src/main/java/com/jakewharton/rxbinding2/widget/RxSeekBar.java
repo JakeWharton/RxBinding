@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.widget.SeekBar;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxSeekBar {
   /**
    * Create an observable of progress value changes on {@code view}.
@@ -18,7 +16,6 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Integer> changes(@NonNull SeekBar view) {
-    checkNotNull(view, "view == null");
     return new SeekBarChangeObservable(view, null);
   }
 
@@ -33,7 +30,6 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Integer> userChanges(@NonNull SeekBar view) {
-    checkNotNull(view, "view == null");
     return new SeekBarChangeObservable(view, true);
   }
 
@@ -48,7 +44,6 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Integer> systemChanges(@NonNull SeekBar view) {
-    checkNotNull(view, "view == null");
     return new SeekBarChangeObservable(view, false);
   }
 
@@ -62,7 +57,6 @@ public final class RxSeekBar {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<SeekBarChangeEvent> changeEvents(@NonNull SeekBar view) {
-    checkNotNull(view, "view == null");
     return new SeekBarChangeEventObservable(view);
   }
 

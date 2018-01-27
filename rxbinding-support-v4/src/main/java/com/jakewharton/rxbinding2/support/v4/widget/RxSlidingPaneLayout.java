@@ -7,8 +7,6 @@ import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables}
  * for {@link SlidingPaneLayout}
@@ -27,7 +25,6 @@ public final class RxSlidingPaneLayout {
    */
   @CheckResult @NonNull public static InitialValueObservable<Boolean> panelOpens(
       @NonNull SlidingPaneLayout view) {
-    checkNotNull(view, "view == null");
     return new SlidingPaneLayoutPaneOpenedObservable(view);
   }
 
@@ -42,7 +39,6 @@ public final class RxSlidingPaneLayout {
    */
   @CheckResult @NonNull public static Observable<Float> panelSlides(
       @NonNull SlidingPaneLayout view) {
-    checkNotNull(view, "view == null");
     return new SlidingPaneLayoutSlideObservable(view);
   }
 
@@ -54,7 +50,6 @@ public final class RxSlidingPaneLayout {
    */
   @CheckResult @NonNull public static Consumer<? super Boolean> open(
       @NonNull final SlidingPaneLayout view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         if (value) {

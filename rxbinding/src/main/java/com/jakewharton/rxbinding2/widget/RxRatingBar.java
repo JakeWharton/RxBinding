@@ -6,8 +6,6 @@ import android.widget.RatingBar;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxRatingBar {
   /**
    * Create an observable of the rating changes on {@code view}.
@@ -19,7 +17,6 @@ public final class RxRatingBar {
    */
   @CheckResult @NonNull
   public static InitialValueObservable<Float> ratingChanges(@NonNull RatingBar view) {
-    checkNotNull(view, "view == null");
     return new RatingBarRatingChangeObservable(view);
   }
 
@@ -34,7 +31,6 @@ public final class RxRatingBar {
   @CheckResult @NonNull
   public static InitialValueObservable<RatingBarChangeEvent> ratingChangeEvents(
       @NonNull RatingBar view) {
-    checkNotNull(view, "view == null");
     return new RatingBarRatingChangeEventObservable(view);
   }
 
@@ -46,7 +42,6 @@ public final class RxRatingBar {
    */
   @CheckResult @NonNull
   public static Consumer<? super Float> rating(@NonNull final RatingBar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Float>() {
       @Override public void accept(Float value) {
         view.setRating(value);
@@ -62,7 +57,6 @@ public final class RxRatingBar {
    */
   @CheckResult @NonNull
   public static Consumer<? super Boolean> isIndicator(@NonNull final RatingBar view) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         view.setIsIndicator(value);

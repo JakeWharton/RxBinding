@@ -9,8 +9,6 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * actions} for {@link MenuItem}.
@@ -29,7 +27,6 @@ public final class RxMenuItem {
    */
   @CheckResult @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new MenuItemClickOnSubscribe(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
@@ -49,8 +46,6 @@ public final class RxMenuItem {
   @CheckResult @NonNull
   public static Observable<Object> clicks(@NonNull MenuItem menuItem,
       @NonNull Predicate<? super MenuItem> handled) {
-    checkNotNull(menuItem, "menuItem == null");
-    checkNotNull(handled, "handled == null");
     return new MenuItemClickOnSubscribe(menuItem, handled);
   }
 
@@ -65,7 +60,6 @@ public final class RxMenuItem {
    */
   @CheckResult @NonNull
   public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new MenuItemActionViewEventObservable(menuItem, Functions.PREDICATE_ALWAYS_TRUE);
   }
 
@@ -84,8 +78,6 @@ public final class RxMenuItem {
   @CheckResult @NonNull
   public static Observable<MenuItemActionViewEvent> actionViewEvents(@NonNull MenuItem menuItem,
       @NonNull Predicate<? super MenuItemActionViewEvent> handled) {
-    checkNotNull(menuItem, "menuItem == null");
-    checkNotNull(handled, "handled == null");
     return new MenuItemActionViewEventObservable(menuItem, handled);
   }
 
@@ -100,7 +92,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> checked(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         menuItem.setChecked(value);
@@ -119,7 +110,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> enabled(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         menuItem.setEnabled(value);
@@ -138,7 +128,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Drawable> icon(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Drawable>() {
       @Override public void accept(Drawable value) {
         menuItem.setIcon(value);
@@ -157,7 +146,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> iconRes(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer value) {
         menuItem.setIcon(value);
@@ -176,7 +164,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> title(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<CharSequence>() {
       @Override public void accept(CharSequence value) {
         menuItem.setTitle(value);
@@ -195,7 +182,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> titleRes(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Integer>() {
       @Override public void accept(Integer value) {
         menuItem.setTitle(value);
@@ -214,7 +200,6 @@ public final class RxMenuItem {
   @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> visible(@NonNull final MenuItem menuItem) {
-    checkNotNull(menuItem, "menuItem == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean value) {
         menuItem.setVisible(value);

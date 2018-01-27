@@ -6,8 +6,6 @@ import android.widget.TextSwitcher;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 /**
  * Static factory methods for creating {@linkplain Observable observables} and {@linkplain Consumer
  * consumers} for {@link TextSwitcher}.
@@ -21,7 +19,6 @@ public final class RxTextSwitcher {
    */
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> text(@NonNull final TextSwitcher view) {
-    checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
       @Override public void accept(CharSequence text) {
         view.setText(text);
@@ -37,7 +34,6 @@ public final class RxTextSwitcher {
    */
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> currentText(@NonNull final TextSwitcher view) {
-    checkNotNull(view, "view == null");
     return new Consumer<CharSequence>() {
       @Override public void accept(CharSequence textRes) {
         view.setCurrentText(textRes);

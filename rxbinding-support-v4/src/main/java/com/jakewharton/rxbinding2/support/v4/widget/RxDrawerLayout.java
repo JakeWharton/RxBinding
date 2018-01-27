@@ -6,8 +6,6 @@ import android.support.v4.widget.DrawerLayout;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.functions.Consumer;
 
-import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
-
 public final class RxDrawerLayout {
   /**
    * Create an observable of the open state of the drawer of {@code view}.
@@ -19,7 +17,6 @@ public final class RxDrawerLayout {
    */
   @CheckResult @NonNull public static InitialValueObservable<Boolean> drawerOpen(
       @NonNull DrawerLayout view, int gravity) {
-    checkNotNull(view, "view == null");
     return new DrawerLayoutDrawerOpenedObservable(view, gravity);
   }
 
@@ -31,7 +28,6 @@ public final class RxDrawerLayout {
    */
   @CheckResult @NonNull public static Consumer<? super Boolean> open(
       @NonNull final DrawerLayout view, final int gravity) {
-    checkNotNull(view, "view == null");
     return new Consumer<Boolean>() {
       @Override public void accept(Boolean aBoolean) {
         if (aBoolean) {
