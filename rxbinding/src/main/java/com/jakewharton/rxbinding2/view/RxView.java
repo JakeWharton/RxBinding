@@ -15,8 +15,6 @@ import io.reactivex.functions.Predicate;
 
 import java.util.concurrent.Callable;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN;
-import static android.os.Build.VERSION_CODES.M;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 import static com.jakewharton.rxbinding2.internal.Functions.CALLABLE_ALWAYS_TRUE;
 import static com.jakewharton.rxbinding2.internal.Functions.PREDICATE_ALWAYS_TRUE;
@@ -124,7 +122,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable uses {@link ViewTreeObserver#addOnDrawListener} to
    * observe draws. Multiple observables can be used for a view at a time.
    */
-  @RequiresApi(JELLY_BEAN)
+  @RequiresApi(16)
   @CheckResult @NonNull
   public static Observable<Object> draws(@NonNull View view) {
     checkNotNull(view, "view == null");
@@ -297,7 +295,7 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @RequiresApi(M)
+  @RequiresApi(23)
   @CheckResult @NonNull
   public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
     checkNotNull(view, "view == null");

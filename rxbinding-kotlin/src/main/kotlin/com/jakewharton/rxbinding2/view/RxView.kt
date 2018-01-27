@@ -97,7 +97,7 @@ inline fun View.drags(handled: Predicate<in DragEvent>): Observable<DragEvent> =
  * *Warning:* The created observable uses [ViewTreeObserver.addOnDrawListener] to
  * observe draws. Multiple observables can be used for a view at a time.
  */
-@RequiresApi(android.os.Build.VERSION_CODES.JELLY_BEAN)
+@RequiresApi(16)
 @CheckResult
 inline fun View.draws(): Observable<Unit> = RxView.draws(this).map(VoidToUnit)
 
@@ -234,7 +234,7 @@ inline fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@RequiresApi(android.os.Build.VERSION_CODES.M)
+@RequiresApi(23)
 @CheckResult
 inline fun View.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxView.scrollChangeEvents(this)
 

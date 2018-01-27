@@ -83,7 +83,7 @@ private fun checkResultAnnotationSpec() =
 
 private fun AnnotationExpr.requiresApiAnnotationSpec() =
     AnnotationSpec.builder(ClassName("android.support.annotation", "RequiresApi"))
-        .addMember("%L", apiVersion()).build()
+        .addMember("%L", (this as SingleMemberAnnotationExpr).memberValue).build()
 
 private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec {
   val comment = method.comment.content
@@ -92,5 +92,3 @@ private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec 
       .addMember("%S", message)
       .build()
 }
-
-private fun AnnotationExpr.apiVersion() = "android.os.Build.VERSION_CODES."+(this as SingleMemberAnnotationExpr).memberValue

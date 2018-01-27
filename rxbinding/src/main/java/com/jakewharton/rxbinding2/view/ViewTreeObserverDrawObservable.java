@@ -8,10 +8,9 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-@RequiresApi(JELLY_BEAN)
+@RequiresApi(16)
 final class ViewTreeObserverDrawObservable extends Observable<Object> {
   private final View view;
 
