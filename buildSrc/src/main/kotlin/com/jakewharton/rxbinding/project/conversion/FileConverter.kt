@@ -1,21 +1,25 @@
 package com.jakewharton.rxbinding.project.conversion
 
 import com.github.javaparser.JavaParser
-import com.github.javaparser.ast.CompilationUnit
-import com.github.javaparser.ast.ImportDeclaration
-import com.github.javaparser.ast.PackageDeclaration
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
+import com.github.javaparser.ast.body.TypeDeclaration
+import com.github.javaparser.ast.expr.AnnotationExpr
+import com.github.javaparser.ast.expr.Expression
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
 import com.github.javaparser.ast.type.ClassOrInterfaceType
 import com.github.javaparser.ast.type.ReferenceType
 import com.github.javaparser.ast.type.Type
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.UNIT
 import java.io.File
-import kotlin.properties.Delegates
+
+val UNIT_OBSERVABLE = ParameterizedTypeName.get(ClassName("io.reactivex", "Observable"), UNIT)
+val CHECK_RESULT = ClassName("android.support.annotation", "CheckResult")
+val REQUIRES_API = ClassName("android.support.annotation", "RequiresApi")
 
 fun File.convertToKotlinFile(): FileSpec {
   val javaFile = JavaParser.parse(this)
@@ -28,9 +32,10 @@ fun File.convertToKotlinFile(): FileSpec {
 
   val rxClass = javaFile.types.single()
   val bindingClass = rxClass.name
+  val requiresApi = rxClass.requiresApi()
 
   val methods = rxClass.members.filterIsInstance<MethodDeclaration>()
-  val funSpecs = methods.map { it.toFunSpec(associatedImports, bindingClass) }
+  val funSpecs = methods.map { it.toFunSpec(associatedImports, bindingClass, requiresApi) }
 
   return FileSpec.builder(packageName, name.removeSuffix(".java"))
       .addVoidToUnitImport(methods)
@@ -38,6 +43,9 @@ fun File.convertToKotlinFile(): FileSpec {
       .suppressNotingToInline()
       .build()
 }
+
+private fun TypeDeclaration.requiresApi() =
+    annotations.singleOrNull { it.name.toString() == "RequiresApi" }
 
 private fun FileSpec.Builder.addVoidToUnitImport(methods: List<MethodDeclaration>) = apply {
   if (methods.any { it.emitsUnit() }) {

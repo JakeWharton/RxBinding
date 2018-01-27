@@ -10,8 +10,6 @@ import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
 
 private val SLASH = File.separator
-val UNIT_OBSERVABLE = ParameterizedTypeName.get(
-    ClassName("io.reactivex", "Observable"), UNIT)
 
 open class KotlinGenTask : SourceTask() {
 

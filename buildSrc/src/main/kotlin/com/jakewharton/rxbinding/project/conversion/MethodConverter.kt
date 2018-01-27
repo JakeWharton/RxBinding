@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding.project.conversion
 import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.expr.AnnotationExpr
+import com.github.javaparser.ast.expr.Expression
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
 import com.squareup.kotlinpoet.*
 
@@ -12,7 +13,11 @@ import com.squareup.kotlinpoet.*
  *
  * @param bindingClass name of the RxBinding class this is tied to
  */
-fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindingClassName: String): FunSpec {
+fun MethodDeclaration.toFunSpec(
+  associatedImports: Map<String, ClassName>,
+  bindingClassName: String,
+  requiresApi: AnnotationExpr?
+): FunSpec {
   ///////////////
   // STRUCTURE //
   ///////////////
@@ -23,7 +28,7 @@ fun MethodDeclaration.toFunSpec(associatedImports: Map<String, ClassName>, bindi
   return FunSpec.builder(name)
       .addKdoc(cleanedDocumentation)
       .addModifiers(KModifier.INLINE)
-      .addAnnotations(getAnnotationSpecs())
+      .addAnnotations(getAnnotationSpecs(requiresApi))
       .addTypeVariables(getTypeVariables(associatedImports))
       .returns(type.resolveKotlinType(annotations, associatedImports))
       .receiver(parameters[0].type.resolveKotlinType(associatedImports = associatedImports))
@@ -64,25 +69,28 @@ private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>):
   return TypeVariableName(name, typeName)
 }
 
-private fun MethodDeclaration.getAnnotationSpecs() = annotations
-    .filterNot { it.name.toString() == "NonNull" }
-    .filterNot { it == GenericTypeNullableAnnotation }
-    .map { it.annotationSpec(this) }
+private fun MethodDeclaration.getAnnotationSpecs(requiresApi: AnnotationExpr?): List<AnnotationSpec> {
+  val annotations = annotations
+      .filterNot { it.name.toString() == "NonNull" }
+      .filterNot { it == GenericTypeNullableAnnotation }
+      .map { it.annotationSpec(this) }
+  if (annotations.none { it.type == REQUIRES_API } && requiresApi != null) {
+    return annotations + requiresApiAnnotationSpec(requiresApi)
+  }
+  return annotations
+}
 
 private fun AnnotationExpr.annotationSpec(method: MethodDeclaration) = when (name.toString()) {
   "CheckResult" -> checkResultAnnotationSpec()
-  "RequiresApi" -> requiresApiAnnotationSpec()
+  "RequiresApi" -> requiresApiAnnotationSpec(this)
   "Deprecated" -> deprecatedAnnotationSpec(method)
   else -> throw UnsupportedOperationException("No logic for $name annotation")
 }
 
-private val CHECK_RESULT = ClassName("android.support.annotation", "CheckResult")
-private val REQUIRES_API = ClassName("android.support.annotation", "RequiresApi")
-
 private fun checkResultAnnotationSpec() = AnnotationSpec.builder(CHECK_RESULT).build()
 
-private fun AnnotationExpr.requiresApiAnnotationSpec() = AnnotationSpec.builder(REQUIRES_API)
-    .addMember("%L", (this as SingleMemberAnnotationExpr).memberValue)
+private fun requiresApiAnnotationSpec(expression: Expression) = AnnotationSpec.builder(REQUIRES_API)
+    .addMember("%L", (expression as SingleMemberAnnotationExpr).memberValue)
     .build()
 
 private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec {

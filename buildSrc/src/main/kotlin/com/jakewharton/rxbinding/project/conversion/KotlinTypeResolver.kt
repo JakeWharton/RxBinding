@@ -4,7 +4,6 @@ import com.github.javaparser.ast.expr.AnnotationExpr
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr
 import com.github.javaparser.ast.expr.NameExpr
 import com.github.javaparser.ast.type.*
-import com.jakewharton.rxbinding.project.UNIT_OBSERVABLE
 import com.squareup.kotlinpoet.*
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
