@@ -47,7 +47,10 @@ public final class RxSearchBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSearchQuery method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super String> searchQuery(@NonNull final SearchBar view) {
     checkNotNull(view, "view == null");

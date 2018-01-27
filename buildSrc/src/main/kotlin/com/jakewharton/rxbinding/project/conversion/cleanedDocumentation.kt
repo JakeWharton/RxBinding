@@ -43,6 +43,8 @@ private fun cleanUpDoc(doc: String): String {
         val (foo, bar, baz) = result.destructured
         "[$baz][$foo.$bar]"
       }
+      // Remove @deprecated
+      .replace("@deprecated [^.]+\\.".toRegex(), "")
       .trim()
       .plus("\n")
 }

@@ -405,7 +405,10 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setActivated method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> activated(@NonNull final View view) {
     checkNotNull(view, "view == null");
@@ -421,7 +424,10 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setClickable method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> clickable(@NonNull final View view) {
     checkNotNull(view, "view == null");
@@ -437,7 +443,10 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setEnabled method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> enabled(@NonNull final View view) {
     checkNotNull(view, "view == null");
@@ -453,7 +462,10 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setPressed method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> pressed(@NonNull final View view) {
     checkNotNull(view, "view == null");
@@ -469,7 +481,10 @@ public final class RxView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSelected method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> selected(@NonNull final View view) {
     checkNotNull(view, "view == null");

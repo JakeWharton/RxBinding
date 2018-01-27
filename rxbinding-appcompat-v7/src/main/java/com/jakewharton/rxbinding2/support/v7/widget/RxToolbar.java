@@ -47,7 +47,10 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setTitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super CharSequence> title(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
@@ -63,7 +66,10 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setTitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> titleRes(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
@@ -79,7 +85,10 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSubtitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super CharSequence> subtitle(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");
@@ -95,7 +104,10 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSubtitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> subtitleRes(@NonNull final Toolbar view) {
     checkNotNull(view, "view == null");

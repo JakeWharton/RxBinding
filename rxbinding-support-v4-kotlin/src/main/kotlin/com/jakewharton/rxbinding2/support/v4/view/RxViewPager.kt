@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.Suppress
 
@@ -38,5 +39,8 @@ inline fun ViewPager.pageSelections(): InitialValueObservable<Int> = RxViewPager
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated(
+    message = "Use view::setCurrentItem method reference."
+)
 @CheckResult
 inline fun ViewPager.currentItem(): Consumer<in Int> = RxViewPager.currentItem(this)

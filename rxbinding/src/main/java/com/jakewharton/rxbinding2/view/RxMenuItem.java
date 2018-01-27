@@ -94,7 +94,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setChecked method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> checked(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
@@ -110,7 +113,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setEnabled method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> enabled(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
@@ -126,7 +132,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setIcon method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Drawable> icon(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
@@ -142,7 +151,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setIcon method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> iconRes(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
@@ -158,7 +170,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setTitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> title(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
@@ -174,7 +189,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setTitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> titleRes(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
@@ -190,7 +208,10 @@ public final class RxMenuItem {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code menuItem}.
    * Unsubscribe to free this reference.
+   *
+   * @deprecated Use menuItem::setVisible method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> visible(@NonNull final MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");

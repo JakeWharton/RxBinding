@@ -68,15 +68,14 @@ private fun MethodDeclaration.getAnnotationSpecs(): Iterable<AnnotationSpec> {
   return annotations
       .filterNot { it.name.toString() == "NonNull" }
       .filterNot { it == GenericTypeNullableAnnotation }
-      .map { it.annotationSpec() }
+      .map { it.annotationSpec(this) }
 }
 
-private fun AnnotationExpr.annotationSpec(): AnnotationSpec {
-  return when (this.name.toString()) {
-    "CheckResult" -> checkResultAnnotationSpec()
-    "RequiresApi" -> requiresApiAnnotationSpec()
-    else -> throw UnsupportedOperationException()
-  }
+private fun AnnotationExpr.annotationSpec(method: MethodDeclaration) = when (name.toString()) {
+  "CheckResult" -> checkResultAnnotationSpec()
+  "RequiresApi" -> requiresApiAnnotationSpec()
+  "Deprecated" -> deprecatedAnnotationSpec(method)
+  else -> throw UnsupportedOperationException("No logic for $name annotation")
 }
 
 private fun checkResultAnnotationSpec() =
@@ -85,5 +84,13 @@ private fun checkResultAnnotationSpec() =
 private fun AnnotationExpr.requiresApiAnnotationSpec() =
     AnnotationSpec.builder(ClassName.bestGuess("android.support.annotation.RequiresApi"))
         .addMember("value", "%L", apiVersion()).build()
+
+private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec {
+  val comment = method.comment.content
+  val message = "@deprecated ([^.]+\\.)".toRegex().findAll(comment).single().groups[1]!!.value
+  return AnnotationSpec.builder(Deprecated::class.java)
+      .addMember("message", "%S", message)
+      .build()
+}
 
 private fun AnnotationExpr.apiVersion() = "android.os.Build.VERSION_CODES."+(this as SingleMemberAnnotationExpr).memberValue
