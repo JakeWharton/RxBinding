@@ -1,6 +1,4 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.v4.view
 
@@ -39,8 +37,6 @@ inline fun ViewPager.pageSelections(): InitialValueObservable<Int> = RxViewPager
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setCurrentItem method reference."
-)
+@Deprecated("Use view::setCurrentItem method reference.")
 @CheckResult
 inline fun ViewPager.currentItem(): Consumer<in Int> = RxViewPager.currentItem(this)

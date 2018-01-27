@@ -1,6 +1,4 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.view
 
@@ -78,9 +76,7 @@ inline fun MenuItem.actionViewEvents(handled: Predicate<in MenuItemActionViewEve
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setChecked method reference."
-)
+@Deprecated("Use menuItem::setChecked method reference.")
 @CheckResult
 inline fun MenuItem.checked(): Consumer<in Boolean> = RxMenuItem.checked(this)
 
@@ -90,9 +86,7 @@ inline fun MenuItem.checked(): Consumer<in Boolean> = RxMenuItem.checked(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setEnabled method reference."
-)
+@Deprecated("Use menuItem::setEnabled method reference.")
 @CheckResult
 inline fun MenuItem.enabled(): Consumer<in Boolean> = RxMenuItem.enabled(this)
 
@@ -102,9 +96,7 @@ inline fun MenuItem.enabled(): Consumer<in Boolean> = RxMenuItem.enabled(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setIcon method reference."
-)
+@Deprecated("Use menuItem::setIcon method reference.")
 @CheckResult
 inline fun MenuItem.icon(): Consumer<in Drawable> = RxMenuItem.icon(this)
 
@@ -114,9 +106,7 @@ inline fun MenuItem.icon(): Consumer<in Drawable> = RxMenuItem.icon(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setIcon method reference."
-)
+@Deprecated("Use menuItem::setIcon method reference.")
 @CheckResult
 inline fun MenuItem.iconRes(): Consumer<in Int> = RxMenuItem.iconRes(this)
 
@@ -126,9 +116,7 @@ inline fun MenuItem.iconRes(): Consumer<in Int> = RxMenuItem.iconRes(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setTitle method reference."
-)
+@Deprecated("Use menuItem::setTitle method reference.")
 @CheckResult
 inline fun MenuItem.title(): Consumer<in CharSequence> = RxMenuItem.title(this)
 
@@ -138,9 +126,7 @@ inline fun MenuItem.title(): Consumer<in CharSequence> = RxMenuItem.title(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setTitle method reference."
-)
+@Deprecated("Use menuItem::setTitle method reference.")
 @CheckResult
 inline fun MenuItem.titleRes(): Consumer<in Int> = RxMenuItem.titleRes(this)
 
@@ -150,8 +136,6 @@ inline fun MenuItem.titleRes(): Consumer<in Int> = RxMenuItem.titleRes(this)
  * *Warning:* The created observable keeps a strong reference to `menuItem`.
  * Unsubscribe to free this reference.
  */
-@Deprecated(
-    message = "Use menuItem::setVisible method reference."
-)
+@Deprecated("Use menuItem::setVisible method reference.")
 @CheckResult
 inline fun MenuItem.visible(): Consumer<in Boolean> = RxMenuItem.visible(this)

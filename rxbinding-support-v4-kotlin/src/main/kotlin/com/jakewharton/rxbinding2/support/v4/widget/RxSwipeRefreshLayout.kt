@@ -1,6 +1,4 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.v4.widget
 
@@ -28,8 +26,6 @@ inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayo
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setRefreshing method reference."
-)
+@Deprecated("Use view::setRefreshing method reference.")
 @CheckResult
 inline fun SwipeRefreshLayout.refreshing(): Consumer<in Boolean> = RxSwipeRefreshLayout.refreshing(this)

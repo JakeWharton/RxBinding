@@ -1,6 +1,4 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.v17.leanback.widget
 
@@ -36,8 +34,6 @@ inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.sear
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setSearchQuery method reference."
-)
+@Deprecated("Use view::setSearchQuery method reference.")
 @CheckResult
 inline fun SearchBar.searchQuery(): Consumer<in String> = RxSearchBar.searchQuery(this)

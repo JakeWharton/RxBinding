@@ -83,13 +83,13 @@ private fun checkResultAnnotationSpec() =
 
 private fun AnnotationExpr.requiresApiAnnotationSpec() =
     AnnotationSpec.builder(ClassName("android.support.annotation", "RequiresApi"))
-        .addMember("value", "%L", apiVersion()).build()
+        .addMember("%L", apiVersion()).build()
 
 private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec {
   val comment = method.comment.content
   val message = "@deprecated ([^.]+\\.)".toRegex().findAll(comment).single().groups[1]!!.value
   return AnnotationSpec.builder(Deprecated::class.java)
-      .addMember("message", "%S", message)
+      .addMember("%S", message)
       .build()
 }
 

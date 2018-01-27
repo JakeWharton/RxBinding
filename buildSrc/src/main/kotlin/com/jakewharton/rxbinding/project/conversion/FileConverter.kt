@@ -12,40 +12,40 @@ import com.github.javaparser.ast.type.Type
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.KotlinFile
 import java.io.File
 import kotlin.properties.Delegates
 
-fun File.convertToKotlinFile(): KotlinFile {
+fun File.convertToKotlinFile(): FileSpec {
   val javaFile = JavaParser.parse(this)
   val packageName = getPackageName(javaFile)
   val associatedImports = getImports(javaFile)
   val bindingClass = getBindingClass(javaFile)
   val methods = getMethods(javaFile)
   val funSpecs = methods.map { it.toFunSpec(associatedImports, bindingClass) }
-  return KotlinFile.builder(packageName, name.removeSuffix(".java"))
+  return FileSpec.builder(packageName, name.removeSuffix(".java"))
       .addVoidToUnitImport(methods)
       .addFunSpecs(funSpecs)
       .suppressNotingToInline()
       .build()
 }
 
-private fun KotlinFile.Builder.addVoidToUnitImport(methods: List<MethodDeclaration>) = apply {
+private fun FileSpec.Builder.addVoidToUnitImport(methods: List<MethodDeclaration>) = apply {
   if (methods.any { it.emitsUnit() }) {
     addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
   }
 }
 
-private fun KotlinFile.Builder.addFunSpecs(funSpecs: List<FunSpec>) = apply {
-  funSpecs.forEach { addFun(it) }
+private fun FileSpec.Builder.addFunSpecs(funSpecs: List<FunSpec>) = apply {
+  funSpecs.forEach { addFunction(it) }
 }
 
-private fun KotlinFile.Builder.suppressNotingToInline(): KotlinFile.Builder {
+private fun FileSpec.Builder.suppressNotingToInline(): FileSpec.Builder {
   // @file:Suppress("NOTHING_TO_INLINE")
-  return addFileAnnotation(AnnotationSpec.builder(Suppress::class)
+  return addAnnotation(AnnotationSpec.builder(Suppress::class)
       .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
-      .addMember("names", "%S", "NOTHING_TO_INLINE")
+      .addMember("%S", "NOTHING_TO_INLINE")
       .build())
 }
 
