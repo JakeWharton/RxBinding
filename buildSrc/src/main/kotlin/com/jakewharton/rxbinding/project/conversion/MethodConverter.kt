@@ -79,10 +79,10 @@ private fun AnnotationExpr.annotationSpec(method: MethodDeclaration) = when (nam
 }
 
 private fun checkResultAnnotationSpec() =
-    AnnotationSpec.builder(ClassName.bestGuess("android.support.annotation.CheckResult")).build()
+    AnnotationSpec.builder(ClassName("android.support.annotation", "CheckResult")).build()
 
 private fun AnnotationExpr.requiresApiAnnotationSpec() =
-    AnnotationSpec.builder(ClassName.bestGuess("android.support.annotation.RequiresApi"))
+    AnnotationSpec.builder(ClassName("android.support.annotation", "RequiresApi"))
         .addMember("value", "%L", apiVersion()).build()
 
 private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec {
