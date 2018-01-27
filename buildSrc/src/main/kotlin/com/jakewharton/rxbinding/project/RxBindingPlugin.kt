@@ -39,7 +39,7 @@ class RxBindingPlugin : Plugin<Project> {
         exclude(EXCLUDE_PATTERN)
       }
 
-      project.tasks.findByName("check").dependsOn(validateBindingsTask)
+      project.tasks.getByName("check").dependsOn(validateBindingsTask)
     }
   }
 }
