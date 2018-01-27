@@ -64,12 +64,10 @@ private fun TypeParameter.typeParams(associatedImports: Map<String, ClassName>):
   return TypeVariableName(name, typeName)
 }
 
-private fun MethodDeclaration.getAnnotationSpecs(): Iterable<AnnotationSpec> {
-  return annotations
-      .filterNot { it.name.toString() == "NonNull" }
-      .filterNot { it == GenericTypeNullableAnnotation }
-      .map { it.annotationSpec(this) }
-}
+private fun MethodDeclaration.getAnnotationSpecs() = annotations
+    .filterNot { it.name.toString() == "NonNull" }
+    .filterNot { it == GenericTypeNullableAnnotation }
+    .map { it.annotationSpec(this) }
 
 private fun AnnotationExpr.annotationSpec(method: MethodDeclaration) = when (name.toString()) {
   "CheckResult" -> checkResultAnnotationSpec()
@@ -78,12 +76,14 @@ private fun AnnotationExpr.annotationSpec(method: MethodDeclaration) = when (nam
   else -> throw UnsupportedOperationException("No logic for $name annotation")
 }
 
-private fun checkResultAnnotationSpec() =
-    AnnotationSpec.builder(ClassName("android.support.annotation", "CheckResult")).build()
+private val CHECK_RESULT = ClassName("android.support.annotation", "CheckResult")
+private val REQUIRES_API = ClassName("android.support.annotation", "RequiresApi")
 
-private fun AnnotationExpr.requiresApiAnnotationSpec() =
-    AnnotationSpec.builder(ClassName("android.support.annotation", "RequiresApi"))
-        .addMember("%L", (this as SingleMemberAnnotationExpr).memberValue).build()
+private fun checkResultAnnotationSpec() = AnnotationSpec.builder(CHECK_RESULT).build()
+
+private fun AnnotationExpr.requiresApiAnnotationSpec() = AnnotationSpec.builder(REQUIRES_API)
+    .addMember("%L", (this as SingleMemberAnnotationExpr).memberValue)
+    .build()
 
 private fun deprecatedAnnotationSpec(method: MethodDeclaration): AnnotationSpec {
   val comment = method.comment.content

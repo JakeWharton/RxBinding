@@ -41,9 +41,9 @@ private fun FileSpec.Builder.addFunSpecs(funSpecs: List<FunSpec>) = apply {
   funSpecs.forEach { addFunction(it) }
 }
 
-private fun FileSpec.Builder.suppressNotingToInline(): FileSpec.Builder {
+private fun FileSpec.Builder.suppressNotingToInline() = apply {
   // @file:Suppress("NOTHING_TO_INLINE")
-  return addAnnotation(AnnotationSpec.builder(Suppress::class)
+  addAnnotation(AnnotationSpec.builder(Suppress::class)
       .useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
       .addMember("%S", "NOTHING_TO_INLINE")
       .build())
