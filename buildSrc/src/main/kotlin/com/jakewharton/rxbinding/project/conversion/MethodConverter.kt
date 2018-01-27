@@ -5,13 +5,18 @@ import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.expr.AnnotationExpr
 import com.github.javaparser.ast.expr.Expression
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
-import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.TypeVariableName
 
 
 /**
  * Generates the kotlin code for this method
  *
- * @param bindingClass name of the RxBinding class this is tied to
+ * @param bindingClassName name of the RxBinding class this is tied to
  */
 fun MethodDeclaration.toFunSpec(
   associatedImports: Map<String, ClassName>,

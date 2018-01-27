@@ -3,9 +3,6 @@ package com.jakewharton.rxbinding.project.conversion
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.body.TypeDeclaration
-import com.github.javaparser.ast.expr.AnnotationExpr
-import com.github.javaparser.ast.expr.Expression
-import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
 import com.github.javaparser.ast.type.ClassOrInterfaceType
 import com.github.javaparser.ast.type.ReferenceType
 import com.github.javaparser.ast.type.Type

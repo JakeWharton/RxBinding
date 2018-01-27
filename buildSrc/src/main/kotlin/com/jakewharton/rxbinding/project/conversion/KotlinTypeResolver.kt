@@ -3,9 +3,19 @@ package com.jakewharton.rxbinding.project.conversion
 import com.github.javaparser.ast.expr.AnnotationExpr
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr
 import com.github.javaparser.ast.expr.NameExpr
-import com.github.javaparser.ast.type.*
-import com.squareup.kotlinpoet.*
-import sun.reflect.generics.reflectiveObjects.NotImplementedException
+import com.github.javaparser.ast.type.ClassOrInterfaceType
+import com.github.javaparser.ast.type.PrimitiveType
+import com.github.javaparser.ast.type.ReferenceType
+import com.github.javaparser.ast.type.Type
+import com.github.javaparser.ast.type.VoidType
+import com.github.javaparser.ast.type.WildcardType
+import com.squareup.kotlinpoet.ANY
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.WildcardTypeName
+import com.squareup.kotlinpoet.asClassName
 
 val GenericTypeNullableAnnotation = MarkerAnnotationExpr(
     NameExpr("GenericTypeNullable"))
@@ -22,7 +32,7 @@ fun Type.resolveKotlinType(
         associatedImports)
     is WildcardType -> resolveKotlinWildcardType(this, methodAnnotations,
         associatedImports)
-    else -> throw NotImplementedException()
+    else -> throw NotImplementedError()
   }
 }
 
