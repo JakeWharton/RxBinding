@@ -1,6 +1,4 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.v7.widget
 
@@ -43,9 +41,7 @@ inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationCl
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setTitle method reference."
-)
+@Deprecated("Use view::setTitle method reference.")
 @CheckResult
 inline fun Toolbar.title(): Consumer<in CharSequence?> = RxToolbar.title(this)
 
@@ -55,9 +51,7 @@ inline fun Toolbar.title(): Consumer<in CharSequence?> = RxToolbar.title(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setTitle method reference."
-)
+@Deprecated("Use view::setTitle method reference.")
 @CheckResult
 inline fun Toolbar.titleRes(): Consumer<in Int> = RxToolbar.titleRes(this)
 
@@ -67,9 +61,7 @@ inline fun Toolbar.titleRes(): Consumer<in Int> = RxToolbar.titleRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setSubtitle method reference."
-)
+@Deprecated("Use view::setSubtitle method reference.")
 @CheckResult
 inline fun Toolbar.subtitle(): Consumer<in CharSequence?> = RxToolbar.subtitle(this)
 
@@ -79,8 +71,6 @@ inline fun Toolbar.subtitle(): Consumer<in CharSequence?> = RxToolbar.subtitle(t
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setSubtitle method reference."
-)
+@Deprecated("Use view::setSubtitle method reference.")
 @CheckResult
 inline fun Toolbar.subtitleRes(): Consumer<in Int> = RxToolbar.subtitleRes(this)

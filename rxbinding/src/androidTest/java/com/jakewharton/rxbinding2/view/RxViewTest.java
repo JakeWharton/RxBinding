@@ -1,6 +1,5 @@
 package com.jakewharton.rxbinding2.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
@@ -18,8 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN;
-import static android.os.Build.VERSION_CODES.M;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_EXIT;
@@ -80,8 +77,7 @@ public final class RxViewTest {
     //o.assertNoMoreEvents();
   }
 
-  @TargetApi(JELLY_BEAN)
-  @SdkSuppress(minSdkVersion = JELLY_BEAN)
+  @SdkSuppress(minSdkVersion = 16)
   @Test @UiThreadTest public void drawEvents() {
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxView.draws(view).subscribe(o);
@@ -227,8 +223,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @TargetApi(M)
-  @SdkSuppress(minSdkVersion = M)
+  @SdkSuppress(minSdkVersion = 23)
   @Test @UiThreadTest public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
     RxView.scrollChangeEvents(view).subscribe(o);

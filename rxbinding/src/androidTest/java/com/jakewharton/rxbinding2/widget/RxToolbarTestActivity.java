@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toolbar;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
-
-@TargetApi(LOLLIPOP)
+@TargetApi(21)
 public final class RxToolbarTestActivity extends Activity {
   static final String NAVIGATION_CONTENT_DESCRIPTION = "click me!";
 

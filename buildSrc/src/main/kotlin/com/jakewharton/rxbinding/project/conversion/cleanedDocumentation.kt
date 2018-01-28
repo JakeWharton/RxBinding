@@ -2,7 +2,7 @@ package com.jakewharton.rxbinding.project.conversion
 
 import com.github.javaparser.ast.body.MethodDeclaration
 
-private val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
+private const val DOC_LINK_REGEX = "[0-9A-Za-z._]*"
 
 /** Cleans up the generated doc and translates some html to equivalent markdown for Kotlin docs */
 val MethodDeclaration.cleanedDocumentation

@@ -1,6 +1,4 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.design.widget
 
@@ -17,9 +15,7 @@ import kotlin.Suppress
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setCounterEnabled method reference."
-)
+@Deprecated("Use view::setCounterEnabled method reference.")
 @CheckResult
 inline fun TextInputLayout.counterEnabled(): Consumer<in Boolean> = RxTextInputLayout.counterEnabled(this)
 
@@ -29,9 +25,7 @@ inline fun TextInputLayout.counterEnabled(): Consumer<in Boolean> = RxTextInputL
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setCounterMaxLength method reference."
-)
+@Deprecated("Use view::setCounterMaxLength method reference.")
 @CheckResult
 inline fun TextInputLayout.counterMaxLength(): Consumer<in Int> = RxTextInputLayout.counterMaxLength(this)
 
@@ -41,9 +35,7 @@ inline fun TextInputLayout.counterMaxLength(): Consumer<in Int> = RxTextInputLay
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setError method reference."
-)
+@Deprecated("Use view::setError method reference.")
 @CheckResult
 inline fun TextInputLayout.error(): Consumer<in CharSequence?> = RxTextInputLayout.error(this)
 
@@ -53,9 +45,7 @@ inline fun TextInputLayout.error(): Consumer<in CharSequence?> = RxTextInputLayo
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setError method reference."
-)
+@Deprecated("Use view::setError method reference.")
 @CheckResult
 inline fun TextInputLayout.errorRes(): Consumer<in Int?> = RxTextInputLayout.errorRes(this)
 
@@ -65,9 +55,7 @@ inline fun TextInputLayout.errorRes(): Consumer<in Int?> = RxTextInputLayout.err
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setHint method reference."
-)
+@Deprecated("Use view::setHint method reference.")
 @CheckResult
 inline fun TextInputLayout.hint(): Consumer<in CharSequence> = RxTextInputLayout.hint(this)
 
@@ -77,8 +65,6 @@ inline fun TextInputLayout.hint(): Consumer<in CharSequence> = RxTextInputLayout
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@Deprecated(
-    message = "Use view::setHint method reference."
-)
+@Deprecated("Use view::setHint method reference.")
 @CheckResult
 inline fun TextInputLayout.hintRes(): Consumer<in Int> = RxTextInputLayout.hintRes(this)

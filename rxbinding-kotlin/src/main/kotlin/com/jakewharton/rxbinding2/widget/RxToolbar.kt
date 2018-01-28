@@ -1,10 +1,9 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.widget
 
 import android.support.annotation.CheckResult
+import android.support.annotation.RequiresApi
 import android.view.MenuItem
 import android.widget.Toolbar
 import com.jakewharton.rxbinding2.internal.VoidToUnit
@@ -21,6 +20,7 @@ import kotlin.Unit
  * to free this reference.
  */
 @CheckResult
+@RequiresApi(21)
 inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(this)
 
 /**
@@ -34,6 +34,7 @@ inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(thi
  * to observe clicks. Only one observable can be used for a view at a time.
  */
 @CheckResult
+@RequiresApi(21)
 inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(VoidToUnit)
 
 /**
@@ -43,6 +44,7 @@ inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationCl
  * to free this reference.
  */
 @CheckResult
+@RequiresApi(21)
 inline fun Toolbar.title(): Consumer<in CharSequence?> = RxToolbar.title(this)
 
 /**
@@ -52,6 +54,7 @@ inline fun Toolbar.title(): Consumer<in CharSequence?> = RxToolbar.title(this)
  * to free this reference.
  */
 @CheckResult
+@RequiresApi(21)
 inline fun Toolbar.titleRes(): Consumer<in Int> = RxToolbar.titleRes(this)
 
 /**
@@ -61,6 +64,7 @@ inline fun Toolbar.titleRes(): Consumer<in Int> = RxToolbar.titleRes(this)
  * to free this reference.
  */
 @CheckResult
+@RequiresApi(21)
 inline fun Toolbar.subtitle(): Consumer<in CharSequence?> = RxToolbar.subtitle(this)
 
 /**
@@ -70,4 +74,5 @@ inline fun Toolbar.subtitle(): Consumer<in CharSequence?> = RxToolbar.subtitle(t
  * to free this reference.
  */
 @CheckResult
+@RequiresApi(21)
 inline fun Toolbar.subtitleRes(): Consumer<in Int> = RxToolbar.subtitleRes(this)
