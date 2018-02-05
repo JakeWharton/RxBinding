@@ -50,6 +50,18 @@ public final class RxRecyclerView {
     return new RecyclerViewScrollStateChangeObservable(view);
   }
 
+  /**
+   * Create an observable of fling events on {@code recyclerView}.
+   * <p>
+   * <em>Warning:</em> The created observable keeps a strong reference to {@code recyclerView}.
+   * Unsubscribe to free this reference.
+   */
+  @CheckResult @NonNull
+  public static Observable<RecyclerViewFlingEvent> flingEvents(@NonNull RecyclerView view) {
+    checkNotNull(view, "view == null");
+    return new RecyclerViewFlingObservable(view);
+  }
+
   private RxRecyclerView() {
     throw new AssertionError("No instances.");
   }

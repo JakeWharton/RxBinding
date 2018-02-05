@@ -34,3 +34,12 @@ inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = Rx
  */
 @CheckResult
 inline fun RecyclerView.scrollStateChanges(): Observable<Int> = RxRecyclerView.scrollStateChanges(this)
+
+/**
+ * Create an observable of fling events on `recyclerView`.
+ *
+ * *Warning:* The created observable keeps a strong reference to `recyclerView`.
+ * Unsubscribe to free this reference.
+ */
+@CheckResult
+inline fun RecyclerView.flingEvents(): Observable<RecyclerViewFlingEvent> = RxRecyclerView.flingEvents(this)
