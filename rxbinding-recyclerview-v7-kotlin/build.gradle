@@ -38,3 +38,9 @@ android {
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+  kotlinOptions {
+    freeCompilerArgs = ['-Xno-param-assertions']
+  }
+}
