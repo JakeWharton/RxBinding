@@ -24,6 +24,7 @@ inline fun Snackbar.dismisses(): Observable<Int> = RxSnackbar.dismisses(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun Snackbar.actionClicked(resId: Int): Observable<View> = RxSnackbar.actionClicked(this, resId)
 
 /**
@@ -32,4 +33,5 @@ inline fun Snackbar.actionClicked(resId: Int): Observable<View> = RxSnackbar.act
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun Snackbar.actionClicked(text: CharSequence): Observable<View> = RxSnackbar.actionClicked(this, text)
