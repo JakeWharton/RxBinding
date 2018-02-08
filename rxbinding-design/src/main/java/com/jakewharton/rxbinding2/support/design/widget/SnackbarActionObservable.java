@@ -8,26 +8,28 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static io.reactivex.android.MainThreadDisposable.verifyMainThread;
+import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
 final class SnackbarActionObservable extends Observable<View> {
-  final Snackbar view;
-  final int resId;
-  final CharSequence text;
+  private final Snackbar view;
+  private final int resId;
+  private final CharSequence text;
 
-  public SnackbarActionObservable(Snackbar view, int resId) {
+  SnackbarActionObservable(Snackbar view, int resId) {
     this.view = view;
     this.text = null;
     this.resId = resId;
   }
-  public SnackbarActionObservable(Snackbar view, CharSequence text) {
+  SnackbarActionObservable(Snackbar view, CharSequence text) {
     this.view = view;
     this.text = text;
     this.resId = -1;
   }
 
   @Override protected void subscribeActual(Observer<? super View> observer) {
-    verifyMainThread();
+    if (!checkMainThread(observer)) {
+      return;
+    }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
     if (text == null) {
@@ -39,7 +41,7 @@ final class SnackbarActionObservable extends Observable<View> {
 
   final class Listener extends MainThreadDisposable {
     private final Snackbar snackbar;
-    private final OnClickListener callback;
+    final OnClickListener callback;
 
     Listener(Snackbar snackbar, final Observer<? super View> observer) {
       this.snackbar = snackbar;

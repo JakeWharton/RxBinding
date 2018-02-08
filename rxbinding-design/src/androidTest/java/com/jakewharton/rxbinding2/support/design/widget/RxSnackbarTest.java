@@ -19,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static android.support.design.widget.Snackbar.Callback.DISMISS_EVENT_MANUAL;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
