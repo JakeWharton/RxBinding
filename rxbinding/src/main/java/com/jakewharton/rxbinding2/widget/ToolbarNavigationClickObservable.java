@@ -9,10 +9,9 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-@RequiresApi(LOLLIPOP)
+@RequiresApi(21)
 final class ToolbarNavigationClickObservable extends Observable<Object> {
   private final Toolbar view;
 

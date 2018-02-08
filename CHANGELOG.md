@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+Version 2.1.0 *(2018-01-30)*
+----------------------------
+
+ * New bindings!
+    * `rxbinding-design`:
+       * `FloatingActionButton`:
+          * `visibility`: Shows or hides FAB.
+ * Use add/remove callback for Snackbar dismisses.
+ * Deprecate simple consumers which delegate directly to a method. You should use method references for these instead. For example, `RxView.enabled(view)` becomes `view::setEnabled`.
+ * Fix: Propagate `@RequiresApi` annotations to Kotlin extensions.
+
+
 Version 2.0.0 *(2017-03-06)*
 ----------------------------
 

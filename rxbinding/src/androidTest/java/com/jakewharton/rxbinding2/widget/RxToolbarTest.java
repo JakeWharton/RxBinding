@@ -1,6 +1,5 @@
 package com.jakewharton.rxbinding2.widget;
 
-import android.annotation.TargetApi;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
@@ -14,7 +13,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -23,8 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-@TargetApi(LOLLIPOP)
-@SdkSuppress(minSdkVersion = LOLLIPOP)
+@SdkSuppress(minSdkVersion = 21)
 public final class RxToolbarTest {
   @Rule public final ActivityTestRule<RxToolbarTestActivity> activityRule =
       new ActivityTestRule<>(RxToolbarTestActivity.class);

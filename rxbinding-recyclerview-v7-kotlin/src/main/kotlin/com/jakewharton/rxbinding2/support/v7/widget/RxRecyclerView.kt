@@ -1,9 +1,8 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.v7.widget
 
+import android.support.annotation.CheckResult
 import android.support.v7.widget.RecyclerView
 import io.reactivex.Observable
 import kotlin.Int
@@ -15,6 +14,7 @@ import kotlin.Suppress
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun RecyclerView.childAttachStateChangeEvents(): Observable<RecyclerViewChildAttachStateChangeEvent> = RxRecyclerView.childAttachStateChangeEvents(this)
 
 /**
@@ -23,6 +23,7 @@ inline fun RecyclerView.childAttachStateChangeEvents(): Observable<RecyclerViewC
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = RxRecyclerView.scrollEvents(this)
 
 /**
@@ -31,4 +32,5 @@ inline fun RecyclerView.scrollEvents(): Observable<RecyclerViewScrollEvent> = Rx
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
  */
+@CheckResult
 inline fun RecyclerView.scrollStateChanges(): Observable<Int> = RxRecyclerView.scrollStateChanges(this)

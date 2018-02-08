@@ -18,7 +18,10 @@ public final class RxTextInputLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setCounterEnabled method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
@@ -34,7 +37,10 @@ public final class RxTextInputLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setCounterMaxLength method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
@@ -50,7 +56,10 @@ public final class RxTextInputLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setError method reference.
    */
+  @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super CharSequence> error(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
@@ -67,7 +76,10 @@ public final class RxTextInputLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setError method reference.
    */
+  @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
   public static Consumer<? super Integer> errorRes(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
@@ -84,7 +96,10 @@ public final class RxTextInputLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setHint method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> hint(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");
@@ -100,7 +115,10 @@ public final class RxTextInputLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setHint method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super Integer> hintRes(@NonNull final TextInputLayout view) {
     checkNotNull(view, "view == null");

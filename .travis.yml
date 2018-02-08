@@ -1,29 +1,31 @@
 language: android
 
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-25.0.1
-    - android-25
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-18
-
 jdk:
   - oraclejdk8
 
-before_script:
+before_install:
+  # Install SDK license so Android Gradle plugin can install deps.
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
   # Kotlin binding staleness check.
   - ./gradlew generateKotlin
   - if [ ! -z "$(git status --porcelain)" ]; then echo "Bindings changed. Did you run 'generateKotlin'?"; exit 1; fi
-  # Create and start an emulator for instrumentation tests.
-  - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
+  # Install the rest of tools (e.g., avdmanager)
+  - sdkmanager tools
+  # Install the system image
+  - sdkmanager "system-images;android-18;default;armeabi-v7a"
+  # Create and start emulator for the script. Meant to race the install task.
+  - echo no | avdmanager create avd --force -n test -k "system-images;android-18;default;armeabi-v7a"
+  - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window &
+
+install: ./gradlew ":$MODULE:build" ":$MODULE-kotlin:build" ":$MODULE:assembleAndroidTest" --stacktrace
+
+before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82
 
 script:
-  - ./gradlew ":$MODULE:build" ":$MODULE-kotlin:build" ":$MODULE:connectedCheck"
+  - ./gradlew ":$MODULE:connectedCheck" --stacktrace
 
 after_success:
   - .buildscript/deploy_snapshot.sh

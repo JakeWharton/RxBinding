@@ -7,14 +7,13 @@ buildscript {
 apply plugin: 'com.android.library'
 
 dependencies {
-  compile rootProject.ext.supportTestRunner
-  compile rootProject.ext.rxAndroid
-  compile rootProject.ext.supportTestEspresso
+  api rootProject.ext.supportTestRunner
+  api rootProject.ext.rxAndroid
+  api rootProject.ext.supportTestEspresso
 }
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
     minSdkVersion rootProject.ext.minSdkVersion
@@ -23,10 +22,6 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
-  }
-
-  dexOptions {
-    preDexLibraries = !rootProject.ext.ci
   }
 
   lintOptions {

@@ -1,9 +1,8 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.AbsListView
 import io.reactivex.Observable
 import kotlin.Suppress
@@ -18,4 +17,5 @@ import kotlin.Suppress
  * {@link AbsListView#setOnScrollListener(AbsListView.OnScrollListener)} to observe scroll
  * changes. Only one observable can be used for a view at a time.
  */
+@CheckResult
 inline fun AbsListView.scrollEvents(): Observable<AbsListViewScrollEvent> = RxAbsListView.scrollEvents(this)

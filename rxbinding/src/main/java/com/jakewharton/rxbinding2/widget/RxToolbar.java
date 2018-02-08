@@ -9,13 +9,12 @@ import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 /**
  * Static factory methods for creating {@linkplain Observable observables} for {@link Toolbar}.
  */
-@RequiresApi(LOLLIPOP)
+@RequiresApi(21)
 public final class RxToolbar {
   /**
    * Create an observable which emits the clicked item in {@code view}'s menu.

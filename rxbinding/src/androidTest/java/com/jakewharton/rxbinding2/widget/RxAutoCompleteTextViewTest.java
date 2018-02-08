@@ -1,8 +1,6 @@
 package com.jakewharton.rxbinding2.widget;
 
-import android.annotation.TargetApi;
 import android.app.Instrumentation;
-import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.SdkSuppress;
@@ -87,8 +85,7 @@ public final class RxAutoCompleteTextViewTest {
     o.assertNoMoreEvents();
   }
 
-  @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-  @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
+  @SdkSuppress(minSdkVersion = 16)
   @Test @UiThreadTest public void completionHint() throws Exception {
     RxAutoCompleteTextView.completionHint(autoCompleteTextView).accept("Test hint");
     assertEquals("Test hint", autoCompleteTextView.getCompletionHint());

@@ -14,19 +14,13 @@ import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
 
 open class ValidateBindingsTask : SourceTask() {
-
-  private val METHOD_ANNOTATIONS = listOf(
-      "CheckResult",
-      "NonNull"
-  )
-
   @TaskAction
-  @Suppress("unused")
+  @Suppress("unused", "UNUSED_PARAMETER")
   fun validate(inputs: IncrementalTaskInputs) {
     getSource().forEach { verifyJavaFile(it) }
   }
 
-  fun verifyJavaFile(javaFile: File) {
+  private fun verifyJavaFile(javaFile: File) {
     val cu = JavaParser.parse(javaFile)
 
     cu.accept(object : VoidVisitorAdapter<Any>() {
@@ -102,7 +96,7 @@ open class ValidateBindingsTask : SourceTask() {
           val pName = it.first
           val expected = "checkNotNull($pName, \"$pName == null\");"
           val found = it.second.toString()
-          if (!expected.equals(found)) {
+          if (expected != found) {
             throw IllegalStateException("Missing proper checkNotNull call on parameter "
                 + pName
                 + " in "
@@ -115,32 +109,28 @@ open class ValidateBindingsTask : SourceTask() {
   }
 
   /** Generates a nice String representation of the method signature (e.g. RxView#clicks(View)) */
-  fun prettyMethodSignature(method: MethodDeclaration): String {
-    val parameterTypeNames = method.parameters
-      .map { it.type.toString() }
-      .joinToString()
+  private fun prettyMethodSignature(method: MethodDeclaration): String {
+    val parameterTypeNames = method.parameters.joinToString { it.type.toString() }
     return "${(method.getEnclosingClass()).name}#${method.name}($parameterTypeNames)"
   }
 
-  fun Parameter.coerceClassType(): ClassOrInterfaceType {
-    return (this.type as ReferenceType).type as ClassOrInterfaceType
-  }
+  private fun Parameter.coerceClassType() =
+      (this.type as ReferenceType).type as ClassOrInterfaceType
 
-  fun Parameter.typeHasTypeArgs(): Boolean {
-    val returnType = coerceClassType()
-    return returnType.typeArgs?.isNotEmpty() ?: false
-  }
+  private fun Parameter.typeHasTypeArgs() =
+      coerceClassType().typeArgs?.isNotEmpty() ?: false
 
-  fun MethodDeclaration.getEnclosingClass(): ClassOrInterfaceDeclaration {
-    return this.parentNode as ClassOrInterfaceDeclaration
-  }
+  private fun MethodDeclaration.getEnclosingClass() =
+      this.parentNode as ClassOrInterfaceDeclaration
 
-  fun MethodDeclaration.returnTypeAsType(): ClassOrInterfaceType {
-    return (this.type as ReferenceType).type as ClassOrInterfaceType
-  }
+  private fun MethodDeclaration.returnTypeAsType() =
+      (this.type as ReferenceType).type as ClassOrInterfaceType
 
-  fun MethodDeclaration.returnTypeHasTypeArgs(): Boolean {
-    val returnType = returnTypeAsType()
-    return returnType.typeArgs?.isNotEmpty() ?: false
-  }
+  private fun MethodDeclaration.returnTypeHasTypeArgs() =
+      returnTypeAsType().typeArgs?.isNotEmpty() ?: false
 }
+
+private val METHOD_ANNOTATIONS = listOf(
+    "CheckResult",
+    "NonNull"
+)

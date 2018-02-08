@@ -1,12 +1,12 @@
-@file:Suppress(
-    names = "NOTHING_TO_INLINE"
-)
+@file:Suppress("NOTHING_TO_INLINE")
 
 package com.jakewharton.rxbinding2.support.v17.leanback.widget
 
+import android.support.annotation.CheckResult
 import android.support.v17.leanback.widget.SearchBar
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Deprecated
 import kotlin.Suppress
 
 /**
@@ -16,6 +16,7 @@ import kotlin.Suppress
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryEvent> = RxSearchBar.searchQueryChangeEvents(this)
 
 /**
@@ -24,6 +25,7 @@ inline fun SearchBar.searchQueryChangeEvents(): Observable<SearchBarSearchQueryE
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.searchQueryChanges(this)
 
 /**
@@ -32,4 +34,6 @@ inline fun SearchBar.searchQueryChanges(): Observable<String> = RxSearchBar.sear
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setSearchQuery method reference.")
+@CheckResult
 inline fun SearchBar.searchQuery(): Consumer<in String> = RxSearchBar.searchQuery(this)
