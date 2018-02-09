@@ -8,7 +8,7 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-public class RecyclerViewFlingObservable extends Observable<RecyclerViewFlingEvent> {
+final class RecyclerViewFlingObservable extends Observable<RecyclerViewFlingEvent> {
   private final RecyclerView view;
 
   RecyclerViewFlingObservable(RecyclerView view) {
@@ -25,7 +25,7 @@ public class RecyclerViewFlingObservable extends Observable<RecyclerViewFlingEve
     view.setOnFlingListener(listener.flingListener);
   }
 
-  final class Listener extends MainThreadDisposable {
+  static final class Listener extends MainThreadDisposable {
     private final RecyclerView recyclerView;
     final RecyclerView.OnFlingListener flingListener;
 
