@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 2.1.1 *(2018-02-12)*
+----------------------------
+
+ * Fix: Include consumer ProGuard rules to prevent warning about AutoValue annotation.
+ * Fix: Useless `BuildConfig` classes are no longer included.
+ * Fix: Eliminate Java interop checks for Kotlin extensions as they're only for Kotlin consumers and the checks exist in the Java code they delegate to anyway.
+
+
 Version 2.1.0 *(2018-01-30)*
 ----------------------------
 
