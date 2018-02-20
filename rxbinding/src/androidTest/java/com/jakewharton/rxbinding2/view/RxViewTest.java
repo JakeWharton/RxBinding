@@ -223,7 +223,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @SdkSuppress(minSdkVersion = 23)
+  @SdkSuppress(minSdkVersion = 19)
   @Test @UiThreadTest public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
     RxView.scrollChangeEvents(view).subscribe(o);
