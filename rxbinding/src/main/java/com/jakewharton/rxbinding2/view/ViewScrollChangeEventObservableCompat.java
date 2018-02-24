@@ -30,23 +30,13 @@ final class ViewScrollChangeEventObservableCompat extends Observable<ViewScrollC
 
   private void setOnScrollChangeListenerWith(final View v, final Listener listener) {
     ViewTreeObserver viewTreeObserver = v.getViewTreeObserver();
-    viewTreeObserver.addOnScrollChangedListener(
-            new ViewTreeObserver.OnScrollChangedListener() {
-              private int oldl, oldt;
-
-              @Override
-              public void onScrollChanged() {
-                listener.onScrollChange(v, v.getScrollX(), v.getScrollY(), oldl, oldt);
-                oldl = v.getScrollX();
-                oldt = v.getScrollY();
-              }
-            }
-    );
+    viewTreeObserver.addOnScrollChangedListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements OnScrollChangeListener {
+  static final class Listener extends MainThreadDisposable implements OnScrollChangeListener, ViewTreeObserver.OnScrollChangedListener {
     private final View view;
     private final Observer<? super ViewScrollChangeEvent> observer;
+    private int oldl, oldt;
 
     Listener(View view, Observer<? super ViewScrollChangeEvent> observer) {
       this.view = view;
@@ -61,9 +51,17 @@ final class ViewScrollChangeEventObservableCompat extends Observable<ViewScrollC
     }
 
     @Override protected void onDispose() {
-      view.setOnClickListener(null);
+      ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
+      viewTreeObserver.removeOnScrollChangedListener(this);
     }
-  }
+
+    @Override
+    public void onScrollChanged() {
+        this.onScrollChange(view, view.getScrollX(), view.getScrollY(), oldl, oldt);
+        oldl = view.getScrollX();
+        oldt = view.getScrollY();
+      }
+    }
 
   public interface OnScrollChangeListener {
     /**
