@@ -5,6 +5,7 @@
 
   <application>
     <activity android:name="com.jakewharton.rxbinding2.view.RxViewAttachTestActivity"/>
+    <activity android:name="com.jakewharton.rxbinding2.view.RxViewScrollTestActivity"/>
     <activity android:name="com.jakewharton.rxbinding2.view.RxViewSystemUiVisibilityTestActivity"/>
     <activity android:name="com.jakewharton.rxbinding2.widget.RxAdapterViewTestActivity"/>
     <activity android:name="com.jakewharton.rxbinding2.widget.RxAbsListViewTestActivity"/>
