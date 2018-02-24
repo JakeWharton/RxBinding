@@ -2,7 +2,7 @@ package com.jakewharton.rxbinding2.view;
 
 import android.support.annotation.RequiresApi;
 import android.view.View;
-import android.view.View.OnScrollChangeListener;
+import android.view.ViewTreeObserver;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -18,13 +18,30 @@ final class ViewScrollChangeEventObservableCompat extends Observable<ViewScrollC
     this.view = view;
   }
 
-  @Override protected void subscribeActual(Observer<? super ViewScrollChangeEvent> observer) {
+  @Override
+  protected void subscribeActual(Observer<? super ViewScrollChangeEvent> observer) {
     if (!checkMainThread(observer)) {
       return;
     }
     Listener listener = new Listener(view, observer);
     observer.onSubscribe(listener);
-    view.setOnScrollChangeListener(listener);
+    setOnScrollChangeListenerWith(view, listener);
+  }
+
+  private void setOnScrollChangeListenerWith(final View v, final Listener listener) {
+    ViewTreeObserver viewTreeObserver = v.getViewTreeObserver();
+    viewTreeObserver.addOnScrollChangedListener(
+            new ViewTreeObserver.OnScrollChangedListener() {
+              private int oldl, oldt;
+
+              @Override
+              public void onScrollChanged() {
+                listener.onScrollChange(v, v.getScrollX(), v.getScrollY(), oldl, oldt);
+                oldl = v.getScrollX();
+                oldt = v.getScrollY();
+              }
+            }
+    );
   }
 
   static final class Listener extends MainThreadDisposable implements OnScrollChangeListener {
@@ -44,7 +61,20 @@ final class ViewScrollChangeEventObservableCompat extends Observable<ViewScrollC
     }
 
     @Override protected void onDispose() {
-      view.setOnScrollChangeListener(null);
+      view.setOnClickListener(null);
     }
+  }
+
+  public interface OnScrollChangeListener {
+    /**
+     * Called when the scroll position of a view changes.
+     *
+     * @param v The view whose scroll position has changed.
+     * @param scrollX Current horizontal scroll origin.
+     * @param scrollY Current vertical scroll origin.
+     * @param oldScrollX Previous horizontal scroll origin.
+     * @param oldScrollY Previous vertical scroll origin.
+     */
+    void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY);
   }
 }
