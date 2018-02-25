@@ -33,7 +33,8 @@ final class ViewScrollChangeEventObservableCompat extends Observable<ViewScrollC
     viewTreeObserver.addOnScrollChangedListener(listener);
   }
 
-  static final class Listener extends MainThreadDisposable implements OnScrollChangeListener, ViewTreeObserver.OnScrollChangedListener {
+  static final class Listener extends MainThreadDisposable implements OnScrollChangeListener,
+          ViewTreeObserver.OnScrollChangedListener {
     private final View view;
     private final Observer<? super ViewScrollChangeEvent> observer;
     private int oldl, oldt;
