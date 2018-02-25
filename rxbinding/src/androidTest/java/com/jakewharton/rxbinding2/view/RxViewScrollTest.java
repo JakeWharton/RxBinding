@@ -33,7 +33,7 @@ public final class RxViewScrollTest {
     view = activity.view;
   }
 
-  @SdkSuppress(minSdkVersion = 19)
+  @SdkSuppress(minSdkVersion = 16)
   @Test public void scrollChangeEvents() {
     RecordingObserver<ViewScrollChangeEvent> o = new RecordingObserver<>();
     RxView.scrollChangeEvents(view)
