@@ -11,7 +11,7 @@ import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
 public final class RxViewPager {
   /**
-   * Create an observable of scroll events on {@code view}.
+   * Create an observable of page scroll events on {@code view}.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.

@@ -12,7 +12,7 @@ import kotlin.Int
 import kotlin.Suppress
 
 /**
- * Create an observable of scroll events on `view`.
+ * Create an observable of page scroll events on `view`.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.

@@ -21,8 +21,7 @@ public abstract class ViewPagerPageScrollEvent {
   /**
    * The view from which this event occurred.
    */
-  @NonNull
-  public abstract ViewPager viewPager();
+  @NonNull public abstract ViewPager viewPager();
   public abstract int position();
   public abstract float positionOffset();
   public abstract int positionOffsetPixels();
