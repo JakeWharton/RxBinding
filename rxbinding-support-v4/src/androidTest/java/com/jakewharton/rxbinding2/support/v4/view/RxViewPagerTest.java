@@ -1,5 +1,7 @@
 package com.jakewharton.rxbinding2.support.v4.view;
 
+import android.app.Instrumentation;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.GeneralLocation;
@@ -20,17 +22,44 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public final class RxViewPagerTest {
   @Rule public final ActivityTestRule<RxViewPagerTestActivity> activityRule =
       new ActivityTestRule<>(RxViewPagerTestActivity.class);
 
+  private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+
   private ViewPager view;
 
   @Before public void setUp() {
     RxViewPagerTestActivity activity = activityRule.getActivity();
     view = activity.viewPager;
+  }
+
+  @Test public void pageScrollEvents() {
+    view.setCurrentItem(0);
+    RecordingObserver<ViewPagerPageScrollEvent> o = new RecordingObserver<>();
+    RxViewPager.pageScrollEvents(view)
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribe(o);
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(() -> view.setCurrentItem(1, true));
+    instrumentation.waitForIdleSync();
+    ViewPagerPageScrollEvent event1 = o.takeNext();
+    assertEquals(0, event1.position());
+    assertTrue(event1.positionOffset() > 0f);
+    assertTrue(event1.positionOffsetPixels() > 0);
+    o.clearEvents();
+
+    o.dispose();
+
+    instrumentation.runOnMainSync(() -> view.setCurrentItem(0, true));
+    instrumentation.waitForIdleSync();
+
+    o.assertNoMoreEvents();
   }
 
   @Test public void pageScrollStateChanges() {

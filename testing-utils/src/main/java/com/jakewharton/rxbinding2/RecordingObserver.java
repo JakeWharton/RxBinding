@@ -53,6 +53,12 @@ public final class RecordingObserver<T> extends DisposableObserver<T> {
     return takeEvent(OnError.class).throwable;
   }
 
+  public void clearEvents() {
+    while (events.peek() instanceof RecordingObserver.OnNext) {
+      events.removeFirst();
+    }
+  }
+
   public void assertOnCompleted() {
     takeEvent(OnCompleted.class);
   }

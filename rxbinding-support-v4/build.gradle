@@ -13,6 +13,9 @@ dependencies {
   implementation rootProject.ext.rxAndroid
   implementation rootProject.ext.supportAnnotations
 
+  compileOnly rootProject.ext.autoValueAnnotations
+  annotationProcessor rootProject.ext.autoValue
+
   androidTestImplementation project(':testing-utils')
   androidTestImplementation rootProject.ext.supportTestRunner
   androidTestImplementation rootProject.ext.supportTestRules
