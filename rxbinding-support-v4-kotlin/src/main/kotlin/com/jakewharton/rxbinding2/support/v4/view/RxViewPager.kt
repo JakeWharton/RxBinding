@@ -12,6 +12,15 @@ import kotlin.Int
 import kotlin.Suppress
 
 /**
+ * Create an observable of scroll events on `view`.
+ *
+ * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
+ * to free this reference.
+ */
+@CheckResult
+inline fun ViewPager.pageScrollEvents(): Observable<ViewPagerPageScrollEvent> = RxViewPager.pageScrollEvents(this)
+
+/**
  * Create an observable of scroll state change events on `view`.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
