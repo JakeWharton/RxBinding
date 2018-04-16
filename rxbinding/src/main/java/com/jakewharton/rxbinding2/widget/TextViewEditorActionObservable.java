@@ -44,9 +44,10 @@ final class TextViewEditorActionObservable extends Observable<Integer> {
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
       try {
-        if (!isDisposed() && handled.test(actionId)) {
+        if (!isDisposed()) {
+          boolean isHandled = handled.test(actionId);
           observer.onNext(actionId);
-          return true;
+          return isHandled;
         }
       } catch (Exception e) {
         observer.onError(e);
