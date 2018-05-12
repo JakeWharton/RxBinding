@@ -8,22 +8,23 @@ apply plugin: 'com.android.library'
 apply plugin: 'rxbinding-module'
 
 dependencies {
-  compile project(':rxbinding')
-  compile rootProject.ext.supportLeanback
+  api project(':rxbinding')
+  api rootProject.ext.supportLeanback
+  implementation rootProject.ext.rxAndroid
+  implementation rootProject.ext.supportAnnotations
 
-  provided rootProject.ext.autoValueAnnotations
+  compileOnly rootProject.ext.autoValueAnnotations
   annotationProcessor rootProject.ext.autoValue
 
-  androidTestCompile project(':testing-utils')
-  androidTestCompile rootProject.ext.supportTestRunner
-  androidTestCompile rootProject.ext.supportTestRules
-  androidTestCompile rootProject.ext.supportTestEspresso
-  androidTestCompile rootProject.ext.rxAndroid
+  androidTestImplementation project(':testing-utils')
+  androidTestImplementation rootProject.ext.supportTestRunner
+  androidTestImplementation rootProject.ext.supportTestRules
+  androidTestImplementation rootProject.ext.supportTestEspresso
+  androidTestImplementation rootProject.ext.rxAndroid
 }
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
     minSdkVersion 17
@@ -36,10 +37,6 @@ android {
     targetCompatibility JavaVersion.VERSION_1_7
   }
 
-  dexOptions {
-    preDexLibraries = !rootProject.ext.ci
-  }
-
   lintOptions {
     textReport true
     textOutput 'stdout'
@@ -49,6 +46,11 @@ android {
     debug {
       testCoverageEnabled true
     }
+  }
+
+  // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+  libraryVariants.all {
+    it.generateBuildConfig.enabled = false
   }
 }
 

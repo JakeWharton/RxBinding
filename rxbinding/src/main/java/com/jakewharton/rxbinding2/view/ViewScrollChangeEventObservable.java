@@ -7,10 +7,9 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static android.os.Build.VERSION_CODES.M;
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
-@RequiresApi(M)
+@RequiresApi(23)
 final class ViewScrollChangeEventObservable extends Observable<ViewScrollChangeEvent> {
   private final View view;
 

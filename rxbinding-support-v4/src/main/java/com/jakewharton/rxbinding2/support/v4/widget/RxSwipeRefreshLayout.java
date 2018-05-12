@@ -26,7 +26,10 @@ public final class RxSwipeRefreshLayout {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setRefreshing method reference.
    */
+  @Deprecated
   @CheckResult @NonNull public static Consumer<? super Boolean> refreshing(
       @NonNull final SwipeRefreshLayout view) {
     checkNotNull(view, "view == null");

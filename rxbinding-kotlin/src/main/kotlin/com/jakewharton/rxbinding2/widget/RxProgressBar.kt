@@ -1,7 +1,12 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.ProgressBar
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * An action which increments the progress value of `view`.
@@ -9,6 +14,7 @@ import io.reactivex.functions.Consumer
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun ProgressBar.incrementProgressBy(): Consumer<in Int> = RxProgressBar.incrementProgressBy(this)
 
 /**
@@ -17,6 +23,7 @@ inline fun ProgressBar.incrementProgressBy(): Consumer<in Int> = RxProgressBar.i
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun ProgressBar.incrementSecondaryProgressBy(): Consumer<in Int> = RxProgressBar.incrementSecondaryProgressBy(this)
 
 /**
@@ -25,6 +32,7 @@ inline fun ProgressBar.incrementSecondaryProgressBy(): Consumer<in Int> = RxProg
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun ProgressBar.indeterminate(): Consumer<in Boolean> = RxProgressBar.indeterminate(this)
 
 /**
@@ -33,6 +41,7 @@ inline fun ProgressBar.indeterminate(): Consumer<in Boolean> = RxProgressBar.ind
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun ProgressBar.max(): Consumer<in Int> = RxProgressBar.max(this)
 
 /**
@@ -41,6 +50,7 @@ inline fun ProgressBar.max(): Consumer<in Int> = RxProgressBar.max(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun ProgressBar.progress(): Consumer<in Int> = RxProgressBar.progress(this)
 
 /**
@@ -49,4 +59,5 @@ inline fun ProgressBar.progress(): Consumer<in Int> = RxProgressBar.progress(thi
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun ProgressBar.secondaryProgress(): Consumer<in Int> = RxProgressBar.secondaryProgress(this)

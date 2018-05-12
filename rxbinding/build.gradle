@@ -8,24 +8,25 @@ apply plugin: 'com.android.library'
 apply plugin: 'rxbinding-module'
 
 dependencies {
-  compile rootProject.ext.rxJava
-  compile rootProject.ext.rxAndroid
-  compile rootProject.ext.supportAnnotations
+  api rootProject.ext.rxJava
+  implementation rootProject.ext.rxAndroid
+  implementation rootProject.ext.supportAnnotations
 
-  provided rootProject.ext.autoValueAnnotations
+  compileOnly rootProject.ext.autoValueAnnotations
   annotationProcessor rootProject.ext.autoValue
 
-  androidTestCompile project(':testing-utils')
-  androidTestCompile rootProject.ext.supportTestRunner
-  androidTestCompile rootProject.ext.supportTestRules
+  androidTestImplementation project(':testing-utils')
+  androidTestImplementation rootProject.ext.supportTestRunner
+  androidTestImplementation rootProject.ext.supportTestRules
 }
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
     minSdkVersion rootProject.ext.minSdkVersion
+
+    consumerProguardFiles 'src/main/proguard-consumer.pro'
 
     testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
   }
@@ -33,10 +34,6 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
-  }
-
-  dexOptions {
-    preDexLibraries = !rootProject.ext.ci
   }
 
   lintOptions {
@@ -48,6 +45,11 @@ android {
     debug {
       testCoverageEnabled true
     }
+  }
+
+  // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+  libraryVariants.all {
+    it.generateBuildConfig.enabled = false
   }
 }
 

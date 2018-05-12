@@ -7,8 +7,8 @@ import org.gradle.api.Project
 class RxBindingPlugin : Plugin<Project> {
 
   companion object {
-    private val INCLUDE_PATTERN = "**/Rx*.java"
-    private val EXCLUDE_PATTERN = "**/internal/*"
+    private const val INCLUDE_PATTERN = "**/Rx*.java"
+    private const val EXCLUDE_PATTERN = "**/internal/*"
   }
 
   override fun apply(project: Project) {
@@ -39,7 +39,7 @@ class RxBindingPlugin : Plugin<Project> {
         exclude(EXCLUDE_PATTERN)
       }
 
-      project.tasks.findByName("check").dependsOn(validateBindingsTask)
+      project.tasks.getByName("check").dependsOn(validateBindingsTask)
     }
   }
 }

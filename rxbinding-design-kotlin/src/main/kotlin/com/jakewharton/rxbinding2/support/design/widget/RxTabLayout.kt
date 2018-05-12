@@ -1,9 +1,13 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.jakewharton.rxbinding2.support.design.widget
 
+import android.support.annotation.CheckResult
 import android.support.design.widget.TabLayout
-import android.support.design.widget.TabLayout.Tab
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable which emits the selected tab in `view`.
@@ -13,7 +17,8 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* If a tab is already selected, it will be emitted immediately on subscribe.
  */
-inline fun TabLayout.selections(): Observable<Tab> = RxTabLayout.selections(this)
+@CheckResult
+inline fun TabLayout.selections(): Observable<TabLayout.Tab> = RxTabLayout.selections(this)
 
 /**
  * Create an observable which emits selection, reselection, and unselection events for the tabs
@@ -24,6 +29,7 @@ inline fun TabLayout.selections(): Observable<Tab> = RxTabLayout.selections(this
  *
  * *Note:* If a tab is already selected, an event will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun TabLayout.selectionEvents(): Observable<TabLayoutSelectionEvent> = RxTabLayout.selectionEvents(this)
 
 /**
@@ -32,4 +38,5 @@ inline fun TabLayout.selectionEvents(): Observable<TabLayoutSelectionEvent> = Rx
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun TabLayout.select(): Consumer<in Int> = RxTabLayout.select(this)

@@ -1,8 +1,13 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.jakewharton.rxbinding2.widget
 
+import android.support.annotation.CheckResult
 import android.widget.RadioGroup
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
+import kotlin.Int
+import kotlin.Suppress
 
 /**
  * Create an observable of the checked view ID changes in `view`.
@@ -12,6 +17,7 @@ import io.reactivex.functions.Consumer
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
+@CheckResult
 inline fun RadioGroup.checkedChanges(): InitialValueObservable<Int> = RxRadioGroup.checkedChanges(this)
 
 /**
@@ -21,4 +27,5 @@ inline fun RadioGroup.checkedChanges(): InitialValueObservable<Int> = RxRadioGro
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@CheckResult
 inline fun RadioGroup.checked(): Consumer<in Int> = RxRadioGroup.checked(this)

@@ -1,6 +1,26 @@
 Change Log
 ==========
 
+Version 2.1.1 *(2018-02-12)*
+----------------------------
+
+ * Fix: Include consumer ProGuard rules to prevent warning about AutoValue annotation.
+ * Fix: Useless `BuildConfig` classes are no longer included.
+ * Fix: Eliminate Java interop checks for Kotlin extensions as they're only for Kotlin consumers and the checks exist in the Java code they delegate to anyway.
+
+
+Version 2.1.0 *(2018-01-30)*
+----------------------------
+
+ * New bindings!
+    * `rxbinding-design`:
+       * `FloatingActionButton`:
+          * `visibility`: Shows or hides FAB.
+ * Use add/remove callback for Snackbar dismisses.
+ * Deprecate simple consumers which delegate directly to a method. You should use method references for these instead. For example, `RxView.enabled(view)` becomes `view::setEnabled`.
+ * Fix: Propagate `@RequiresApi` annotations to Kotlin extensions.
+
+
 Version 2.0.0 *(2017-03-06)*
 ----------------------------
 
