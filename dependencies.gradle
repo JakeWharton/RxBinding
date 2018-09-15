@@ -1,18 +1,19 @@
 ext {
   androidPlugin = 'com.android.tools.build:gradle:3.0.1'
   minSdkVersion = 14
-  compileSdkVersion = 27
+  compileSdkVersion = 28
 
   kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.21'
   kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
   kotlinPoet = 'com.squareup:kotlinpoet:0.6.0'
 
-  supportVersion = '27.0.2'
+  supportVersion = '28.0.0-alpha1'
   supportAnnotations = "com.android.support:support-annotations:$supportVersion"
   supportV4CoreUi = "com.android.support:support-core-ui:$supportVersion"
   supportRecyclerView = "com.android.support:recyclerview-v7:$supportVersion"
   supportAppCompat = "com.android.support:appcompat-v7:$supportVersion"
   supportDesign = "com.android.support:design:$supportVersion"
+  supportDesignChip = "com.android.support:design-chip:$supportVersion"
   supportLeanback = "com.android.support:leanback-v17:$supportVersion"
 
   autoValue = 'com.google.auto.value:auto-value:1.5.2'
