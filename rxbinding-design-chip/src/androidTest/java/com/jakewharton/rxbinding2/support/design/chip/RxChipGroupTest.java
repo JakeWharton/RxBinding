@@ -8,6 +8,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.view.ContextThemeWrapper;
+import android.view.View;
 
 import com.jakewharton.rxbinding2.RecordingObserver;
 
@@ -41,13 +42,13 @@ public final class RxChipGroupTest {
   @Test @UiThreadTest public void checkedChanges() {
     RecordingObserver<Integer> o = new RecordingObserver<>();
     RxChipGroup.checkedChanges(view).subscribe(o);
-    assertEquals(-1, o.takeNext().intValue());
+    assertEquals(View.NO_ID, o.takeNext().intValue());
 
     view.check(1);
     assertEquals(1, o.takeNext().intValue());
 
     view.clearCheck();
-    assertEquals(-1, o.takeNext().intValue());
+    assertEquals(View.NO_ID, o.takeNext().intValue());
 
     view.check(2);
     assertEquals(2, o.takeNext().intValue());
@@ -60,11 +61,11 @@ public final class RxChipGroupTest {
 
   @Test @UiThreadTest public void checked() throws Exception {
     Consumer<? super Integer> action = RxChipGroup.checked(view);
-    assertEquals(-1, view.getCheckedChipId());
+    assertEquals(View.NO_ID, view.getCheckedChipId());
     action.accept(1);
     assertEquals(1, view.getCheckedChipId());
-    action.accept(-1);
-    assertEquals(-1, view.getCheckedChipId());
+    action.accept(View.NO_ID);
+    assertEquals(View.NO_ID, view.getCheckedChipId());
     action.accept(2);
     assertEquals(2, view.getCheckedChipId());
   }

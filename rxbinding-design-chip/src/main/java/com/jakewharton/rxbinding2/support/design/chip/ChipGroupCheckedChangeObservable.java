@@ -2,6 +2,8 @@ package com.jakewharton.rxbinding2.support.design.chip;
 
 import android.support.design.chip.ChipGroup;
 import android.support.design.chip.ChipGroup.OnCheckedChangeListener;
+import android.view.View;
+
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
@@ -33,7 +35,7 @@ final class ChipGroupCheckedChangeObservable extends InitialValueObservable<Inte
     static final class Listener extends MainThreadDisposable implements OnCheckedChangeListener {
         private final ChipGroup view;
         private final Observer<? super Integer> observer;
-        private int lastChecked = -1;
+        private int lastChecked = View.NO_ID;
 
         Listener(ChipGroup view, Observer<? super Integer> observer) {
             this.view = view;
