@@ -1,13 +1,13 @@
 ext {
-  androidPlugin = 'com.android.tools.build:gradle:3.0.1'
+  androidPlugin = 'com.android.tools.build:gradle:3.2.0-rc03'
   minSdkVersion = 14
-  compileSdkVersion = 27
+  compileSdkVersion = 28
 
-  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.21'
-  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
+  kotlinPlugin = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70'
+  kotlinStdlib = 'org.jetbrains.kotlin:kotlin-stdlib:1.2.70'
   kotlinPoet = 'com.squareup:kotlinpoet:0.6.0'
 
-  supportVersion = '27.0.2'
+  supportVersion = '28.0.0'
   supportAnnotations = "com.android.support:support-annotations:$supportVersion"
   supportV4CoreUi = "com.android.support:support-core-ui:$supportVersion"
   supportRecyclerView = "com.android.support:recyclerview-v7:$supportVersion"
@@ -15,15 +15,15 @@ ext {
   supportDesign = "com.android.support:design:$supportVersion"
   supportLeanback = "com.android.support:leanback-v17:$supportVersion"
 
-  autoValue = 'com.google.auto.value:auto-value:1.5.2'
-  autoValueAnnotations = 'com.jakewharton.auto.value:auto-value-annotations:1.5'
+  autoValue = 'com.google.auto.value:auto-value:1.6.2'
+  autoValueAnnotations = 'com.google.auto.value:auto-value-annotations:1.6.2'
 
   supportTestRunner = 'com.android.support.test:runner:0.5'
   supportTestRules = 'com.android.support.test:rules:0.5'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2.1'
   supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2.1'
-  rxJava = 'io.reactivex.rxjava2:rxjava:2.0.2'
-  rxAndroid = 'io.reactivex.rxjava2:rxandroid:2.0.0'
+  rxJava = 'io.reactivex.rxjava2:rxjava:2.2.2'
+  rxAndroid = 'io.reactivex.rxjava2:rxandroid:2.1.0'
   junit = 'junit:junit:4.12'
 
   javaParser = 'com.github.javaparser:javaparser-core:2.5.1'
