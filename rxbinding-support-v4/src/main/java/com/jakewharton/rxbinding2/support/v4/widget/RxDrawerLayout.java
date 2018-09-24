@@ -30,15 +30,13 @@ public final class RxDrawerLayout {
    * to free this reference.
    */
   @CheckResult @NonNull public static Consumer<? super Boolean> open(
-      @NonNull final DrawerLayout view, final int gravity) {
+      @NonNull DrawerLayout view, int gravity) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean aBoolean) {
-        if (aBoolean) {
-          view.openDrawer(gravity);
-        } else {
-          view.closeDrawer(gravity);
-        }
+    return value -> {
+      if (value) {
+        view.openDrawer(gravity);
+      } else {
+        view.closeDrawer(gravity);
       }
     };
   }

@@ -52,13 +52,9 @@ public final class RxSearchBar {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super String> searchQuery(@NonNull final SearchBar view) {
+  public static Consumer<? super String> searchQuery(@NonNull SearchBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<String>() {
-      @Override public void accept(String text) throws Exception {
-        view.setSearchQuery(text);
-      }
-    };
+    return view::setSearchQuery;
   }
 
   private RxSearchBar() {

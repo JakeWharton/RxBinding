@@ -33,16 +33,15 @@ public final class RxAutoCompleteTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setCompletionHint method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static Consumer<? super CharSequence> completionHint(
-      @NonNull final AutoCompleteTextView view) {
+      @NonNull AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence completionHint) {
-        view.setCompletionHint(completionHint);
-      }
-    };
+    return view::setCompletionHint;
   }
 
   /**
@@ -52,15 +51,14 @@ public final class RxAutoCompleteTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setThreshold method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> threshold(@NonNull final AutoCompleteTextView view) {
+  public static Consumer<? super Integer> threshold(@NonNull AutoCompleteTextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer threshold) {
-        view.setThreshold(threshold);
-      }
-    };
+    return view::setThreshold;
   }
 
   private RxAutoCompleteTextView() {

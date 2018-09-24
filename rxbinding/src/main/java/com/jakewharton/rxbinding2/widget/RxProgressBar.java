@@ -13,15 +13,14 @@ public final class RxProgressBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::incrementProgressBy method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> incrementProgressBy(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> incrementProgressBy(@NonNull ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        view.incrementProgressBy(value);
-      }
-    };
+    return view::incrementProgressBy;
   }
 
   /**
@@ -29,16 +28,14 @@ public final class RxProgressBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::incrementSecondaryProgressBy method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> incrementSecondaryProgressBy(
-      @NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> incrementSecondaryProgressBy(@NonNull ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        view.incrementSecondaryProgressBy(value);
-      }
-    };
+    return view::incrementSecondaryProgressBy;
   }
 
   /**
@@ -46,15 +43,14 @@ public final class RxProgressBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setIndeterminate method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> indeterminate(@NonNull final ProgressBar view) {
+  public static Consumer<? super Boolean> indeterminate(@NonNull ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setIndeterminate(value);
-      }
-    };
+    return view::setIndeterminate;
   }
 
   /**
@@ -62,15 +58,14 @@ public final class RxProgressBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setMax method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> max(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> max(@NonNull ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        view.setMax(value);
-      }
-    };
+    return view::setMax;
   }
 
   /**
@@ -78,15 +73,14 @@ public final class RxProgressBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setProgress method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> progress(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> progress(@NonNull ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        view.setProgress(value);
-      }
-    };
+    return view::setProgress;
   }
 
   /**
@@ -94,15 +88,14 @@ public final class RxProgressBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSecondaryProgress method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> secondaryProgress(@NonNull final ProgressBar view) {
+  public static Consumer<? super Integer> secondaryProgress(@NonNull ProgressBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        view.setSecondaryProgress(value);
-      }
-    };
+    return view::setSecondaryProgress;
   }
 
   private RxProgressBar() {

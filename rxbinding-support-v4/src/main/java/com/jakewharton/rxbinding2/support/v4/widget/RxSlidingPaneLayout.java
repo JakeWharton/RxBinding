@@ -53,15 +53,13 @@ public final class RxSlidingPaneLayout {
    * to free this reference.
    */
   @CheckResult @NonNull public static Consumer<? super Boolean> open(
-      @NonNull final SlidingPaneLayout view) {
+      @NonNull SlidingPaneLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        if (value) {
-          view.openPane();
-        } else {
-          view.closePane();
-        }
+    return value -> {
+      if (value) {
+        view.openPane();
+      } else {
+        view.closePane();
       }
     };
   }

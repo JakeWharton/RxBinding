@@ -50,16 +50,14 @@ public final class RxTabLayout {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Consumer<? super Integer> select(@NonNull final TabLayout view) {
+  public static Consumer<? super Integer> select(@NonNull TabLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer index) {
-        if (index < 0 || index >= view.getTabCount()) {
-          throw new IllegalArgumentException("No tab for index " + index);
-        }
-        //noinspection ConstantConditions
-        view.getTabAt(index).select();
+    return index -> {
+      if (index < 0 || index >= view.getTabCount()) {
+        throw new IllegalArgumentException("No tab for index " + index);
       }
+      //noinspection ConstantConditions
+      view.getTabAt(index).select();
     };
   }
 

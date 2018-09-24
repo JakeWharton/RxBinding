@@ -141,16 +141,15 @@ public final class RxAdapterView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSelection method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
   public static <T extends Adapter> Consumer<? super Integer> selection(
-      @NonNull final AdapterView<T> view) {
+      @NonNull AdapterView<T> view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer position) {
-        view.setSelection(position);
-      }
-    };
+    return view::setSelection;
   }
 
   private RxAdapterView() {

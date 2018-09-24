@@ -55,27 +55,15 @@ public final class RxDrawerLayoutTest {
         .subscribe(o);
     assertFalse(o.takeNext());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.openDrawer(RIGHT);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.openDrawer(RIGHT));
     assertTrue(o.takeNext());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.closeDrawer(RIGHT);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.closeDrawer(RIGHT));
     assertFalse(o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.openDrawer(RIGHT);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.openDrawer(RIGHT));
     o.assertNoMoreEvents();
   }
 

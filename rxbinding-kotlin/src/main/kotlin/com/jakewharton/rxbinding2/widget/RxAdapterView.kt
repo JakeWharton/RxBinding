@@ -10,6 +10,7 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
 import java.util.concurrent.Callable
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.Suppress
 
@@ -102,5 +103,6 @@ inline fun <T : Adapter> AdapterView<T>.itemLongClickEvents(handled: Predicate<i
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setSelection method reference.")
 @CheckResult
 inline fun <T : Adapter> AdapterView<T>.selection(): Consumer<in Int> = RxAdapterView.selection(this)

@@ -53,14 +53,9 @@ public final class RxSearchView {
    * @param submit whether to submit query right after updating query text
    */
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> query(@NonNull final SearchView view,
-      final boolean submit) {
+  public static Consumer<? super CharSequence> query(@NonNull SearchView view, boolean submit) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence text) {
-        view.setQuery(text, submit);
-      }
-    };
+    return text -> view.setQuery(text, submit);
   }
 
   private RxSearchView() {

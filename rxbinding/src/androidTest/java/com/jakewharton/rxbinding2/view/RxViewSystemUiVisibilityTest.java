@@ -36,27 +36,17 @@ public final class RxViewSystemUiVisibilityTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-      }
-    });
+    instrumentation.runOnMainSync(
+        () -> root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION));
     assertEquals(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-      }
-    });
+    instrumentation.runOnMainSync(() -> root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE));
     assertEquals(View.SYSTEM_UI_FLAG_VISIBLE, o.takeNext().intValue());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-      }
-    });
+    instrumentation.runOnMainSync(
+        () -> root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION));
     o.assertNoMoreEvents();
   }
 }

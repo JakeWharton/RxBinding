@@ -31,15 +31,13 @@ public final class RxRadioGroup {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Consumer<? super Integer> checked(@NonNull final RadioGroup view) {
+  public static Consumer<? super Integer> checked(@NonNull RadioGroup view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        if (value == -1) {
-          view.clearCheck();
-        } else {
-          view.check(value);
-        }
+    return value -> {
+      if (value == -1) {
+        view.clearCheck();
+      } else {
+        view.check(value);
       }
     };
   }

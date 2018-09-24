@@ -165,15 +165,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setText method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> text(@NonNull final TextView view) {
+  public static Consumer<? super CharSequence> text(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence text) {
-        view.setText(text);
-      }
-    };
+    return view::setText;
   }
 
   /**
@@ -181,15 +180,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setText method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> textRes(@NonNull final TextView view) {
+  public static Consumer<? super Integer> textRes(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer textRes) {
-        view.setText(textRes);
-      }
-    };
+    return view::setText;
   }
 
   /**
@@ -197,15 +195,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setError method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> error(@NonNull final TextView view) {
+  public static Consumer<? super CharSequence> error(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence text) {
-        view.setError(text);
-      }
-    };
+    return view::setError;
   }
 
   /**
@@ -213,15 +210,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setError method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> errorRes(@NonNull final TextView view) {
+  public static Consumer<? super Integer> errorRes(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer textRes) {
-        view.setError(view.getContext().getResources().getText(textRes));
-      }
-    };
+    return textRes -> view.setError(view.getContext().getResources().getText(textRes));
   }
 
   /**
@@ -229,15 +225,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setHint method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> hint(@NonNull final TextView view) {
+  public static Consumer<? super CharSequence> hint(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence hint) {
-        view.setHint(hint);
-      }
-    };
+    return view::setHint;
   }
 
   /**
@@ -245,15 +240,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setHint method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> hintRes(@NonNull final TextView view) {
+  public static Consumer<? super Integer> hintRes(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer hintRes) {
-        view.setHint(hintRes);
-      }
-    };
+    return view::setHint;
   }
 
   /**
@@ -261,16 +255,14 @@ public final class RxTextView {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setTextColor method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> color(@NonNull final TextView view) {
+  public static Consumer<? super Integer> color(@NonNull TextView view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override
-      public void accept(Integer color) throws Exception {
-        view.setTextColor(color);
-      }
-    };
+    return view::setTextColor;
   }
 
   private RxTextView() {

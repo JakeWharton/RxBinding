@@ -55,20 +55,12 @@ public final class RxRecyclerViewTest {
 
     final SimpleAdapter adapter = new SimpleAdapter(child);
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(adapter);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setAdapter(adapter));
     assertEquals(RecyclerViewChildAttachEvent.create(view, child), o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(adapter);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setAdapter(adapter));
 
     o.assertNoMoreEvents();
   }
@@ -76,11 +68,7 @@ public final class RxRecyclerViewTest {
   @Test public void childDetachEvents() {
     final SimpleAdapter adapter = new SimpleAdapter(child);
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(adapter);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setAdapter(adapter));
 
     RecordingObserver<RecyclerViewChildAttachStateChangeEvent> o = new RecordingObserver<>();
     RxRecyclerView.childAttachStateChangeEvents(view)
@@ -88,30 +76,18 @@ public final class RxRecyclerViewTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(null);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setAdapter(null));
     assertEquals(RecyclerViewChildDetachEvent.create(view, child), o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(adapter);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setAdapter(adapter));
 
     o.assertNoMoreEvents();
   }
 
   @Test public void scrollEventsVertical() {
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(new Adapter());
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setAdapter(new Adapter()));
 
     RecordingObserver<RecyclerViewScrollEvent> o = new RecordingObserver<>();
     RxRecyclerView.scrollEvents(view)
@@ -119,55 +95,33 @@ public final class RxRecyclerViewTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(0, 50);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(0, 50));
     RecyclerViewScrollEvent event1 = o.takeNext();
     assertNotNull(event1);
     assertEquals(50, event1.dy());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(0, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(0, 0));
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(0, -50);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(0, -50));
     RecyclerViewScrollEvent event2 = o.takeNext();
     assertNotNull(event2);
     assertEquals(-50, event2.dy());
 
     // Back at position 0. Trying to scroll earlier shouldn't fire any events
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(0, -50);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(0, -50));
     o.assertNoMoreEvents();
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(0, 50);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(0, 50));
     o.assertNoMoreEvents();
   }
 
   @Test public void scrollEventsHorizontal() {
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setAdapter(new Adapter());
-        ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
-      }
+    instrumentation.runOnMainSync(() -> {
+      view.setAdapter(new Adapter());
+      ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
     });
 
     instrumentation.waitForIdleSync();
@@ -177,46 +131,26 @@ public final class RxRecyclerViewTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(50, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(50, 0));
     RecyclerViewScrollEvent event3 = o.takeNext();
     assertNotNull(event3);
     assertEquals(50, event3.dx());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(0, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(0, 0));
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(-50, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(-50, 0));
     RecyclerViewScrollEvent event4 = o.takeNext();
     assertNotNull(event4);
     assertEquals(-50, event4.dx());
 
     // Back at position 0. Trying to scroll earlier shouldn't fire any events
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(-50, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(-50, 0));
     o.assertNoMoreEvents();
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.scrollBy(50, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.scrollBy(50, 0));
     o.assertNoMoreEvents();
   }
 

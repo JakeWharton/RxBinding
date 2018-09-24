@@ -30,29 +30,13 @@ import static org.junit.Assert.assertEquals;
     RxSnackbar.dismisses(view).subscribeOn(AndroidSchedulers.mainThread()).subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.show();
-      }
-    });
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.dismiss();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.show());
+    instrumentation.runOnMainSync(() -> view.dismiss());
     assertEquals(DISMISS_EVENT_MANUAL, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.show();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.show());
     o.dispose();
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.dismiss();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.dismiss());
     o.assertNoMoreEvents();
   }
 }

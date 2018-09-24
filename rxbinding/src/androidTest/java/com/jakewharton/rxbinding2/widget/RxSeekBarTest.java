@@ -50,11 +50,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertEquals(0, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(85);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(85));
     instrumentation.waitForIdleSync();
     assertEquals(85, o.takeNext().intValue());
 
@@ -64,11 +60,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(85);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(85));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
@@ -84,11 +76,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(85);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(85));
     instrumentation.waitForIdleSync();
     assertEquals(85, o.takeNext().intValue());
 
@@ -98,11 +86,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(85);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(85));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
@@ -126,11 +110,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertEquals(0, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(85);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(85));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
@@ -140,11 +120,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(85);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(85));
     instrumentation.waitForIdleSync();
     o.assertNoMoreEvents();
   }
@@ -168,11 +144,7 @@ public final class RxSeekBarTest {
     instrumentation.waitForIdleSync();
     assertEquals(SeekBarStopChangeEvent.create(seekBar), o.takeNext());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        seekBar.setProgress(0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> seekBar.setProgress(0));
     instrumentation.waitForIdleSync();
     assertEquals(SeekBarProgressChangeEvent.create(seekBar, 0, false), o.takeNext());
 

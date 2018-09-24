@@ -31,13 +31,9 @@ public final class RxSwipeRefreshLayout {
    */
   @Deprecated
   @CheckResult @NonNull public static Consumer<? super Boolean> refreshing(
-      @NonNull final SwipeRefreshLayout view) {
+      @NonNull SwipeRefreshLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setRefreshing(value);
-      }
-    };
+    return view::setRefreshing;
   }
 
   private RxSwipeRefreshLayout() {

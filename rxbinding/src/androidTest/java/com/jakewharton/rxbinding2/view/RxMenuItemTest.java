@@ -51,11 +51,7 @@ import static org.junit.Assert.assertTrue;
   }
 
   @Test @UiThreadTest public void clicksAvoidHandling() {
-    Predicate<MenuItem> handled = new Predicate<MenuItem>() {
-      @Override public boolean test(MenuItem menuItem) {
-        return false;
-      }
-    };
+    Predicate<MenuItem> handled = menuItem -> false;
 
     RecordingObserver<Object> o = new RecordingObserver<>();
     RxMenuItem.clicks(menuItem, handled).subscribe(o);
@@ -91,12 +87,7 @@ import static org.junit.Assert.assertTrue;
   }
 
   @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
-    Predicate<MenuItemActionViewEvent> handled =
-        new Predicate<MenuItemActionViewEvent>() {
-          @Override public boolean test(MenuItemActionViewEvent menuItem) {
-            return false;
-          }
-        };
+    Predicate<MenuItemActionViewEvent> handled = menuItem -> false;
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
     RxMenuItem.actionViewEvents(menuItem, handled).subscribe(o);

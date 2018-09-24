@@ -40,27 +40,15 @@ import static org.junit.Assert.assertTrue;
         .subscribe(o);
     assertEquals(0f, o.takeNext(), 0f);
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setRating(1f);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setRating(1f));
     assertEquals(1f, o.takeNext(), 0f);
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setRating(2f);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setRating(2f));
     assertEquals(2f, o.takeNext(), 0f);
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setRating(1f);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setRating(1f));
     o.assertNoMoreEvents();
   }
 
@@ -71,11 +59,7 @@ import static org.junit.Assert.assertTrue;
         .subscribe(o);
     assertEquals(RatingBarChangeEvent.create(view, 0f, false), o.takeNext());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setRating(5f);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setRating(5f));
     assertEquals(RatingBarChangeEvent.create(view, 5f, false), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
@@ -85,11 +69,7 @@ import static org.junit.Assert.assertTrue;
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.setRating(1f);
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.setRating(1f));
     o.assertNoMoreEvents();
   }
 

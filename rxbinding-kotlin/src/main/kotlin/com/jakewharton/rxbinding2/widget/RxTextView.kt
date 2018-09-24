@@ -8,6 +8,7 @@ import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.Suppress
 
@@ -128,6 +129,7 @@ inline fun TextView.afterTextChangeEvents(): InitialValueObservable<TextViewAfte
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setText method reference.")
 @CheckResult
 inline fun TextView.text(): Consumer<in CharSequence> = RxTextView.text(this)
 
@@ -137,6 +139,7 @@ inline fun TextView.text(): Consumer<in CharSequence> = RxTextView.text(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setText method reference.")
 @CheckResult
 inline fun TextView.textRes(): Consumer<in Int> = RxTextView.textRes(this)
 
@@ -146,6 +149,7 @@ inline fun TextView.textRes(): Consumer<in Int> = RxTextView.textRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setError method reference.")
 @CheckResult
 inline fun TextView.error(): Consumer<in CharSequence> = RxTextView.error(this)
 
@@ -155,6 +159,7 @@ inline fun TextView.error(): Consumer<in CharSequence> = RxTextView.error(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setError method reference.")
 @CheckResult
 inline fun TextView.errorRes(): Consumer<in Int> = RxTextView.errorRes(this)
 
@@ -164,6 +169,7 @@ inline fun TextView.errorRes(): Consumer<in Int> = RxTextView.errorRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setHint method reference.")
 @CheckResult
 inline fun TextView.hint(): Consumer<in CharSequence> = RxTextView.hint(this)
 
@@ -173,6 +179,7 @@ inline fun TextView.hint(): Consumer<in CharSequence> = RxTextView.hint(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setHint method reference.")
 @CheckResult
 inline fun TextView.hintRes(): Consumer<in Int> = RxTextView.hintRes(this)
 
@@ -182,5 +189,6 @@ inline fun TextView.hintRes(): Consumer<in Int> = RxTextView.hintRes(this)
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setTextColor method reference.")
 @CheckResult
 inline fun TextView.color(): Consumer<in Int> = RxTextView.color(this)

@@ -49,12 +49,7 @@ public final class RxMenuItemCompatTest {
   }
 
   @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
-    Predicate<MenuItemActionViewEvent> handled =
-        new Predicate<MenuItemActionViewEvent>() {
-          @Override public boolean test(MenuItemActionViewEvent menuItem) {
-            return false;
-          }
-        };
+    Predicate<MenuItemActionViewEvent> handled = menuItem -> false;
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
     RxMenuItemCompat.actionViewEvents(menuItem, handled).subscribe(o);
