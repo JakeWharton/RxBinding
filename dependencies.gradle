@@ -10,10 +10,11 @@ ext {
   supportVersion = '28.0.0'
   supportAnnotations = "com.android.support:support-annotations:$supportVersion"
   supportV4CoreUi = "com.android.support:support-core-ui:$supportVersion"
-  supportRecyclerView = "com.android.support:recyclerview-v7:$supportVersion"
   supportAppCompat = "com.android.support:appcompat-v7:$supportVersion"
   supportDesign = "com.android.support:design:$supportVersion"
   supportLeanback = "com.android.support:leanback-v17:$supportVersion"
+
+  androidXRecyclerView = "androidx.recyclerview:recyclerview:1.0.0"
 
   autoValue = 'com.google.auto.value:auto-value:1.6.2'
   autoValueAnnotations = 'com.google.auto.value:auto-value-annotations:1.6.2'
