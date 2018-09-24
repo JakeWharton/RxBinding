@@ -37,16 +37,14 @@ public final class RxCompoundButton {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setChecked method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> checked(@NonNull final CompoundButton view) {
+  public static Consumer<? super Boolean> checked(@NonNull CompoundButton view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override
-      public void accept(Boolean value) throws Exception {
-        view.setChecked(value);
-      }
-    };
+    return view::setChecked;
   }
 
   /**
@@ -56,13 +54,9 @@ public final class RxCompoundButton {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Consumer<? super Object> toggle(@NonNull final CompoundButton view) {
+  public static Consumer<? super Object> toggle(@NonNull CompoundButton view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Object>() {
-      @Override public void accept(Object value) {
-        view.toggle();
-      }
-    };
+    return value -> view.toggle();
   }
 
   private RxCompoundButton() {

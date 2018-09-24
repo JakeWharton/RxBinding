@@ -408,13 +408,9 @@ public final class RxView {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> activated(@NonNull final View view) {
+  public static Consumer<? super Boolean> activated(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setActivated(value);
-      }
-    };
+    return view::setActivated;
   }
 
   /**
@@ -427,13 +423,9 @@ public final class RxView {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> clickable(@NonNull final View view) {
+  public static Consumer<? super Boolean> clickable(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setClickable(value);
-      }
-    };
+    return view::setClickable;
   }
 
   /**
@@ -446,13 +438,9 @@ public final class RxView {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> enabled(@NonNull final View view) {
+  public static Consumer<? super Boolean> enabled(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setEnabled(value);
-      }
-    };
+    return view::setEnabled;
   }
 
   /**
@@ -465,13 +453,9 @@ public final class RxView {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> pressed(@NonNull final View view) {
+  public static Consumer<? super Boolean> pressed(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setPressed(value);
-      }
-    };
+    return view::setPressed;
   }
 
   /**
@@ -484,13 +468,9 @@ public final class RxView {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> selected(@NonNull final View view) {
+  public static Consumer<? super Boolean> selected(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setSelected(value);
-      }
-    };
+    return view::setSelected;
   }
 
   /**
@@ -516,8 +496,7 @@ public final class RxView {
    * or {@code View.GONE}).
    */
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> visibility(@NonNull final View view,
-      final int visibilityWhenFalse) {
+  public static Consumer<? super Boolean> visibility(@NonNull View view, int visibilityWhenFalse) {
     checkNotNull(view, "view == null");
     if (visibilityWhenFalse == View.VISIBLE) {
       throw new IllegalArgumentException(
@@ -526,11 +505,7 @@ public final class RxView {
     if (visibilityWhenFalse != View.INVISIBLE && visibilityWhenFalse != View.GONE) {
       throw new IllegalArgumentException("Must set visibility to INVISIBLE or GONE when false.");
     }
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setVisibility(value ? View.VISIBLE : visibilityWhenFalse);
-      }
-    };
+    return value -> view.setVisibility(value ? View.VISIBLE : visibilityWhenFalse);
   }
 
   private RxView() {

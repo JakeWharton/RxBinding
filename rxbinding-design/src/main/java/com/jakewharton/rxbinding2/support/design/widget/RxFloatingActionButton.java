@@ -16,15 +16,13 @@ public final class RxFloatingActionButton {
    * to free this reference.
    */
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> visibility(final @NonNull FloatingActionButton view) {
+  public static Consumer<? super Boolean> visibility(@NonNull FloatingActionButton view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) throws Exception {
-        if (value) {
-          view.show();
-        } else {
-          view.hide();
-        }
+    return value -> {
+      if (value) {
+        view.show();
+      } else {
+        view.hide();
       }
     };
   }

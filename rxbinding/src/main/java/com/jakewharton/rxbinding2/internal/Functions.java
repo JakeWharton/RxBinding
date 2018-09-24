@@ -24,7 +24,7 @@ public final class Functions {
     }
 
     @Override
-    public boolean test(Object t) throws Exception {
+    public boolean test(Object t) {
       return value;
     }
   }

@@ -99,13 +99,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> checked(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super Boolean> checked(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        menuItem.setChecked(value);
-      }
-    };
+    return menuItem::setChecked;
   }
 
   /**
@@ -118,13 +114,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> enabled(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super Boolean> enabled(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        menuItem.setEnabled(value);
-      }
-    };
+    return menuItem::setEnabled;
   }
 
   /**
@@ -137,13 +129,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Drawable> icon(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super Drawable> icon(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<Drawable>() {
-      @Override public void accept(Drawable value) {
-        menuItem.setIcon(value);
-      }
-    };
+    return menuItem::setIcon;
   }
 
   /**
@@ -156,13 +144,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> iconRes(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super Integer> iconRes(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        menuItem.setIcon(value);
-      }
-    };
+    return menuItem::setIcon;
   }
 
   /**
@@ -175,13 +159,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> title(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super CharSequence> title(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence value) {
-        menuItem.setTitle(value);
-      }
-    };
+    return menuItem::setTitle;
   }
 
   /**
@@ -194,13 +174,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> titleRes(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super Integer> titleRes(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        menuItem.setTitle(value);
-      }
-    };
+    return menuItem::setTitle;
   }
 
   /**
@@ -213,13 +189,9 @@ public final class RxMenuItem {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> visible(@NonNull final MenuItem menuItem) {
+  public static Consumer<? super Boolean> visible(@NonNull MenuItem menuItem) {
     checkNotNull(menuItem, "menuItem == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        menuItem.setVisible(value);
-      }
-    };
+    return menuItem::setVisible;
   }
 
   private RxMenuItem() {

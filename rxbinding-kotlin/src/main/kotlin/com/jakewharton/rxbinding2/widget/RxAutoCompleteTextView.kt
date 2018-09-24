@@ -6,6 +6,7 @@ import android.support.annotation.CheckResult
 import android.widget.AutoCompleteTextView
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.Suppress
 
@@ -26,6 +27,7 @@ inline fun AutoCompleteTextView.itemClickEvents(): Observable<AdapterViewItemCli
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setCompletionHint method reference.")
 @CheckResult
 inline fun AutoCompleteTextView.completionHint(): Consumer<in CharSequence> = RxAutoCompleteTextView.completionHint(this)
 
@@ -37,5 +39,6 @@ inline fun AutoCompleteTextView.completionHint(): Consumer<in CharSequence> = Rx
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setThreshold method reference.")
 @CheckResult
 inline fun AutoCompleteTextView.threshold(): Consumer<in Int> = RxAutoCompleteTextView.threshold(this)

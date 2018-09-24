@@ -30,14 +30,12 @@ public final class RxSwipeRefreshLayoutTestActivity extends Activity {
 
     swipeRefreshLayout = new SwipeRefreshLayout(this);
     swipeRefreshLayout.setId(R.id.swipe_refresh_layout);
-    swipeRefreshLayout.setOnTouchListener(new View.OnTouchListener() {
-      @Override public boolean onTouch(View v, MotionEvent event) {
-        if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_UP) {
-          handler.removeCallbacks(stopRefreshing);
-          handler.postDelayed(stopRefreshing, 300);
-        }
-        return false;
+    swipeRefreshLayout.setOnTouchListener((v, event) -> {
+      if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_UP) {
+        handler.removeCallbacks(stopRefreshing);
+        handler.postDelayed(stopRefreshing, 300);
       }
+      return false;
     });
 
     ScrollView scrollView = new ScrollView(this);

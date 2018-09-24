@@ -47,15 +47,13 @@ public final class RxAutoCompleteTextViewTest {
   }
 
   @Test public void itemClickEvents() {
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        autoCompleteTextView.setThreshold(1);
+    instrumentation.runOnMainSync(() -> {
+      autoCompleteTextView.setThreshold(1);
 
-        List<String> values = Arrays.asList("Two", "Three", "Twenty");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(autoCompleteTextView.getContext(),
-            android.R.layout.simple_list_item_1, values);
-        autoCompleteTextView.setAdapter(adapter);
-      }
+      List<String> values = Arrays.asList("Two", "Three", "Twenty");
+      ArrayAdapter<String> adapter = new ArrayAdapter<>(autoCompleteTextView.getContext(),
+          android.R.layout.simple_list_item_1, values);
+      autoCompleteTextView.setAdapter(adapter);
     });
 
     RecordingObserver<AdapterViewItemClickEvent> o = new RecordingObserver<>();

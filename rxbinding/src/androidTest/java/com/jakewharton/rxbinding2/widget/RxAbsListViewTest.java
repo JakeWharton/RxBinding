@@ -39,22 +39,14 @@ public final class RxAbsListViewTest {
     assertEquals(0, event.firstVisibleItem());
     assertEquals(0, event.scrollState());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.smoothScrollToPosition(50);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.smoothScrollToPosition(50));
     AbsListViewScrollEvent event1 = o.takeNext();
     assertEquals(listView, event1.view());
     assertEquals(100, event1.totalItemCount());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.smoothScrollToPosition(100);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.smoothScrollToPosition(100));
     o.assertNoMoreEvents();
   }
 }

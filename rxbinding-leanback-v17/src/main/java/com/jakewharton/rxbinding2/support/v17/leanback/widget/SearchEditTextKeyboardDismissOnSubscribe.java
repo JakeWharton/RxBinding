@@ -41,12 +41,7 @@ final class SearchEditTextKeyboardDismissOnSubscribe extends Observable<Object> 
     }
 
     @Override protected void onDispose() {
-      // TODO: set to null once http://b.android.com/187101 is released.
-      view.setOnKeyboardDismissListener(new SearchEditText.OnKeyboardDismissListener() {
-        @Override
-        public void onKeyboardDismiss() {
-        }
-      });
+      view.setOnKeyboardDismissListener(null);
     }
   }
 }

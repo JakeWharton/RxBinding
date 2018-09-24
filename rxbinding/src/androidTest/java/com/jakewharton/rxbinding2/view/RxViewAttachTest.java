@@ -38,26 +38,16 @@ public final class RxViewAttachTest {
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.addView(child);
-      }
-    });
+    instrumentation.runOnMainSync(() -> parent.addView(child));
     assertNotNull(o.takeNext());
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.removeView(child);
-      }
-    });
+    instrumentation.runOnMainSync(() -> parent.removeView(child));
     o.assertNoMoreEvents();
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.addView(child);
-        parent.removeView(child);
-      }
+    instrumentation.runOnMainSync(() -> {
+      parent.addView(child);
+      parent.removeView(child);
     });
     o.assertNoMoreEvents();
   }
@@ -69,26 +59,16 @@ public final class RxViewAttachTest {
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.addView(child);
-      }
-    });
+    instrumentation.runOnMainSync(() -> parent.addView(child));
     assertEquals(ViewAttachAttachedEvent.create(child), o.takeNext());
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.removeView(child);
-      }
-    });
+    instrumentation.runOnMainSync(() -> parent.removeView(child));
     assertEquals(ViewAttachDetachedEvent.create(child), o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.addView(child);
-        parent.removeView(child);
-      }
+    instrumentation.runOnMainSync(() -> {
+      parent.addView(child);
+      parent.removeView(child);
     });
     o.assertNoMoreEvents();
   }
@@ -100,26 +80,16 @@ public final class RxViewAttachTest {
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.addView(child);
-      }
-    });
+    instrumentation.runOnMainSync(() -> parent.addView(child));
     o.assertNoMoreEvents();
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.removeView(child);
-      }
-    });
+    instrumentation.runOnMainSync(() -> parent.removeView(child));
     assertNotNull(o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        parent.addView(child);
-        parent.removeView(child);
-      }
+    instrumentation.runOnMainSync(() -> {
+      parent.addView(child);
+      parent.removeView(child);
     });
     o.assertNoMoreEvents();
   }

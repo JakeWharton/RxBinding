@@ -49,15 +49,14 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setTitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
-  public static Consumer<? super CharSequence> title(@NonNull final Toolbar view) {
+  public static Consumer<? super CharSequence> title(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence title) {
-        view.setTitle(title);
-      }
-    };
+    return view::setTitle;
   }
 
   /**
@@ -65,15 +64,14 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setTitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> titleRes(@NonNull final Toolbar view) {
+  public static Consumer<? super Integer> titleRes(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer titleRes) {
-        view.setTitle(titleRes);
-      }
-    };
+    return view::setTitle;
   }
 
   /**
@@ -81,15 +79,14 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSubtitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
-  public static Consumer<? super CharSequence> subtitle(@NonNull final Toolbar view) {
+  public static Consumer<? super CharSequence> subtitle(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence subtitle) {
-        view.setSubtitle(subtitle);
-      }
-    };
+    return view::setSubtitle;
   }
 
   /**
@@ -97,15 +94,14 @@ public final class RxToolbar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setSubtitle method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> subtitleRes(@NonNull final Toolbar view) {
+  public static Consumer<? super Integer> subtitleRes(@NonNull Toolbar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer subtitleRes) {
-        view.setSubtitle(subtitleRes);
-      }
-    };
+    return view::setSubtitle;
   }
 
   private RxToolbar() {

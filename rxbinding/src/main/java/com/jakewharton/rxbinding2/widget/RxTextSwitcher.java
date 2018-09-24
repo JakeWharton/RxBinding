@@ -18,15 +18,14 @@ public final class RxTextSwitcher {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setText method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> text(@NonNull final TextSwitcher view) {
+  public static Consumer<? super CharSequence> text(@NonNull TextSwitcher view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence text) {
-        view.setText(text);
-      }
-    };
+    return view::setText;
   }
 
   /**
@@ -34,15 +33,14 @@ public final class RxTextSwitcher {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setCurrentText method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> currentText(@NonNull final TextSwitcher view) {
+  public static Consumer<? super CharSequence> currentText(@NonNull TextSwitcher view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence textRes) {
-        view.setCurrentText(textRes);
-      }
-    };
+    return view::setCurrentText;
   }
 
   private RxTextSwitcher() {

@@ -7,6 +7,7 @@ import android.widget.CompoundButton
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.functions.Consumer
 import kotlin.Any
+import kotlin.Deprecated
 import kotlin.Suppress
 
 /**
@@ -29,6 +30,7 @@ inline fun CompoundButton.checkedChanges(): InitialValueObservable<Boolean> = Rx
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
+@Deprecated("Use view::setChecked method reference.")
 @CheckResult
 inline fun CompoundButton.checked(): Consumer<in Boolean> = RxCompoundButton.checked(this)
 

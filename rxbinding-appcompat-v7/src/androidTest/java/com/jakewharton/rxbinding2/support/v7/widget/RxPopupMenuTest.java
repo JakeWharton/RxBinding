@@ -58,31 +58,15 @@ import static org.junit.Assert.assertSame;
         .subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.show();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.show());
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.dismiss();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.dismiss());
     assertNotNull(o.takeNext());
 
     o.dispose();
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.show();
-      }
-    });
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.dismiss();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.show());
+    instrumentation.runOnMainSync(() -> view.dismiss());
 
     o.assertNoMoreEvents();
   }

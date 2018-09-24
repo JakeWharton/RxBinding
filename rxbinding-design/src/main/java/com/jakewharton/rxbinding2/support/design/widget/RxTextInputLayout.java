@@ -23,13 +23,9 @@ public final class RxTextInputLayout {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> counterEnabled(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Boolean> counterEnabled(@NonNull TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean enable) {
-        view.setCounterEnabled(enable);
-      }
-    };
+    return view::setCounterEnabled;
   }
 
   /**
@@ -42,13 +38,9 @@ public final class RxTextInputLayout {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> counterMaxLength(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Integer> counterMaxLength(@NonNull TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer maxLength) {
-        view.setCounterMaxLength(maxLength);
-      }
-    };
+    return view::setCounterMaxLength;
   }
 
   /**
@@ -61,14 +53,9 @@ public final class RxTextInputLayout {
    */
   @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
-  public static Consumer<? super CharSequence> error(@NonNull final TextInputLayout view) {
+  public static Consumer<? super CharSequence> error(@NonNull TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override
-      public void accept(CharSequence error) {
-        view.setError(error);
-      }
-    };
+    return view::setError;
   }
 
   /**
@@ -81,14 +68,9 @@ public final class RxTextInputLayout {
    */
   @Deprecated
   @CheckResult @NonNull @GenericTypeNullable
-  public static Consumer<? super Integer> errorRes(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Integer> errorRes(@NonNull TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override
-      public void accept(Integer errorRes) {
-        view.setError(view.getContext().getResources().getText(errorRes));
-      }
-    };
+    return errorRes -> view.setError(view.getContext().getResources().getText(errorRes));
   }
 
   /**
@@ -101,13 +83,9 @@ public final class RxTextInputLayout {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super CharSequence> hint(@NonNull final TextInputLayout view) {
+  public static Consumer<? super CharSequence> hint(@NonNull TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<CharSequence>() {
-      @Override public void accept(CharSequence hint) {
-        view.setHint(hint);
-      }
-    };
+    return view::setHint;
   }
 
   /**
@@ -120,13 +98,9 @@ public final class RxTextInputLayout {
    */
   @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Integer> hintRes(@NonNull final TextInputLayout view) {
+  public static Consumer<? super Integer> hintRes(@NonNull TextInputLayout view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer hintRes) {
-        view.setHint(view.getContext().getResources().getText(hintRes));
-      }
-    };
+    return hintRes -> view.setHint(view.getContext().getResources().getText(hintRes));
   }
 
   private RxTextInputLayout() {

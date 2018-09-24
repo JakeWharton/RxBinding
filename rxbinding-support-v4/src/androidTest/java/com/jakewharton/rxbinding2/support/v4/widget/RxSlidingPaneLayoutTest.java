@@ -56,27 +56,15 @@ import static org.junit.Assert.assertTrue;
         .subscribe(o);
     assertFalse(o.takeNext());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.openPane();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.openPane());
     assertTrue(o.takeNext());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.closePane();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.closePane());
     assertFalse(o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.openPane();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.openPane());
     o.assertNoMoreEvents();
   }
 
@@ -87,11 +75,7 @@ import static org.junit.Assert.assertTrue;
         .subscribe(o1);
     o1.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.openPane();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.openPane());
     instrumentation.waitForIdleSync();
     assertTrue(o1.takeNext() > 0f);
 
@@ -104,11 +88,7 @@ import static org.junit.Assert.assertTrue;
         .subscribe(o2);
     o2.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        view.closePane();
-      }
-    });
+    instrumentation.runOnMainSync(() -> view.closePane());
     instrumentation.waitForIdleSync();
     assertTrue(o2.takeNext() < 1f);
 

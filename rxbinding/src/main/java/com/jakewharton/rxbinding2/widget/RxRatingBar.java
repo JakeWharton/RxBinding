@@ -43,15 +43,14 @@ public final class RxRatingBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setRating method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Float> rating(@NonNull final RatingBar view) {
+  public static Consumer<? super Float> rating(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Float>() {
-      @Override public void accept(Float value) {
-        view.setRating(value);
-      }
-    };
+    return view::setRating;
   }
 
   /**
@@ -59,15 +58,14 @@ public final class RxRatingBar {
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
+   *
+   * @deprecated Use view::setIsIndicator method reference.
    */
+  @Deprecated
   @CheckResult @NonNull
-  public static Consumer<? super Boolean> isIndicator(@NonNull final RatingBar view) {
+  public static Consumer<? super Boolean> isIndicator(@NonNull RatingBar view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Boolean>() {
-      @Override public void accept(Boolean value) {
-        view.setIsIndicator(value);
-      }
-    };
+    return view::setIsIndicator;
   }
 
   private RxRatingBar() {

@@ -47,13 +47,9 @@ public final class RxViewPager {
    */
   @Deprecated
   @CheckResult @NonNull public static Consumer<? super Integer> currentItem(
-      @NonNull final ViewPager view) {
+      @NonNull ViewPager view) {
     checkNotNull(view, "view == null");
-    return new Consumer<Integer>() {
-      @Override public void accept(Integer value) {
-        view.setCurrentItem(value);
-      }
-    };
+    return view::setCurrentItem;
   }
 
   private RxViewPager() {

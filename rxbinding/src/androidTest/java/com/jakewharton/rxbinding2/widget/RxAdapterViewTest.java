@@ -43,27 +43,15 @@ public final class RxAdapterViewTest {
         .subscribe(o);
     assertEquals(0, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        spinner.setSelection(2);
-      }
-    });
+    instrumentation.runOnMainSync(() -> spinner.setSelection(2));
     assertEquals(2, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        spinner.setSelection(0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> spinner.setSelection(0));
     assertEquals(0, o.takeNext().intValue());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        spinner.setSelection(1);
-      }
-    });
+    instrumentation.runOnMainSync(() -> spinner.setSelection(1));
     o.assertNoMoreEvents();
   }
 
@@ -78,32 +66,24 @@ public final class RxAdapterViewTest {
     assertEquals(0, event1.position());
     assertEquals(0, event1.id());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        spinner.setSelection(2);
-      }
-    });
+    instrumentation.runOnMainSync(() -> spinner.setSelection(2));
     AdapterViewItemSelectionEvent event2 = (AdapterViewItemSelectionEvent) o.takeNext();
     assertSame(spinner, event2.view());
     assertNotNull(event2.selectedView());
     assertEquals(2, event2.position());
     assertEquals(2, event2.id());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        activity.values.clear();
-        activity.adapter.notifyDataSetChanged();
-      }
+    instrumentation.runOnMainSync(() -> {
+      activity.values.clear();
+      activity.adapter.notifyDataSetChanged();
     });
     assertEquals(AdapterViewNothingSelectionEvent.create(spinner), o.takeNext());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        activity.values.add("Hello");
-        activity.adapter.notifyDataSetChanged();
-      }
+    instrumentation.runOnMainSync(() -> {
+      activity.values.add("Hello");
+      activity.adapter.notifyDataSetChanged();
     });
     o.assertNoMoreEvents();
   }
@@ -116,22 +96,14 @@ public final class RxAdapterViewTest {
         action.accept(2);
       }
     });
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        assertEquals(2, spinner.getSelectedItemPosition());
-      }
-    });
+    instrumentation.runOnMainSync(() -> assertEquals(2, spinner.getSelectedItemPosition()));
 
     instrumentation.runOnMainSync(new UnsafeRunnable() {
       @Override public void unsafeRun() throws Exception {
         action.accept(1);
       }
     });
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        assertEquals(1, spinner.getSelectedItemPosition());
-      }
-    });
+    instrumentation.runOnMainSync(() -> assertEquals(1, spinner.getSelectedItemPosition()));
   }
 
   @Test public void itemClicks() {
@@ -141,27 +113,15 @@ public final class RxAdapterViewTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.performItemClick(listView.getChildAt(2), 2, 2);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.performItemClick(listView.getChildAt(2), 2, 2));
     assertEquals(2, o.takeNext().intValue());
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.performItemClick(listView.getChildAt(0), 0, 0);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.performItemClick(listView.getChildAt(0), 0, 0));
     assertEquals(0, o.takeNext().intValue());
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.performItemClick(listView.getChildAt(1), 1, 1);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.performItemClick(listView.getChildAt(1), 1, 1));
     o.assertNoMoreEvents();
   }
 
@@ -172,11 +132,7 @@ public final class RxAdapterViewTest {
         .subscribe(o);
     o.assertNoMoreEvents();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.performItemClick(listView.getChildAt(2), 2, 2);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.performItemClick(listView.getChildAt(2), 2, 2));
     AdapterViewItemClickEvent event = o.takeNext();
     assertEquals(listView, event.view());
     assertNotNull(event.clickedView());
@@ -185,11 +141,7 @@ public final class RxAdapterViewTest {
 
     o.dispose();
 
-    instrumentation.runOnMainSync(new Runnable() {
-      @Override public void run() {
-        listView.performItemClick(listView.getChildAt(1), 1, 1);
-      }
-    });
+    instrumentation.runOnMainSync(() -> listView.performItemClick(listView.getChildAt(1), 1, 1));
     o.assertNoMoreEvents();
   }
 
