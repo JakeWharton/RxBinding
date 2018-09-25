@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding2.view
 import android.graphics.drawable.Drawable
 import android.support.annotation.CheckResult
 import android.view.MenuItem
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
@@ -25,7 +25,7 @@ import kotlin.Unit
  * observe clicks. Only one observable can be used for a menu item at a time.
  */
 @CheckResult
-inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(VoidToUnit)
+inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(AnyToUnit)
 
 /**
  * Create an observable which emits on `menuItem` click events. The emitted value is
@@ -41,7 +41,7 @@ inline fun MenuItem.clicks(): Observable<Unit> = RxMenuItem.clicks(this).map(Voi
  * underlying [MenuItem.OnMenuItemClickListener].
  */
 @CheckResult
-inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = RxMenuItem.clicks(this, handled).map(VoidToUnit)
+inline fun MenuItem.clicks(handled: Predicate<in MenuItem>): Observable<Unit> = RxMenuItem.clicks(this, handled).map(AnyToUnit)
 
 /**
  * Create an observable of action view events for `menuItem`.

@@ -4,7 +4,7 @@ package com.jakewharton.rxbinding2.support.v4.widget
 
 import android.support.annotation.CheckResult
 import android.support.v4.widget.SwipeRefreshLayout
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import kotlin.Deprecated
@@ -18,7 +18,7 @@ import kotlin.Unit
  * to free this reference.
  */
 @CheckResult
-inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayout.refreshes(this).map(VoidToUnit)
+inline fun SwipeRefreshLayout.refreshes(): Observable<Unit> = RxSwipeRefreshLayout.refreshes(this).map(AnyToUnit)
 
 /**
  * An action which sets whether the layout is showing the refreshing indicator.

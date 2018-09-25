@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding2.support.v7.widget
 import android.support.annotation.CheckResult
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import kotlin.Deprecated
@@ -33,7 +33,7 @@ inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(thi
  * to observe clicks. Only one observable can be used for a view at a time.
  */
 @CheckResult
-inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(VoidToUnit)
+inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(AnyToUnit)
 
 /**
  * An action which sets the title property of `view` with character sequences.

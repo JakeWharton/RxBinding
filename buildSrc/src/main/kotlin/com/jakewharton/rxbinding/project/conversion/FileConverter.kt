@@ -35,7 +35,7 @@ fun File.convertToKotlinFile(): FileSpec {
   val funSpecs = methods.map { it.toFunSpec(associatedImports, bindingClass, requiresApi) }
 
   return FileSpec.builder(packageName, name.removeSuffix(".java"))
-      .addVoidToUnitImport(methods)
+      .addAnyToUnitImport(methods)
       .addFunSpecs(funSpecs)
       .suppressNotingToInline()
       .build()
@@ -44,9 +44,9 @@ fun File.convertToKotlinFile(): FileSpec {
 private fun TypeDeclaration.requiresApi() =
     annotations.singleOrNull { it.name.toString() == "RequiresApi" }
 
-private fun FileSpec.Builder.addVoidToUnitImport(methods: List<MethodDeclaration>) = apply {
+private fun FileSpec.Builder.addAnyToUnitImport(methods: List<MethodDeclaration>) = apply {
   if (methods.any { it.emitsUnit() }) {
-    addStaticImport("com.jakewharton.rxbinding2.internal", "VoidToUnit")
+    addStaticImport("com.jakewharton.rxbinding2.internal", "AnyToUnit")
   }
 }
 

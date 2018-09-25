@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding2.support.v7.widget
 import android.support.annotation.CheckResult
 import android.support.v7.widget.PopupMenu
 import android.view.MenuItem
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,4 +33,4 @@ inline fun PopupMenu.itemClicks(): Observable<MenuItem> = RxPopupMenu.itemClicks
  * observe dismiss change. Only one observable can be used for a view at a time.
  */
 @CheckResult
-inline fun PopupMenu.dismisses(): Observable<Unit> = RxPopupMenu.dismisses(this).map(VoidToUnit)
+inline fun PopupMenu.dismisses(): Observable<Unit> = RxPopupMenu.dismisses(this).map(AnyToUnit)

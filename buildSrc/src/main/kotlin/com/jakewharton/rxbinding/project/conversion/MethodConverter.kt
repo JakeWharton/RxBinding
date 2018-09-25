@@ -46,7 +46,7 @@ fun MethodDeclaration.toFunSpec(
       .apply {
         // Object --> Unit mapping
         if (emitsUnit()) {
-          addCode(".map(VoidToUnit)")
+          addCode(".map(AnyToUnit)")
         }
       }
       .addCode("\n")

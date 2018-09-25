@@ -4,7 +4,7 @@ package com.jakewharton.rxbinding2.support.v17.leanback.widget
 
 import android.support.annotation.CheckResult
 import android.support.v17.leanback.widget.SearchEditText
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import kotlin.Suppress
 import kotlin.Unit
@@ -16,4 +16,4 @@ import kotlin.Unit
  * to free this reference.
  */
 @CheckResult
-inline fun SearchEditText.keyboardDismisses(): Observable<Unit> = RxSearchEditText.keyboardDismisses(this).map(VoidToUnit)
+inline fun SearchEditText.keyboardDismisses(): Observable<Unit> = RxSearchEditText.keyboardDismisses(this).map(AnyToUnit)

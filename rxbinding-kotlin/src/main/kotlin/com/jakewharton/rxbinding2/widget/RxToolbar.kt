@@ -6,7 +6,7 @@ import android.support.annotation.CheckResult
 import android.support.annotation.RequiresApi
 import android.view.MenuItem
 import android.widget.Toolbar
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import kotlin.Deprecated
@@ -36,7 +36,7 @@ inline fun Toolbar.itemClicks(): Observable<MenuItem> = RxToolbar.itemClicks(thi
  */
 @CheckResult
 @RequiresApi(21)
-inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(VoidToUnit)
+inline fun Toolbar.navigationClicks(): Observable<Unit> = RxToolbar.navigationClicks(this).map(AnyToUnit)
 
 /**
  * An action which sets the title property of `view` with character sequences.

@@ -9,7 +9,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.internal.VoidToUnit
+import com.jakewharton.rxbinding2.internal.AnyToUnit
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Predicate
@@ -27,7 +27,7 @@ import kotlin.Unit
  * to free this reference.
  */
 @CheckResult
-inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map(VoidToUnit)
+inline fun View.attaches(): Observable<Unit> = RxView.attaches(this).map(AnyToUnit)
 
 /**
  * Create an observable of attach and detach events on `view`.
@@ -46,7 +46,7 @@ inline fun View.attachEvents(): Observable<ViewAttachEvent> = RxView.attachEvent
  * to free this reference.
  */
 @CheckResult
-inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map(VoidToUnit)
+inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map(AnyToUnit)
 
 /**
  * Create an observable which emits on `view` click events. The emitted value is
@@ -59,7 +59,7 @@ inline fun View.detaches(): Observable<Unit> = RxView.detaches(this).map(VoidToU
  * clicks. Only one observable can be used for a view at a time.
  */
 @CheckResult
-inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map(VoidToUnit)
+inline fun View.clicks(): Observable<Unit> = RxView.clicks(this).map(AnyToUnit)
 
 /**
  * Create an observable of [DragEvent] for drags on `view`.
@@ -99,7 +99,7 @@ inline fun View.drags(handled: Predicate<in DragEvent>): Observable<DragEvent> =
  */
 @RequiresApi(16)
 @CheckResult
-inline fun View.draws(): Observable<Unit> = RxView.draws(this).map(VoidToUnit)
+inline fun View.draws(): Observable<Unit> = RxView.draws(this).map(AnyToUnit)
 
 /**
  * Create an observable of booleans representing the focus of `view`.
@@ -127,7 +127,7 @@ inline fun View.focusChanges(): InitialValueObservable<Boolean> = RxView.focusCh
  * can be used for a view at a time.
  */
 @CheckResult
-inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map(VoidToUnit)
+inline fun View.globalLayouts(): Observable<Unit> = RxView.globalLayouts(this).map(AnyToUnit)
 
 /**
  * Create an observable of hover events for `view`.
@@ -176,7 +176,7 @@ inline fun View.hovers(handled: Predicate<in MotionEvent>): Observable<MotionEve
  * to free this reference.
  */
 @CheckResult
-inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).map(VoidToUnit)
+inline fun View.layoutChanges(): Observable<Unit> = RxView.layoutChanges(this).map(AnyToUnit)
 
 /**
  * Create an observable of layout-change events for `view`.
@@ -198,7 +198,7 @@ inline fun View.layoutChangeEvents(): Observable<ViewLayoutChangeEvent> = RxView
  * long clicks. Only one observable can be used for a view at a time.
  */
 @CheckResult
-inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map(VoidToUnit)
+inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map(AnyToUnit)
 
 /**
  * Create an observable which emits on `view` long-click events. The emitted value is
@@ -214,7 +214,7 @@ inline fun View.longClicks(): Observable<Unit> = RxView.longClicks(this).map(Voi
  * underlying [View.OnLongClickListener].
  */
 @CheckResult
-inline fun View.longClicks(handled: Callable<Boolean>): Observable<Unit> = RxView.longClicks(this, handled).map(VoidToUnit)
+inline fun View.longClicks(handled: Callable<Boolean>): Observable<Unit> = RxView.longClicks(this, handled).map(AnyToUnit)
 
 /**
  * Create an observable for pre-draws on `view`.
@@ -226,7 +226,7 @@ inline fun View.longClicks(handled: Callable<Boolean>): Observable<Unit> = RxVie
  * observe pre-draws. Multiple observables can be used for a view at a time.
  */
 @CheckResult
-inline fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map(VoidToUnit)
+inline fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit> = RxView.preDraws(this, proceedDrawingPass).map(AnyToUnit)
 
 /**
  * Create an observable of scroll-change events for `view`.
