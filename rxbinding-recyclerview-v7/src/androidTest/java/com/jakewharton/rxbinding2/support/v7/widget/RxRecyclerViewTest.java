@@ -154,6 +154,104 @@ public final class RxRecyclerViewTest {
     o.assertNoMoreEvents();
   }
 
+  @Test public void flingEventsVertical() {
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(new Adapter());
+      }
+    });
+
+    RecordingObserver<RecyclerViewFlingEvent> o = new RecordingObserver<>();
+    RxRecyclerView.flingEvents(view)
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(o);
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(0, 1000);
+      }
+    });
+    RecyclerViewFlingEvent event1 = o.takeNext();
+    assertNotNull(event1);
+    assertEquals(1000, event1.velocityY());
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(0, 0);
+      }
+    });
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(0, -1000);
+      }
+    });
+    RecyclerViewFlingEvent event2 = o.takeNext();
+    assertNotNull(event2);
+    assertEquals(-1000, event2.velocityY());
+
+    o.dispose();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(0, 1000);
+      }
+    });
+    o.assertNoMoreEvents();
+  }
+
+  @Test public void flingEventsHorizontal() {
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.setAdapter(new Adapter());
+        ((LinearLayoutManager) view.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
+      }
+    });
+
+    instrumentation.waitForIdleSync();
+    RecordingObserver<RecyclerViewFlingEvent> o = new RecordingObserver<>();
+    RxRecyclerView.flingEvents(view)
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(o);
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(1000, 0);
+      }
+    });
+    RecyclerViewFlingEvent event1 = o.takeNext();
+    assertNotNull(event1);
+    assertEquals(1000, event1.velocityX());
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(0, 0);
+      }
+    });
+    o.assertNoMoreEvents();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(-1000, 0);
+      }
+    });
+    RecyclerViewFlingEvent event2 = o.takeNext();
+    assertNotNull(event2);
+    assertEquals(-1000, event2.velocityX());
+
+    o.dispose();
+
+    instrumentation.runOnMainSync(new Runnable() {
+      @Override public void run() {
+        view.fling(1000, 0);
+      }
+    });
+    o.assertNoMoreEvents();
+  }
+
   private class SimpleAdapter extends RecyclerView.Adapter {
     private final View child;
 
