@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+Version 2.2.0 *(2018-09-25)*
+----------------------------
+
+ * New bindings!
+    * `rxbinding-support-v4`:
+       * `ViewPager`:
+          * `pageScrollEvents`
+    * `rxbinding-recyclerview-v7`:
+       * `RecyclerView`:
+          * `flingEvents`
+ * New: Target Java 8 bytecode. Use AGP 3.2 or newer and enable Java 8 source/target compatibility.
+ * Deprecate `RxMenuItemCompat` which is no longer needed. Use `RxMenuItem` directly.
+ * Deprecate more simple consumers which delegate directly to a method. You should use method references for these instead. For example, `RxView.enabled(view)` becomes `view::setEnabled`.
+
+
 Version 2.1.1 *(2018-02-12)*
 ----------------------------
 
