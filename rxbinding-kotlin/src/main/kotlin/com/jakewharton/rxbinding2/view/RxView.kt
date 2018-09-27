@@ -234,7 +234,7 @@ inline fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
  */
-@RequiresApi(23)
+@RequiresApi(16)
 @CheckResult
 inline fun View.scrollChangeEvents(): Observable<ViewScrollChangeEvent> = RxView.scrollChangeEvents(this)
 

@@ -1,5 +1,6 @@
 package com.jakewharton.rxbinding2.view;
 
+import android.os.Build;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -295,11 +296,15 @@ public final class RxView {
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
    * to free this reference.
    */
-  @RequiresApi(23)
+  @RequiresApi(16)
   @CheckResult @NonNull
   public static Observable<ViewScrollChangeEvent> scrollChangeEvents(@NonNull View view) {
     checkNotNull(view, "view == null");
-    return new ViewScrollChangeEventObservable(view);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      return new ViewScrollChangeEventObservable(view);
+    } else {
+      return new ViewScrollChangeEventObservableCompat(view);
+    }
   }
 
   /**
