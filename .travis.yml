@@ -31,11 +31,12 @@ env:
   matrix:
     - MODULE=rxbinding
     - MODULE=rxbinding-appcompat-v7
+    - MODULE=rxbinding-core
     - MODULE=rxbinding-design
     - MODULE=rxbinding-drawerlayout
     - MODULE=rxbinding-leanback-v17
     - MODULE=rxbinding-recyclerview
-    - MODULE=rxbinding-support-v4
+    - MODULE=rxbinding-slidingpanelayout
     - MODULE=rxbinding-swiperefreshlayout
     - MODULE=rxbinding-viewpager
   global:
