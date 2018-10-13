@@ -88,6 +88,7 @@ afterEvaluate { project ->
         }
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
         exclude '**/internal/*'
+        include '**/*.java'
 
         if (JavaVersion.current().isJava8Compatible()) {
             options.addStringOption('Xdoclint:none', '-quiet')
