@@ -36,6 +36,7 @@ env:
     - MODULE=rxbinding-leanback-v17
     - MODULE=rxbinding-recyclerview
     - MODULE=rxbinding-support-v4
+    - MODULE=rxbinding-swiperefreshlayout
     - MODULE=rxbinding-viewpager
   global:
     - secure: "kgsT0j2b0GYbQjrDSdIYoh9lXOb2bAqA8gOx7ipegYLiNUuAjTeclw/3IFd5WpPNEhwTvDlb8Pwi/GYsXwYLdjysZUsj73a027swKAuXRBEjnBpfcvhEwKdoO5Ygoz/uH7TvcuCKzEz/bRKIglvn9PcTrzIHHZZIXa/mLU5otNE="
