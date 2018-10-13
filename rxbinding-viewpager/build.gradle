@@ -1,0 +1,59 @@
+buildscript {
+  dependencies {
+    classpath rootProject.ext.androidPlugin
+    classpath rootProject.ext.kotlinPlugin
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+dependencies {
+  api project(':rxbinding')
+  api rootProject.ext.androidXViewPager
+  api rootProject.ext.kotlinStdlib
+  implementation rootProject.ext.rxAndroid
+
+  androidTestImplementation project(':testing-utils')
+  androidTestImplementation rootProject.ext.supportTestRunner
+  androidTestImplementation rootProject.ext.supportTestRules
+  androidTestImplementation rootProject.ext.supportTestEspresso
+  androidTestImplementation rootProject.ext.rxAndroid
+}
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+
+    testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+  }
+
+  buildTypes {
+    debug {
+      testCoverageEnabled true
+    }
+  }
+
+  packagingOptions {
+    exclude 'META-INF/proguard/*' // TODO https://issuetracker.google.com/issues/109857884
+  }
+
+  // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+  libraryVariants.all {
+    it.generateBuildConfig.enabled = false
+  }
+}
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

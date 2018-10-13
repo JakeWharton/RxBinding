@@ -17,4 +17,6 @@ include ':rxbinding-recyclerview'
 include ':rxbinding-leanback-v17'
 include ':rxbinding-leanback-v17-kotlin'
 
+include ':rxbinding-viewpager'
+
 include ':testing-utils'
