@@ -1,30 +1,23 @@
-buildscript {
-  dependencies {
-    classpath rootProject.ext.androidPlugin
-  }
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'rxbinding-module'
 
 dependencies {
-  api rootProject.ext.rxJava
-  implementation rootProject.ext.rxAndroid
-  implementation rootProject.ext.supportAnnotations
+  api deps.rxJava
+  implementation deps.rxAndroid
+  implementation deps.supportAnnotations
 
-  compileOnly rootProject.ext.autoValueAnnotations
-  annotationProcessor rootProject.ext.autoValue
+  compileOnly deps.autoValueAnnotations
+  annotationProcessor deps.autoValue
 
   androidTestImplementation project(':testing-utils')
-  androidTestImplementation rootProject.ext.supportTestRunner
-  androidTestImplementation rootProject.ext.supportTestRules
+  androidTestImplementation deps.supportTestRunner
+  androidTestImplementation deps.supportTestRules
 }
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
+  compileSdkVersion buildConfig.compileSdkVersion
 
   defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
+    minSdkVersion buildConfig.minSdkVersion
 
     consumerProguardFiles 'src/main/proguard-consumer.pro'
 

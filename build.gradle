@@ -1,34 +1,73 @@
-subprojects {
-  buildscript {
-    repositories {
-      jcenter()
-      google()
-    }
+buildscript {
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.2.0'
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.71'
   }
+
+  ext.buildConfig = [
+    'minSdkVersion': 14,
+    'compileSdkVersion': 28,
+  ]
+  ext.deps = [
+    'kotlinStdlib': 'org.jetbrains.kotlin:kotlin-stdlib:1.2.71',
+
+    'supportAnnotations': 'com.android.support:support-annotations:28.0.0',
+    'supportAppCompat': 'com.android.support:appcompat-v7:28.0.0',
+    'supportDesign': 'com.android.support:design:28.0.0',
+    'supportLeanback': 'com.android.support:leanback-v17:28.0.0',
+
+    'androidXCore': 'androidx.core:core:1.0.0',
+    'androidXDrawerLayout': 'androidx.drawerlayout:drawerlayout:1.0.0',
+    'androidXRecyclerView': 'androidx.recyclerview:recyclerview:1.0.0',
+    'androidXSlidingPaneLayout': 'androidx.slidingpanelayout:slidingpanelayout:1.0.0',
+    'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
+    'androidXViewPager': 'androidx.viewpager:viewpager:1.0.0',
+
+    'autoValue': 'com.google.auto.value:auto-value:1.6.2',
+    'autoValueAnnotations': 'com.google.auto.value:auto-value-annotations:1.6.2',
+
+    'supportTestRunner': 'com.android.support.test:runner:0.5',
+    'supportTestRules': 'com.android.support.test:rules:0.5',
+    'supportTestEspresso': 'com.android.support.test.espresso:espresso-core:2.2.1',
+    'supportTestEspressoContrib': 'com.android.support.test.espresso:espresso-contrib:2.2.1',
+
+    'androidXTestRunner': 'androidx.test:runner:1.1.0-beta02',
+    'androidXTestRules': 'androidx.test:rules:1.1.0-beta02',
+    'androidXTestEspresso': 'androidx.test.espresso:espresso-core:3.1.0-beta02',
+    'androidXTestEspressoContrib': 'androidx.test.espresso:espresso-contrib:3.1.0-beta02',
+
+    'rxJava': 'io.reactivex.rxjava2:rxjava:2.2.2',
+    'rxAndroid': 'io.reactivex.rxjava2:rxandroid:2.1.0',
+
+    'junit': 'junit:junit:4.12',
+  ]
 
   repositories {
     jcenter()
     google()
   }
+}
 
-  plugins.apply('checkstyle')
-
-  task('checkstyle', type: Checkstyle) {
-    configFile rootProject.file('checkstyle.xml')
-    source 'src/main/java'
-    ignoreFailures false
-    showViolations true
-    include '**/*.java'
-
-    classpath = files()
+subprojects {
+  repositories {
+    jcenter()
+    google()
   }
 
   group = GROUP
   version = VERSION_NAME
 
-  afterEvaluate {
-    tasks.findByName('check').dependsOn('checkstyle')
+  configurations.all {
+    resolutionStrategy {
+      eachDependency { details ->
+        if (details.requested.group == 'com.android.support') {
+          details.useVersion('28.0.0')
+        }
+      }
+    }
+  }
 
+  afterEvaluate {
     // The default 'assemble' task only applies to normal variants. Add test variants as well.
     android.testVariants.all { variant ->
       tasks.getByName('assemble').dependsOn variant.assemble
@@ -44,5 +83,3 @@ subprojects {
     }
   }
 }
-
-apply from: rootProject.file('dependencies.gradle')
