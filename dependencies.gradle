@@ -14,6 +14,7 @@ ext {
   supportDesign = "com.android.support:design:$supportVersion"
   supportLeanback = "com.android.support:leanback-v17:$supportVersion"
 
+  androidXDrawerLayout = 'androidx.drawerlayout:drawerlayout:1.0.0'
   androidXRecyclerView = 'androidx.recyclerview:recyclerview:1.0.0'
   androidXViewPager = 'androidx.viewpager:viewpager:1.0.0'
 
@@ -24,6 +25,12 @@ ext {
   supportTestRules = 'com.android.support.test:rules:0.5'
   supportTestEspresso = 'com.android.support.test.espresso:espresso-core:2.2.1'
   supportTestEspressoContrib = 'com.android.support.test.espresso:espresso-contrib:2.2.1'
+
+  androidXTestRunner = 'androidx.test:runner:1.1.0-beta02'
+  androidXTestRules = 'androidx.test:rules:1.1.0-beta02'
+  androidXTestEspresso = 'androidx.test.espresso:espresso-core:3.1.0-beta02'
+  androidXTestEspressoContrib = 'androidx.test.espresso:espresso-contrib:3.1.0-beta02'
+
   rxJava = 'io.reactivex.rxjava2:rxjava:2.2.2'
   rxAndroid = 'io.reactivex.rxjava2:rxandroid:2.1.0'
   junit = 'junit:junit:4.12'

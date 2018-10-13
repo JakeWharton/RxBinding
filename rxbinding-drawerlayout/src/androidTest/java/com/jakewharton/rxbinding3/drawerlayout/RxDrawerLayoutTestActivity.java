@@ -1,11 +1,11 @@
-package com.jakewharton.rxbinding2.support.v4.widget;
+package com.jakewharton.rxbinding3.drawerlayout;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.LayoutParams;
 import android.widget.FrameLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.drawerlayout.widget.DrawerLayout.LayoutParams;
 
 import static android.view.Gravity.RIGHT;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;

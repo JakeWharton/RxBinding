@@ -32,6 +32,7 @@ env:
     - MODULE=rxbinding
     - MODULE=rxbinding-appcompat-v7
     - MODULE=rxbinding-design
+    - MODULE=rxbinding-drawerlayout
     - MODULE=rxbinding-leanback-v17
     - MODULE=rxbinding-recyclerview
     - MODULE=rxbinding-support-v4
