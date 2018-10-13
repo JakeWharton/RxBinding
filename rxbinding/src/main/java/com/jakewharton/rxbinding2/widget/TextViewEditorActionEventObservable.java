@@ -44,7 +44,7 @@ final class TextViewEditorActionEventObservable extends Observable<TextViewEdito
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-      TextViewEditorActionEvent event = TextViewEditorActionEvent.create(view, actionId, keyEvent);
+      TextViewEditorActionEvent event = new TextViewEditorActionEvent(view, actionId, keyEvent);
       try {
         if (!isDisposed() && handled.test(event)) {
           observer.onNext(event);

@@ -35,14 +35,14 @@ public final class RxAbsListViewTest {
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     AbsListViewScrollEvent event = o.takeNext();
-    assertEquals(100, event.totalItemCount());
-    assertEquals(0, event.firstVisibleItem());
-    assertEquals(0, event.scrollState());
+    assertEquals(100, event.getTotalItemCount());
+    assertEquals(0, event.getFirstVisibleItem());
+    assertEquals(0, event.getScrollState());
 
     instrumentation.runOnMainSync(() -> listView.smoothScrollToPosition(50));
     AbsListViewScrollEvent event1 = o.takeNext();
-    assertEquals(listView, event1.view());
-    assertEquals(100, event1.totalItemCount());
+    assertEquals(listView, event1.getView());
+    assertEquals(100, event1.getTotalItemCount());
 
     o.dispose();
 

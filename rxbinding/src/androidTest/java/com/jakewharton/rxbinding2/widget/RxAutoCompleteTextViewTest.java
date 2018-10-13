@@ -68,10 +68,10 @@ public final class RxAutoCompleteTextViewTest {
         .perform(click());
 
     AdapterViewItemClickEvent event = o.takeNext();
-    assertNotNull(event.view());
-    assertNotNull(event.clickedView());
-    assertEquals(1, event.position()); // Second item in two-item filtered list.
-    assertEquals(1, event.id()); // Second item in two-item filtered list.
+    assertNotNull(event.getView());
+    assertNotNull(event.getClickedView());
+    assertEquals(1, event.getPosition()); // Second item in two-item filtered list.
+    assertEquals(1, event.getId()); // Second item in two-item filtered list.
 
     o.dispose();
 

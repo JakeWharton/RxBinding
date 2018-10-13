@@ -25,7 +25,7 @@ final class SeekBarChangeEventObservable extends InitialValueObservable<SeekBarC
   }
 
   @Override protected SeekBarChangeEvent getInitialValue() {
-    return SeekBarProgressChangeEvent.create(view, view.getProgress(), false);
+    return new SeekBarProgressChangeEvent(view, view.getProgress(), false);
   }
 
   static final class Listener extends MainThreadDisposable implements OnSeekBarChangeListener {
@@ -39,19 +39,19 @@ final class SeekBarChangeEventObservable extends InitialValueObservable<SeekBarC
 
     @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
       if (!isDisposed()) {
-        observer.onNext(SeekBarProgressChangeEvent.create(seekBar, progress, fromUser));
+        observer.onNext(new SeekBarProgressChangeEvent(seekBar, progress, fromUser));
       }
     }
 
     @Override public void onStartTrackingTouch(SeekBar seekBar) {
       if (!isDisposed()) {
-        observer.onNext(SeekBarStartChangeEvent.create(seekBar));
+        observer.onNext(new SeekBarStartChangeEvent(seekBar));
       }
     }
 
     @Override public void onStopTrackingTouch(SeekBar seekBar) {
       if (!isDisposed()) {
-        observer.onNext(SeekBarStopChangeEvent.create(seekBar));
+        observer.onNext(new SeekBarStopChangeEvent(seekBar));
       }
     }
 

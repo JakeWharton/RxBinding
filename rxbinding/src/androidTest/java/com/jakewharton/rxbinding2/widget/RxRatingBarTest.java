@@ -57,15 +57,15 @@ import static org.junit.Assert.assertTrue;
     RxRatingBar.ratingChangeEvents(view) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    assertEquals(RatingBarChangeEvent.create(view, 0f, false), o.takeNext());
+    assertEquals(new RatingBarChangeEvent(view, 0f, false), o.takeNext());
 
     instrumentation.runOnMainSync(() -> view.setRating(5f));
-    assertEquals(RatingBarChangeEvent.create(view, 5f, false), o.takeNext());
+    assertEquals(new RatingBarChangeEvent(view, 5f, false), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_DOWN, 0, 50));
     instrumentation.sendPointerSync(motionEventAtPosition(view, ACTION_UP, 0, 50));
     instrumentation.waitForIdleSync();
-    assertEquals(RatingBarChangeEvent.create(view, 1f, true), o.takeNext());
+    assertEquals(new RatingBarChangeEvent(view, 1f, true), o.takeNext());
 
     o.dispose();
 

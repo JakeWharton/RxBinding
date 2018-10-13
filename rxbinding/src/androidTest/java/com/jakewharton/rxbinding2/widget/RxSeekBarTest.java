@@ -130,23 +130,23 @@ public final class RxSeekBarTest {
     RxSeekBar.changeEvents(seekBar) //
         .subscribeOn(AndroidSchedulers.mainThread()) //
         .subscribe(o);
-    assertEquals(SeekBarProgressChangeEvent.create(seekBar, 0, false), o.takeNext());
+    assertEquals(new SeekBarProgressChangeEvent(seekBar, 0, false), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_DOWN, 0, 50));
     instrumentation.waitForIdleSync();
-    assertEquals(SeekBarStartChangeEvent.create(seekBar), o.takeNext());
+    assertEquals(new SeekBarStartChangeEvent(seekBar), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_MOVE, 100, 50));
     instrumentation.waitForIdleSync();
-    assertEquals(SeekBarProgressChangeEvent.create(seekBar, 100, true), o.takeNext());
+    assertEquals(new SeekBarProgressChangeEvent(seekBar, 100, true), o.takeNext());
 
     instrumentation.sendPointerSync(motionEventAtPosition(seekBar, ACTION_UP, 100, 50));
     instrumentation.waitForIdleSync();
-    assertEquals(SeekBarStopChangeEvent.create(seekBar), o.takeNext());
+    assertEquals(new SeekBarStopChangeEvent(seekBar), o.takeNext());
 
     instrumentation.runOnMainSync(() -> seekBar.setProgress(0));
     instrumentation.waitForIdleSync();
-    assertEquals(SeekBarProgressChangeEvent.create(seekBar, 0, false), o.takeNext());
+    assertEquals(new SeekBarProgressChangeEvent(seekBar, 0, false), o.takeNext());
 
     o.dispose();
 

@@ -23,7 +23,7 @@ final class TextViewBeforeTextChangeEventObservable
   }
 
   @Override protected TextViewBeforeTextChangeEvent getInitialValue() {
-    return TextViewBeforeTextChangeEvent.create(view, view.getText(), 0, 0, 0);
+    return new TextViewBeforeTextChangeEvent(view, view.getText(), 0, 0, 0);
   }
 
   static final class Listener extends MainThreadDisposable implements TextWatcher {
@@ -38,7 +38,7 @@ final class TextViewBeforeTextChangeEventObservable
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
       if (!isDisposed()) {
-        observer.onNext(TextViewBeforeTextChangeEvent.create(view, s, start, count, after));
+        observer.onNext(new TextViewBeforeTextChangeEvent(view, s, start, count, after));
       }
     }
 

@@ -36,7 +36,7 @@ final class AdapterViewItemClickEventObservable extends Observable<AdapterViewIt
 
     @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       if (!isDisposed()) {
-        observer.onNext(AdapterViewItemClickEvent.create(parent, view, position, id));
+        observer.onNext(new AdapterViewItemClickEvent(parent, view, position, id));
       }
     }
 

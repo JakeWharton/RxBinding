@@ -60,9 +60,9 @@ public final class RxViewAttachTest {
     o.assertNoMoreEvents(); // No initial value.
 
     instrumentation.runOnMainSync(() -> parent.addView(child));
-    assertEquals(ViewAttachAttachedEvent.create(child), o.takeNext());
+    assertEquals(new ViewAttachAttachedEvent(child), o.takeNext());
     instrumentation.runOnMainSync(() -> parent.removeView(child));
-    assertEquals(ViewAttachDetachedEvent.create(child), o.takeNext());
+    assertEquals(new ViewAttachDetachedEvent(child), o.takeNext());
 
     o.dispose();
 

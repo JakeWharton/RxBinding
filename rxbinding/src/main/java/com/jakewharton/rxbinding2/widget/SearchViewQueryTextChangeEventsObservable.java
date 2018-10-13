@@ -26,7 +26,7 @@ final class SearchViewQueryTextChangeEventsObservable
   }
 
   @Override protected SearchViewQueryTextEvent getInitialValue() {
-    return SearchViewQueryTextEvent.create(view, view.getQuery(), false);
+    return new SearchViewQueryTextEvent(view, view.getQuery(), false);
   }
 
   static final class Listener extends MainThreadDisposable implements OnQueryTextListener {
@@ -40,7 +40,7 @@ final class SearchViewQueryTextChangeEventsObservable
 
     @Override public boolean onQueryTextChange(String s) {
       if (!isDisposed()) {
-        observer.onNext(SearchViewQueryTextEvent.create(view, s, false));
+        observer.onNext(new SearchViewQueryTextEvent(view, s, false));
         return true;
       }
       return false;
@@ -48,7 +48,7 @@ final class SearchViewQueryTextChangeEventsObservable
 
     @Override public boolean onQueryTextSubmit(String query) {
       if (!isDisposed()) {
-        observer.onNext(SearchViewQueryTextEvent.create(view, query, true));
+        observer.onNext(new SearchViewQueryTextEvent(view, query, true));
         return true;
       }
       return false;

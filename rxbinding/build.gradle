@@ -1,13 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
   api deps.androidXAnnotations
-
+  api deps.kotlinStdlib
   api deps.rxJava
   implementation deps.rxAndroid
-
-  compileOnly deps.autoValueAnnotations
-  annotationProcessor deps.autoValue
 
   androidTestImplementation project(':testing-utils')
   androidTestImplementation deps.supportTestRunner
