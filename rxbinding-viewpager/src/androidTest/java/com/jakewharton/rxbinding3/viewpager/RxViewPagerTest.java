@@ -1,4 +1,4 @@
-package com.jakewharton.rxbinding2.support.v4.view;
+package com.jakewharton.rxbinding3.viewpager;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
@@ -10,10 +10,9 @@ import android.support.test.espresso.action.Press;
 import android.support.test.espresso.action.Swipe;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,9 +48,9 @@ public final class RxViewPagerTest {
     instrumentation.runOnMainSync(() -> view.setCurrentItem(1, true));
     instrumentation.waitForIdleSync();
     ViewPagerPageScrollEvent event1 = o.takeNext();
-    assertEquals(0, event1.position());
-    assertTrue(event1.positionOffset() > 0f);
-    assertTrue(event1.positionOffsetPixels() > 0);
+    assertEquals(0, event1.getPosition());
+    assertTrue(event1.getPositionOffset() > 0f);
+    assertTrue(event1.getPositionOffsetPixels() > 0);
     o.clearEvents();
 
     o.dispose();
@@ -97,14 +96,6 @@ public final class RxViewPagerTest {
 
     view.setCurrentItem(0);
     o.assertNoMoreEvents();
-  }
-
-  @Test @UiThreadTest public void currentItem() throws Exception {
-    Consumer<? super Integer> action = RxViewPager.currentItem(view);
-    action.accept(3);
-    assertEquals(3, view.getCurrentItem());
-    action.accept(5);
-    assertEquals(5, view.getCurrentItem());
   }
 
   private static ViewAction swipeLeft() {

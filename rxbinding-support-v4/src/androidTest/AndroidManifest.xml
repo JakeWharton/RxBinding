@@ -3,7 +3,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jakewharton.rxbinding2.support.v4">
   <application>
-    <activity android:name=".view.RxViewPagerTestActivity"/>
     <activity android:name=".widget.RxDrawerLayoutTestActivity"/>
     <activity android:name=".widget.RxNestedScrollViewTestActivity"/>
     <activity android:name=".widget.RxSwipeRefreshLayoutTestActivity"/>

@@ -1,12 +1,12 @@
-package com.jakewharton.rxbinding2.support.v4.view;
+package com.jakewharton.rxbinding3.viewpager;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public final class RxViewPagerTestActivity extends Activity {
   ViewPager viewPager;
