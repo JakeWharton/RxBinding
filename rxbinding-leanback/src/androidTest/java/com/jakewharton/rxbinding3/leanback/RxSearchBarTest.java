@@ -1,11 +1,11 @@
-package com.jakewharton.rxbinding2.support.v17.leanback.widget;
+package com.jakewharton.rxbinding3.leanback;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v17.leanback.widget.SearchBar;
-import android.support.v17.leanback.widget.SearchEditText;
 import android.view.KeyEvent;
+import androidx.leanback.widget.SearchBar;
+import androidx.leanback.widget.SearchEditText;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,21 +44,13 @@ public final class RxSearchBarTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void searchQuery() throws Exception {
-    RxSearchBar.searchQuery(searchBar).accept("Hey");
-    assertEquals("Hey", searchEditText.getText().toString());
-
-    RxSearchBar.searchQuery(searchBar).accept("Bye");
-    assertEquals("Bye", searchEditText.getText().toString());
-  }
-
   @Test @UiThreadTest public void searchQueryChangeEvents() {
     RecordingObserver<SearchBarSearchQueryEvent> o = new RecordingObserver<>();
     RxSearchBar.searchQueryChangeEvents(searchBar).subscribe(o);
     o.assertNoMoreEvents();
 
     searchBar.setSearchQuery("q");
-    assertEquals(SearchBarSearchQueryChangedEvent.create(searchBar, "q"), o.takeNext());
+    assertEquals(new SearchBarSearchQueryChangedEvent(searchBar, "q"), o.takeNext());
     o.assertNoMoreEvents();
 
     o.dispose();
@@ -76,8 +68,8 @@ public final class RxSearchBarTest {
     searchBar.setSearchQuery("q");
     searchEditText.onKeyPreIme(KeyEvent.KEYCODE_BACK, keyEvent);
 
-    assertEquals(SearchBarSearchQueryChangedEvent.create(searchBar, "q"), o.takeNext());
-    assertEquals(SearchBarSearchQueryKeyboardDismissedEvent.create(searchBar, "q"), o.takeNext());
+    assertEquals(new SearchBarSearchQueryChangedEvent(searchBar, "q"), o.takeNext());
+    assertEquals(new SearchBarSearchQueryKeyboardDismissedEvent(searchBar, "q"), o.takeNext());
 
     o.dispose();
     searchEditText.onKeyPreIme(KeyEvent.KEYCODE_BACK, keyEvent);

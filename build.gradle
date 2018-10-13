@@ -14,10 +14,10 @@ buildscript {
     'supportAnnotations': 'com.android.support:support-annotations:28.0.0',
     'supportAppCompat': 'com.android.support:appcompat-v7:28.0.0',
     'supportDesign': 'com.android.support:design:28.0.0',
-    'supportLeanback': 'com.android.support:leanback-v17:28.0.0',
 
     'androidXCore': 'androidx.core:core:1.0.0',
     'androidXDrawerLayout': 'androidx.drawerlayout:drawerlayout:1.0.0',
+    'androidXLeanback': 'androidx.leanback:leanback:1.0.0',
     'androidXRecyclerView': 'androidx.recyclerview:recyclerview:1.0.0',
     'androidXSlidingPaneLayout': 'androidx.slidingpanelayout:slidingpanelayout:1.0.0',
     'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',

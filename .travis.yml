@@ -34,7 +34,7 @@ env:
     - MODULE=rxbinding-core
     - MODULE=rxbinding-design
     - MODULE=rxbinding-drawerlayout
-    - MODULE=rxbinding-leanback-v17
+    - MODULE=rxbinding-leanback
     - MODULE=rxbinding-recyclerview
     - MODULE=rxbinding-slidingpanelayout
     - MODULE=rxbinding-swiperefreshlayout
