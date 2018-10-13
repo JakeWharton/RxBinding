@@ -14,8 +14,10 @@ ext {
   supportDesign = "com.android.support:design:$supportVersion"
   supportLeanback = "com.android.support:leanback-v17:$supportVersion"
 
+  androidXCore = 'androidx.core:core:1.0.0'
   androidXDrawerLayout = 'androidx.drawerlayout:drawerlayout:1.0.0'
   androidXRecyclerView = 'androidx.recyclerview:recyclerview:1.0.0'
+  androidXSlidingPaneLayout = 'androidx.slidingpanelayout:slidingpanelayout:1.0.0'
   androidXSwipeRefreshLayout = 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
   androidXViewPager = 'androidx.viewpager:viewpager:1.0.0'
 
