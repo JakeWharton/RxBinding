@@ -1,33 +1,26 @@
-buildscript {
-  dependencies {
-    classpath rootProject.ext.androidPlugin
-  }
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'rxbinding-module'
 
 dependencies {
   api project(':rxbinding')
-  api rootProject.ext.supportDesign
-  implementation rootProject.ext.rxAndroid
-  implementation rootProject.ext.supportAnnotations
+  api deps.supportDesign
+  implementation deps.rxAndroid
+  implementation deps.supportAnnotations
 
-  compileOnly rootProject.ext.autoValueAnnotations
-  annotationProcessor rootProject.ext.autoValue
+  compileOnly deps.autoValueAnnotations
+  annotationProcessor deps.autoValue
 
   androidTestImplementation project(':testing-utils')
-  androidTestImplementation rootProject.ext.supportTestRunner
-  androidTestImplementation rootProject.ext.supportTestRules
-  androidTestImplementation rootProject.ext.supportTestEspresso
-  androidTestImplementation rootProject.ext.rxAndroid
+  androidTestImplementation deps.supportTestRunner
+  androidTestImplementation deps.supportTestRules
+  androidTestImplementation deps.supportTestEspresso
+  androidTestImplementation deps.rxAndroid
 }
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
+  compileSdkVersion buildConfig.compileSdkVersion
 
   defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
+    minSdkVersion buildConfig.minSdkVersion
 
     testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
   }

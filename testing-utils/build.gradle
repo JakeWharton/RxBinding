@@ -1,22 +1,16 @@
-buildscript {
-  dependencies {
-    classpath rootProject.ext.androidPlugin
-  }
-}
-
 apply plugin: 'com.android.library'
 
 dependencies {
-  api rootProject.ext.supportTestRunner
-  api rootProject.ext.rxAndroid
-  api rootProject.ext.supportTestEspresso
+  api deps.supportTestRunner
+  api deps.rxAndroid
+  api deps.supportTestEspresso
 }
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
+  compileSdkVersion buildConfig.compileSdkVersion
 
   defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
+    minSdkVersion buildConfig.minSdkVersion
   }
 
   compileOptions {

@@ -1,31 +1,24 @@
-buildscript {
-  dependencies {
-    classpath rootProject.ext.androidPlugin
-    classpath rootProject.ext.kotlinPlugin
-  }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
   api project(':rxbinding')
-  api rootProject.ext.androidXViewPager
-  api rootProject.ext.kotlinStdlib
-  implementation rootProject.ext.rxAndroid
+  api deps.androidXViewPager
+  api deps.kotlinStdlib
+  implementation deps.rxAndroid
 
   androidTestImplementation project(':testing-utils')
-  androidTestImplementation rootProject.ext.supportTestRunner
-  androidTestImplementation rootProject.ext.supportTestRules
-  androidTestImplementation rootProject.ext.supportTestEspresso
-  androidTestImplementation rootProject.ext.rxAndroid
+  androidTestImplementation deps.supportTestRunner
+  androidTestImplementation deps.supportTestRules
+  androidTestImplementation deps.supportTestEspresso
+  androidTestImplementation deps.rxAndroid
 }
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
+  compileSdkVersion buildConfig.compileSdkVersion
 
   defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
+    minSdkVersion buildConfig.minSdkVersion
 
     testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
   }
