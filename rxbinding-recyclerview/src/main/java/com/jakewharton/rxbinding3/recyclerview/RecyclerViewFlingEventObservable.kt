@@ -13,7 +13,7 @@ import io.reactivex.android.MainThreadDisposable
 import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
 
 /**
- * Create an observable of scroll events on `recyclerView`.
+ * Create an observable of fling events on `recyclerView`.
  *
  * *Warning:* The created observable keeps a strong reference to `recyclerView`.
  * Unsubscribe to free this reference.
