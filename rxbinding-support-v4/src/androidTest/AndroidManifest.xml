@@ -4,7 +4,6 @@
     package="com.jakewharton.rxbinding2.support.v4">
   <application>
     <activity android:name=".widget.RxNestedScrollViewTestActivity"/>
-    <activity android:name=".widget.RxSwipeRefreshLayoutTestActivity"/>
     <activity android:name=".widget.RxSlidingPaneLayoutTestActivity"/>
   </application>
 </manifest>
