@@ -4,7 +4,6 @@ dependencies {
   api project(':rxbinding')
   api deps.supportAppCompat
   implementation deps.rxAndroid
-  implementation deps.supportAnnotations
 
   compileOnly deps.autoValueAnnotations
   annotationProcessor deps.autoValue
@@ -39,6 +38,10 @@ android {
     debug {
       testCoverageEnabled true
     }
+  }
+
+  packagingOptions {
+    exclude 'META-INF/proguard/*' // TODO https://issuetracker.google.com/issues/109857884
   }
 
   // TODO replace with https://issuetracker.google.com/issues/72050365 once released.

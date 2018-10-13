@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.support.v7.widget;
 
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.jakewharton.rxbinding2.internal.GenericTypeNullable;

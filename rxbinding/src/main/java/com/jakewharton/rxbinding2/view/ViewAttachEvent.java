@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.view;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 /**

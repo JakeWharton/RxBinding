@@ -1,6 +1,6 @@
 package com.jakewharton.rxbinding2.widget;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import com.jakewharton.rxbinding2.InitialValueObservable;

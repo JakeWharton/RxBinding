@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.widget;
 
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import android.widget.TextSwitcher;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;

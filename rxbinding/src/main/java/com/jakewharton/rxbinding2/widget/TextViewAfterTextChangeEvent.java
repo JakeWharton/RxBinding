@@ -1,9 +1,9 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.widget.TextView;
 import com.google.auto.value.AutoValue;
