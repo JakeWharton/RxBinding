@@ -11,10 +11,10 @@ buildscript {
   ext.deps = [
     'kotlinStdlib': 'org.jetbrains.kotlin:kotlin-stdlib:1.2.71',
 
-    'supportAnnotations': 'com.android.support:support-annotations:28.0.0',
     'supportAppCompat': 'com.android.support:appcompat-v7:28.0.0',
     'supportDesign': 'com.android.support:design:28.0.0',
 
+    'androidXAnnotations': 'androidx.annotation:annotation:1.0.0',
     'androidXCore': 'androidx.core:core:1.0.0',
     'androidXDrawerLayout': 'androidx.drawerlayout:drawerlayout:1.0.0',
     'androidXLeanback': 'androidx.leanback:leanback:1.0.0',

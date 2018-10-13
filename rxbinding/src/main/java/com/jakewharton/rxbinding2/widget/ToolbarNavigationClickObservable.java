@@ -1,6 +1,6 @@
 package com.jakewharton.rxbinding2.widget;
 
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toolbar;

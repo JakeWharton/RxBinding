@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.view;
 
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;

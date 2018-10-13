@@ -1,6 +1,6 @@
 package com.jakewharton.rxbinding2.view;
 
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewTreeObserver.OnDrawListener;
 import com.jakewharton.rxbinding2.internal.Notification;

@@ -1,10 +1,10 @@
 package com.jakewharton.rxbinding2.internal;
 
-import android.support.annotation.RestrictTo;
+import androidx.annotation.RestrictTo;
 import io.reactivex.functions.Predicate;
 import java.util.concurrent.Callable;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 @RestrictTo(LIBRARY_GROUP)
 public final class Functions {

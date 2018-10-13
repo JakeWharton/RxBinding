@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding2.support.v4.view;
 
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import android.view.MenuItem;
 import com.jakewharton.rxbinding2.view.MenuItemActionViewEvent;
 import com.jakewharton.rxbinding2.view.RxMenuItem;
