@@ -63,11 +63,11 @@ public final class RxSearchViewTest {
     RecordingObserver<SearchViewQueryTextEvent> o = new RecordingObserver<>();
     RxSearchView.queryTextChangeEvents(searchView).subscribe(o);
 
-    assertEquals("", o.takeNext().queryText().toString());
+    assertEquals("", o.takeNext().getQueryText().toString());
 
     searchView.setQuery("q", false);
     SearchViewQueryTextEvent event = o.takeNext();
-    assertEquals("q", event.queryText().toString());
+    assertEquals("q", event.getQueryText().toString());
     assertFalse(event.isSubmitted());
     o.assertNoMoreEvents();
   }
@@ -76,16 +76,16 @@ public final class RxSearchViewTest {
     RecordingObserver<SearchViewQueryTextEvent> o = new RecordingObserver<>();
     RxSearchView.queryTextChangeEvents(searchView).subscribe(o);
 
-    assertEquals("", o.takeNext().queryText().toString());
+    assertEquals("", o.takeNext().getQueryText().toString());
 
     searchView.setQuery("q", true);
     // Text change event:
     SearchViewQueryTextEvent event = o.takeNext();
-    assertEquals("q", event.queryText().toString());
+    assertEquals("q", event.getQueryText().toString());
     assertFalse(event.isSubmitted());
     // Submission event:
     SearchViewQueryTextEvent event1 = o.takeNext();
-    assertEquals("q", event1.queryText().toString());
+    assertEquals("q", event1.getQueryText().toString());
     assertTrue(event1.isSubmitted());
   }
 }

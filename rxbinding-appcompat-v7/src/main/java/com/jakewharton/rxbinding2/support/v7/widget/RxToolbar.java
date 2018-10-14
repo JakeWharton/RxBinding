@@ -42,66 +42,6 @@ public final class RxToolbar {
     return new ToolbarNavigationClickObservable(view);
   }
 
-  /**
-   * An action which sets the title property of {@code view} with character sequences.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setTitle method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull @GenericTypeNullable
-  public static Consumer<? super CharSequence> title(@NonNull Toolbar view) {
-    checkNotNull(view, "view == null");
-    return view::setTitle;
-  }
-
-  /**
-   * An action which sets the title property of {@code view} string resource IDs.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setTitle method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull
-  public static Consumer<? super Integer> titleRes(@NonNull Toolbar view) {
-    checkNotNull(view, "view == null");
-    return view::setTitle;
-  }
-
-  /**
-   * An action which sets the subtitle property of {@code view} with character sequences.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setSubtitle method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull @GenericTypeNullable
-  public static Consumer<? super CharSequence> subtitle(@NonNull Toolbar view) {
-    checkNotNull(view, "view == null");
-    return view::setSubtitle;
-  }
-
-  /**
-   * An action which sets the subtitle property of {@code view} string resource IDs.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setSubtitle method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull
-  public static Consumer<? super Integer> subtitleRes(@NonNull Toolbar view) {
-    checkNotNull(view, "view == null");
-    return view::setSubtitle;
-  }
-
   private RxToolbar() {
     throw new AssertionError("No instances.");
   }

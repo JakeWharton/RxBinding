@@ -41,17 +41,6 @@ public final class RxCompoundButtonTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void checked() throws Exception {
-    view.setChecked(false);
-    Consumer<? super Boolean> toggle = RxCompoundButton.checked(view);
-
-    toggle.accept(true);
-    assertTrue(view.isChecked());
-
-    toggle.accept(false);
-    assertFalse(view.isChecked());
-  }
-
   @Test @UiThreadTest public void toggle() throws Exception {
     view.setChecked(false);
     Consumer<? super Object> toggle = RxCompoundButton.toggle(view);

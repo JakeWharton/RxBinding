@@ -38,36 +38,6 @@ public final class RxRatingBar {
     return new RatingBarRatingChangeEventObservable(view);
   }
 
-  /**
-   * An action which sets the rating of {@code view}.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setRating method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull
-  public static Consumer<? super Float> rating(@NonNull RatingBar view) {
-    checkNotNull(view, "view == null");
-    return view::setRating;
-  }
-
-  /**
-   * An action which sets whether {@code view} is an indicator (thus non-changeable by the user).
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setIsIndicator method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull
-  public static Consumer<? super Boolean> isIndicator(@NonNull RatingBar view) {
-    checkNotNull(view, "view == null");
-    return view::setIsIndicator;
-  }
-
   private RxRatingBar() {
     throw new AssertionError("No instances.");
   }

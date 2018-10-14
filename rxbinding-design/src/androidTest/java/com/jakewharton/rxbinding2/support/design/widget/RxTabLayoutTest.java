@@ -37,18 +37,18 @@ public final class RxTabLayoutTest {
   @Test @UiThreadTest public void selectionEvents() {
     RecordingObserver<TabLayoutSelectionEvent> o = new RecordingObserver<>();
     RxTabLayout.selectionEvents(view).subscribe(o);
-    assertEquals(TabLayoutSelectionSelectedEvent.create(view, tab1), o.takeNext());
+    assertEquals(new TabLayoutSelectionSelectedEvent(view, tab1), o.takeNext());
 
     tab2.select();
-    assertEquals(TabLayoutSelectionUnselectedEvent.create(view, tab1), o.takeNext());
-    assertEquals(TabLayoutSelectionSelectedEvent.create(view, tab2), o.takeNext());
+    assertEquals(new TabLayoutSelectionUnselectedEvent(view, tab1), o.takeNext());
+    assertEquals(new TabLayoutSelectionSelectedEvent(view, tab2), o.takeNext());
 
     tab2.select(); // Reselection
-    assertEquals(TabLayoutSelectionReselectedEvent.create(view, tab2), o.takeNext());
+    assertEquals(new TabLayoutSelectionReselectedEvent(view, tab2), o.takeNext());
 
     tab1.select();
-    assertEquals(TabLayoutSelectionUnselectedEvent.create(view, tab2), o.takeNext());
-    assertEquals(TabLayoutSelectionSelectedEvent.create(view, tab1), o.takeNext());
+    assertEquals(new TabLayoutSelectionUnselectedEvent(view, tab2), o.takeNext());
+    assertEquals(new TabLayoutSelectionSelectedEvent(view, tab1), o.takeNext());
 
     o.dispose();
 

@@ -33,11 +33,11 @@ public final class RxNestedScrollViewTest {
 
     view.scrollTo(1000, 0);
     ViewScrollChangeEvent event = o.takeNext();
-    assertSame(view, event.view());
-    assertEquals(1000, event.scrollX());
-    assertEquals(0, event.scrollY());
-    assertEquals(0, event.oldScrollX());
-    assertEquals(0, event.oldScrollY());
+    assertSame(view, event.getView());
+    assertEquals(1000, event.getScrollX());
+    assertEquals(0, event.getScrollY());
+    assertEquals(0, event.getOldScrollX());
+    assertEquals(0, event.getOldScrollY());
 
     o.dispose();
     view.scrollTo(2000, 0);

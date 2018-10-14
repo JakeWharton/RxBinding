@@ -7,9 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.widget.ListView;
 import android.widget.Spinner;
 import com.jakewharton.rxbinding2.RecordingObserver;
-import com.jakewharton.rxbinding2.UnsafeRunnable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -86,24 +84,6 @@ public final class RxAdapterViewTest {
       activity.adapter.notifyDataSetChanged();
     });
     o.assertNoMoreEvents();
-  }
-
-  @Test public void selection() {
-    final Consumer<? super Integer> action = RxAdapterView.selection(spinner);
-
-    instrumentation.runOnMainSync(new UnsafeRunnable() {
-      @Override public void unsafeRun() throws Exception {
-        action.accept(2);
-      }
-    });
-    instrumentation.runOnMainSync(() -> assertEquals(2, spinner.getSelectedItemPosition()));
-
-    instrumentation.runOnMainSync(new UnsafeRunnable() {
-      @Override public void unsafeRun() throws Exception {
-        action.accept(1);
-      }
-    });
-    instrumentation.runOnMainSync(() -> assertEquals(1, spinner.getSelectedItemPosition()));
   }
 
   @Test public void itemClicks() {

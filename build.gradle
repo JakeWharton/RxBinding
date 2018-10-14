@@ -23,9 +23,6 @@ buildscript {
     'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
     'androidXViewPager': 'androidx.viewpager:viewpager:1.0.0',
 
-    'autoValue': 'com.google.auto.value:auto-value:1.6.2',
-    'autoValueAnnotations': 'com.google.auto.value:auto-value-annotations:1.6.2',
-
     'supportTestRunner': 'com.android.support.test:runner:0.5',
     'supportTestRules': 'com.android.support.test:rules:0.5',
     'supportTestEspresso': 'com.android.support.test.espresso:espresso-core:2.2.1',
