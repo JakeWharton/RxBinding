@@ -1,23 +1,21 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.widget.RatingBar;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
 import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(AndroidJUnit4.class) public final class RxRatingBarTest {
+public final class RxRatingBarTest {
   @Rule public final ActivityTestRule<RxRatingBarTestActivity> activityRule =
       new ActivityTestRule<>(RxRatingBarTestActivity.class);
 

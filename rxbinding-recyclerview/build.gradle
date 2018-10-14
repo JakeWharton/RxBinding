@@ -8,9 +8,9 @@ dependencies {
   implementation deps.rxAndroid
 
   androidTestImplementation project(':testing-utils')
-  androidTestImplementation deps.supportTestRunner
-  androidTestImplementation deps.supportTestRules
-  androidTestImplementation deps.supportTestEspresso
+  androidTestImplementation deps.androidXTestRunner
+  androidTestImplementation deps.androidXTestRules
+  androidTestImplementation deps.androidXTestEspresso
   androidTestImplementation deps.rxAndroid
 }
 

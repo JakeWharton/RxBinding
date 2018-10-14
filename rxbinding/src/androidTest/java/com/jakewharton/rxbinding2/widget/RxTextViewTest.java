@@ -1,15 +1,11 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.rule.UiThreadTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.widget.TextView;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.annotation.UiThreadTest;
 import com.jakewharton.rxbinding2.RecordingObserver;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_GO;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
@@ -17,10 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-@RunWith(AndroidJUnit4.class)
 public final class RxTextViewTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
-
   private final Context context = InstrumentationRegistry.getContext();
   private final TextView view = new TextView(context);
 

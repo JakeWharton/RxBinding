@@ -1,26 +1,19 @@
 package com.jakewharton.rxbinding3.appcompat;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.rule.UiThreadTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
 import androidx.appcompat.widget.SearchView;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.annotation.UiThreadTest;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AndroidJUnit4.class)
 public final class RxSearchViewTest {
-  @Rule public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
-
   private final Context rawContext = InstrumentationRegistry.getContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
 

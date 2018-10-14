@@ -3,29 +3,23 @@ package com.jakewharton.rxbinding2.view;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.rule.UiThreadTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.ActionProvider;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.annotation.UiThreadTest;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.functions.Predicate;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(AndroidJUnit4.class) public final class RxMenuItemTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
-
+public final class RxMenuItemTest {
   private final Context context = InstrumentationRegistry.getContext();
   private final TestMenuItem menuItem = new TestMenuItem(context);
 

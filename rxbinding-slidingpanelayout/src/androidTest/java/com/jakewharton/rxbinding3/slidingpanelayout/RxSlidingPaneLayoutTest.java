@@ -1,14 +1,13 @@
 package com.jakewharton.rxbinding3.slidingpanelayout;
 
 import android.app.Instrumentation;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.contrib.CountingIdlingResource;
-import android.support.test.espresso.matcher.BoundedMatcher;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import androidx.slidingpanelayout.widget.SlidingPaneLayout;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.idling.CountingIdlingResource;
+import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.UnsafeRunnable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,15 +18,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AndroidJUnit4.class)
 public class RxSlidingPaneLayoutTest {
   @Rule public final ActivityTestRule<RxSlidingPaneLayoutTestActivity> activityRule =
       new ActivityTestRule<>(RxSlidingPaneLayoutTestActivity.class);
