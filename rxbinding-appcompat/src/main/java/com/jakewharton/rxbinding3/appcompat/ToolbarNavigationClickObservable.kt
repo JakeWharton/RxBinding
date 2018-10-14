@@ -6,7 +6,6 @@ package com.jakewharton.rxbinding3.appcompat
 import android.view.View
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.Toolbar
-import com.jakewharton.rxbinding2.internal.Notification
 import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -47,7 +46,7 @@ private class ToolbarNavigationClickObservable(
 
     override fun onClick(view: View) {
       if (!isDisposed) {
-        observer.onNext(Notification.INSTANCE)
+        observer.onNext(Unit)
       }
     }
 

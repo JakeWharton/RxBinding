@@ -1,13 +1,11 @@
 package com.jakewharton.rxbinding2.widget;
 
+import android.view.MenuItem;
+import android.widget.Toolbar;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import android.view.MenuItem;
-import android.widget.Toolbar;
-import com.jakewharton.rxbinding2.internal.GenericTypeNullable;
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkNotNull;
 
