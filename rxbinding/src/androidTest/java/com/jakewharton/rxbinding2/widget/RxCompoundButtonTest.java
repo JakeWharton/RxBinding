@@ -1,25 +1,18 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.rule.UiThreadTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.annotation.UiThreadTest;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.functions.Consumer;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AndroidJUnit4.class)
 public final class RxCompoundButtonTest {
-  @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
-
   private final Context context = InstrumentationRegistry.getContext();
   private final CompoundButton view = new ToggleButton(context);
 

@@ -21,17 +21,12 @@ buildscript {
     'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
     'androidXViewPager': 'androidx.viewpager:viewpager:1.0.0',
 
-    'googleMaterial': 'com.google.android.material:material:1.0.0',
-
-    'supportTestRunner': 'com.android.support.test:runner:0.5',
-    'supportTestRules': 'com.android.support.test:rules:0.5',
-    'supportTestEspresso': 'com.android.support.test.espresso:espresso-core:2.2.1',
-    'supportTestEspressoContrib': 'com.android.support.test.espresso:espresso-contrib:2.2.1',
-
     'androidXTestRunner': 'androidx.test:runner:1.1.0-beta02',
     'androidXTestRules': 'androidx.test:rules:1.1.0-beta02',
     'androidXTestEspresso': 'androidx.test.espresso:espresso-core:3.1.0-beta02',
     'androidXTestEspressoContrib': 'androidx.test.espresso:espresso-contrib:3.1.0-beta02',
+
+    'googleMaterial': 'com.google.android.material:material:1.0.0',
 
     'rxJava': 'io.reactivex.rxjava2:rxjava:2.2.2',
     'rxAndroid': 'io.reactivex.rxjava2:rxandroid:2.1.0',
@@ -53,16 +48,6 @@ subprojects {
 
   group = GROUP
   version = VERSION_NAME
-
-  configurations.all {
-    resolutionStrategy {
-      eachDependency { details ->
-        if (details.requested.group == 'com.android.support') {
-          details.useVersion('28.0.0')
-        }
-      }
-    }
-  }
 
   afterEvaluate {
     // The default 'assemble' task only applies to normal variants. Add test variants as well.

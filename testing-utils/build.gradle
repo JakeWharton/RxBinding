@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-  api deps.supportTestRunner
+  api deps.androidXTestRunner
+  api deps.androidXTestEspresso
   api deps.rxAndroid
-  api deps.supportTestEspresso
 }
 
 android {

@@ -1,20 +1,17 @@
 package com.jakewharton.rxbinding3.core;
 
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import androidx.core.widget.NestedScrollView;
+import androidx.test.annotation.UiThreadTest;
+import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import com.jakewharton.rxbinding2.view.ViewScrollChangeEvent;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-@RunWith(AndroidJUnit4.class)
 public final class RxNestedScrollViewTest {
   @Rule public final ActivityTestRule<RxNestedScrollViewTestActivity> activityRule =
       new ActivityTestRule<>(RxNestedScrollViewTestActivity.class);

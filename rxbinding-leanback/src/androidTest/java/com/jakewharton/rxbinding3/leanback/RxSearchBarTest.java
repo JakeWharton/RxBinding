@@ -1,20 +1,17 @@
 package com.jakewharton.rxbinding3.leanback;
 
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.KeyEvent;
 import androidx.leanback.widget.SearchBar;
 import androidx.leanback.widget.SearchEditText;
+import androidx.test.annotation.UiThreadTest;
+import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(AndroidJUnit4.class)
 public final class RxSearchBarTest {
   @Rule public final ActivityTestRule<RxSearchBarTestActivity> activityRule =
           new ActivityTestRule<>(RxSearchBarTestActivity.class);

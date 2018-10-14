@@ -8,12 +8,10 @@ dependencies {
   implementation deps.rxAndroid
 
   androidTestImplementation project(':testing-utils')
-  androidTestImplementation deps.supportTestRunner
-  androidTestImplementation deps.supportTestRules
-  androidTestImplementation deps.supportTestEspresso
-  androidTestImplementation(deps.androidXTestEspressoContrib) {
-    exclude group: 'com.google.android.material'
-  }
+  androidTestImplementation deps.androidXTestRunner
+  androidTestImplementation deps.androidXTestRules
+  androidTestImplementation deps.androidXTestEspresso
+  androidTestImplementation deps.androidXTestEspressoContrib
   androidTestImplementation deps.rxAndroid
 }
 

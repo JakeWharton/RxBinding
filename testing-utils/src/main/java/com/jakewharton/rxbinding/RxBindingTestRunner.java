@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.PowerManager;
-import android.support.test.runner.AndroidJUnitRunner;
+import androidx.test.runner.AndroidJUnitRunner;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 import static android.content.Context.POWER_SERVICE;

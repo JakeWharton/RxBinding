@@ -1,27 +1,24 @@
 package com.jakewharton.rxbinding3.material;
 
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.GeneralLocation;
-import android.support.test.espresso.action.GeneralSwipeAction;
-import android.support.test.espresso.action.Press;
-import android.support.test.espresso.action.Swipe;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.test.espresso.ViewAction;
+import androidx.test.espresso.action.GeneralLocation;
+import androidx.test.espresso.action.GeneralSwipeAction;
+import androidx.test.espresso.action.Press;
+import androidx.test.espresso.action.Swipe;
+import androidx.test.rule.ActivityTestRule;
 import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(AndroidJUnit4.class)
 public final class RxSwipeDismissBehaviorTest {
   @Rule public final ActivityTestRule<RxSwipeDismissBehaviorTestActivity> activityRule =
       new ActivityTestRule<>(RxSwipeDismissBehaviorTestActivity.class);
