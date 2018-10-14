@@ -32,9 +32,9 @@ env:
     - MODULE=rxbinding
     - MODULE=rxbinding-appcompat
     - MODULE=rxbinding-core
-    - MODULE=rxbinding-design
     - MODULE=rxbinding-drawerlayout
     - MODULE=rxbinding-leanback
+    - MODULE=rxbinding-material
     - MODULE=rxbinding-recyclerview
     - MODULE=rxbinding-slidingpanelayout
     - MODULE=rxbinding-swiperefreshlayout
