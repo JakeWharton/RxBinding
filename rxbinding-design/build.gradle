@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
   api project(':rxbinding')
   api deps.supportDesign
+  api deps.kotlinStdlib
   implementation deps.rxAndroid
-
-  compileOnly deps.autoValueAnnotations
-  annotationProcessor deps.autoValue
 
   androidTestImplementation project(':testing-utils')
   androidTestImplementation deps.supportTestRunner

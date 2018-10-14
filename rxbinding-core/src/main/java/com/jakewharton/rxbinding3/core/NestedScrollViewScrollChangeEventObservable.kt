@@ -47,8 +47,7 @@ private class NestedScrollViewScrollChangeEventObservable(
       oldScrollY: Int
     ) {
       if (!isDisposed) {
-        observer.onNext(
-            ViewScrollChangeEvent.create(view, scrollX, scrollY, oldScrollX, oldScrollY))
+        observer.onNext(ViewScrollChangeEvent(view, scrollX, scrollY, oldScrollX, oldScrollY))
       }
     }
 

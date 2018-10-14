@@ -6,7 +6,6 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TextView;
-import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import org.junit.Rule;
 import org.junit.Test;
@@ -177,40 +176,5 @@ public final class RxTextViewTest {
 
     view.setText("Silent");
     o.assertNoMoreEvents();
-  }
-
-  @Test @UiThreadTest public void text() throws Exception {
-    RxTextView.text(view).accept("Hey");
-    assertEquals("Hey", view.getText().toString());
-  }
-
-  @Test @UiThreadTest public void textRes() throws Exception {
-    RxTextView.textRes(view).accept(R.string.hey);
-    assertEquals("Hey", view.getText().toString());
-  }
-
-  @Test @UiThreadTest public void error() throws Exception {
-    RxTextView.error(view).accept("Ouch");
-    assertEquals("Ouch", view.getError().toString());
-  }
-
-  @Test @UiThreadTest public void errorRes() throws Exception {
-    RxTextView.errorRes(view).accept(R.string.ouch);
-    assertEquals("Ouch", view.getError().toString());
-  }
-
-  @Test @UiThreadTest public void hint() throws Exception {
-    RxTextView.hint(view).accept("Your name here");
-    assertEquals("Your name here", view.getHint().toString());
-  }
-
-  @Test @UiThreadTest public void hintRes() throws Exception {
-    RxTextView.hintRes(view).accept(R.string.hint);
-    assertEquals("Your name here", view.getHint().toString());
-  }
-
-  @Test @UiThreadTest public void color() throws Exception {
-    RxTextView.color(view).accept(0x3F51B5);
-    assertEquals(0x3F51B5, view.getCurrentTextColor());
   }
 }

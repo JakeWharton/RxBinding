@@ -2,8 +2,6 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
-import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ArrayAdapter;
@@ -81,16 +79,5 @@ public final class RxAutoCompleteTextViewTest {
         .perform(click());
 
     o.assertNoMoreEvents();
-  }
-
-  @SdkSuppress(minSdkVersion = 16)
-  @Test @UiThreadTest public void completionHint() throws Exception {
-    RxAutoCompleteTextView.completionHint(autoCompleteTextView).accept("Test hint");
-    assertEquals("Test hint", autoCompleteTextView.getCompletionHint());
-  }
-
-  @Test @UiThreadTest public void threshold() throws Exception {
-    RxAutoCompleteTextView.threshold(autoCompleteTextView).accept(10);
-    assertEquals(10, autoCompleteTextView.getThreshold());
   }
 }

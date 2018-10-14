@@ -6,7 +6,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
-import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
@@ -17,7 +16,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.jakewharton.rxbinding2.widget.RxToolbarTestActivity.NAVIGATION_CONTENT_DESCRIPTION;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
@@ -71,25 +69,5 @@ public final class RxToolbarTest {
 
     onView(withContentDescription(NAVIGATION_CONTENT_DESCRIPTION)).perform(click());
     o.assertNoMoreEvents();
-  }
-
-  @Test @UiThreadTest public void title() throws Exception {
-    RxToolbar.title(view).accept("Hey");
-    assertEquals("Hey", view.getTitle().toString());
-  }
-
-  @Test @UiThreadTest public void titleRes() throws Exception {
-    RxToolbar.titleRes(view).accept(R.string.hey);
-    assertEquals("Hey", view.getTitle().toString());
-  }
-
-  @Test @UiThreadTest public void subtitle() throws Exception {
-    RxToolbar.subtitle(view).accept("Hey");
-    assertEquals("Hey", view.getSubtitle().toString());
-  }
-
-  @Test @UiThreadTest public void subtitleRes() throws Exception {
-    RxToolbar.subtitleRes(view).accept(R.string.hey);
-    assertEquals("Hey", view.getSubtitle().toString());
   }
 }

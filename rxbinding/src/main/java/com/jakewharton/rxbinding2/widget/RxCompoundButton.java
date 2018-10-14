@@ -33,21 +33,6 @@ public final class RxCompoundButton {
   }
 
   /**
-   * An action which sets the checked property of {@code view}.
-   * <p>
-   * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe
-   * to free this reference.
-   *
-   * @deprecated Use view::setChecked method reference.
-   */
-  @Deprecated
-  @CheckResult @NonNull
-  public static Consumer<? super Boolean> checked(@NonNull CompoundButton view) {
-    checkNotNull(view, "view == null");
-    return view::setChecked;
-  }
-
-  /**
    * An action which sets the toggles property of {@code view} with each value.
    * <p>
    * <em>Warning:</em> The created observable keeps a strong reference to {@code view}. Unsubscribe

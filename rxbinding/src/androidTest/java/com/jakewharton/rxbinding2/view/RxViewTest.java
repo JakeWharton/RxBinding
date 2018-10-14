@@ -288,51 +288,6 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void activated() throws Exception {
-    view.setActivated(true);
-    Consumer<? super Boolean> action = RxView.activated(view);
-    action.accept(false);
-    assertFalse(view.isActivated());
-    action.accept(true);
-    assertTrue(view.isActivated());
-  }
-
-  @Test @UiThreadTest public void clickable() throws Exception {
-    view.setClickable(true);
-    Consumer<? super Boolean> action = RxView.clickable(view);
-    action.accept(false);
-    assertFalse(view.isClickable());
-    action.accept(true);
-    assertTrue(view.isClickable());
-  }
-
-  @Test @UiThreadTest public void enabled() throws Exception {
-    view.setEnabled(true);
-    Consumer<? super Boolean> action = RxView.enabled(view);
-    action.accept(false);
-    assertFalse(view.isEnabled());
-    action.accept(true);
-    assertTrue(view.isEnabled());
-  }
-
-  @Test @UiThreadTest public void pressed() throws Exception {
-    view.setPressed(true);
-    Consumer<? super Boolean> action = RxView.pressed(view);
-    action.accept(false);
-    assertFalse(view.isPressed());
-    action.accept(true);
-    assertTrue(view.isPressed());
-  }
-
-  @Test @UiThreadTest public void selected() throws Exception {
-    view.setSelected(true);
-    Consumer<? super Boolean> action = RxView.selected(view);
-    action.accept(false);
-    assertFalse(view.isSelected());
-    action.accept(true);
-    assertTrue(view.isSelected());
-  }
-
   @Test @UiThreadTest public void visibility() throws Exception {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view);

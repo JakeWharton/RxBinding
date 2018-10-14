@@ -2,7 +2,6 @@ package com.jakewharton.rxbinding2.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import com.jakewharton.rxbinding2.test.R;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.functions.Predicate;
 import org.junit.Rule;
@@ -24,8 +22,6 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class) public final class RxMenuItemTest {
   @Rule public final UiThreadTestRule uiThread = new UiThreadTestRule();
@@ -101,52 +97,6 @@ import static org.junit.Assert.assertTrue;
 
     menuItem.performClick();
     o.assertNoMoreEvents();
-  }
-
-  @Test public void checked() throws Exception {
-    menuItem.setCheckable(true);
-    RxMenuItem.checked(menuItem).accept(true);
-    assertTrue(menuItem.isChecked());
-    RxMenuItem.checked(menuItem).accept(false);
-    assertFalse(menuItem.isChecked());
-  }
-
-  @Test public void enabled() throws Exception {
-    RxMenuItem.enabled(menuItem).accept(true);
-    assertTrue(menuItem.isEnabled());
-    RxMenuItem.enabled(menuItem).accept(false);
-    assertFalse(menuItem.isEnabled());
-  }
-
-  @Test public void icon() throws Exception {
-    Drawable drawable = context.getResources().getDrawable(R.drawable.icon);
-    RxMenuItem.icon(menuItem).accept(drawable);
-    assertSame(drawable, menuItem.getIcon());
-  }
-
-  @Test public void iconRes() throws Exception {
-    ColorDrawable drawable = (ColorDrawable) context.getResources().getDrawable(R.drawable.icon);
-    RxMenuItem.iconRes(menuItem).accept(R.drawable.icon);
-    ColorDrawable icon = (ColorDrawable) menuItem.getIcon();
-    assertEquals(drawable.getColor(), icon.getColor());
-  }
-
-  @Test public void title() throws Exception {
-    RxMenuItem.title(menuItem).accept("Hey");
-    assertEquals("Hey", menuItem.getTitle());
-  }
-
-  @Test public void titleRes() throws Exception {
-    RxMenuItem.titleRes(menuItem).accept(R.string.hey);
-    CharSequence expected = context.getText(R.string.hey);
-    assertEquals(expected, menuItem.getTitle());
-  }
-
-  @Test public void visible() throws Exception {
-    RxMenuItem.visible(menuItem).accept(true);
-    assertTrue(menuItem.isVisible());
-    RxMenuItem.visible(menuItem).accept(false);
-    assertFalse(menuItem.isVisible());
   }
 
   // There is no accessible default implementation of MenuItem, so we have to create one

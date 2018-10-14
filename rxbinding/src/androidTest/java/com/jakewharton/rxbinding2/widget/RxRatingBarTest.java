@@ -2,13 +2,11 @@ package com.jakewharton.rxbinding2.widget;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.RatingBar;
 import com.jakewharton.rxbinding2.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,8 +16,6 @@ import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
 import static com.jakewharton.rxbinding.MotionEventUtil.motionEventAtPosition;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class) public final class RxRatingBarTest {
   @Rule public final ActivityTestRule<RxRatingBarTestActivity> activityRule =
@@ -71,23 +67,5 @@ import static org.junit.Assert.assertTrue;
 
     instrumentation.runOnMainSync(() -> view.setRating(1f));
     o.assertNoMoreEvents();
-  }
-
-  @Test @UiThreadTest public void rating() throws Exception {
-    Consumer<? super Float> action = RxRatingBar.rating(view);
-    assertEquals(0f, view.getRating(), 0f);
-    action.accept(1f);
-    assertEquals(1f, view.getRating(), 0f);
-    action.accept(2f);
-    assertEquals(2f, view.getRating(), 0f);
-  }
-
-  @Test @UiThreadTest public void isIndicator() throws Exception {
-    Consumer<? super Boolean> action = RxRatingBar.isIndicator(view);
-    assertFalse(view.isIndicator());
-    action.accept(true);
-    assertTrue(view.isIndicator());
-    action.accept(false);
-    assertFalse(view.isIndicator());
   }
 }

@@ -25,7 +25,7 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
 
     int index = view.getSelectedTabPosition();
     if (index != -1) {
-      observer.onNext(TabLayoutSelectionSelectedEvent.create(view, view.getTabAt(index)));
+      observer.onNext(new TabLayoutSelectionSelectedEvent(view, view.getTabAt(index)));
     }
   }
 
@@ -40,19 +40,19 @@ final class TabLayoutSelectionEventObservable extends Observable<TabLayoutSelect
 
     @Override public void onTabSelected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionSelectedEvent.create(view, tab));
+        observer.onNext(new TabLayoutSelectionSelectedEvent(view, tab));
       }
     }
 
     @Override public void onTabUnselected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionUnselectedEvent.create(view, tab));
+        observer.onNext(new TabLayoutSelectionUnselectedEvent(view, tab));
       }
     }
 
     @Override public void onTabReselected(Tab tab) {
       if (!isDisposed()) {
-        observer.onNext(TabLayoutSelectionReselectedEvent.create(view, tab));
+        observer.onNext(new TabLayoutSelectionReselectedEvent(view, tab));
       }
     }
 
