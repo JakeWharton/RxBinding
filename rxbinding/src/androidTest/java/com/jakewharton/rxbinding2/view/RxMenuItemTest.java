@@ -75,10 +75,10 @@ import static org.junit.Assert.assertTrue;
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.expandActionView();
-    assertEquals(MenuItemActionViewExpandEvent.create(menuItem), o.takeNext());
+    assertEquals(new MenuItemActionViewExpandEvent(menuItem), o.takeNext());
 
     menuItem.collapseActionView();
-    assertEquals(MenuItemActionViewCollapseEvent.create(menuItem), o.takeNext());
+    assertEquals(new MenuItemActionViewCollapseEvent(menuItem), o.takeNext());
 
     o.dispose();
 

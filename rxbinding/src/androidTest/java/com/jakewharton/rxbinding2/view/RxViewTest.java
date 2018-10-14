@@ -172,9 +172,9 @@ public final class RxViewTest {
 
     view.layout(view.getLeft() - 5, view.getTop() - 5, view.getRight(), view.getBottom());
     ViewLayoutChangeEvent event1 = o.takeNext();
-    assertSame(view, event1.view());
-    assertNotSame(event1.oldLeft(), event1.left());
-    assertSame(event1.oldRight(), event1.right());
+    assertSame(view, event1.getView());
+    assertNotSame(event1.getOldLeft(), event1.getLeft());
+    assertSame(event1.getOldRight(), event1.getRight());
 
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     o.assertNoMoreEvents();
@@ -231,19 +231,19 @@ public final class RxViewTest {
 
     view.scrollTo(1, 1);
     ViewScrollChangeEvent event0 = o.takeNext();
-    assertSame(view, event0.view());
-    assertEquals(1, event0.scrollX());
-    assertEquals(1, event0.scrollY());
-    assertEquals(0, event0.oldScrollX());
-    assertEquals(0, event0.oldScrollY());
+    assertSame(view, event0.getView());
+    assertEquals(1, event0.getScrollX());
+    assertEquals(1, event0.getScrollY());
+    assertEquals(0, event0.getOldScrollX());
+    assertEquals(0, event0.getOldScrollY());
 
     view.scrollTo(2, 2);
     ViewScrollChangeEvent event1 = o.takeNext();
-    assertSame(view, event1.view());
-    assertEquals(2, event1.scrollX());
-    assertEquals(2, event1.scrollY());
-    assertEquals(1, event1.oldScrollX());
-    assertEquals(1, event1.oldScrollY());
+    assertSame(view, event1.getView());
+    assertEquals(2, event1.getScrollX());
+    assertEquals(2, event1.getScrollY());
+    assertEquals(1, event1.getOldScrollX());
+    assertEquals(1, event1.getOldScrollY());
 
     o.dispose();
     view.scrollTo(3, 3);

@@ -35,13 +35,13 @@ final class ViewAttachEventObservable extends Observable<ViewAttachEvent> {
 
     @Override public void onViewAttachedToWindow(View v) {
       if (!isDisposed()) {
-        observer.onNext(ViewAttachAttachedEvent.create(view));
+        observer.onNext(new ViewAttachAttachedEvent(view));
       }
     }
 
     @Override public void onViewDetachedFromWindow(View v) {
       if (!isDisposed()) {
-        observer.onNext(ViewAttachDetachedEvent.create(view));
+        observer.onNext(new ViewAttachDetachedEvent(view));
       }
     }
 

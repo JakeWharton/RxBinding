@@ -38,7 +38,7 @@ final class ViewScrollChangeEventObservable extends Observable<ViewScrollChangeE
     @Override
     public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
       if (!isDisposed()) {
-        observer.onNext(ViewScrollChangeEvent.create(v, scrollX, scrollY, oldScrollX, oldScrollY));
+        observer.onNext(new ViewScrollChangeEvent(v, scrollX, scrollY, oldScrollX, oldScrollY));
       }
     }
 

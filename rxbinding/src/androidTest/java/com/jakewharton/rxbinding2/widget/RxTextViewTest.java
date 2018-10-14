@@ -49,15 +49,15 @@ public final class RxTextViewTest {
 
     view.onEditorAction(IME_ACTION_GO);
     TextViewEditorActionEvent event1 = o.takeNext();
-    assertSame(view, event1.view());
-    assertEquals(IME_ACTION_GO, event1.actionId());
-    assertNull(event1.keyEvent());
+    assertSame(view, event1.getView());
+    assertEquals(IME_ACTION_GO, event1.getActionId());
+    assertNull(event1.getKeyEvent());
 
     view.onEditorAction(IME_ACTION_NEXT);
     TextViewEditorActionEvent event2 = o.takeNext();
-    assertSame(view, event2.view());
-    assertEquals(IME_ACTION_NEXT, event2.actionId());
-    assertNull(event2.keyEvent()); // TODO figure out a user event?
+    assertSame(view, event2.getView());
+    assertEquals(IME_ACTION_NEXT, event2.getActionId());
+    assertNull(event2.getKeyEvent()); // TODO figure out a user event?
 
     o.dispose();
 
@@ -92,27 +92,27 @@ public final class RxTextViewTest {
     RecordingObserver<TextViewTextChangeEvent> o = new RecordingObserver<>();
     RxTextView.textChangeEvents(view).subscribe(o);
     TextViewTextChangeEvent event0 = o.takeNext();
-    assertSame(view, event0.view());
-    assertEquals("Initial", event0.text().toString());
-    assertEquals(0, event0.start());
-    assertEquals(0, event0.before());
-    assertEquals(0, event0.count());
+    assertSame(view, event0.getView());
+    assertEquals("Initial", event0.getText().toString());
+    assertEquals(0, event0.getStart());
+    assertEquals(0, event0.getBefore());
+    assertEquals(0, event0.getCount());
 
     view.setText("H");
     TextViewTextChangeEvent event1 = o.takeNext();
-    assertSame(view, event1.view());
-    assertEquals("H", event1.text().toString());
-    assertEquals(0, event1.start());
-    assertEquals(7, event1.before());
-    assertEquals(1, event1.count());
+    assertSame(view, event1.getView());
+    assertEquals("H", event1.getText().toString());
+    assertEquals(0, event1.getStart());
+    assertEquals(7, event1.getBefore());
+    assertEquals(1, event1.getCount());
 
     view.setText("He");
     TextViewTextChangeEvent event2 = o.takeNext();
-    assertSame(view, event2.view());
-    assertEquals("He", event2.text().toString());
-    assertEquals(0, event2.start());
-    assertEquals(1, event2.before());
-    assertEquals(2, event2.count());
+    assertSame(view, event2.getView());
+    assertEquals("He", event2.getText().toString());
+    assertEquals(0, event2.getStart());
+    assertEquals(1, event2.getBefore());
+    assertEquals(2, event2.getCount());
 
     o.dispose();
 
@@ -126,27 +126,27 @@ public final class RxTextViewTest {
     RecordingObserver<TextViewBeforeTextChangeEvent> o = new RecordingObserver<>();
     RxTextView.beforeTextChangeEvents(view).subscribe(o);
     TextViewBeforeTextChangeEvent event0 = o.takeNext();
-    assertSame(view, event0.view());
-    assertEquals("Initial", event0.text().toString());
-    assertEquals(0, event0.start());
-    assertEquals(0, event0.count());
-    assertEquals(0, event0.after());
+    assertSame(view, event0.getView());
+    assertEquals("Initial", event0.getText().toString());
+    assertEquals(0, event0.getStart());
+    assertEquals(0, event0.getCount());
+    assertEquals(0, event0.getAfter());
 
     view.setText("H");
     TextViewBeforeTextChangeEvent event1 = o.takeNext();
-    assertSame(view, event1.view());
-    assertEquals("Initial", event1.text().toString());
-    assertEquals(0, event1.start());
-    assertEquals(7, event1.count());
-    assertEquals(1, event1.after());
+    assertSame(view, event1.getView());
+    assertEquals("Initial", event1.getText().toString());
+    assertEquals(0, event1.getStart());
+    assertEquals(7, event1.getCount());
+    assertEquals(1, event1.getAfter());
 
     view.setText("He");
     TextViewBeforeTextChangeEvent event2 = o.takeNext();
-    assertSame(view, event2.view());
-    assertEquals("H", event2.text().toString());
-    assertEquals(0, event2.start());
-    assertEquals(1, event2.count());
-    assertEquals(2, event2.after());
+    assertSame(view, event2.getView());
+    assertEquals("H", event2.getText().toString());
+    assertEquals(0, event2.getStart());
+    assertEquals(1, event2.getCount());
+    assertEquals(2, event2.getAfter());
 
     o.dispose();
 
@@ -160,18 +160,18 @@ public final class RxTextViewTest {
     RecordingObserver<TextViewAfterTextChangeEvent> o = new RecordingObserver<>();
     RxTextView.afterTextChangeEvents(view).subscribe(o);
     TextViewAfterTextChangeEvent event0 = o.takeNext();
-    assertSame(view, event0.view());
-    assertEquals(null, event0.editable());
+    assertSame(view, event0.getView());
+    assertEquals(null, event0.getEditable());
 
     view.setText("H");
     TextViewAfterTextChangeEvent event1 = o.takeNext();
-    assertSame(view, event1.view());
-    assertEquals("H", event1.editable().toString());
+    assertSame(view, event1.getView());
+    assertEquals("H", event1.getEditable().toString());
 
     view.setText("He");
     TextViewAfterTextChangeEvent event2 = o.takeNext();
-    assertSame(view, event2.view());
-    assertEquals("He", event2.editable().toString());
+    assertSame(view, event2.getView());
+    assertEquals("He", event2.getEditable().toString());
 
     o.dispose();
 

@@ -28,10 +28,10 @@ public final class RxViewGroupTest {
     o.assertNoMoreEvents(); // No initial value.
 
     parent.addView(child);
-    assertEquals(ViewGroupHierarchyChildViewAddEvent.create(parent, child), o.takeNext());
+    assertEquals(new ViewGroupHierarchyChildViewAddEvent(parent, child), o.takeNext());
 
     parent.removeView(child);
-    assertEquals(ViewGroupHierarchyChildViewRemoveEvent.create(parent, child), o.takeNext());
+    assertEquals(new ViewGroupHierarchyChildViewRemoveEvent(parent, child), o.takeNext());
 
     o.dispose();
 

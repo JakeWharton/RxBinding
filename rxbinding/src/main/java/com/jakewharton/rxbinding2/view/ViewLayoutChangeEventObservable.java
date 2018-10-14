@@ -38,7 +38,7 @@ final class ViewLayoutChangeEventObservable extends Observable<ViewLayoutChangeE
         int oldTop, int oldRight, int oldBottom) {
       if (!isDisposed()) {
         observer.onNext(
-            ViewLayoutChangeEvent.create(v, left, top, right, bottom, oldLeft, oldTop, oldRight,
+            new ViewLayoutChangeEvent(v, left, top, right, bottom, oldLeft, oldTop, oldRight,
                 oldBottom));
       }
     }

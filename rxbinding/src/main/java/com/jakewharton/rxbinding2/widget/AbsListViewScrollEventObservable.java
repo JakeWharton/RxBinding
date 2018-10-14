@@ -37,7 +37,7 @@ final class AbsListViewScrollEventObservable extends Observable<AbsListViewScrol
       currentScrollState = scrollState;
       if (!isDisposed()) {
         AbsListViewScrollEvent event =
-              AbsListViewScrollEvent.create(view, scrollState, view.getFirstVisiblePosition(),
+              new AbsListViewScrollEvent(view, scrollState, view.getFirstVisiblePosition(),
                   view.getChildCount(), view.getCount());
         observer.onNext(event);
       }
@@ -48,7 +48,7 @@ final class AbsListViewScrollEventObservable extends Observable<AbsListViewScrol
         int totalItemCount) {
       if (!isDisposed()) {
         AbsListViewScrollEvent event =
-              AbsListViewScrollEvent.create(view, currentScrollState, firstVisibleItem,
+              new AbsListViewScrollEvent(view, currentScrollState, firstVisibleItem,
                   visibleItemCount, totalItemCount);
         observer.onNext(event);
       }

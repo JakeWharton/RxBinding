@@ -26,7 +26,7 @@ final class RatingBarRatingChangeEventObservable
   }
 
   @Override protected RatingBarChangeEvent getInitialValue() {
-    return RatingBarChangeEvent.create(view, view.getRating(), false);
+    return new RatingBarChangeEvent(view, view.getRating(), false);
   }
 
   static final class Listener extends MainThreadDisposable implements OnRatingBarChangeListener {
@@ -40,7 +40,7 @@ final class RatingBarRatingChangeEventObservable
 
     @Override public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
       if (!isDisposed()) {
-        observer.onNext(RatingBarChangeEvent.create(ratingBar, rating, fromUser));
+        observer.onNext(new RatingBarChangeEvent(ratingBar, rating, fromUser));
       }
     }
 

@@ -30,11 +30,11 @@ final class AdapterViewSelectionObservable
   @Override protected AdapterViewSelectionEvent getInitialValue() {
     int selectedPosition = view.getSelectedItemPosition();
     if (selectedPosition == INVALID_POSITION) {
-      return AdapterViewNothingSelectionEvent.create(view);
+      return new AdapterViewNothingSelectionEvent(view);
     } else {
       View selectedView = view.getSelectedView();
       long selectedId = view.getSelectedItemId();
-      return AdapterViewItemSelectionEvent.create(view, selectedView, selectedPosition, selectedId);
+      return new AdapterViewItemSelectionEvent(view, selectedView, selectedPosition, selectedId);
     }
   }
 
@@ -49,13 +49,13 @@ final class AdapterViewSelectionObservable
 
     @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
       if (!isDisposed()) {
-        observer.onNext(AdapterViewItemSelectionEvent.create(parent, view, position, id));
+        observer.onNext(new AdapterViewItemSelectionEvent(parent, view, position, id));
       }
     }
 
     @Override public void onNothingSelected(AdapterView<?> parent) {
       if (!isDisposed()) {
-        observer.onNext(AdapterViewNothingSelectionEvent.create(parent));
+        observer.onNext(new AdapterViewNothingSelectionEvent(parent));
       }
     }
 

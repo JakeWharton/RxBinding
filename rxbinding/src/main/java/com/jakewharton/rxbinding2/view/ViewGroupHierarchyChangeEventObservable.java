@@ -38,13 +38,13 @@ final class ViewGroupHierarchyChangeEventObservable
 
     @Override public void onChildViewAdded(View parent, View child) {
       if (!isDisposed()) {
-        observer.onNext(ViewGroupHierarchyChildViewAddEvent.create(viewGroup, child));
+        observer.onNext(new ViewGroupHierarchyChildViewAddEvent(viewGroup, child));
       }
     }
 
     @Override public void onChildViewRemoved(View parent, View child) {
       if (!isDisposed()) {
-        observer.onNext(ViewGroupHierarchyChildViewRemoveEvent.create(viewGroup, child));
+        observer.onNext(new ViewGroupHierarchyChildViewRemoveEvent(viewGroup, child));
       }
     }
 

@@ -41,11 +41,11 @@ final class MenuItemActionViewEventObservable extends Observable<MenuItemActionV
     }
 
     @Override public boolean onMenuItemActionExpand(MenuItem item) {
-      return onEvent(MenuItemActionViewExpandEvent.create(item));
+      return onEvent(new MenuItemActionViewExpandEvent(item));
     }
 
     @Override public boolean onMenuItemActionCollapse(MenuItem item) {
-      return onEvent(MenuItemActionViewCollapseEvent.create(item));
+      return onEvent(new MenuItemActionViewCollapseEvent(item));
     }
 
     private boolean onEvent(MenuItemActionViewEvent event) {

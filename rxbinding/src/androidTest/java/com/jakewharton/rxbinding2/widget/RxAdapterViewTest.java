@@ -61,23 +61,23 @@ public final class RxAdapterViewTest {
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(o);
     AdapterViewItemSelectionEvent event1 = (AdapterViewItemSelectionEvent) o.takeNext();
-    assertSame(spinner, event1.view());
-    assertNotNull(event1.selectedView());
-    assertEquals(0, event1.position());
-    assertEquals(0, event1.id());
+    assertSame(spinner, event1.getView());
+    assertNotNull(event1.getSelectedView());
+    assertEquals(0, event1.getPosition());
+    assertEquals(0, event1.getId());
 
     instrumentation.runOnMainSync(() -> spinner.setSelection(2));
     AdapterViewItemSelectionEvent event2 = (AdapterViewItemSelectionEvent) o.takeNext();
-    assertSame(spinner, event2.view());
-    assertNotNull(event2.selectedView());
-    assertEquals(2, event2.position());
-    assertEquals(2, event2.id());
+    assertSame(spinner, event2.getView());
+    assertNotNull(event2.getSelectedView());
+    assertEquals(2, event2.getPosition());
+    assertEquals(2, event2.getId());
 
     instrumentation.runOnMainSync(() -> {
       activity.values.clear();
       activity.adapter.notifyDataSetChanged();
     });
-    assertEquals(AdapterViewNothingSelectionEvent.create(spinner), o.takeNext());
+    assertEquals(new AdapterViewNothingSelectionEvent(spinner), o.takeNext());
 
     o.dispose();
 
@@ -134,10 +134,10 @@ public final class RxAdapterViewTest {
 
     instrumentation.runOnMainSync(() -> listView.performItemClick(listView.getChildAt(2), 2, 2));
     AdapterViewItemClickEvent event = o.takeNext();
-    assertEquals(listView, event.view());
-    assertNotNull(event.clickedView());
-    assertEquals(2, event.position());
-    assertEquals(2, event.id());
+    assertEquals(listView, event.getView());
+    assertNotNull(event.getClickedView());
+    assertEquals(2, event.getPosition());
+    assertEquals(2, event.getId());
 
     o.dispose();
 

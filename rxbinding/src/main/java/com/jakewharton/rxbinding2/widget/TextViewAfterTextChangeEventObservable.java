@@ -23,7 +23,7 @@ final class TextViewAfterTextChangeEventObservable
   }
 
   @Override protected TextViewAfterTextChangeEvent getInitialValue() {
-    return TextViewAfterTextChangeEvent.create(view, view.getEditableText());
+    return new TextViewAfterTextChangeEvent(view, view.getEditableText());
   }
 
   static final class Listener extends MainThreadDisposable implements TextWatcher {
@@ -45,7 +45,7 @@ final class TextViewAfterTextChangeEventObservable
 
     @Override
     public void afterTextChanged(Editable s) {
-      observer.onNext(TextViewAfterTextChangeEvent.create(view, s));
+      observer.onNext(new TextViewAfterTextChangeEvent(view, s));
     }
 
     @Override

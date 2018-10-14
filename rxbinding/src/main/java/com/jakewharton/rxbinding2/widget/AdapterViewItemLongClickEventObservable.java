@@ -47,7 +47,7 @@ final class AdapterViewItemLongClickEventObservable
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
       if (!isDisposed()) {
         AdapterViewItemLongClickEvent event =
-                AdapterViewItemLongClickEvent.create(parent, view, position, id);
+                new AdapterViewItemLongClickEvent(parent, view, position, id);
         try {
           if (handled.test(event)) {
             observer.onNext(event);
