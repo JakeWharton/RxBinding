@@ -30,7 +30,7 @@ after_success:
 env:
   matrix:
     - MODULE=rxbinding
-    - MODULE=rxbinding-appcompat-v7
+    - MODULE=rxbinding-appcompat
     - MODULE=rxbinding-core
     - MODULE=rxbinding-design
     - MODULE=rxbinding-drawerlayout
