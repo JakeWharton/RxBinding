@@ -11,7 +11,7 @@ import com.jakewharton.rxbinding2.InitialValueObservable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 import io.reactivex.functions.Consumer
 
 /**
@@ -41,9 +41,7 @@ private class DrawerLayoutDrawerOpenedObservable(
     view.addDrawerListener(listener)
   }
 
-  override fun getInitialValue(): Boolean {
-    return view.isDrawerOpen(gravity)
-  }
+  override val initialValue get() = view.isDrawerOpen(gravity)
 
   private class Listener(
     private val view: DrawerLayout,

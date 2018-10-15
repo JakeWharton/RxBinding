@@ -33,9 +33,7 @@ private class ViewPagerPageSelectedObservable(
     view.addOnPageChangeListener(listener)
   }
 
-  override fun getInitialValue(): Int {
-    return view.currentItem
-  }
+  override val initialValue get() = view.currentItem
 
   private class Listener(
     private val view: ViewPager,

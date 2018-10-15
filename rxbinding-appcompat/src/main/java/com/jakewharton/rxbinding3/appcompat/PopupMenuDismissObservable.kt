@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.appcompat
 
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.PopupMenu
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
