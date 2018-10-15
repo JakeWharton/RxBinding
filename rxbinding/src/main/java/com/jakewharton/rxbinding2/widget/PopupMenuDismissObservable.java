@@ -1,10 +1,10 @@
 package com.jakewharton.rxbinding2.widget;
 
 import android.widget.PopupMenu;
-import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
+import kotlin.Unit;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
@@ -35,7 +35,7 @@ final class PopupMenuDismissObservable extends Observable<Object> {
 
     @Override public void onDismiss(PopupMenu popupMenu) {
       if (!isDisposed()) {
-        observer.onNext(Notification.INSTANCE);
+        observer.onNext(Unit.INSTANCE);
       }
     }
 

@@ -2,11 +2,11 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import java.util.concurrent.Callable;
+import kotlin.Unit;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
@@ -43,7 +43,7 @@ final class ViewLongClickObservable extends Observable<Object> {
       if (!isDisposed()) {
         try {
           if (handled.call()) {
-            observer.onNext(Notification.INSTANCE);
+            observer.onNext(Unit.INSTANCE);
             return true;
           }
         } catch (Exception e) {

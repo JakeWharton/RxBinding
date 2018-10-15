@@ -6,8 +6,6 @@ package com.jakewharton.rxbinding3.swiperefreshlayout
 import androidx.annotation.CheckResult
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import com.jakewharton.rxbinding2.internal.Notification
-import com.jakewharton.rxbinding2.internal.Preconditions
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -45,7 +43,7 @@ private class SwipeRefreshLayoutRefreshObservable(
 
     override fun onRefresh() {
       if (!isDisposed) {
-        observer.onNext(Notification.INSTANCE)
+        observer.onNext(Unit)
       }
     }
 

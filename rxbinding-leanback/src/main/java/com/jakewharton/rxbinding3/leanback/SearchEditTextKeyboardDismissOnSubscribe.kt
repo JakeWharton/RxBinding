@@ -6,7 +6,6 @@ package com.jakewharton.rxbinding3.leanback
 import androidx.annotation.CheckResult
 import androidx.leanback.widget.SearchEditText
 import androidx.leanback.widget.SearchEditText.OnKeyboardDismissListener
-import com.jakewharton.rxbinding2.internal.Notification
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -45,7 +44,7 @@ private class SearchEditTextKeyboardDismissOnSubscribe(
 
     override fun onKeyboardDismiss() {
       if (!isDisposed) {
-        observer.onNext(Notification.INSTANCE)
+        observer.onNext(Unit)
       }
     }
 

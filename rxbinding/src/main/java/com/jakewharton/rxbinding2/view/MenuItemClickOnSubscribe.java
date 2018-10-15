@@ -2,11 +2,11 @@ package com.jakewharton.rxbinding2.view;
 
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
-import com.jakewharton.rxbinding2.internal.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 import io.reactivex.functions.Predicate;
+import kotlin.Unit;
 
 import static com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread;
 
@@ -44,7 +44,7 @@ final class MenuItemClickOnSubscribe extends Observable<Object> {
       if (!isDisposed()) {
         try {
           if (handled.test(menuItem)) {
-            observer.onNext(Notification.INSTANCE);
+            observer.onNext(Unit.INSTANCE);
             return true;
           }
         } catch (Exception e) {
