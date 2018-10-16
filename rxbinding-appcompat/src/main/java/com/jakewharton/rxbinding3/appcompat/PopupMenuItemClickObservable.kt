@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.PopupMenu.OnMenuItemClickListener
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

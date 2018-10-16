@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
@@ -35,7 +35,7 @@ private class RecyclerAdapterDataChangeObservable<T : Adapter<out ViewHolder>>(
     adapter.registerAdapterDataObserver(listener.dataObserver)
   }
 
-  override fun getInitialValue() = adapter
+  override val initialValue get() = adapter
 
   class Listener<T : Adapter<out ViewHolder>>(
     private val recyclerAdapter: T,

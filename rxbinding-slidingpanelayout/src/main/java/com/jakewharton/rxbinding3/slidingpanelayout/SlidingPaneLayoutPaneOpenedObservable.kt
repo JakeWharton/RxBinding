@@ -37,7 +37,7 @@ private class SlidingPaneLayoutPaneOpenedObservable(
     view.setPanelSlideListener(listener)
   }
 
-  override fun getInitialValue() = view.isOpen
+  override val initialValue get() = view.isOpen
 
   private class Listener(
     private val view: SlidingPaneLayout,

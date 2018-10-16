@@ -6,7 +6,7 @@ package com.jakewharton.rxbinding3.material
 import androidx.annotation.CheckResult
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.Callback
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

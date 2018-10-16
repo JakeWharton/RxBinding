@@ -6,7 +6,7 @@ package com.jakewharton.rxbinding3.appcompat
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.SearchView
 import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
@@ -36,9 +36,7 @@ private class SearchViewQueryTextChangesObservable(
     view.setOnQueryTextListener(listener)
   }
 
-  override fun getInitialValue(): CharSequence {
-    return view.query
-  }
+  override val initialValue get() = view.query
 
   private class Listener(
     private val searchView: SearchView,

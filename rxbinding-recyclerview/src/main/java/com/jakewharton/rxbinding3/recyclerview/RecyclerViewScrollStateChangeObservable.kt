@@ -9,7 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
-import com.jakewharton.rxbinding2.internal.Preconditions.checkMainThread
+import com.jakewharton.rxbinding2.internal.checkMainThread
 
 /**
  * Create an observable of scroll state changes on `recyclerView`.
