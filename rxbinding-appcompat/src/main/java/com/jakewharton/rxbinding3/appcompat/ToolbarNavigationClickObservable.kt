@@ -6,7 +6,7 @@ package com.jakewharton.rxbinding3.appcompat
 import android.view.View
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.Toolbar
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

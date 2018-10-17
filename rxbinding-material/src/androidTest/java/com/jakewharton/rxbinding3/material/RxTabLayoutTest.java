@@ -5,7 +5,7 @@ import android.view.ContextThemeWrapper;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import com.google.android.material.tabs.TabLayout;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import io.reactivex.functions.Consumer;
 import org.junit.Before;
 import org.junit.Test;

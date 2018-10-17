@@ -11,7 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.internal.checkMainThread
 
 /**
  * Create an observable which emits the clicked menu item in `view`.

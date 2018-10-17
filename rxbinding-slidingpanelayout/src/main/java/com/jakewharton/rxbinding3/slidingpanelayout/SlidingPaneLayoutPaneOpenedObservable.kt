@@ -7,7 +7,7 @@ import android.view.View
 import androidx.annotation.CheckResult
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import androidx.slidingpanelayout.widget.SlidingPaneLayout.PanelSlideListener
-import com.jakewharton.rxbinding2.InitialValueObservable
+import com.jakewharton.rxbinding3.InitialValueObservable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 

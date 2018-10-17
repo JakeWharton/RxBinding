@@ -7,12 +7,11 @@ import android.view.View
 import androidx.annotation.CheckResult
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
-import com.jakewharton.rxbinding2.InitialValueObservable
+import com.jakewharton.rxbinding3.InitialValueObservable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
-import com.jakewharton.rxbinding2.internal.checkMainThread
-import io.reactivex.functions.Consumer
+import com.jakewharton.rxbinding3.internal.checkMainThread
 
 /**
  * Create an observable of the open state of the drawer of `view`.

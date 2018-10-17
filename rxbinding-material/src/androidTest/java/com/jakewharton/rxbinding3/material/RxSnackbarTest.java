@@ -6,7 +6,7 @@ import android.view.ContextThemeWrapper;
 import android.widget.FrameLayout;
 import androidx.test.InstrumentationRegistry;
 import com.google.android.material.snackbar.Snackbar;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Test;
 

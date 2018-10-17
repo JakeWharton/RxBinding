@@ -8,7 +8,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.SdkSuppress;
 import com.google.android.material.appbar.AppBarLayout;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
 import org.junit.Test;
 

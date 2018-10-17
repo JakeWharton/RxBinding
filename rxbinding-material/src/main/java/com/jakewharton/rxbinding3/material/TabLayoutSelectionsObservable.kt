@@ -7,7 +7,7 @@ import androidx.annotation.CheckResult
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.Tab
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

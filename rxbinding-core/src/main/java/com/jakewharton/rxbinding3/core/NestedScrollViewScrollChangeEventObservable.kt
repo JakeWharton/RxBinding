@@ -6,12 +6,12 @@ package com.jakewharton.rxbinding3.core
 import androidx.annotation.CheckResult
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
-import com.jakewharton.rxbinding2.view.ViewScrollChangeEvent
+import com.jakewharton.rxbinding3.view.ViewScrollChangeEvent
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.internal.checkMainThread
 
 /**
  * Create an observable of scroll-change events for `view`.

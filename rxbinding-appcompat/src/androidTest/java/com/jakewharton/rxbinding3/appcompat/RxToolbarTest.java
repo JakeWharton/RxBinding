@@ -5,7 +5,7 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.rule.ActivityTestRule;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import org.junit.Before;
 import org.junit.Rule;

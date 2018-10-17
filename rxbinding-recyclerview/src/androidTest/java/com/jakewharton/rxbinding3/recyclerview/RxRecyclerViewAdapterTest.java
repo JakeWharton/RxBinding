@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import androidx.test.annotation.UiThreadTest;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Test;
 
 import static org.junit.Assert.assertSame;

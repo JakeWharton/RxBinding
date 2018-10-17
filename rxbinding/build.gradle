@@ -18,9 +18,7 @@ android {
   defaultConfig {
     minSdkVersion buildConfig.minSdkVersion
 
-    consumerProguardFiles 'src/main/proguard-consumer.pro'
-
-    testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
+    testInstrumentationRunner 'com.jakewharton.rxbinding3.RxBindingTestRunner'
   }
 
   compileOptions {
