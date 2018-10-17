@@ -19,15 +19,15 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * to free this reference.
  */
 @CheckResult
-fun SwipeRefreshLayout.refreshes(): Observable<Any> {
+fun SwipeRefreshLayout.refreshes(): Observable<Unit> {
   return SwipeRefreshLayoutRefreshObservable(this)
 }
 
 private class SwipeRefreshLayoutRefreshObservable(
   private val view: SwipeRefreshLayout
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -38,7 +38,7 @@ private class SwipeRefreshLayoutRefreshObservable(
 
   private class Listener(
     private val view: SwipeRefreshLayout,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnRefreshListener {
 
     override fun onRefresh() {

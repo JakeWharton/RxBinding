@@ -20,7 +20,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * to free this reference.
  */
 @CheckResult
-fun View.attaches(): Observable<Any> {
+fun View.attaches(): Observable<Unit> {
   return ViewAttachesObservable(this, true)
 }
 
@@ -32,16 +32,16 @@ fun View.attaches(): Observable<Any> {
  * to free this reference.
  */
 @CheckResult
-fun View.detaches(): Observable<Any> {
+fun View.detaches(): Observable<Unit> {
   return ViewAttachesObservable(this, false)
 }
 
 private class ViewAttachesObservable(
   private val view: View,
   private val callOnAttach: Boolean
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -53,7 +53,7 @@ private class ViewAttachesObservable(
   private class Listener(
     private val view: View,
     private val callOnAttach: Boolean,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnAttachStateChangeListener {
 
     override fun onViewAttachedToWindow(v: View) {

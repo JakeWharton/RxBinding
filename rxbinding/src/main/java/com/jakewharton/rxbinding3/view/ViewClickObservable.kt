@@ -23,15 +23,15 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * clicks. Only one observable can be used for a view at a time.
  */
 @CheckResult
-fun View.clicks(): Observable<Any> {
+fun View.clicks(): Observable<Unit> {
   return ViewClickObservable(this)
 }
 
 private class ViewClickObservable(
   private val view: View
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -42,7 +42,7 @@ private class ViewClickObservable(
 
   private class Listener(
     private val view: View,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnClickListener {
 
     override fun onClick(v: View) {

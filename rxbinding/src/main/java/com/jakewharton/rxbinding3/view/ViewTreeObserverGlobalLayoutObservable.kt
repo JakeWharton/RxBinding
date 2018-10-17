@@ -24,15 +24,15 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * can be used for a view at a time.
  */
 @CheckResult
-fun View.globalLayouts(): Observable<Any> {
+fun View.globalLayouts(): Observable<Unit> {
   return ViewTreeObserverGlobalLayoutObservable(this)
 }
 
 private class ViewTreeObserverGlobalLayoutObservable(
   private val view: View
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -44,7 +44,7 @@ private class ViewTreeObserverGlobalLayoutObservable(
 
   private class Listener(
     private val view: View,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnGlobalLayoutListener {
 
     override fun onGlobalLayout() {

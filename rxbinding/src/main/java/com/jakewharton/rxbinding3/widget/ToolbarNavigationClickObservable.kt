@@ -26,16 +26,16 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @RequiresApi(21)
-fun Toolbar.navigationClicks(): Observable<Any> {
+fun Toolbar.navigationClicks(): Observable<Unit> {
   return ToolbarNavigationClickObservable(this)
 }
 
 @RequiresApi(21)
 internal class ToolbarNavigationClickObservable(
   private val view: Toolbar
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -46,7 +46,7 @@ internal class ToolbarNavigationClickObservable(
 
   private class Listener(
     private val view: Toolbar,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnClickListener {
 
     override fun onClick(v: View) {

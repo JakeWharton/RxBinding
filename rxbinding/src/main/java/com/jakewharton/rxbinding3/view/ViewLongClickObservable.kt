@@ -29,16 +29,16 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun View.longClicks(handled: Callable<Boolean> = CALLABLE_ALWAYS_TRUE): Observable<Any> {
+fun View.longClicks(handled: Callable<Boolean> = CALLABLE_ALWAYS_TRUE): Observable<Unit> {
   return ViewLongClickObservable(this, handled)
 }
 
 private class ViewLongClickObservable(
   private val view: View,
   private val handled: Callable<Boolean>
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -50,7 +50,7 @@ private class ViewLongClickObservable(
   private class Listener(
     private val view: View,
     private val handled: Callable<Boolean>,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnLongClickListener {
 
     override fun onLongClick(v: View): Boolean {

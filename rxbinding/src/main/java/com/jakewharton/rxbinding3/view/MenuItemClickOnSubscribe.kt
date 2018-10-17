@@ -29,16 +29,16 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun MenuItem.clicks(handled: Predicate<in MenuItem> = PREDICATE_ALWAYS_TRUE): Observable<Any> {
+fun MenuItem.clicks(handled: Predicate<in MenuItem> = PREDICATE_ALWAYS_TRUE): Observable<Unit> {
   return MenuItemClickOnSubscribe(this, handled)
 }
 
 private class MenuItemClickOnSubscribe(
   private val menuItem: MenuItem,
   private val handled: Predicate<in MenuItem>
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -50,7 +50,7 @@ private class MenuItemClickOnSubscribe(
   private class Listener(
     private val menuItem: MenuItem,
     private val handled: Predicate<in MenuItem>,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {

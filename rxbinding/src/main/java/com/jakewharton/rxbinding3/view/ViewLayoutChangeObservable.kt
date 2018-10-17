@@ -20,15 +20,15 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * to free this reference.
  */
 @CheckResult
-fun View.layoutChanges(): Observable<Any> {
+fun View.layoutChanges(): Observable<Unit> {
   return ViewLayoutChangeObservable(this)
 }
 
 private class ViewLayoutChangeObservable(
   private val view: View
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -39,7 +39,7 @@ private class ViewLayoutChangeObservable(
 
   private class Listener(
     private val view: View,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnLayoutChangeListener {
 
     override fun onLayoutChange(

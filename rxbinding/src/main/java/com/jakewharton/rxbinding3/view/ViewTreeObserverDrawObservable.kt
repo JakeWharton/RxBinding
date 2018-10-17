@@ -25,16 +25,16 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @RequiresApi(16)
 @CheckResult
-fun View.draws(): Observable<Any> {
+fun View.draws(): Observable<Unit> {
   return ViewTreeObserverDrawObservable(this)
 }
 
 @RequiresApi(16)
 private class ViewTreeObserverDrawObservable(
   private val view: View
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -46,7 +46,7 @@ private class ViewTreeObserverDrawObservable(
 
   private class Listener(
     private val view: View,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnDrawListener {
 
     override fun onDraw() {

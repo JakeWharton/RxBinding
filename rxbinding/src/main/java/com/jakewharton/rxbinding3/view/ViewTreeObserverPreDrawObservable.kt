@@ -24,16 +24,16 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * observe pre-draws. Multiple observables can be used for a view at a time.
  */
 @CheckResult
-fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Any> {
+fun View.preDraws(proceedDrawingPass: Callable<Boolean>): Observable<Unit> {
   return ViewTreeObserverPreDrawObservable(this, proceedDrawingPass)
 }
 
 private class ViewTreeObserverPreDrawObservable(
   private val view: View,
   private val proceedDrawingPass: Callable<Boolean>
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -46,7 +46,7 @@ private class ViewTreeObserverPreDrawObservable(
   private class Listener(
     private val view: View,
     private val proceedDrawingPass: Callable<Boolean>,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnPreDrawListener {
 
     override fun onPreDraw(): Boolean {

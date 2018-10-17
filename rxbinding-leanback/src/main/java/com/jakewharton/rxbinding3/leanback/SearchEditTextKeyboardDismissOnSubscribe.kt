@@ -20,15 +20,15 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  * to free this reference.
  */
 @CheckResult
-fun SearchEditText.keyboardDismisses(): Observable<Any> {
+fun SearchEditText.keyboardDismisses(): Observable<Unit> {
   return SearchEditTextKeyboardDismissOnSubscribe(this)
 }
 
 private class SearchEditTextKeyboardDismissOnSubscribe(
   private val view: SearchEditText
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -39,7 +39,7 @@ private class SearchEditTextKeyboardDismissOnSubscribe(
 
   private class Listener(
     private val view: SearchEditText,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnKeyboardDismissListener {
 
     override fun onKeyboardDismiss() {
