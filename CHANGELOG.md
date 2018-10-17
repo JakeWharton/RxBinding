@@ -1,6 +1,22 @@
 Change Log
 ==========
 
+Version 3.0.0-alpha1 *(2018-10-17)*
+-----------------------------------
+
+ * New: Maven coordinates are now `com.jakewharton.rxbinding3:rxbinding` (et al). Package name is now
+   `com.jakewharton.rxbinding3.*`.
+ * New: AndroidX support! The library is now AndroidX-only. For use with the old support libraries use version 2.2.0.
+ * New: Library is now Kotlin-first and `-kotlin` artifacts are gone. Java callers get the same API as before. Kotlin
+   callers get the extension-based API. Event classes are now Kotlin `data` classes instead of using AutoValue. RxJava's
+   `Predicate` and Java's `Callable` are no longer used and are replaced by Kotlin functional types. For Java callers
+   these can still be used as `Function1` but the use of lambdas is encouraged.
+ * New: Observables which signal an event without any information use `Unit` instead of `Object`. (Note: This was
+   always true for Kotlin extension users)
+ * All deprecated methods have been removed.
+ * Some trivial consumer factories have been removed. You can subscribe lambdas to the stream to replicate their functionality.
+
+
 Version 2.2.0 *(2018-09-25)*
 ----------------------------
 
