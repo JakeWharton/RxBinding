@@ -10,7 +10,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -29,14 +28,14 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun MenuItem.actionViewEvents(
-  handled: Predicate<in MenuItemActionViewEvent> = AlwaysTrue
+  handled: (MenuItemActionViewEvent) -> Boolean = AlwaysTrue
 ): Observable<MenuItemActionViewEvent> {
   return MenuItemActionViewEventObservable(this, handled)
 }
 
 private class MenuItemActionViewEventObservable(
   private val menuItem: MenuItem,
-  private val handled: Predicate<in MenuItemActionViewEvent>
+  private val handled: (MenuItemActionViewEvent) -> Boolean
 ) : Observable<MenuItemActionViewEvent>() {
 
   override fun subscribeActual(observer: Observer<in MenuItemActionViewEvent>) {
@@ -50,7 +49,7 @@ private class MenuItemActionViewEventObservable(
 
   private class Listener(
     private val menuItem: MenuItem,
-    private val handled: Predicate<in MenuItemActionViewEvent>,
+    private val handled: (MenuItemActionViewEvent) -> Boolean,
     private val observer: Observer<in MenuItemActionViewEvent>
   ) : MainThreadDisposable(), OnActionExpandListener {
 
@@ -65,7 +64,7 @@ private class MenuItemActionViewEventObservable(
     private fun onEvent(event: MenuItemActionViewEvent): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.test(event)) {
+          if (handled(event)) {
             observer.onNext(event)
             return true
           }

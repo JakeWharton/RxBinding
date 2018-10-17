@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -29,13 +28,13 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun View.drags(handled: Predicate<in DragEvent> = AlwaysTrue): Observable<DragEvent> {
+fun View.drags(handled: (DragEvent) -> Boolean = AlwaysTrue): Observable<DragEvent> {
   return ViewDragObservable(this, handled)
 }
 
 private class ViewDragObservable(
   private val view: View,
-  private val handled: Predicate<in DragEvent>
+  private val handled: (DragEvent) -> Boolean
 ) : Observable<DragEvent>() {
 
   override fun subscribeActual(observer: Observer<in DragEvent>) {
@@ -49,14 +48,14 @@ private class ViewDragObservable(
 
   private class Listener(
     private val view: View,
-    private val handled: Predicate<in DragEvent>,
+    private val handled: (DragEvent) -> Boolean,
     private val observer: Observer<in DragEvent>
   ) : MainThreadDisposable(), OnDragListener {
 
     override fun onDrag(v: View, event: DragEvent): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.test(event)) {
+          if (handled(event)) {
             observer.onNext(event)
             return true
           }

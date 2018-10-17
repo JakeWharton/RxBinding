@@ -12,7 +12,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -28,7 +27,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun <T : Adapter> AdapterView<T>.itemLongClickEvents(
-  handled: Predicate<in AdapterViewItemLongClickEvent> = AlwaysTrue
+  handled: (AdapterViewItemLongClickEvent) -> Boolean = AlwaysTrue
 ): Observable<AdapterViewItemLongClickEvent> {
   return AdapterViewItemLongClickEventObservable(this, handled)
 }
@@ -43,7 +42,7 @@ data class AdapterViewItemLongClickEvent(
 
 private class AdapterViewItemLongClickEventObservable(
   private val view: AdapterView<*>,
-  private val handled: Predicate<in AdapterViewItemLongClickEvent>
+  private val handled: (AdapterViewItemLongClickEvent) -> Boolean
 ) : Observable<AdapterViewItemLongClickEvent>() {
 
   override fun subscribeActual(observer: Observer<in AdapterViewItemLongClickEvent>) {
@@ -58,7 +57,7 @@ private class AdapterViewItemLongClickEventObservable(
   private class Listener(
     private val view: AdapterView<*>,
     private val observer: Observer<in AdapterViewItemLongClickEvent>,
-    private val handled: Predicate<in AdapterViewItemLongClickEvent>
+    private val handled: (AdapterViewItemLongClickEvent) -> Boolean
   ) : MainThreadDisposable(), OnItemLongClickListener {
 
     override fun onItemLongClick(
@@ -70,7 +69,7 @@ private class AdapterViewItemLongClickEventObservable(
       if (!isDisposed) {
         val event = AdapterViewItemLongClickEvent(parent, view, position, id)
         try {
-          if (handled.test(event)) {
+          if (handled(event)) {
             observer.onNext(event)
             return true
           }

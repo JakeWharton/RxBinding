@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -30,7 +29,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun TextView.editorActionEvents(
-  handled: Predicate<in TextViewEditorActionEvent> = AlwaysTrue
+  handled: (TextViewEditorActionEvent) -> Boolean = AlwaysTrue
 ): Observable<TextViewEditorActionEvent> {
   return TextViewEditorActionEventObservable(this, handled)
 }
@@ -44,7 +43,7 @@ data class TextViewEditorActionEvent(
 
 private class TextViewEditorActionEventObservable(
   private val view: TextView,
-  private val handled: Predicate<in TextViewEditorActionEvent>
+  private val handled: (TextViewEditorActionEvent) -> Boolean
 ) : Observable<TextViewEditorActionEvent>() {
 
   override fun subscribeActual(observer: Observer<in TextViewEditorActionEvent>) {
@@ -59,13 +58,13 @@ private class TextViewEditorActionEventObservable(
   private class Listener(
     private val view: TextView,
     private val observer: Observer<in TextViewEditorActionEvent>,
-    private val handled: Predicate<in TextViewEditorActionEvent>
+    private val handled: (TextViewEditorActionEvent) -> Boolean
   ) : MainThreadDisposable(), OnEditorActionListener {
 
     override fun onEditorAction(textView: TextView, actionId: Int, keyEvent: KeyEvent?): Boolean {
       val event = TextViewEditorActionEvent(view, actionId, keyEvent)
       try {
-        if (!isDisposed && handled.test(event)) {
+        if (!isDisposed && handled(event)) {
           observer.onNext(event)
           return true
         }

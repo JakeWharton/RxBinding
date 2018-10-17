@@ -28,14 +28,14 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun <T : Adapter> AdapterView<T>.itemLongClicks(
-  handled: Callable<Boolean> = AlwaysTrue
+  handled: () -> Boolean = AlwaysTrue
 ): Observable<Int> {
   return AdapterViewItemLongClickObservable(this, handled)
 }
 
 private class AdapterViewItemLongClickObservable(
   private val view: AdapterView<*>,
-  private val handled: Callable<Boolean>
+  private val handled: () -> Boolean
 ) : Observable<Int>() {
 
   override fun subscribeActual(observer: Observer<in Int>) {
@@ -50,7 +50,7 @@ private class AdapterViewItemLongClickObservable(
   private class Listener(
     private val view: AdapterView<*>,
     private val observer: Observer<in Int>,
-    private val handled: Callable<Boolean>
+    private val handled: () -> Boolean
   ) : MainThreadDisposable(), OnItemLongClickListener {
 
     override fun onItemLongClick(
@@ -61,7 +61,7 @@ private class AdapterViewItemLongClickObservable(
     ): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.call()) {
+          if (handled()) {
             observer.onNext(position)
             return true
           }

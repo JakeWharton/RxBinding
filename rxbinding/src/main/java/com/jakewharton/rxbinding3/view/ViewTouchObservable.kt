@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -37,14 +36,14 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun View.touches(
-  handled: Predicate<in MotionEvent> = AlwaysTrue
+  handled: (MotionEvent) -> Boolean = AlwaysTrue
 ): Observable<MotionEvent> {
   return ViewTouchObservable(this, handled)
 }
 
 private class ViewTouchObservable(
   private val view: View,
-  private val handled: Predicate<in MotionEvent>
+  private val handled: (MotionEvent) -> Boolean
 ) : Observable<MotionEvent>() {
 
   override fun subscribeActual(observer: Observer<in MotionEvent>) {
@@ -58,14 +57,14 @@ private class ViewTouchObservable(
 
   private class Listener(
     private val view: View,
-    private val handled: Predicate<in MotionEvent>,
+    private val handled: (MotionEvent) -> Boolean,
     private val observer: Observer<in MotionEvent>
   ) : MainThreadDisposable(), OnTouchListener {
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.test(event)) {
+          if (handled(event)) {
             observer.onNext(event)
             return true
           }

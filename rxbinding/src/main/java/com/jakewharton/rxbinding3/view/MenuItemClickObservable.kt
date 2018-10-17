@@ -10,7 +10,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -29,13 +28,13 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun MenuItem.clicks(handled: Predicate<in MenuItem> = AlwaysTrue): Observable<Unit> {
+fun MenuItem.clicks(handled: (MenuItem) -> Boolean = AlwaysTrue): Observable<Unit> {
   return MenuItemClickObservable(this, handled)
 }
 
 private class MenuItemClickObservable(
   private val menuItem: MenuItem,
-  private val handled: Predicate<in MenuItem>
+  private val handled: (MenuItem) -> Boolean
 ) : Observable<Unit>() {
 
   override fun subscribeActual(observer: Observer<in Unit>) {
@@ -49,14 +48,14 @@ private class MenuItemClickObservable(
 
   private class Listener(
     private val menuItem: MenuItem,
-    private val handled: Predicate<in MenuItem>,
+    private val handled: (MenuItem) -> Boolean,
     private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.test(menuItem)) {
+          if (handled(menuItem)) {
             observer.onNext(Unit)
             return true
           }

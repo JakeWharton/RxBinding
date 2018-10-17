@@ -12,7 +12,7 @@ import android.view.View;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import com.jakewharton.rxbinding3.RecordingObserver;
-import io.reactivex.functions.Predicate;
+import kotlin.jvm.functions.Function1;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -41,10 +41,8 @@ public final class RxMenuItemTest {
   }
 
   @Test @UiThreadTest public void clicksAvoidHandling() {
-    Predicate<MenuItem> handled = menuItem -> false;
-
     RecordingObserver<Object> o = new RecordingObserver<>();
-    RxMenuItem.clicks(menuItem, handled).subscribe(o);
+    RxMenuItem.clicks(menuItem, item -> false).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     menuItem.performClick();
@@ -77,7 +75,7 @@ public final class RxMenuItemTest {
   }
 
   @Test @UiThreadTest public void actionViewEventsAvoidHandling() {
-    Predicate<MenuItemActionViewEvent> handled = menuItem -> false;
+    Function1<MenuItemActionViewEvent, Boolean> handled = menuItem -> false;
 
     RecordingObserver<MenuItemActionViewEvent> o = new RecordingObserver<>();
     RxMenuItem.actionViewEvents(menuItem, handled).subscribe(o);

@@ -1,9 +1,10 @@
 package com.jakewharton.rxbinding3.internal
 
-import io.reactivex.functions.Predicate
-import java.util.concurrent.Callable
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP
 
-object AlwaysTrue : Callable<Boolean>, Predicate<Any> {
-  override fun call() = true
-  override fun test(t: Any) = true
+@RestrictTo(LIBRARY_GROUP)
+object AlwaysTrue : () -> Boolean, (Any) -> Boolean {
+  override fun invoke() = true
+  override fun invoke(ignored: Any) = true
 }

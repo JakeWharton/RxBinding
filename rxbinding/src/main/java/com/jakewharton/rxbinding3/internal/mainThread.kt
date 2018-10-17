@@ -16,9 +16,12 @@
 package com.jakewharton.rxbinding3.internal
 
 import android.os.Looper
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposables
 
+@RestrictTo(LIBRARY_GROUP)
 fun checkMainThread(observer: Observer<*>): Boolean {
   if (Looper.myLooper() != Looper.getMainLooper()) {
     observer.onSubscribe(Disposables.empty())

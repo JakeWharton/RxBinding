@@ -8,12 +8,10 @@ import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.CheckResult
 import com.jakewharton.rxbinding3.internal.AlwaysTrue
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
-
-import com.jakewharton.rxbinding3.internal.checkMainThread
 
 /**
  * Create an observable of editor actions on `view`.
@@ -29,13 +27,13 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun TextView.editorActions(handled: Predicate<in Int> = AlwaysTrue): Observable<Int> {
+fun TextView.editorActions(handled: (Int) -> Boolean = AlwaysTrue): Observable<Int> {
   return TextViewEditorActionObservable(this, handled)
 }
 
 private class TextViewEditorActionObservable(
   private val view: TextView,
-  private val handled: Predicate<in Int>
+  private val handled: (Int) -> Boolean
 ) : Observable<Int>() {
 
   override fun subscribeActual(observer: Observer<in Int>) {
@@ -49,12 +47,12 @@ private class TextViewEditorActionObservable(
 
   private class Listener(
     private val view: TextView, private val observer: Observer<in Int>,
-    private val handled: Predicate<in Int>
+    private val handled: (Int) -> Boolean
   ) : MainThreadDisposable(), OnEditorActionListener {
 
     override fun onEditorAction(textView: TextView, actionId: Int, keyEvent: KeyEvent?): Boolean {
       try {
-        if (!isDisposed && handled.test(actionId)) {
+        if (!isDisposed && handled(actionId)) {
           observer.onNext(actionId)
           return true
         }

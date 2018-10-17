@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 
@@ -28,13 +27,13 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun View.keys(handled: Predicate<in KeyEvent> = AlwaysTrue): Observable<KeyEvent> {
+fun View.keys(handled: (KeyEvent) -> Boolean = AlwaysTrue): Observable<KeyEvent> {
   return ViewKeyObservable(this, handled)
 }
 
 private class ViewKeyObservable(
   private val view: View,
-  private val handled: Predicate<in KeyEvent>
+  private val handled: (KeyEvent) -> Boolean
 ) : Observable<KeyEvent>() {
 
   override fun subscribeActual(observer: Observer<in KeyEvent>) {
@@ -48,14 +47,14 @@ private class ViewKeyObservable(
 
   private class Listener(
     private val view: View,
-    private val handled: Predicate<in KeyEvent>,
+    private val handled: (KeyEvent) -> Boolean,
     private val observer: Observer<in KeyEvent>
   ) : MainThreadDisposable(), OnKeyListener {
 
     override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.test(event)) {
+          if (handled(event)) {
             observer.onNext(event)
             return true
           }

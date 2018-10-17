@@ -8,12 +8,10 @@ import android.view.View
 import android.view.View.OnHoverListener
 import androidx.annotation.CheckResult
 import com.jakewharton.rxbinding3.internal.AlwaysTrue
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.functions.Predicate
-
-import com.jakewharton.rxbinding3.internal.checkMainThread
 
 /**
  * Create an observable of hover events for `view`.
@@ -36,14 +34,14 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun View.hovers(
-  handled: Predicate<in MotionEvent> = AlwaysTrue
+  handled: (MotionEvent) -> Boolean = AlwaysTrue
 ): Observable<MotionEvent> {
   return ViewHoverObservable(this, handled)
 }
 
 private class ViewHoverObservable(
   private val view: View,
-  private val handled: Predicate<in MotionEvent>
+  private val handled: (MotionEvent) -> Boolean
 ) : Observable<MotionEvent>() {
 
   override fun subscribeActual(observer: Observer<in MotionEvent>) {
@@ -56,14 +54,14 @@ private class ViewHoverObservable(
   }
 
   private class Listener(
-    private val view: View, private val handled: Predicate<in MotionEvent>,
+    private val view: View, private val handled: (MotionEvent) -> Boolean,
     private val observer: Observer<in MotionEvent>
   ) : MainThreadDisposable(), OnHoverListener {
 
     override fun onHover(v: View, event: MotionEvent): Boolean {
       if (!isDisposed) {
         try {
-          if (handled.test(event)) {
+          if (handled(event)) {
             observer.onNext(event)
             return true
           }
