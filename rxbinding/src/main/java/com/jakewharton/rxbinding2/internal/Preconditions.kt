@@ -19,10 +19,6 @@ import android.os.Looper
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposables
 
-inline fun checkNotNull(value: Any?, message: String) {
-  checkNotNull(value) { message }
-}
-
 fun checkMainThread(observer: Observer<*>): Boolean {
   if (Looper.myLooper() != Looper.getMainLooper()) {
     observer.onSubscribe(Disposables.empty())
