@@ -7,8 +7,8 @@ import androidx.annotation.CheckResult
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.InitialValueObservable
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 

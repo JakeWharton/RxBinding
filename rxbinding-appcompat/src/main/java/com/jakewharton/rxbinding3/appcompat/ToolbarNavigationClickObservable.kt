@@ -6,7 +6,7 @@ package com.jakewharton.rxbinding3.appcompat
 import android.view.View
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.Toolbar
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -22,15 +22,15 @@ import io.reactivex.android.MainThreadDisposable
  * to observe clicks. Only one observable can be used for a view at a time.
  */
 @CheckResult
-fun Toolbar.navigationClicks(): Observable<Any> {
+fun Toolbar.navigationClicks(): Observable<Unit> {
   return ToolbarNavigationClickObservable(this)
 }
 
 private class ToolbarNavigationClickObservable(
   private val view: Toolbar
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -41,7 +41,7 @@ private class ToolbarNavigationClickObservable(
 
   private class Listener(
     private val toolbar: Toolbar,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), View.OnClickListener {
 
     override fun onClick(view: View) {

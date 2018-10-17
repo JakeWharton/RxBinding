@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.appcompat
 
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.PopupMenu
-import com.jakewharton.rxbinding2.internal.checkMainThread
+import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -21,15 +21,15 @@ import io.reactivex.android.MainThreadDisposable
  * observe dismiss change. Only one observable can be used for a view at a time.
  */
 @CheckResult
-fun PopupMenu.dismisses(): Observable<Any> {
+fun PopupMenu.dismisses(): Observable<Unit> {
   return PopupMenuDismissObservable(this)
 }
 
 private class PopupMenuDismissObservable(
   private val view: PopupMenu
-) : Observable<Any>() {
+) : Observable<Unit>() {
 
-  override fun subscribeActual(observer: Observer<in Any>) {
+  override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
@@ -40,7 +40,7 @@ private class PopupMenuDismissObservable(
 
   private class Listener(
     private val popupMenu: PopupMenu,
-    private val observer: Observer<in Any>
+    private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), PopupMenu.OnDismissListener {
 
     override fun onDismiss(menu: PopupMenu) {

@@ -20,7 +20,7 @@ android {
   defaultConfig {
     minSdkVersion 17
 
-    testInstrumentationRunner 'com.jakewharton.rxbinding.RxBindingTestRunner'
+    testInstrumentationRunner 'com.jakewharton.rxbinding3.RxBindingTestRunner'
   }
 
   compileOptions {

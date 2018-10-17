@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import com.jakewharton.rxbinding3.material.test.R;
 import org.junit.After;
 import org.junit.Before;

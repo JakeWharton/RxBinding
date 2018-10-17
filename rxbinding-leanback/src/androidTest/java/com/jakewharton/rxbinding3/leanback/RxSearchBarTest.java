@@ -5,7 +5,7 @@ import androidx.leanback.widget.SearchBar;
 import androidx.leanback.widget.SearchEditText;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.rule.ActivityTestRule;
-import com.jakewharton.rxbinding2.RecordingObserver;
+import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
