@@ -7,7 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnKeyListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.PREDICATE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -28,7 +28,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun View.keys(handled: Predicate<in KeyEvent> = PREDICATE_ALWAYS_TRUE): Observable<KeyEvent> {
+fun View.keys(handled: Predicate<in KeyEvent> = AlwaysTrue): Observable<KeyEvent> {
   return ViewKeyObservable(this, handled)
 }
 

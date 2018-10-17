@@ -7,7 +7,7 @@ import android.view.DragEvent
 import android.view.View
 import android.view.View.OnDragListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.PREDICATE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -29,7 +29,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun View.drags(handled: Predicate<in DragEvent> = PREDICATE_ALWAYS_TRUE): Observable<DragEvent> {
+fun View.drags(handled: Predicate<in DragEvent> = AlwaysTrue): Observable<DragEvent> {
   return ViewDragObservable(this, handled)
 }
 

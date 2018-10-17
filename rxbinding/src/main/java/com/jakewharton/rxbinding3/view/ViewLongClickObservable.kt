@@ -6,7 +6,7 @@ package com.jakewharton.rxbinding3.view
 import android.view.View
 import android.view.View.OnLongClickListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.CALLABLE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -29,7 +29,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun View.longClicks(handled: Callable<Boolean> = CALLABLE_ALWAYS_TRUE): Observable<Unit> {
+fun View.longClicks(handled: Callable<Boolean> = AlwaysTrue): Observable<Unit> {
   return ViewLongClickObservable(this, handled)
 }
 

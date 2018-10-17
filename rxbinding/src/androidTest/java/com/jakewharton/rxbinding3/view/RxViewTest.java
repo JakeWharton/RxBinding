@@ -9,7 +9,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.SdkSuppress;
 import com.jakewharton.rxbinding3.RecordingObserver;
-import com.jakewharton.rxbinding3.internal.Functions;
+import com.jakewharton.rxbinding3.internal.AlwaysTrue;
 import io.reactivex.functions.Consumer;
 import org.junit.Test;
 
@@ -204,7 +204,7 @@ public final class RxViewTest {
 
   @Test @UiThreadTest public void preDrawEvents() {
     RecordingObserver<Object> o = new RecordingObserver<>();
-    RxView.preDraws(view, Functions.CALLABLE_ALWAYS_TRUE).subscribe(o);
+    RxView.preDraws(view, AlwaysTrue.INSTANCE).subscribe(o);
     o.assertNoMoreEvents(); // No initial value.
 
     view.getViewTreeObserver().dispatchOnPreDraw();

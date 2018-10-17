@@ -8,7 +8,7 @@ import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemLongClickListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.CALLABLE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -28,7 +28,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun <T : Adapter> AdapterView<T>.itemLongClicks(
-  handled: Callable<Boolean> = CALLABLE_ALWAYS_TRUE
+  handled: Callable<Boolean> = AlwaysTrue
 ): Observable<Int> {
   return AdapterViewItemLongClickObservable(this, handled)
 }

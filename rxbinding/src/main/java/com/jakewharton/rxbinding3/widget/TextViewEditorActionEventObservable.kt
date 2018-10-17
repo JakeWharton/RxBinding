@@ -7,7 +7,7 @@ import android.view.KeyEvent
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.PREDICATE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -30,7 +30,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun TextView.editorActionEvents(
-  handled: Predicate<in TextViewEditorActionEvent> = PREDICATE_ALWAYS_TRUE
+  handled: Predicate<in TextViewEditorActionEvent> = AlwaysTrue
 ): Observable<TextViewEditorActionEvent> {
   return TextViewEditorActionEventObservable(this, handled)
 }

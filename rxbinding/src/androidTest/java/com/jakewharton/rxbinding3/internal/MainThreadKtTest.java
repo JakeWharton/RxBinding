@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public final class PreconditionsTest {
+public final class MainThreadKtTest {
   @UiThreadTest
   @Test public void checkMainOnMainDoesNotNotify() {
     RecordingObserver<Object> o = new RecordingObserver<>();

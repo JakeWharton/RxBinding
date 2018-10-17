@@ -6,7 +6,7 @@ package com.jakewharton.rxbinding3.view
 import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.PREDICATE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -29,7 +29,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun MenuItem.clicks(handled: Predicate<in MenuItem> = PREDICATE_ALWAYS_TRUE): Observable<Unit> {
+fun MenuItem.clicks(handled: Predicate<in MenuItem> = AlwaysTrue): Observable<Unit> {
   return MenuItemClickOnSubscribe(this, handled)
 }
 

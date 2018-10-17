@@ -7,7 +7,7 @@ import android.view.KeyEvent
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.PREDICATE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -29,7 +29,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 @JvmOverloads
-fun TextView.editorActions(handled: Predicate<in Int> = PREDICATE_ALWAYS_TRUE): Observable<Int> {
+fun TextView.editorActions(handled: Predicate<in Int> = AlwaysTrue): Observable<Int> {
   return TextViewEditorActionObservable(this, handled)
 }
 

@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import androidx.annotation.CheckResult
-import com.jakewharton.rxbinding3.internal.PREDICATE_ALWAYS_TRUE
+import com.jakewharton.rxbinding3.internal.AlwaysTrue
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -37,7 +37,7 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun View.touches(
-  handled: Predicate<in MotionEvent> = PREDICATE_ALWAYS_TRUE
+  handled: Predicate<in MotionEvent> = AlwaysTrue
 ): Observable<MotionEvent> {
   return ViewTouchObservable(this, handled)
 }
