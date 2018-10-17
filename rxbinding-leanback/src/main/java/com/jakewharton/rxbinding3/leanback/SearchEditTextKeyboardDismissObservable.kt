@@ -21,10 +21,10 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 fun SearchEditText.keyboardDismisses(): Observable<Unit> {
-  return SearchEditTextKeyboardDismissOnSubscribe(this)
+  return SearchEditTextKeyboardDismissObservable(this)
 }
 
-private class SearchEditTextKeyboardDismissOnSubscribe(
+private class SearchEditTextKeyboardDismissObservable(
   private val view: SearchEditText
 ) : Observable<Unit>() {
 

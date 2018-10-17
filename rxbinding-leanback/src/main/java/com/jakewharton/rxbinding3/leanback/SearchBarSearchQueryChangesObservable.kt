@@ -19,10 +19,10 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
  */
 @CheckResult
 fun SearchBar.searchQueryChanges(): Observable<String> {
-  return SearchBarSearchQueryChangesOnSubscribe(this)
+  return SearchBarSearchQueryChangesObservable(this)
 }
 
-private class SearchBarSearchQueryChangesOnSubscribe(
+private class SearchBarSearchQueryChangesObservable(
   private val view: SearchBar
 ) : Observable<String>() {
 

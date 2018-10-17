@@ -30,10 +30,10 @@ import com.jakewharton.rxbinding3.internal.checkMainThread
 @CheckResult
 @JvmOverloads
 fun MenuItem.clicks(handled: Predicate<in MenuItem> = AlwaysTrue): Observable<Unit> {
-  return MenuItemClickOnSubscribe(this, handled)
+  return MenuItemClickObservable(this, handled)
 }
 
-private class MenuItemClickOnSubscribe(
+private class MenuItemClickObservable(
   private val menuItem: MenuItem,
   private val handled: Predicate<in MenuItem>
 ) : Observable<Unit>() {
