@@ -44,7 +44,7 @@ private class AdapterViewItemClickObservable(
     private val observer: Observer<in Int>
   ) : MainThreadDisposable(), OnItemClickListener {
 
-    override fun onItemClick(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemClick(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
       if (!isDisposed) {
         observer.onNext(position)
       }

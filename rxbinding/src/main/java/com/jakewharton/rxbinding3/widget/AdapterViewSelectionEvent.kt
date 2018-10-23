@@ -10,7 +10,7 @@ sealed class AdapterViewSelectionEvent {
 
 data class AdapterViewItemSelectionEvent(
   override val view: AdapterView<*>,
-  val selectedView: View,
+  val selectedView: View?,
   val position: Int,
   val id: Long
 ) : AdapterViewSelectionEvent()

@@ -49,7 +49,7 @@ private class AdapterViewItemSelectionObservable(
     private val observer: Observer<in Int>
   ) : MainThreadDisposable(), OnItemSelectedListener {
 
-    override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
       if (!isDisposed) {
         observer.onNext(position)
       }
