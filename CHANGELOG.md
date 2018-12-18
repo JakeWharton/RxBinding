@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 3.0.0-alpha2 *(2018-12-18)*
+-----------------------------------
+
+ * Fix: Correct nullability of adapter view callback's clicked view.
+
+
 Version 3.0.0-alpha1 *(2018-10-17)*
 -----------------------------------
 
