@@ -28,7 +28,7 @@ fun <T : Adapter> AdapterView<T>.itemClickEvents(): Observable<AdapterViewItemCl
 data class AdapterViewItemClickEvent(
   /** The view from which this event occurred.  */
   val view: AdapterView<*>,
-  val clickedView: View,
+  val clickedView: View?,
   val position: Int,
   val id: Long
 )
@@ -51,7 +51,7 @@ private class AdapterViewItemClickEventObservable(
     private val observer: Observer<in AdapterViewItemClickEvent>
   ) : MainThreadDisposable(), OnItemClickListener {
 
-    override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemClick(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
       if (!isDisposed) {
         observer.onNext(AdapterViewItemClickEvent(parent, view, position, id))
       }

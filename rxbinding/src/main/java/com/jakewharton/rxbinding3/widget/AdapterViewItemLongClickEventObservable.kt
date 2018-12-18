@@ -35,7 +35,7 @@ fun <T : Adapter> AdapterView<T>.itemLongClickEvents(
 data class AdapterViewItemLongClickEvent(
   /** The view from which this event occurred.  */
   val view: AdapterView<*>,
-  val clickedView: View,
+  val clickedView: View?,
   val position: Int,
   val id: Long
 )
@@ -62,7 +62,7 @@ private class AdapterViewItemLongClickEventObservable(
 
     override fun onItemLongClick(
       parent: AdapterView<*>,
-      view: View,
+      view: View?,
       position: Int,
       id: Long
     ): Boolean {

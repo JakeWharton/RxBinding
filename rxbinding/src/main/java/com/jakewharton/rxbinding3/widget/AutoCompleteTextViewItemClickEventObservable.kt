@@ -43,7 +43,7 @@ private class AutoCompleteTextViewItemClickEventObservable(
     private val observer: Observer<in AdapterViewItemClickEvent>
   ) : MainThreadDisposable(), OnItemClickListener {
 
-    override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemClick(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
       if (!isDisposed) {
         observer.onNext(AdapterViewItemClickEvent(parent, view, position, id))
       }

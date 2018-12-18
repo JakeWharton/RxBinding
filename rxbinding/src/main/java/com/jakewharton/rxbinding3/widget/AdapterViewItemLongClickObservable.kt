@@ -55,7 +55,7 @@ private class AdapterViewItemLongClickObservable(
 
     override fun onItemLongClick(
       parent: AdapterView<*>,
-      view: View,
+      view: View?,
       position: Int,
       id: Long
     ): Boolean {
