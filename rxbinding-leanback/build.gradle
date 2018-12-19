@@ -1,5 +1,4 @@
-apply plugin: 'com.android.library'
-apply plugin: 'org.jetbrains.kotlin.android'
+apply from: rootProject.file('gradle/common-build.gradle')
 
 dependencies {
   api project(':rxbinding')
@@ -15,37 +14,8 @@ dependencies {
 }
 
 android {
-  compileSdkVersion buildConfig.compileSdkVersion
-
   defaultConfig {
     minSdkVersion 17
-
-    testInstrumentationRunner 'com.jakewharton.rxbinding3.RxBindingTestRunner'
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-
-  lintOptions {
-    textReport true
-    textOutput 'stdout'
-  }
-
-  buildTypes {
-    debug {
-      testCoverageEnabled true
-    }
-  }
-
-  packagingOptions {
-    exclude 'META-INF/proguard/*' // TODO https://issuetracker.google.com/issues/109857884
-  }
-
-  // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
-  libraryVariants.all {
-    it.generateBuildConfig.enabled = false
   }
 }
 
