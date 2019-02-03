@@ -31,17 +31,24 @@ private class ViewClickObservable(
   private val view: View
 ) : Observable<Unit>() {
 
+  private val listeners = OnClickListeners()
+
+  init {
+    view.setOnClickListener(listeners)
+  }
+
   override fun subscribeActual(observer: Observer<in Unit>) {
     if (!checkMainThread(observer)) {
       return
     }
-    val listener = Listener(view, observer)
+    val listener = Listener(view, listeners, observer)
     observer.onSubscribe(listener)
-    view.setOnClickListener(listener)
+    listeners.add(listener)
   }
 
   private class Listener(
     private val view: View,
+    private val listeners: OnClickListeners,
     private val observer: Observer<in Unit>
   ) : MainThreadDisposable(), OnClickListener {
 
@@ -52,7 +59,32 @@ private class ViewClickObservable(
     }
 
     override fun onDispose() {
-      view.setOnClickListener(null)
+      listeners.remove(this)
+      if (listeners.isEmpty()) {
+        view.setOnClickListener(null)
+      }
+    }
+  }
+
+  private class OnClickListeners(
+    private val listeners: MutableCollection<OnClickListener> = mutableListOf()
+  ) : OnClickListener {
+    override fun onClick(v: View?) {
+      for (listener in listeners) {
+        listener.onClick(v)
+      }
+    }
+
+    fun add(listener: OnClickListener) {
+      listeners.add(listener)
+    }
+
+    fun remove(listener: OnClickListener) {
+      listeners.remove(listener)
+    }
+
+    fun isEmpty(): Boolean {
+      return listeners.isEmpty()
     }
   }
 }
