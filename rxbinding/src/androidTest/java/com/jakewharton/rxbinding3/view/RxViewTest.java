@@ -10,7 +10,9 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.SdkSuppress;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import com.jakewharton.rxbinding3.internal.AlwaysTrue;
+import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
+import kotlin.Unit;
 import org.junit.Test;
 
 import static android.view.MotionEvent.ACTION_DOWN;
@@ -48,6 +50,30 @@ public final class RxViewTest {
 
     view.performClick();
     o.assertNoMoreEvents();
+  }
+
+  @Test @UiThreadTest public void clicksWithMultipleSubscribes() {
+    RecordingObserver<Object> recordingOne = new RecordingObserver<>();
+    RecordingObserver<Object> recordingTwo = new RecordingObserver<>();
+
+    final Observable<Unit> clicks = RxView.clicks(view);
+    clicks.subscribe(recordingOne);
+    clicks.subscribe(recordingTwo);
+
+    view.performClick();
+    assertNotNull(recordingOne.takeNext());
+    assertNotNull(recordingTwo.takeNext());
+
+    recordingTwo.dispose();
+
+    view.performClick();
+    assertNotNull(recordingOne.takeNext());
+    recordingTwo.assertNoMoreEvents();
+
+    recordingOne.dispose();
+
+    view.performClick();
+    recordingOne.assertNoMoreEvents();
   }
 
   @Test @UiThreadTest public void drags() {
