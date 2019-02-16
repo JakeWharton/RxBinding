@@ -1,7 +1,7 @@
 buildscript {
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.2.1'
-    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.71'
+    classpath 'com.android.tools.build:gradle:3.3.0-rc03'
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11'
   }
 
   ext.buildConfig = [
@@ -9,7 +9,7 @@ buildscript {
     'compileSdkVersion': 28,
   ]
   ext.deps = [
-    'kotlinStdlib': 'org.jetbrains.kotlin:kotlin-stdlib:1.2.71',
+    'kotlinStdlib': 'org.jetbrains.kotlin:kotlin-stdlib:1.3.11',
 
     'androidXAnnotations': 'androidx.annotation:annotation:1.0.0',
     'androidXAppCompat': 'androidx.appcompat:appcompat:1.0.0',
@@ -21,10 +21,10 @@ buildscript {
     'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
     'androidXViewPager': 'androidx.viewpager:viewpager:1.0.0',
 
-    'androidXTestRunner': 'androidx.test:runner:1.1.0-beta02',
-    'androidXTestRules': 'androidx.test:rules:1.1.0-beta02',
-    'androidXTestEspresso': 'androidx.test.espresso:espresso-core:3.1.0-beta02',
-    'androidXTestEspressoContrib': 'androidx.test.espresso:espresso-contrib:3.1.0-beta02',
+    'androidXTestRunner': 'androidx.test:runner:1.1.1',
+    'androidXTestRules': 'androidx.test:rules:1.1.1',
+    'androidXTestEspresso': 'androidx.test.espresso:espresso-core:3.1.1',
+    'androidXTestEspressoContrib': 'androidx.test.espresso:espresso-contrib:3.1.1',
 
     'googleMaterial': 'com.google.android.material:material:1.0.0',
 
@@ -35,15 +35,17 @@ buildscript {
   ]
 
   repositories {
-    jcenter()
+    mavenCentral()
     google()
+    jcenter()
   }
 }
 
 subprojects {
   repositories {
-    jcenter()
+    mavenCentral()
     google()
+    jcenter()
   }
 
   group = GROUP
