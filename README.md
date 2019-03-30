@@ -3,6 +3,23 @@ RxBinding
 
 RxJava binding APIs for Android UI widgets from the platform and support libraries.
 
+Getting Started
+---------------
+**Observing Clicks**
+```
+    RxView.clicks(button)
+        .debounce(300, TimeUnit.MILLISECONDS)
+        .subscribe();
+```
+
+**Observing an EditText**
+```
+    RxTextView.textChanges(editText)
+        .debounce(300, TimeUnit.MILLISECONDS)
+        .subscribe();
+```
+For Kotlin, these bindings are implemented using extension functions,
+so just call .clicks()/.textChanges() on your View type.
 
 Download
 --------
