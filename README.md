@@ -9,24 +9,24 @@ Download
 
 Platform bindings:
 ```groovy
-implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
 ```
 
 AndroidX library bindings:
 ```groovy
-implementation 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0-alpha2'
-implementation 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0-alpha2'
+implementation 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0'
+implementation 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0'
 ```
 
 Google 'material' library bindings:
 ```groovy
-implementation 'com.jakewharton.rxbinding3:rxbinding-material:3.0.0-alpha2'
+implementation 'com.jakewharton.rxbinding3:rxbinding-material:3.0.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
