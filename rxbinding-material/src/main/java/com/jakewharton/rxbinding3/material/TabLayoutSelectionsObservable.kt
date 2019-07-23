@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.material
 
 import androidx.annotation.CheckResult
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout.BaseOnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.Tab
 import com.jakewharton.rxbinding3.internal.checkMainThread
 import io.reactivex.Observable
@@ -46,7 +46,7 @@ private class TabLayoutSelectionsObservable(
   private class Listener(
     private val tabLayout: TabLayout,
     private val observer: Observer<in Tab>
-  ) : MainThreadDisposable(), OnTabSelectedListener {
+  ) : MainThreadDisposable(), BaseOnTabSelectedListener<Tab> {
 
     override fun onDispose() {
       tabLayout.removeOnTabSelectedListener(this)
