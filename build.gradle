@@ -18,6 +18,7 @@ buildscript {
     'androidXSlidingPaneLayout': 'androidx.slidingpanelayout:slidingpanelayout:1.0.0',
     'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
     'androidXViewPager': 'androidx.viewpager:viewpager:1.0.0',
+    'androidXViewPager2': 'androidx.viewpager2:viewpager2:1.0.0-rc01',
 
     'androidXTestRunner': 'androidx.test:runner:1.1.1',
     'androidXTestRules': 'androidx.test:rules:1.1.1',
