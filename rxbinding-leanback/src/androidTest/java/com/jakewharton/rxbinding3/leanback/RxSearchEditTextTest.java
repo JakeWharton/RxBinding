@@ -3,8 +3,8 @@ package com.jakewharton.rxbinding3.leanback;
 import android.content.Context;
 import android.view.KeyEvent;
 import androidx.leanback.widget.SearchEditText;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 
 public final class RxSearchEditTextTest {
-  private final Context context = InstrumentationRegistry.getContext();
+  private final Context context = ApplicationProvider.getApplicationContext();
   private SearchEditText view;
 
   @Before public void setUp() {

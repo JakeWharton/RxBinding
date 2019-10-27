@@ -8,6 +8,7 @@ dependencies {
   implementation deps.rxAndroid
 
   androidTestImplementation project(':testing-utils')
+  androidTestImplementation deps.androidXTestCore
   androidTestImplementation deps.androidXTestRunner
   androidTestImplementation deps.androidXTestRules
 }

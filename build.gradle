@@ -19,6 +19,7 @@ buildscript {
     'androidXSwipeRefreshLayout': 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0',
     'androidXViewPager': 'androidx.viewpager:viewpager:1.0.0',
 
+    'androidXTestCore': 'androidx.test:core:1.1.0',
     'androidXTestRunner': 'androidx.test:runner:1.1.1',
     'androidXTestRules': 'androidx.test:rules:1.1.1',
     'androidXTestEspresso': 'androidx.test.espresso:espresso-core:3.1.1',

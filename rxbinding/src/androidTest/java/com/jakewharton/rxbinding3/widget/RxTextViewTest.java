@@ -2,8 +2,8 @@ package com.jakewharton.rxbinding3.widget;
 
 import android.content.Context;
 import android.widget.TextView;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 public final class RxTextViewTest {
-  private final Context context = InstrumentationRegistry.getContext();
+  private final Context context = ApplicationProvider.getApplicationContext();
   private final TextView view = new TextView(context);
 
   @Test @UiThreadTest public void editorActions() {

@@ -3,15 +3,15 @@ package com.jakewharton.rxbinding3.view;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public final class RxViewGroupTest {
-  private final Context context = InstrumentationRegistry.getTargetContext();
+  private final Context context = ApplicationProvider.getApplicationContext();
   private final LinearLayout parent = new LinearLayout(context);
   private final View child = new View(context);
 
