@@ -46,7 +46,7 @@ public final class RxRadioGroupTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void checked() throws Exception {
+  @Test @UiThreadTest public void checked() throws Throwable {
     Consumer<? super Integer> action = RxRadioGroup.checked(view);
     assertEquals(-1, view.getCheckedRadioButtonId());
     action.accept(1);

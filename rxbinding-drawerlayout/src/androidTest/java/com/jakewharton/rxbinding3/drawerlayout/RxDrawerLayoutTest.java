@@ -70,14 +70,14 @@ public final class RxDrawerLayoutTest {
 
     instrumentation.runOnMainSync(new UnsafeRunnable() {
 
-      @Override protected void unsafeRun() throws Exception {
+      @Override protected void unsafeRun() throws Throwable {
         open.accept(true);
       }
     });
     onView(withId(view.getId())).check(matches(isOpen(RIGHT)));
 
     instrumentation.runOnMainSync(new UnsafeRunnable() {
-      @Override protected void unsafeRun() throws Exception {
+      @Override protected void unsafeRun() throws Throwable {
         open.accept(false);
       }
     });

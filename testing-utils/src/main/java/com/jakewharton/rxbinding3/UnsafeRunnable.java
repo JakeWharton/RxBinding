@@ -6,10 +6,10 @@ public abstract class UnsafeRunnable implements Runnable {
   public final void run() {
     try {
       unsafeRun();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       throw new RuntimeException(e);
     }
   }
 
-  protected abstract void unsafeRun() throws Exception;
+  protected abstract void unsafeRun() throws Throwable;
 }

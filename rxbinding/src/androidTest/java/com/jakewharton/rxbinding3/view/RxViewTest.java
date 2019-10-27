@@ -281,7 +281,7 @@ public final class RxViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void visibility() throws Exception {
+  @Test @UiThreadTest public void visibility() throws Throwable {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view);
     action.accept(false);
@@ -290,7 +290,7 @@ public final class RxViewTest {
     assertEquals(View.VISIBLE, view.getVisibility());
   }
 
-  @Test @UiThreadTest public void visibilityCustomFalse() throws Exception {
+  @Test @UiThreadTest public void visibilityCustomFalse() throws Throwable {
     view.setVisibility(View.VISIBLE);
     Consumer<? super Boolean> action = RxView.visibility(view, View.INVISIBLE);
     action.accept(false);

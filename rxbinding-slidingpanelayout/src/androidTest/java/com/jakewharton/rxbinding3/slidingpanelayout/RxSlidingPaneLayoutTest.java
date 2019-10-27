@@ -110,7 +110,7 @@ public class RxSlidingPaneLayoutTest {
 
     idler.increment();
     instrumentation.runOnMainSync(new UnsafeRunnable() {
-      @Override protected void unsafeRun() throws Exception {
+      @Override protected void unsafeRun() throws Throwable {
         open.accept(true);
       }
     });
@@ -119,7 +119,7 @@ public class RxSlidingPaneLayoutTest {
 
     idler.increment();
     instrumentation.runOnMainSync(new UnsafeRunnable() {
-      @Override protected void unsafeRun() throws Exception {
+      @Override protected void unsafeRun() throws Throwable {
         open.accept(false);
       }
     });

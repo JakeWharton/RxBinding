@@ -84,7 +84,7 @@ public final class RxTabLayoutTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void select() throws Exception {
+  @Test @UiThreadTest public void select() throws Throwable {
     Consumer<? super Integer> action = RxTabLayout.select(view);
     assertEquals(0, view.getSelectedTabPosition());
     action.accept(1);
@@ -93,7 +93,7 @@ public final class RxTabLayoutTest {
     assertEquals(0, view.getSelectedTabPosition());
   }
 
-  @Test @UiThreadTest public void selectInvalidValueThrows() throws Exception {
+  @Test @UiThreadTest public void selectInvalidValueThrows() throws Throwable {
     Consumer<? super Integer> action = RxTabLayout.select(view);
     try {
       action.accept(2);

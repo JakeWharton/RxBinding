@@ -43,7 +43,7 @@ public final class RxSearchViewTest {
     o.assertNoMoreEvents();
   }
 
-  @Test @UiThreadTest public void query() throws Exception {
+  @Test @UiThreadTest public void query() throws Throwable {
     RxSearchView.query(searchView, false).accept("Hey");
     assertEquals("Hey", searchView.getQuery().toString());
 

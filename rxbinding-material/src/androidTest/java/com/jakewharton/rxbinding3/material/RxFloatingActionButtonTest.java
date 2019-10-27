@@ -18,7 +18,7 @@ public class RxFloatingActionButtonTest {
 
   @Test
   @UiThreadTest
-  public void visibility() throws Exception {
+  public void visibility() throws Throwable {
     fab.show();
     Consumer<? super Boolean> action = RxFloatingActionButton.visibility(fab);
     action.accept(false);
