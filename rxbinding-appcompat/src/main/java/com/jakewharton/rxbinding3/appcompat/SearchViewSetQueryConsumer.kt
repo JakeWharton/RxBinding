@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.appcompat
 
 import androidx.annotation.CheckResult
 import androidx.appcompat.widget.SearchView
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * An action which sets the query property of `view` with character sequences.

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.jakewharton.rxbinding3.InitialValueObservable
 import com.jakewharton.rxbinding3.internal.checkMainThread
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable of data change events for `RecyclerView.adapter`.

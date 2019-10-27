@@ -7,8 +7,8 @@ import androidx.annotation.CheckResult
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.jakewharton.rxbinding3.InitialValueObservable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable of page selected events on `view`.

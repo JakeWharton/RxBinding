@@ -9,8 +9,8 @@ import android.text.TextWatcher
 import android.widget.TextView
 import androidx.annotation.CheckResult
 import com.jakewharton.rxbinding3.InitialValueObservable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable of after text change events for `view`.

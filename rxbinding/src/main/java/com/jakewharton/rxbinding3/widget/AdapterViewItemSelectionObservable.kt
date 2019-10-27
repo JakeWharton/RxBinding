@@ -8,8 +8,8 @@ import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import com.jakewharton.rxbinding3.InitialValueObservable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 import android.widget.AdapterView.INVALID_POSITION
 import androidx.annotation.CheckResult

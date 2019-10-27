@@ -7,7 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import com.jakewharton.rxbinding3.test.R;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;

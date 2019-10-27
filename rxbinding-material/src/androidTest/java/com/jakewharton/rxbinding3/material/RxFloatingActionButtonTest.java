@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import io.reactivex.functions.Consumer;
+import io.reactivex.rxjava3.functions.Consumer;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

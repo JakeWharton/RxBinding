@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.widget
 
 import androidx.annotation.CheckResult
 import android.widget.RadioGroup
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * An action which sets the checked child of `view` with ID. Passing `-1` will clear

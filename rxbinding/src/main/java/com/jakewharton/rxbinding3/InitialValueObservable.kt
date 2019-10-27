@@ -1,7 +1,7 @@
 package com.jakewharton.rxbinding3
 
-import io.reactivex.Observable
-import io.reactivex.Observer
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 
 abstract class InitialValueObservable<T> : Observable<T>() {
   protected abstract val initialValue: T

@@ -10,7 +10,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SdkSuppress;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import com.jakewharton.rxbinding3.internal.AlwaysTrue;
-import io.reactivex.functions.Consumer;
+import io.reactivex.rxjava3.functions.Consumer;
 import org.junit.Test;
 
 import static android.view.MotionEvent.ACTION_DOWN;

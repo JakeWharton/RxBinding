@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.material
 
 import androidx.annotation.CheckResult
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * An action which sets the visibility of `view`.

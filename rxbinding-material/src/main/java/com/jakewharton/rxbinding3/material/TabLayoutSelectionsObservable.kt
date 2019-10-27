@@ -8,9 +8,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.BaseOnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.Tab
 import com.jakewharton.rxbinding3.internal.checkMainThread
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable which emits the selected tab in `view`.

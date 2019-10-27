@@ -8,7 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.rxbinding3.RecordingObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import org.junit.Test;
 
 import static com.google.android.material.snackbar.Snackbar.Callback.DISMISS_EVENT_MANUAL;

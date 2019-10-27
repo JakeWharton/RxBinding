@@ -8,8 +8,8 @@ import androidx.annotation.CheckResult
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import androidx.slidingpanelayout.widget.SlidingPaneLayout.PanelSlideListener
 import com.jakewharton.rxbinding3.InitialValueObservable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable of the open state of the pane of `view`

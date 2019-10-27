@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.slidingpanelayout
 
 import androidx.annotation.CheckResult
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * An action which sets whether the pane of `view` is open.

@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.view
 
 import androidx.annotation.CheckResult
 import android.view.View
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * An action which sets the visibility property of `view`.

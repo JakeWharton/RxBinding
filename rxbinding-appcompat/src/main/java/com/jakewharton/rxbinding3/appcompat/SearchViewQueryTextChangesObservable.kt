@@ -7,8 +7,8 @@ import androidx.annotation.CheckResult
 import androidx.appcompat.widget.SearchView
 import com.jakewharton.rxbinding3.InitialValueObservable
 import com.jakewharton.rxbinding3.internal.checkMainThread
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable of character sequences for query text changes on `view`.

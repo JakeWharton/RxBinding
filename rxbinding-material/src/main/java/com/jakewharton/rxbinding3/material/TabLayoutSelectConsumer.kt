@@ -5,7 +5,7 @@ package com.jakewharton.rxbinding3.material
 
 import androidx.annotation.CheckResult
 import com.google.android.material.tabs.TabLayout
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * An action which sets the selected tab of `view`.

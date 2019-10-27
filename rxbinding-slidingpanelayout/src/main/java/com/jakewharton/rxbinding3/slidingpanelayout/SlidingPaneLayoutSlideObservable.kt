@@ -6,9 +6,9 @@ package com.jakewharton.rxbinding3.slidingpanelayout
 import android.view.View
 import androidx.annotation.CheckResult
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 import com.jakewharton.rxbinding3.internal.checkMainThread
 

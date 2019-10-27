@@ -7,8 +7,8 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import androidx.annotation.CheckResult
 import com.jakewharton.rxbinding3.InitialValueObservable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.android.MainThreadDisposable
 
 /**
  * Create an observable of booleans representing the focus of `view`.

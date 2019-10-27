@@ -17,7 +17,7 @@ import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
 import com.jakewharton.rxbinding3.RecordingObserver
 import com.jakewharton.rxbinding3.viewpager2.RxViewPager2TestActivity.Companion.PAGER_ID
 import com.jakewharton.rxbinding3.viewpager2.RxViewPager2TestActivity.Companion.RAINBOW
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

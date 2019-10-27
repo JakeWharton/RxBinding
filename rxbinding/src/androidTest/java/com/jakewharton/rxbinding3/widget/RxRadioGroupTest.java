@@ -6,7 +6,7 @@ import android.widget.RadioGroup;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
-import io.reactivex.functions.Consumer;
+import io.reactivex.rxjava3.functions.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 
