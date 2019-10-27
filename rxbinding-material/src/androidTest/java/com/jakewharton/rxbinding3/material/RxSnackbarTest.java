@@ -4,7 +4,7 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.view.ContextThemeWrapper;
 import android.widget.FrameLayout;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.rxbinding3.RecordingObserver;
