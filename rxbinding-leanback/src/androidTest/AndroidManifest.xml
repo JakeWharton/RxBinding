@@ -10,5 +10,9 @@
         android:name=".RxSearchBarTestActivity"
         android:theme="@style/Theme.Leanback"
     />
+    <activity
+        android:name=".RxSearchEditTextTestActivity"
+        android:theme="@style/Theme.Leanback"
+    />
     </application>
 </manifest>

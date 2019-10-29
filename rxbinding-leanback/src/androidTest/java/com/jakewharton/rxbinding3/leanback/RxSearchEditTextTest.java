@@ -1,22 +1,23 @@
 package com.jakewharton.rxbinding3.leanback;
 
-import android.content.Context;
 import android.view.KeyEvent;
 import androidx.leanback.widget.SearchEditText;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
 public final class RxSearchEditTextTest {
-  private final Context context = ApplicationProvider.getApplicationContext();
+  @Rule public final ActivityTestRule<RxSearchEditTextTestActivity> activityRule =
+          new ActivityTestRule<>(RxSearchEditTextTestActivity.class);
   private SearchEditText view;
 
   @Before public void setUp() {
-    view = new SearchEditText(context);
+    view = activityRule.getActivity().searchEditText;
   }
 
   @Test @UiThreadTest public void keyboardDismisses() {
