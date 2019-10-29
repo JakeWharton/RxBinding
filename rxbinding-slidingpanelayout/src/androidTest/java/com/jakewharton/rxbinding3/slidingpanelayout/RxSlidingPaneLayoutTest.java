@@ -3,7 +3,7 @@ package com.jakewharton.rxbinding3.slidingpanelayout;
 import android.app.Instrumentation;
 import android.view.View;
 import androidx.slidingpanelayout.widget.SlidingPaneLayout;
-import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.idling.CountingIdlingResource;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -30,6 +30,7 @@ public class RxSlidingPaneLayoutTest {
       new ActivityTestRule<>(RxSlidingPaneLayoutTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+  private final IdlingRegistry idlingRegistry = IdlingRegistry.getInstance();
 
   SlidingPaneLayout view;
 
@@ -40,11 +41,11 @@ public class RxSlidingPaneLayoutTest {
     view = activity.slidingPaneLayout;
 
     idler = new CountingIdlingResource("counting idler");
-    Espresso.registerIdlingResources(idler);
+    idlingRegistry.register(idler);
   }
 
   @After public void teardown() {
-    Espresso.unregisterIdlingResources(idler);
+    idlingRegistry.unregister(idler);
   }
 
   @Test public void paneOpen() {

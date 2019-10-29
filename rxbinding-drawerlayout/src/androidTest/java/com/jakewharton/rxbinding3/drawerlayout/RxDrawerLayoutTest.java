@@ -2,7 +2,7 @@ package com.jakewharton.rxbinding3.drawerlayout;
 
 import android.app.Instrumentation;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding3.ViewDirtyIdlingResource;
@@ -29,6 +29,7 @@ public final class RxDrawerLayoutTest {
       new ActivityTestRule<>(RxDrawerLayoutTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+  private final IdlingRegistry idlingRegistry = IdlingRegistry.getInstance();
 
   DrawerLayout view;
   private ViewDirtyIdlingResource viewDirtyIdler;
@@ -38,11 +39,11 @@ public final class RxDrawerLayoutTest {
     view = activity.drawerLayout;
 
     viewDirtyIdler = new ViewDirtyIdlingResource(activity);
-    Espresso.registerIdlingResources(viewDirtyIdler);
+    idlingRegistry.register(viewDirtyIdler);
   }
 
   @After public void tearDown() {
-    Espresso.unregisterIdlingResources(viewDirtyIdler);
+    idlingRegistry.unregister(viewDirtyIdler);
   }
 
   @Test public void drawerOpen() {
