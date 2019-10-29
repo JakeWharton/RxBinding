@@ -12,5 +12,9 @@
         android:name=".RxPopupMenuTestActivity"
         android:theme="@style/Theme.AppCompat"
         />
+    <activity
+        android:name=".RxSearchViewTestActivity"
+        android:theme="@style/Theme.AppCompat"
+        />
   </application>
 </manifest>
