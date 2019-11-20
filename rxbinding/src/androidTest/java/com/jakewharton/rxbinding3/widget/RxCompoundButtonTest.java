@@ -3,8 +3,8 @@ package com.jakewharton.rxbinding3.widget;
 import android.content.Context;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public final class RxCompoundButtonTest {
-  private final Context context = InstrumentationRegistry.getContext();
+  private final Context context = ApplicationProvider.getApplicationContext();
   private final CompoundButton view = new ToggleButton(context);
 
   @Test @UiThreadTest public void checkedChanges() {

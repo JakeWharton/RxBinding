@@ -3,8 +3,8 @@ package com.jakewharton.rxbinding3.widget;
 import android.content.Context;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import io.reactivex.functions.Consumer;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("ResourceType") // Don't need real IDs for test case.
 public final class RxRadioGroupTest {
-  private final Context context = InstrumentationRegistry.getContext();
+  private final Context context = ApplicationProvider.getApplicationContext();
   private final RadioGroup view = new RadioGroup(context);
 
   @Before public void setUp() {

@@ -3,8 +3,8 @@ package com.jakewharton.rxbinding3.material;
 import android.content.Context;
 import android.view.ContextThemeWrapper;
 import android.view.View;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import io.reactivex.functions.Consumer;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class RxFloatingActionButtonTest {
-  private final Context rawContext = InstrumentationRegistry.getContext();
+  private final Context rawContext = ApplicationProvider.getApplicationContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final FloatingActionButton fab = new FloatingActionButton(context);
 

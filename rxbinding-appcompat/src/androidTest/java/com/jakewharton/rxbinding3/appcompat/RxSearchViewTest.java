@@ -3,8 +3,8 @@ package com.jakewharton.rxbinding3.appcompat;
 import android.content.Context;
 import android.view.ContextThemeWrapper;
 import androidx.appcompat.widget.SearchView;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public final class RxSearchViewTest {
-  private final Context rawContext = InstrumentationRegistry.getContext();
+  private final Context rawContext = ApplicationProvider.getApplicationContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
 
   private SearchView searchView;

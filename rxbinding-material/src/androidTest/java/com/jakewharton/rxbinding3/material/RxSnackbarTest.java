@@ -4,7 +4,8 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.view.ContextThemeWrapper;
 import android.widget.FrameLayout;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public final class RxSnackbarTest {
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-  private final Context rawContext = InstrumentationRegistry.getContext();
+  private final Context rawContext = ApplicationProvider.getApplicationContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final FrameLayout parent = new FrameLayout(context);
 

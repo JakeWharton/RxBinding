@@ -2,8 +2,8 @@ package com.jakewharton.rxbinding3.widget;
 
 import android.content.Context;
 import android.widget.SearchView;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public final class RxSearchViewTest {
-  private final Context context = InstrumentationRegistry.getContext();
+  private final Context context = ApplicationProvider.getApplicationContext();
 
   private SearchView searchView;
 

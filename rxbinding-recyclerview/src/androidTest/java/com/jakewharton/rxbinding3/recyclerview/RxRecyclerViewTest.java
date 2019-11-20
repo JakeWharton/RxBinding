@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding3.ViewDirtyIdlingResource;
@@ -26,6 +26,7 @@ public final class RxRecyclerViewTest {
       new ActivityTestRule<>(RxRecyclerViewTestActivity.class);
 
   private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+  private final IdlingRegistry idlingRegistry = IdlingRegistry.getInstance();
 
   RecyclerView view;
   private ViewDirtyIdlingResource viewDirtyIdler;
@@ -36,11 +37,11 @@ public final class RxRecyclerViewTest {
     view = activity.recyclerView;
     child = new View(activityRule.getActivity());
     viewDirtyIdler = new ViewDirtyIdlingResource(activity);
-    Espresso.registerIdlingResources(viewDirtyIdler);
+    idlingRegistry.register(viewDirtyIdler);
   }
 
   @After public void tearDown() {
-    Espresso.unregisterIdlingResources(viewDirtyIdler);
+    idlingRegistry.unregister(viewDirtyIdler);
   }
 
   @Test public void childAttachEvents() {

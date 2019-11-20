@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SdkSuppress;
 import com.google.android.material.appbar.AppBarLayout;
 import com.jakewharton.rxbinding3.RecordingObserver;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class RxAppBarLayoutTest {
-  private final Context rawContext = InstrumentationRegistry.getContext();
+  private final Context rawContext = ApplicationProvider.getApplicationContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final CoordinatorLayout parent = new CoordinatorLayout(context);
   private final AppBarLayout view = new AppBarLayout(context);

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import com.jakewharton.rxbinding3.material.test.R;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public final class RxBottomNavigationViewTest {
-  private final Context rawContext = InstrumentationRegistry.getContext();
+  private final Context rawContext = ApplicationProvider.getApplicationContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final BottomNavigationView view = new BottomNavigationView(context);
   private final Menu menu = view.getMenu();

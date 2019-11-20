@@ -1,15 +1,16 @@
 package com.jakewharton.rxbinding3.material
 
+import android.content.Context
 import android.view.ContextThemeWrapper
-import androidx.test.InstrumentationRegistry
 import androidx.test.annotation.UiThreadTest
+import androidx.test.core.app.ApplicationProvider
 import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding3.RecordingObserver
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class RxChipTest {
-  private val rawContext = InstrumentationRegistry.getContext()
+  private val rawContext: Context = ApplicationProvider.getApplicationContext()
   private val context = ContextThemeWrapper(rawContext, R.style.Theme_MaterialComponents)
   private val view = Chip(context)
 

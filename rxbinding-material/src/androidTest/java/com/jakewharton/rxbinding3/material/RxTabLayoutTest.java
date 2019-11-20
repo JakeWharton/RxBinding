@@ -2,8 +2,8 @@ package com.jakewharton.rxbinding3.material;
 
 import android.content.Context;
 import android.view.ContextThemeWrapper;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
 import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import io.reactivex.functions.Consumer;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 public final class RxTabLayoutTest {
-  private final Context rawContext = InstrumentationRegistry.getContext();
+  private final Context rawContext = ApplicationProvider.getApplicationContext();
   private final Context context = new ContextThemeWrapper(rawContext, R.style.Theme_AppCompat);
   private final TabLayout view = new TabLayout(context);
   private final TabLayout.Tab tab1 = view.newTab();
