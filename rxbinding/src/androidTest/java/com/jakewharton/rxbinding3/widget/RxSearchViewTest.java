@@ -1,11 +1,11 @@
 package com.jakewharton.rxbinding3.widget;
 
-import android.content.Context;
 import android.widget.SearchView;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.rule.ActivityTestRule;
 import com.jakewharton.rxbinding3.RecordingObserver;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,12 +13,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public final class RxSearchViewTest {
-  private final Context context = ApplicationProvider.getApplicationContext();
+  @Rule
+  public final ActivityTestRule<RxSearchViewTestActivity> activityRule =
+          new ActivityTestRule<>(RxSearchViewTestActivity.class);
 
   private SearchView searchView;
 
   @Before public void setUp() {
-    searchView = new SearchView(context);
+    searchView = activityRule.getActivity().searchView;
   }
 
   @Test @UiThreadTest public void queryTextChanges() {
