@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+dependencies {
+  api project(':rxbinding')
+  api deps.androidXViewPager2
+  api deps.kotlinStdlib
+  implementation deps.rxAndroid
+
+  androidTestImplementation project(':testing-utils')
+  androidTestImplementation deps.androidXTestRunner
+  androidTestImplementation deps.androidXTestRules
+  androidTestImplementation deps.androidXTestEspresso
+  androidTestImplementation deps.rxAndroid
+}
+
+android {
+  compileSdkVersion buildConfig.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion buildConfig.minSdkVersion
+
+    testInstrumentationRunner 'com.jakewharton.rxbinding3.RxBindingTestRunner'
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+  }
+
+  buildTypes {
+    debug {
+      testCoverageEnabled true
+    }
+  }
+}
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
