@@ -1,6 +1,17 @@
 Change Log
 ==========
 
+Version 3.1.0 *(2019-11-22)*
+----------------------------
+
+ * New bindings!
+    * `rxbinding-viewpager2`:
+       * `ViewPager2`:
+          * `pageSelections`
+          * `pageScrollEvents`
+          * `pageScrollStateChanges`
+
+
 Version 3.0.0 *(2019-07-23)*
 ----------------------------
 
