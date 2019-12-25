@@ -46,7 +46,7 @@ private class TabLayoutSelectionEventObservable(
   private class Listener(
     private val view: TabLayout,
     private val observer: Observer<in TabLayoutSelectionEvent>
-  ) : MainThreadDisposable(), TabLayout.OnTabSelectedListener {
+  ) : MainThreadDisposable(), TabLayout.BaseOnTabSelectedListener<Tab> {
 
     override fun onTabSelected(tab: Tab) {
       if (!isDisposed) {
