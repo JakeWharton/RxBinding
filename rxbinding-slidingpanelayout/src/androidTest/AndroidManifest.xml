@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.rxbinding3.slidingpanelayout">
+    package="com.jakewharton.rxbinding4.slidingpanelayout">
   <application>
     <activity android:name=".RxSlidingPaneLayoutTestActivity"/>
   </application>
