@@ -47,4 +47,20 @@ public final class RxBottomNavigationViewTest {
     menu.performIdentifierAction(R.id.menu_item_two, 0);
     o.assertNoMoreEvents();
   }
+
+  @Test @UiThreadTest public void itemReselections() {
+    RecordingObserver<MenuItem> o = new RecordingObserver<>();
+    RxBottomNavigationView.itemReselections(view).subscribe(o);
+
+    menu.performIdentifierAction(R.id.menu_item_one, 0);
+    assertEquals(R.id.menu_item_one, o.takeNext().getItemId());
+
+    menu.performIdentifierAction(R.id.menu_item_one, 0);
+    assertEquals(R.id.menu_item_one, o.takeNext().getItemId());
+
+    o.dispose();
+
+    menu.performIdentifierAction(R.id.menu_item_one, 0);
+    o.assertNoMoreEvents();
+  }
 }
