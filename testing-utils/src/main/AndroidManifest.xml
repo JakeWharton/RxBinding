@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.rxbinding3.testingutils">
+    package="com.jakewharton.rxbinding4.testingutils">
 
   <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
