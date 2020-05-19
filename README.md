@@ -9,25 +9,25 @@ Download
 
 Platform bindings:
 ```groovy
-implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0-SNAPSHOT'
+implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
 ```
 
 AndroidX library bindings:
 ```groovy
-implementation 'com.jakewharton.rxbinding4:rxbinding-core:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-appcompat:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-drawerlayout:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-leanback:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-recyclerview:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-slidingpanelayout:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-swiperefreshlayout:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-viewpager:4.0.0-SNAPSHOT'
-implementation 'com.jakewharton.rxbinding4:rxbinding-viewpager2:4.0.0-SNAPSHOT'
+implementation 'com.jakewharton.rxbinding4:rxbinding-core:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-appcompat:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-drawerlayout:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-leanback:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-recyclerview:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-slidingpanelayout:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-swiperefreshlayout:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-viewpager:4.0.0'
+implementation 'com.jakewharton.rxbinding4:rxbinding-viewpager2:4.0.0'
 ```
 
 Google 'material' library bindings:
 ```groovy
-implementation 'com.jakewharton.rxbinding4:rxbinding-material:4.0.0-SNAPSHOT'
+implementation 'com.jakewharton.rxbinding4:rxbinding-material:4.0.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
