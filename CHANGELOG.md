@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 4.0.0 *(2020-05-19)*
+----------------------------
+
+This version updates to support RxJava 3. No functional changes.
+
+The groupId and package name are now `com.jakewharton.rxbinding4`.
+
+
 Version 3.1.0 *(2019-11-22)*
 ----------------------------
 
