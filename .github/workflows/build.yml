@@ -1,0 +1,67 @@
+name: build
+
+on: [push, pull_request]
+
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.incremental=false"
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        module:
+          - rxbinding
+          - rxbinding-appcompat
+          - rxbinding-core
+          - rxbinding-drawerlayout
+          - rxbinding-leanback
+          - rxbinding-material
+          - rxbinding-recyclerview
+          - rxbinding-slidingpanelayout
+          - rxbinding-swiperefreshlayout
+          - rxbinding-viewpager
+          - rxbinding-viewpager2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Clean Cache
+        run: mv ~/.gradle/caches ~/.gradle/.invalid_caches
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Run Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 18
+          script: ./gradlew ${{ matrix.module }}:connectedCheck --stacktrace
+
+  publish:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    needs: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+
+      - name: Upload Artifacts
+        run: ./gradlew uploadArchives
+        env:
+          ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
