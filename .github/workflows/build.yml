@@ -32,9 +32,6 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Clean Cache
-        run: mv ~/.gradle/caches ~/.gradle/.invalid_caches
-
       - uses: actions/cache@v1
         with:
           path: ~/.gradle/caches
