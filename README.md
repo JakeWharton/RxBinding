@@ -12,6 +12,11 @@ Platform bindings:
 implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
 ```
 
+For Kotlin:
+```groovy
+implementation 'com.jakewharton.rxbinding:rxbinding-kotlin:0.4.0'
+```
+
 AndroidX library bindings:
 ```groovy
 implementation 'com.jakewharton.rxbinding4:rxbinding-core:4.0.0'
