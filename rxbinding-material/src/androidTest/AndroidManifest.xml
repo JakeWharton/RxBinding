@@ -3,10 +3,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jakewharton.rxbinding4.material">
 
-  <application>
-    <activity
-        android:name=".RxSwipeDismissBehaviorTestActivity"
-        android:theme="@style/Theme.AppCompat"
-        />
-  </application>
+    <application>
+        <activity
+            android:name=".RxSwipeDismissBehaviorTestActivity"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".RxSliderTestActivity"
+            android:theme="@style/Theme.MaterialComponents" />
+    </application>
 </manifest>
