@@ -51,7 +51,9 @@ private class ViewFocusChangeObservable(
     }
 
     override fun onDispose() {
-      view.onFocusChangeListener = null
+      if (view.onFocusChangeListener === this) {
+        view.onFocusChangeListener = null
+      }
     }
   }
 }
